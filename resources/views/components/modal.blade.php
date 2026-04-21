@@ -1,5 +1,5 @@
 @props(['product' => null])
-{{-- @dd($product) --}}
+
 <div class="modal fade" id="deleteModal{{ $product->id }}" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
