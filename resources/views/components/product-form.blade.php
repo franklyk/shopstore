@@ -3,37 +3,36 @@
 
 @php
     $isEdit = isset($product);
-
 @endphp
 
-<form action="{{ $isEdit ? route('products.update', $product->id) : route('products.store') }}" method="POST">
+<x-forms.form method="{{ $isEdit ? 'PUT' : 'POST' }}"
+    action="{{ $isEdit ? route('products.update', $product->id) : route('products.store') }}">
 
-    @csrf
+    {{-- Nome --}}
+    <x-forms.input name="name" label="Nome" :value="old('name', $product->name ?? '')" />
 
-    @if ($isEdit)
-        @method('PUT')
-    @endif
+    {{-- Descrição --}}
+    <x-forms.field name="description" label="Descrição">
+        <textarea name="description" id="description" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}">{{ old('description', $product->description ?? '') }}</textarea>
+    </x-forms.field>
 
-    <div class="mb-3">
-        <label>Nome</label>
-        <input type="text" name="name" class="form-control" value="{{ old('name', $product->name ?? '') }}">
+    {{-- Preço --}}
+    <x-forms.input name="price" label="Preço" type="number" step="0.01" :value="old('price', $product->price ?? '')" />
+
+    {{-- Estoque --}}
+    <x-forms.input name="stock" label="Estoque" type="number" :value="old('stock', $product->stock ?? '')" />
+
+    {{-- Botões --}}
+    <div class="d-flex gap-2">
+
+        <x-buttons.button href="{{ route('products.index') }}" color="secondary">
+            Voltar
+        </x-buttons.button>
+
+        <x-buttons.button type="submit" color="{{ $isEdit ? 'warning' : 'success' }}">
+            {{ $isEdit ? 'Atualizar' : 'Salvar' }}
+        </x-buttons.button>
+
     </div>
 
-    <div class="mb-3">
-        <label>Preço</label>
-        <input type="text" name="price" class="form-control" value="{{ old('price', $product->price ?? '') }}">
-    </div>
-
-    <div class="mb-3">
-        <label>Estoque</label>
-        <input type="text" name="stock" class="form-control" value="{{ old('stock', $product->stock ?? '') }}">
-    </div>
-
-    <a href="{{ route('products.index') }}" class="btn btn-secondary">
-        Voltar
-    </a>
-
-    <button class="btn btn-{{ $isEdit ? 'warning' : 'success' }}">
-        Salvar
-    </button>
-</form>
+</x-forms.form>

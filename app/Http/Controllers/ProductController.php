@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -15,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(10);
 
         return view('products.index', compact('products'));
     }
@@ -33,18 +35,15 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         // $this->authorize('create', Product::class);
 
-        $data = $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer',
-        ]);
-        Product::create($data);
+        Product::create($request->validated());
 
-        return redirect()->route('products.index')->with('success', 'Produto cadastrado com sucesso!!');
+        return redirect()
+        ->route('products.index')
+        ->with('success', 'Produto cadastrado com sucesso!!');
     }
 
     /**
@@ -70,19 +69,15 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         // $this->authorize('update', $product);
-        $data = $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer',
-        ]);
-        $product->update($data);
 
+        $product->update($request->validated());
+        
         return redirect()
-            ->route('products.index')
-            ->with('success', 'Produto atualizado com sucesso!');
+        ->route('products.index')
+        ->with('success', 'Produto atualizado com sucesso!');
     }
 
     /**

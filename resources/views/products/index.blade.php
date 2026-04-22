@@ -15,6 +15,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
+                <th>Descrição</th>
                 <th>Preço</th>
                 <th>Estoque</th>
                 <th>Ações</th>
@@ -25,6 +26,7 @@
                 <tr>
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->name }}</td>
+                    <td>{{ $product->description }}</td>
                     <td>R$ {{ $product->price }}</td>
                     <td>{{ $product->stock }}</td>
                     <td>
