@@ -6,6 +6,6 @@
 
     <h2>Editar Produto</h2>
     
-    <x-product-form :product="$product" />
+    <x-products.form :product="$product" />
 
 @endsection

@@ -6,6 +6,6 @@
 
     <h2>Novo Produto</h2>
 
-    <x-product-form />
+    <x-products.form />
 
 @endsection
