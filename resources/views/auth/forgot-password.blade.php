@@ -4,41 +4,31 @@
 
 @section('auth')
 
-    <div class="card shadow p-4 w-100">
+    <x-forms.form method="POST" route='password.email' title="Recuperar Senha">
 
-        <div class="text-center mb-4">
-            <a href="{{ route('home') }}">
-                <img src="{{ asset('images/logo/logo.png') }}" alt="Logo" style="max-width: 150px;">
-            </a>
-        </div>
+        {{-- Email --}}
+        <x-forms.input name="email" type="email" label="Email" :value="old('email')" />
 
-        <h4 class="mb-4 text-center">Recuperar senha</h4>
+        {{-- Feedback de status --}}
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
 
-        <x-forms.form method="POST" action="{{ route('password.email') }}">
+        {{-- Botão --}}
+        <x-buttons.button type="submit" color="primary" class="w-100">
+            Enviar link de recuperação
+        </x-buttons.button>
 
-            {{-- Email --}}
-            <x-forms.input name="email" type="email" label="Email" :value="old('email')" />
+    </x-forms.form>
 
-            {{-- Feedback de status --}}
-            @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
-            @endif
-
-            {{-- Botão --}}
-            <x-buttons.button type="submit" color="primary" class="w-100">
-                Enviar link de recuperação
-            </x-buttons.button>
-
-        </x-forms.form>
-
-        {{-- Link voltar --}}
-        <div class="text-center mt-3">
-            <a href="{{ route('login') }}">
-                Voltar para login
-            </a>
-        </div>
+    {{-- Link voltar --}}
+    <div class="text-center mt-3">
+        <a href="{{ route('login') }}">
+            Voltar para login
+        </a>
+    </div>
 
     </div>
 @endsection

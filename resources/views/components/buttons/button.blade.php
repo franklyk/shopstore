@@ -5,7 +5,7 @@
 
 @php
     $isLink = $attributes->has('href');
-    $baseClass = 'btn btn-' . $color;
+    $baseClass = 'mt-3 btn btn-' . $color;
 @endphp
 
 @if ($isLink)

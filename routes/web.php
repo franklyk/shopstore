@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
-
-
-
-
 /**
  * start pagina home
  */
@@ -26,6 +22,19 @@ Route::get('/', function () {
 /**
  * end pagina home
  */
+
+Route::get('/register', [RegisterController::class, 'create'])->name('register');
+Route::post('/register', [RegisterController::class, 'store']);
+
+Route::get('/login', [SessionController::class, 'create'])->name('login');
+Route::post('/login', [SessionController::class, 'store']);
+
+Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
+
+/*************************************************************************** */
+/*************************************************************************** */
+/*************************************************************************** */
+
 /*************************************************************************** */
 /*************************************************************************** */
 /*************************************************************************** */
@@ -53,24 +62,6 @@ Route::get('/reset-password/{token}', function (string $token) {
 })->middleware('guest')->name('password.reset');
 
 
-
-/*************************************************************************** */
-/*************************************************************************** */
-/*************************************************************************** */
-
-Route::get('/register', [RegisterController::class, 'create'])->name('register');
-Route::post('/register', [RegisterController::class, 'store']);
-
-Route::get('/login', [SessionController::class, 'create'])->name('login');
-Route::post('/login', [SessionController::class, 'store']);
-
-Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
-
-/*************************************************************************** */
-/*************************************************************************** */
-/*************************************************************************** */
-
-
 Route::post('/reset-password', function (Request $request) {
     $request->validate([
         'token' => 'required',
@@ -82,7 +73,7 @@ Route::post('/reset-password', function (Request $request) {
         $request->only('email', 'password', 'password_confirmation', 'token'),
         function (User $user, string $password) {
             $user->forceFill([
-                'password' => Hash::make($password)
+                'password' => Hash::make($password),
             ])->setRememberToken(Str::random(60));
 
             $user->save();
@@ -96,12 +87,14 @@ Route::post('/reset-password', function (Request $request) {
         : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
 /**
- * Bloco de redefinicao de senha 
+ * Bloco de redefinicao de senha
  */
 /*************************************************************************** */
 /*************************************************************************** */
 /*************************************************************************** */
-
+/*************************************************************************** */
+/*************************************************************************** */
+/*************************************************************************** */
 
 Route::resource('products', ProductController::class);
 
@@ -109,8 +102,6 @@ Route::resource('users', UserController::class);
 
 Route::resource('categories', CategoryController::class);
 
-
 /*************************************************************************** */
 /*************************************************************************** */
 /*************************************************************************** */
-
