@@ -1,71 +1,35 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('title', 'Login')
 
-@section('content')
+@section('auth')
 
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    
-    <div class="card shadow p-4 w-100" style="max-width: 420px;">
-        
+    <div class="card shadow p-4 w-100">
+
+        <div class="text-center mb-4">
+            <a href="{{ route('home') }}">
+                <img src="{{ asset('images/logo/logo.png') }}" alt="Logo" style="max-width: 150px;">
+            </a>
+        </div>
+
         <h4 class="mb-4 text-center">Login</h4>
 
         <x-forms.form method="POST" action="{{ route('login') }}">
 
-            {{-- Nome --}}
-            <x-forms.input 
-                name="name" 
-                label="Nome" 
-                :value="old('name')" 
-            />
+            <x-forms.input name="email" type="email" label="Email" />
 
-            {{-- Email --}}
-            <x-forms.input 
-                name="email" 
-                type="email" 
-                label="Email" 
-                :value="old('email')" 
-            />
+            <x-forms.input name="password" type="password" label="Senha" />
 
-            {{-- Senha --}}
-            <x-forms.input 
-                name="password" 
-                type="password" 
-                label="Senha" 
-            />
-
-            {{-- Lembrar de mim --}}
-            <div class="form-check mb-3">
-                <input 
-                    type="checkbox" 
-                    name="remember" 
-                    id="remember" 
-                    class="form-check-input"
-                >
-                <label for="remember" class="form-check-label">
-                    Lembrar de mim
-                </label>
-            </div>
-
-            {{-- Links auxiliares --}}
             <div class="d-flex justify-content-between mb-3 small">
-                <a href="{{ route('password.request') }}">
-                    Esqueceu a senha?
-                </a>
-
-                <a href="{{ route('register') }}">
-                    Criar conta
-                </a>
+                <a href="{{ route('password.request') }}">Esqueceu a senha?</a>
+                <a href="{{ route('register') }}">Criar conta</a>
             </div>
 
-            {{-- Botão --}}
             <x-buttons.button type="submit" color="primary" class="w-100">
                 Entrar
             </x-buttons.button>
 
         </x-forms.form>
-
+        
     </div>
-
-</div>
 @endsection

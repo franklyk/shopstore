@@ -1,23 +1,23 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('title', 'Login')
 
-@section('content')
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    
-    <div class="card shadow p-4 w-100" style="max-width: 420px;">
-        
-        <h4 class="mb-4 text-center">Recupere sua senha</h4>
+@section('auth')
+
+    <div class="card shadow p-4 w-100">
+
+        <div class="text-center mb-4">
+            <a href="{{ route('home') }}">
+                <img src="{{ asset('images/logo/logo.png') }}" alt="Logo" style="max-width: 150px;">
+            </a>
+        </div>
+
+        <h4 class="mb-4 text-center">Recuperar senha</h4>
 
         <x-forms.form method="POST" action="{{ route('password.email') }}">
 
             {{-- Email --}}
-            <x-forms.input 
-                name="email" 
-                type="email" 
-                label="Email" 
-                :value="old('email')" 
-            />
+            <x-forms.input name="email" type="email" label="Email" :value="old('email')" />
 
             {{-- Feedback de status --}}
             @if (session('status'))
@@ -41,6 +41,4 @@
         </div>
 
     </div>
-
-</div>
 @endsection
