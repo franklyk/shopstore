@@ -19,7 +19,7 @@
         <nav class="navbar container bg-primary">
             <div class="container-fluid d-flex align-items-center">
 
-                <a class="navbar-brand" style="width:150px" href="{{ route('products.index') }}">
+                <a class="navbar-brand" style="width:150px" href="{{ route('home') }}">
                     <img class="w-100" src="{{ asset('images/logo/logo.png') }}">
                 </a>
 
@@ -30,10 +30,10 @@
 
                 <ul class="nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Link</a>
+                        <a class="nav-link text-white" href="{{ route('products.index') }}">Produtos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Link</a>
+                        <a class="nav-link text-white" href="{{ route('cart.index') }}">Carrinho</a>
                     </li>
                     @guest
                         <li class="nav-item">

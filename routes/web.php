@@ -1,6 +1,8 @@
 <?php
 
+
 use App\Http\Controllers\Auth\SessionController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
@@ -145,3 +147,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 /*************************************************************************** */
 /*************************************************************************** */
 /*************************************************************************** */
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
+    Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
+
+    Route::post('/cart/update/{item}', [CartController::class, 'update'])->name('cart.update');
+
+    Route::post('/cart/remove/{item}', [CartController::class, 'remove'])->name('cart.remove');
+});

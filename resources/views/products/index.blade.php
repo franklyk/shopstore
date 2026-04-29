@@ -43,6 +43,11 @@
                             data-bs-target="#deleteModal{{ $product->id }}">
                             Excluir
                         </button>
+                        
+                        <form method="POST" action="{{ route('cart.add', $product->id) }}">
+                            @csrf
+                            <button type="submit">Adicionar ao carrinho</button>
+                        </form>
 
                         <x-modal :product="$product" />
                     </td>
@@ -50,6 +55,6 @@
             @endforeach
         </tbody>
     </table>
-    
+
 
 @endsection
