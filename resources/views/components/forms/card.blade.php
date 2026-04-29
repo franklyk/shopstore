@@ -8,9 +8,12 @@
                 <a href="{{ route('home') }}">
                     <img src="{{ asset('images/logo/logo.png') }}" alt="Logo" style="max-width: 140px;">
                 </a>
-                <h4 class="mb-4 text-center">{{ $title }}</h4>
+                @if ($title)
+                    <h4 class="mb-4 text-center">{{ $title }}</h4>
+                @endif
             </div>
 
+            <x-forms.flash />
 
             {{ $slot }}
 

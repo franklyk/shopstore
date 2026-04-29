@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -23,24 +24,58 @@ Route::get('/', function () {
  * end pagina home
  */
 
-Route::get('/register', [RegisterController::class, 'create'])->name('register');
-Route::post('/register', [RegisterController::class, 'store']);
+/*********************************************************************************** */
+/*********************************************************************************** */
+/**Bloco de cadastro de usuarios */
+/*********************************************************************************** */
+/*********************************************************************************** */
 
-Route::get('/login', [SessionController::class, 'create'])->name('login');
-Route::post('/login', [SessionController::class, 'store']);
+Route::middleware('guest')->group(function () {
+
+    Route::get('/register', [RegisterController::class, 'create'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store']);
+
+});
+/*********************************************************************************** */
+/**Bloco de verificacao de email */
+/*********************************************************************************** */
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect()->route('home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('success', 'Novo link enviado!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+/*********************************************************************************** */
+/**Bloco de verificacao de email */
+/*********************************************************************************** */
+
+/*********************************************************************************** */
+/*********************************************************************************** */
+/**Bloco de cadastro de usuarios */
+/*********************************************************************************** */
+/*********************************************************************************** */
+Route::middleware('guest')->group(function () {
+
+    Route::get('/login', [SessionController::class, 'create'])->name('login');
+    Route::post('/login', [SessionController::class, 'store']);
+
+});
 
 Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
 /*************************************************************************** */
 /*************************************************************************** */
+/* Bloco de redefinicao de senha */
 /*************************************************************************** */
-
-/*************************************************************************** */
-/*************************************************************************** */
-/*************************************************************************** */
-/**
- * Bloco de redefinicao de senha
- */
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->middleware('guest')->name('password.request');
@@ -60,7 +95,6 @@ Route::post('/forgot-password', function (Request $request) {
 Route::get('/reset-password/{token}', function (string $token) {
     return view('auth.reset-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
-
 
 Route::post('/reset-password', function (Request $request) {
     $request->validate([
@@ -83,24 +117,30 @@ Route::post('/reset-password', function (Request $request) {
     );
 
     return $status === Password::PasswordReset
-        ? redirect()->route('login')->with('status', __($status))
-        : back()->withErrors(['email' => [__($status)]]);
+    ? redirect()
+        ->route('login')
+        ->with('success', 'Senha redefinida com sucesso!')
+    : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
-/**
- * Bloco de redefinicao de senha
- */
 /*************************************************************************** */
 /*************************************************************************** */
-/*************************************************************************** */
-/*************************************************************************** */
+/* Bloco de redefinicao de senha */
 /*************************************************************************** */
 /*************************************************************************** */
 
-Route::resource('products', ProductController::class);
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified']);
 
-Route::resource('users', UserController::class);
+Route::middleware(['auth', 'verified'])->group(function () {
+    
+    Route::resource('products', ProductController::class);
 
-Route::resource('categories', CategoryController::class);
+    Route::resource('users', UserController::class);
+
+    Route::resource('categories', CategoryController::class);
+
+});
 
 /*************************************************************************** */
 /*************************************************************************** */

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Auth;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -22,6 +21,7 @@ class RegisterRequest extends FormRequest
 
             'password' => [
                 'required',
+                'string',
                 'confirmed', // exige campo password_confirmation
                 Password::min(8)
                     ->letters()
@@ -43,6 +43,12 @@ class RegisterRequest extends FormRequest
 
             'password.required' => 'A senha é obrigatória.',
             'password.confirmed' => 'As senhas não coincidem.',
+            'password' => [
+                'mixed' => 'A senha deve conter letras maiúsculas e minúsculas.',
+                'letters' => 'A senha deve conter pelo menos uma letra.',
+                'numbers' => 'A senha deve conter pelo menos um número.',
+                'symbols' => 'A senha deve conter pelo menos um símbolo.',
+            ],
         ];
     }
 
