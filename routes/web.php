@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
-
 // Route::get('/debug-cart', function () {
 //     return session('cart');
 // });
@@ -136,15 +135,17 @@ Route::post('/reset-password', function (Request $request) {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified']);
 
-Route::middleware(['auth', 'verified'])->group(function () {
-
+Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
+    // todas as rotas aqui viram /admin/...
     Route::resource('products', ProductController::class);
 
     Route::resource('users', UserController::class);
 
     Route::resource('categories', CategoryController::class);
-
 });
+// Route::middleware(['auth', 'verified'])->group(function () {});
+
+Route::get('/category/{slug}', [CategoryController::class, 'show']);
 
 /*************************************************************************** */
 /*************************************************************************** */
