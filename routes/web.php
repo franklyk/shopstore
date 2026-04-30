@@ -1,9 +1,9 @@
 <?php
 
-
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
@@ -16,12 +16,14 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
+
+// Route::get('/debug-cart', function () {
+//     return session('cart');
+// });
 /**
  * start pagina home
  */
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 /**
  * end pagina home
  */
@@ -135,7 +137,7 @@ Route::post('/reset-password', function (Request $request) {
 // })->middleware(['auth', 'verified']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    
+
     Route::resource('products', ProductController::class);
 
     Route::resource('users', UserController::class);
@@ -148,14 +150,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 /*************************************************************************** */
 /*************************************************************************** */
 
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
+Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 
-    Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
-
-    Route::post('/cart/update/{item}', [CartController::class, 'update'])->name('cart.update');
-
-    Route::post('/cart/remove/{item}', [CartController::class, 'remove'])->name('cart.remove');
-});
+Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');

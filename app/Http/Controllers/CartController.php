@@ -11,67 +11,134 @@ class CartController extends Controller
     // 🛒 Ver carrinho
     public function index()
     {
-        $cart = Cart::with('items.product')
-            ->firstOrCreate([
+        if (Auth::check()) {
+            $cart = Cart::with('items.product')
+                ->firstOrCreate(['user_id' => Auth::id()]);
+
+            return view('cart.index', [
+                'items' => $cart->items,
+                'isSession' => false
+            ]);
+        }
+
+        return view('cart.index', [
+            'items' => session('cart', []),
+            'isSession' => true
+        ]);
+    }
+
+    // ➕ Adicionar produto
+    public function add(Product $product)
+    {
+        if (Auth::check()) {
+
+            $cart = Cart::firstOrCreate([
                 'user_id' => Auth::id()
             ]);
 
-        return view('cart.index', compact('cart'));
-    }
+            $item = $cart->items()
+                ->where('product_id', $product->id)
+                ->first();
 
-    // ➕ Adicionar produto ao carrinho
-    public function add(Product $product)
-    {
-        $cart = Cart::firstOrCreate([
-            'user_id' => Auth::id()
-        ]);
+            if ($item) {
+                $item->increment('quantity');
+            } else {
+                $cart->items()->create([
+                    'product_id' => $product->id,
+                    'quantity' => 1,
+                    'price' => $product->price
+                ]);
+            }
 
-        $item = $cart->items()
-            ->where('product_id', $product->id)
-            ->first();
-
-        if ($item) {
-            $item->increment('quantity');
         } else {
-            $cart->items()->create([
-                'product_id' => $product->id,
-                'quantity' => 1
-            ]);
+
+            $cart = session()->get('cart', []);
+
+            if (isset($cart[$product->id])) {
+                $cart[$product->id]['quantity']++;
+            } else {
+                $cart[$product->id] = [
+                    'quantity' => 1,
+                    'price' => $product->price,
+                    'name' => $product->name
+                ];
+            }
+
+            session()->put('cart', $cart);
         }
 
-        return back()->with('success', 'Produto adicionado ao carrinho');
+        return $this->response();
     }
 
-    // ➖ Remover item do carrinho
-    public function remove(int $itemId)
+    // ❌ Remover item
+    public function remove($id)
     {
-        
-        $cart = Cart::firstWhere('user_id', Auth::id());
+        if (Auth::check()) {
 
-        if ($cart) {
-            $cart->items()->where('id', $itemId)->delete();
+            $cart = Cart::firstWhere('user_id', Auth::id());
+
+            if ($cart) {
+                $cart->items()->where('id', $id)->delete();
+            }
+
+        } else {
+
+            $cart = session()->get('cart', []);
+            unset($cart[$id]);
+            session()->put('cart', $cart);
         }
 
-        return back()->with('success', 'Item removido do carrinho');
+        return $this->response();
     }
 
     // 🔄 Atualizar quantidade
-    public function update(int $itemId)
+    public function update($id)
     {
-        $cart = Cart::firstWhere('user_id', Auth::id());
+        $quantity = request('quantity');
 
-        if ($cart) {
-            $item = $cart->items()->where('id', $itemId)->first();
+        if (Auth::check()) {
 
-            if ($item) {
-                $quantity = request('quantity');
+            $cart = Cart::firstWhere('user_id', Auth::id());
 
-                if ($quantity > 0) {
-                    $item->update(['quantity' => $quantity]);
-                } else {
-                    $item->delete();
+            if ($cart) {
+                $item = $cart->items()->where('id', $id)->first();
+
+                if ($item) {
+                    if ($quantity > 0) {
+                        $item->update(['quantity' => $quantity]);
+                    } else {
+                        $item->delete();
+                    }
                 }
             }
+
+        } else {
+
+            $cart = session()->get('cart', []);
+
+            if (isset($cart[$id])) {
+                if ($quantity > 0) {
+                    $cart[$id]['quantity'] = $quantity;
+                } else {
+                    unset($cart[$id]);
+                }
+            }
+
+            session()->put('cart', $cart);
+        }
+
+        return $this->response();
+    }
+
+    // 📦 Resposta padrão (AJAX ou redirect)
+    private function response()
+    {
+        if (request()->expectsJson()) {
+
+            return response()->json([
+                'success' => true,
+                'cart' => session('cart', []), // útil para debug/upgrade depois
+            ]);
         }
 
         return back()->with('success', 'Carrinho atualizado');
