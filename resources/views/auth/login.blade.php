@@ -4,7 +4,7 @@
 
 @section('auth')
 
-    <x-forms.form method="POST" route='login' title="Login">
+    <x-forms.form method="POST" action="{{ route('login') }}" title="Login">
 
         <x-forms.input name="email" type="email" label="Email" />
 

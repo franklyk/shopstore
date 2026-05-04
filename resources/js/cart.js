@@ -1,4 +1,4 @@
-console.log('NOVO JS CARREGADO');
+
 
 /* =========================
    DEBOUNCE

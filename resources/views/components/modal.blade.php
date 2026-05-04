@@ -1,29 +1,36 @@
-@props(['product' => null])
+@props(['id', 'action', 'title' => 'Confirmar exclusão'])
 
-<div class="modal fade" id="deleteModal{{ $product->id }}" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
+<div class="modal fade" id="{{ $id }}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <div class="modal-header">
-        <h5 class="modal-title">Confirmar exclusão</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+            <div class="modal-header">
+                <h5 class="modal-title">{{ $title }}</h5>
 
-      <div class="modal-body">
-        Tem certeza que deseja excluir <strong>{{ $product->name }}</strong>?
-      </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <div class="modal-body">
+                {{ $slot }}
+            </div>
 
-        <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-            @csrf
-            @method('DELETE')
+            <div class="modal-footer">
 
-            <button class="btn btn-danger">Excluir</button>
-        </form>
-      </div>
+                <x-buttons.button color="secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </x-buttons.button>
 
+                <form action="{{ $action }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+
+                    <x-buttons.button type="submit" color="danger">
+                        Excluir
+                    </x-buttons.button>
+                </form>
+
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>

@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\SessionController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
-// Route::get('/debug-cart', function () {
-//     return session('cart');
-// });
+Route::get('/debug-modal', function () {
+    return view('modal');
+});
 /**
  * start pagina home
  */
@@ -137,15 +137,15 @@ Route::post('/reset-password', function (Request $request) {
 
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     // todas as rotas aqui viram /admin/...
-    Route::resource('products', ProductController::class);
+    Route::resource('products', AdminProductController::class);
+    
+    Route::resource('users', AdminUserController::class);
 
-    Route::resource('users', UserController::class);
-
-    Route::resource('categories', CategoryController::class);
+    Route::resource('categories', AdminCategoryController::class);
 });
 // Route::middleware(['auth', 'verified'])->group(function () {});
 
-Route::get('/category/{slug}', [CategoryController::class, 'show']);
+// Route::get('/category/{slug}', CategoryController::class, 'show']);
 
 /*************************************************************************** */
 /*************************************************************************** */

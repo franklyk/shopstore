@@ -4,8 +4,6 @@
 
 @section('content')
 
-
-
     <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">
         Novo Produto
     </a>
@@ -21,6 +19,7 @@
                 <th>Ações</th>
             </tr>
         </thead>
+
         <tbody>
             @foreach ($products as $product)
                 <tr>
@@ -43,18 +42,25 @@
                             data-bs-target="#deleteModal{{ $product->id }}">
                             Excluir
                         </button>
-                        
-                        <form method="POST" action="{{ route('cart.add', $product->id) }}">
-                            @csrf
-                            <button type="submit">Adicionar ao carrinho</button>
-                        </form>
 
-                        <x-modal :product="$product" />
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
-
+    {{-- 🔥 MODAIS FORA DA TABELA --}}
+    {{-- @foreach ($products as $product)
+    <x-modal
+        id="deleteModal{{ $product->id }}"
+        :action="route('products.destroy', $product)"
+    >
+        Tem certeza que deseja excluir
+        <strong>{{ $product->name }}</strong>?
+    </x-modal>
+@endforeach --}}
+    <x-modal id="deleteModal{{ $product->id }}" :action="route('products.destroy', $product)">
+        Tem certeza que deseja excluir
+        <strong>{{ $product->name }}</strong>?
+    </x-modal>
 @endsection

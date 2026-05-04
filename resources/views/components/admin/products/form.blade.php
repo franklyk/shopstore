@@ -5,7 +5,7 @@
     $isEdit = isset($product);
 @endphp
 
-<x-forms.form method="{{ $isEdit ? 'PUT' : 'POST' }}"
+<x-forms.form 
     action="{{ $isEdit ? route('products.update', $product->id) : route('products.store') }}">
 
     {{-- Nome --}}

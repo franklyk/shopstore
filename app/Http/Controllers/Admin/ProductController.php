@@ -18,7 +18,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
+        
+        $products = Product::paginate(50);
+        
 
         return view('products.index', compact('products'));
     }
@@ -39,7 +41,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         // $this->authorize('create', Product::class);
-
+        dd($request);
         Product::create($request->validated());
 
         return redirect()
@@ -47,9 +49,7 @@ class ProductController extends Controller
         ->with('success', 'Produto cadastrado com sucesso!!');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(Product $product)
     {
         // $this->authorize('view', $product);
@@ -57,9 +57,7 @@ class ProductController extends Controller
         return view('products.show', compact('product'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(Product $product)
     {
         // $this->authorize('update', $product);
@@ -67,9 +65,7 @@ class ProductController extends Controller
         return view('products.edit', compact('product'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(UpdateProductRequest $request, Product $product)
     {
         // $this->authorize('update', $product);
@@ -81,14 +77,11 @@ class ProductController extends Controller
         ->with('success', 'Produto atualizado com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(Product $product)
     {
         // $this->authorize('delete', $product);
-
-        $product->delete();
+            $product->delete();
 
         return redirect()
             ->route('products.index')

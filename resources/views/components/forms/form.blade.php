@@ -1,14 +1,19 @@
-@props(['route', 'title'])
+@props(['action', 'title'])
+
+@php
+    $method = strtoupper($attributes->get('method', 'GET'));
+@endphp
 
 
 <x-forms.card :title="$title">
 
-    <form action="{{ route($route) }}"
-        {{ $attributes->merge(['class' => 'needs-validation p-3']) }}>
+    <form action="{{ $action }}" {{ $attributes->merge(['class' => 'needs-validation p-3']) }}>
 
-        @if (strtoupper($attributes->get('method', 'GET')) !== 'GET')
+        @if ($method !== 'GET')
             @csrf
-            @method($attributes->get('method'))
+            @if ($method !== 'POST')
+                @method($method)
+            @endif
         @endif
 
         {{ $slot }}
