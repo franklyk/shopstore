@@ -30,37 +30,24 @@
                     <td>{{ $product->stock }}</td>
                     <td>
 
-                        <a href="{{ route('products.show', $product) }}" class="btn btn-info btn-sm">
-                            Ver
-                        </a>
-
-                        <a href="{{ route('products.edit', $product) }}" class="btn btn-warning btn-sm">
+                        <x-buttons.button href="{{ route('products.show', $product) }}" color="info">
                             Editar
-                        </a>
+                        </x-buttons.button>
 
-                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#deleteModal{{ $product->id }}">
+                        <x-buttons.button href="{{ route('products.edit', $product) }}" color="warning">
+                            Editar
+                        </x-buttons.button>
+
+                        <x-buttons.button type="button" color="danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                            data-id="{{ $product->id }}" data-name="Produto {{ $product->name }}">
                             Excluir
-                        </button>
-
+                        </x-buttons.button>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
-    {{-- 🔥 MODAIS FORA DA TABELA --}}
-    {{-- @foreach ($products as $product)
-    <x-modal
-        id="deleteModal{{ $product->id }}"
-        :action="route('products.destroy', $product)"
-    >
-        Tem certeza que deseja excluir
-        <strong>{{ $product->name }}</strong>?
-    </x-modal>
-@endforeach --}}
-    <x-modal id="deleteModal{{ $product->id }}" :action="route('products.destroy', $product)">
-        Tem certeza que deseja excluir
-        <strong>{{ $product->name }}</strong>?
-    </x-modal>
+    <x-modal.delete />
+
 @endsection

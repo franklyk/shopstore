@@ -9,9 +9,16 @@
     <!-- Bootstrap 5 CDN -->
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
     <script>
+        window.APP_CONFIG = {
+            baseUrl: "{{ url('/admin') }}",
+            resource: "{{ request()->segment(2) }}"
+        };
+
         window.csrfToken = "{{ csrf_token() }}";
     </script>
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
 </head>
 
 <body>
