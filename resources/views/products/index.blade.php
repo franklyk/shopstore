@@ -4,9 +4,16 @@
 
 @section('content')
 
-    <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">
+    {{-- <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">
         Novo Produto
-    </a>
+    </a> --}}
+
+    <x-modal.delete />
+    <x-modal.create_edit />
+    
+    <x-buttons.button color="primary" data-bs-toggle="modal" data-bs-target="#formModal" data-mode="create">
+        Novo Produto
+    </x-buttons.button>
 
     <table class="table table-bordered">
         <thead>
@@ -31,10 +38,12 @@
                     <td>
 
                         <x-buttons.button href="{{ route('products.show', $product) }}" color="info">
-                            Editar
+                            Visualizar
                         </x-buttons.button>
 
-                        <x-buttons.button href="{{ route('products.edit', $product) }}" color="warning">
+                        <x-buttons.button color="warning" data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                            data-id="{{ $product->id }}" data-name="{{ $product->name }}"
+                            data-price="{{ $product->price }}">
                             Editar
                         </x-buttons.button>
 
@@ -47,7 +56,5 @@
             @endforeach
         </tbody>
     </table>
-
-    <x-modal.delete />
 
 @endsection
