@@ -4,14 +4,9 @@
 
 @section('content')
 
-    {{-- <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">
-        Novo Produto
-    </a> --}}
 
-    <x-modal.delete />
-    <x-modal.create_edit />
-    
-    <x-buttons.button color="primary" data-bs-toggle="modal" data-bs-target="#formModal" data-mode="create">
+
+    <x-buttons.button href="{{ route('products.create') }}" color="primary">
         Novo Produto
     </x-buttons.button>
 
@@ -41,20 +36,23 @@
                             Visualizar
                         </x-buttons.button>
 
-                        <x-buttons.button color="warning" data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                            data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                            data-price="{{ $product->price }}">
+                        <x-buttons.button href="{{ route('products.edit', $product) }}" color="warning">
                             Editar
                         </x-buttons.button>
 
-                        <x-buttons.button type="button" color="danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                            data-id="{{ $product->id }}" data-name="Produto {{ $product->name }}">
+                        <x-buttons.button type="button" color="danger" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal{{ $product->id }}">
                             Excluir
                         </x-buttons.button>
                     </td>
                 </tr>
             @endforeach
         </tbody>
+
     </table>
+    
+    @foreach ($products as $product)
+        <x-modal.delete :action="route('products.destroy', $product->id)" :id="$product->id" :name="$product->name" />
+    @endforeach
 
 @endsection

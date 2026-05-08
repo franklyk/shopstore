@@ -1,36 +1,38 @@
 @props([
-    'id' => 'deleteModal'
+    'id',
+    'action',
+    'name'
 ])
 
-<div class="modal fade" id="{{ $id }}" tabindex="-1">
-    <div class="modal-dialog">
+
+<div class="modal fade" id="deleteModal{{ $id }}" tabindex="-1">
+
+    <div class="modal-dialog modal-sm">
+
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title">Confirmar exclusão</h5>
-
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <h5 class="modal-title">
+                    Excluir
+                </h5>
             </div>
 
-            <div class="modal-body text-center">
-                Tem certeza que deseja excluir:
-
-                <br>
-
-                <strong data-role="name"></strong>  ?
-
-                <br>
-
-                ID: <strong data-role="id"></strong>
+            <div class="modal-body">
+                Deseja excluir <strong>{{ $name }}</strong>  ?
             </div>
 
             <div class="modal-footer">
 
-                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                <button 
+                    type="button" 
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
                     Cancelar
                 </button>
 
-                <form method="POST" data-role="form">
+                <form action="{{ $action }}" method="POST">
+                    {{-- @dd($action) --}}
                     @csrf
                     @method('DELETE')
 
@@ -42,5 +44,7 @@
             </div>
 
         </div>
+
     </div>
+
 </div>

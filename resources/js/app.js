@@ -2,4 +2,4 @@ import 'bootstrap';
 
 import './cart';
 
-import './modal/delete';
+// import './modal/delete';

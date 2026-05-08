@@ -6,6 +6,6 @@
 
     <h2>Editar Categoria</h2>
     
-    <x-categories.form :category="$category" />
+    
 
 @endsection

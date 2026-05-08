@@ -6,6 +6,6 @@
 
     <h2>Nova Categoria</h2>
 
-    <x-categories.form />
+    
 
 @endsection

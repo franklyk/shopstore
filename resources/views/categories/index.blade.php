@@ -7,7 +7,7 @@
 
 
     <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">
-        Novo Produto
+        Nova Categoria
     </a>
 
     <table class="table table-bordered">
@@ -27,25 +27,27 @@
                     <td>{{ $category->description }}</td>
                     <td>
 
-                        <a href="{{ route('categories.show', $category) }}" class="btn btn-info btn-sm">
-                            Ver
-                        </a>
+                        <x-buttons.button href="{{ route('categories.show', $category) }}" color="info">
+                            Visualizar
+                        </x-buttons.button>
 
-                        <a href="{{ route('categories.edit', $category) }}" class="btn btn-warning btn-sm">
+                        <x-buttons.button href="{{ route('categories.edit', $category) }}" color="warning">
                             Editar
-                        </a>
+                        </x-buttons.button>
 
-                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                        <x-buttons.button type="button" color="danger" data-bs-toggle="modal"
                             data-bs-target="#deleteModal{{ $category->id }}">
                             Excluir
-                        </button>
+                        </x-buttons.button>
 
-                        <x-modal :category="$category" />
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    
+
+    @foreach ($categories as $category)
+        <x-modal.delete :action="route('products.destroy', $category->id)" :id="$category->id" :name="$category->name" />
+    @endforeach
 
 @endsection

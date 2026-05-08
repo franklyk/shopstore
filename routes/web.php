@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
-Route::get('/debug-modal', function () {
-    return view('modal');
-});
+// Route::get('/debug-modal', function () {
+//     return view('modal');
+// });
 /**
  * start pagina home
  */

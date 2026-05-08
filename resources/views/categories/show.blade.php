@@ -14,7 +14,7 @@
             Voltar
         </a>
 
-        <a href="{{ route('categories.edit', $product) }}" class="btn btn-warning">
+        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning">
             Editar
         </a>
     </div>
