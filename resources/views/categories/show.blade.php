@@ -1,23 +1,40 @@
 @extends('layouts.app')
 
+@section('title', 'Categorias')
+
 @section('content')
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <h2>
+                    Detalhes da Categoria
+                </h2>
+            </div>
+        </div>
+        
+        <h5 class="card-title text-center my-3">{{ $category->name }}</h5>
+        <div class="card-body">
+            <dl class="row">
 
-<h2>Detalhes da Categoria</h2>
+                <dt class="col-sm-3">Nome</dt>
+                <dd class="col-sm-9">{{ $category->name }}</dd>
 
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">{{ $category->name }}</h5>
+                <dt class="col-sm-3">Cadastrado em:</dt>
+                <dd class="col-sm-9">{{ $category->created_at }}</dd>
 
-        <p><strong>Descrição:</strong> R$ {{ $category->desciption }}</p>
+                <dt class="col-sm-3">Última atualização em:</dt>
+                <dd class="col-sm-9">{{ $category->updated_at }}</dd>
 
-        <a href="{{ route('categories.index') }}" class="btn btn-secondary">
-            Voltar
-        </a>
+            </dl>
+            <a href="{{ route('categories.index') }}" class="btn btn-sm btn-secondary">
+                Voltar
+            </a>
 
-        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning">
-            Editar
-        </a>
+            <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-warning">
+                Editar
+            </a>
+        </div>
     </div>
-</div>
-
+    
 @endsection

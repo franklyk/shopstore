@@ -4,21 +4,33 @@
 
 <h2>Detalhes do Usuário</h2>
 
+
 <div class="card">
-    <div class="card-body">
-        <h5 class="card-title">{{ $user->name }}</h5>
+        <h5 class="card-title text-center my-3">{{ $user->name }}</h5>
+        <div class="card-body">
+            <dl class="row">
 
-        <p><strong>Preço:</strong> R$ {{ $user->price }}</p>
-        <p><strong>Estoque:</strong> {{ $user->stock }}</p>
+                <dt class="col-sm-3">Nome</dt>
+                <dd class="col-sm-9">{{ $user->name }}</dd>
 
-        <a href="{{ route('users.index') }}" class="btn btn-secondary">
-            Voltar
-        </a>
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">{{ $user->email }}</dd>
 
-        <a href="{{ route('users.edit', $user) }}" class="btn btn-warning">
-            Editar
-        </a>
+                <dt class="col-sm-3">Cadastrado em:</dt>
+                <dd class="col-sm-9">{{ $user->created_at }}</dd>
+
+                <dt class="col-sm-3">Última atualização em:</dt>
+                <dd class="col-sm-9">{{ $user->updated_at }}</dd>
+
+            </dl>
+            <a href="{{ route('users.index') }}" class="btn btn-sm btn-secondary">
+                Voltar
+            </a>
+
+            <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-warning">
+                Editar
+            </a>
+        </div>
     </div>
-</div>
 
 @endsection

@@ -5,49 +5,55 @@
 @section('content')
 
 
-
-    <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">
-        Nova Categoria
+    <a href="{{ route('categories.create') }}" class="btn btn-sm btn-primary mb-3">
+        Novo Produto
     </a>
+    <div class="card p-4">
+        <div class="card-header">
+            <div class="card-title">
+                <h2>
+                    Nova Categoria
+                </h2>
+            </div>
+        </div>
+        
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">COD</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($categories as $category)
-                <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->name }}</td>
-                    <td>{{ $category->description }}</td>
-                    <td>
+                <tbody class="table-group-divider">
+                    @foreach ($categories as $product)
+                        <tr class="text-center">
+                            <th scope="row">{{ $product->id }}</th>
+                            <td>{{ $product->name }}</td>
+                            <td>
+                                <a href="{{ route('categories.show', $product) }}" class="btn btn-sm btn-info">
+                                    Visualizar
+                                </a>
 
-                        <x-buttons.button href="{{ route('categories.show', $category) }}" color="info">
-                            Visualizar
-                        </x-buttons.button>
+                                <a href="{{ route('categories.edit', $product) }}" class="btn btn-sm btn-warning">
+                                    Editar
+                                </a>
 
-                        <x-buttons.button href="{{ route('categories.edit', $category) }}" color="warning">
-                            Editar
-                        </x-buttons.button>
-
-                        <x-buttons.button type="button" color="danger" data-bs-toggle="modal"
-                            data-bs-target="#deleteModal{{ $category->id }}">
-                            Excluir
-                        </x-buttons.button>
-
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    @foreach ($categories as $category)
-        <x-modal.delete :action="route('products.destroy', $category->id)" :id="$category->id" :name="$category->name" />
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal{{ $product->id }}">
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @foreach ($categories as $product)
+        <x-modal.delete :action="route('products.destroy', $product->id)" :id="$product->id" :name="$product->name" />
     @endforeach
 
 @endsection

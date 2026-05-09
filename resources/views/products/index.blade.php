@@ -6,51 +6,51 @@
 
 
 
-    <x-buttons.button href="{{ route('products.create') }}" color="primary">
+    <a href="{{ route('products.create') }}" class="btn btn-sm btn-primary mb-3">
         Novo Produto
-    </x-buttons.button>
-
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Preço</th>
-                <th>Estoque</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach ($products as $product)
+    </a>
+    <div class="card p-4">
+        <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>{{ $product->id }}</td>
-                    <td>{{ $product->name }}</td>
-                    <td>{{ $product->description }}</td>
-                    <td>R$ {{ $product->price }}</td>
-                    <td>{{ $product->stock }}</td>
-                    <td>
-
-                        <x-buttons.button href="{{ route('products.show', $product) }}" color="info">
-                            Visualizar
-                        </x-buttons.button>
-
-                        <x-buttons.button href="{{ route('products.edit', $product) }}" color="warning">
-                            Editar
-                        </x-buttons.button>
-
-                        <x-buttons.button type="button" color="danger" data-bs-toggle="modal"
-                            data-bs-target="#deleteModal{{ $product->id }}">
-                            Excluir
-                        </x-buttons.button>
-                    </td>
+                    <th scope="col">COD</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Estoque</th>
+                    <th scope="col">Ações</th>
                 </tr>
-            @endforeach
-        </tbody>
+            </thead>
 
-    </table>
-    
+            <tbody class="table-group-divider">
+                @foreach ($products as $product)
+                    <tr>
+                        <th scope="row">{{ $product->id }}</th>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ $product->description }}</td>
+                        <td>R$ {{ $product->price }}</td>
+                        <td>{{ $product->stock }}</td>
+                        <td>
+                            <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-info">
+                                Visualizar
+                            </a>
+
+                            <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning">
+                                Editar
+                            </a>
+
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal{{ $product->id }}">
+                                Excluir
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+
+        </table>
+    </div>
     @foreach ($products as $product)
         <x-modal.delete :action="route('products.destroy', $product->id)" :id="$product->id" :name="$product->name" />
     @endforeach
