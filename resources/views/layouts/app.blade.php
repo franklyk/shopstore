@@ -50,6 +50,13 @@
                         </li>
                     @endguest
                     @auth
+                        <li class="nav-item">
+                            <a href="{{ route('admin.dashboard') }}">
+                                Dashboard
+                            </a>
+                        </li>
+                    @endauth
+                    @auth
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="nav-link text-white">
