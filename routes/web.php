@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegisterController;
@@ -16,14 +16,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Spatie\Permission\Middleware\RoleMiddleware;
 
 // Route::get('/debug-modal', function () {
 //     return view('modal');
 // });
 
-Route::get('/admin', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('admin.dashboard');
 /**
  * start pagina home
  */
@@ -140,10 +138,15 @@ Route::post('/reset-password', function (Request $request) {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified']);
 
-Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
+Route::prefix('admin')
+->middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::get('/admin', [DashboardController::class, 'index'])
+        ->middleware(['auth', 'verified'])
+        ->name('admin.dashboard');
     // todas as rotas aqui viram /admin/...
     Route::resource('products', AdminProductController::class);
-    
+
     Route::resource('users', AdminUserController::class);
 
     Route::resource('categories', AdminCategoryController::class);
