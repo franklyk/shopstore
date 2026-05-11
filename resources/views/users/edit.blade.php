@@ -28,7 +28,24 @@
                     <label for="email" class="form-label"><strong>Email</strong></label>
                     <input class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}">
                 </div>
+                <div class="mb-3">
 
+                    <label class="form-label">
+                        Cargo
+                    </label>
+
+                    <select name="role" class="form-select">
+
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->name }}"
+                                {{ $user->roles->first()?->name == $role->name ? 'selected' : '' }}>
+                                {{ $role->name }}
+                            </option>
+                        @endforeach
+
+                    </select>
+
+                </div>
 
             </form>
         </div>
@@ -54,7 +71,7 @@
                 <strong>
                     Salvar
                 </strong>
-            </button> 
+            </button>
         </div>
     </div>
 

@@ -51,7 +51,7 @@
                     @endguest
                     @auth
                         <li class="nav-item">
-                            <a href="{{ route('admin.dashboard') }}">
+                            <a class="nav-link text-white"  href="{{ route('admin.dashboard') }}">
                                 Dashboard
                             </a>
                         </li>

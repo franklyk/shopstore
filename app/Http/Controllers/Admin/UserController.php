@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -14,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(40);
+        $users = User::paginate(20);
 
         return view('users.index', compact('users'));
     }
@@ -24,7 +25,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $roles = Role::all();
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -32,7 +34,8 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        User::create($request->validated());
+        $user = User::create($request->validated());
+        $user->assignRole($request->role);
 
         return redirect()
         ->route('users.index')
@@ -52,7 +55,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $roles = Role::all();
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -61,9 +65,12 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->validated());
+        
+        $user->syncRoles([$request->role]);
+
         return redirect()
         ->route('users.index')
-        ->with('success', 'Usuario editado com sucesso!');
+        ->with('success', 'Usuario atualizado com sucesso!');
     }
 
     /**

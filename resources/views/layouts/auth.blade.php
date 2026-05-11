@@ -9,7 +9,7 @@
     <!-- Bootstrap 5 CDN -->
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body class="container d-flex justify-content-center align-items-center bg-primary" style="min-height: 100dvh; border: margin: auto; overflow-y:auto">
 

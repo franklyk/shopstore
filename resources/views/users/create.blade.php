@@ -35,6 +35,23 @@
                     <input type="password" class="form-control" id="password_confirmed" name="password_confirmed">
                 </div>
 
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Cargo
+                    </label>
+
+                    <select name="role" class="form-select">
+
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->name }}" {{ old('role') == $role->name ? 'selected' : '' }}>
+                                {{ $role->name }}
+                            </option>
+                        @endforeach
+
+                    </select>
+
+                </div>
 
             </form>
         </div>

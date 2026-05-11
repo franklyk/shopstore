@@ -24,8 +24,11 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
+
                         <th scope="col">Nome</th>
-                        <th scope="col">Descrição</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Cargo</th>
+
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
@@ -35,6 +38,7 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->roles->first()?->name }}</td>
                             <td>
 
                                 <a href="{{ route('users.show', $user) }}" class="btn btn-info btn-sm">
