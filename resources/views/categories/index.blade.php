@@ -149,9 +149,38 @@
 
                         <tr>
 
-                            <td colspan="5" class="text-center py-4">
+                            <td colspan="5" class="text-center py-5">
 
-                                Nenhuma categoria encontrada.
+                                <div class="d-flex flex-column align-items-center gap-2">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="none"
+                                        stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="text-secondary">
+
+                                        <path d="M3 7h18" />
+                                        <path d="M6 3h12l1 4H5l1-4Z" />
+                                        <path d="M5 7v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7" />
+
+                                    </svg>
+
+                                    <h5 class="mb-0">
+                                        Nenhuma categoria cadastrada
+                                    </h5>
+
+                                    <p class="text-muted mb-0">
+
+                                        Ainda não existem categorias no sistema.
+
+                                    </p>
+
+                                    @can('create categories')
+                                        <a href="{{ route('categories.create') }}" class="btn btn-sm btn-primary mt-2">
+
+                                            Criar primeira categoria
+
+                                        </a>
+                                    @endcan
+
+                                </div>
 
                             </td>
 

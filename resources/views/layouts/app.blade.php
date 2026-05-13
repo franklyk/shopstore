@@ -37,6 +37,83 @@
                     <button class="btn btn-outline-light">Pesquisar</button>
                 </form>
 
+                @php
+
+                    $menuCategories = \App\Models\Category::with('children')
+                        ->whereNull('parent_id')
+                        ->where('is_active', true)
+                        ->orderBy('name')
+                        ->get();
+
+                @endphp
+
+                <li class="nav-item dropdown ms-3">
+
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                        data-bs-toggle="dropdown">
+
+                        Categorias
+
+                    </a>
+
+                    <div class="dropdown-menu p-3" style="min-width: 320px;">
+
+                        <div class="accordion accordion-flush" id="categoriesAccordion">
+
+                            @foreach ($menuCategories as $category)
+                                <div class="accordion-item">
+
+                                    <h2 class="accordion-header">
+
+                                        <button class="accordion-button collapsed py-2" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#category{{ $category->id }}">
+
+                                            {{ $category->name }}
+
+                                        </button>
+
+                                    </h2>
+
+                                    <div id="category{{ $category->id }}" class="accordion-collapse collapse"
+                                        data-bs-parent="#categoriesAccordion">
+
+                                        <div class="accordion-body p-2">
+
+                                            @if ($category->children->count())
+                                                <ul class="list-unstyled mb-0">
+
+                                                    @foreach ($category->children as $child)
+                                                        <li>
+
+                                                            <a href="#" class="dropdown-item rounded">
+
+                                                                {{ $child->name }}
+
+                                                            </a>
+
+                                                        </li>
+                                                    @endforeach
+
+                                                </ul>
+                                            @else
+                                                <span class="text-muted small">
+                                                    Sem subcategorias
+                                                </span>
+                                            @endif
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            @endforeach
+
+                        </div>
+
+                    </div>
+
+                </li>
+
                 <ul class="nav ms-auto align-items-center">
 
                     @can('view products')

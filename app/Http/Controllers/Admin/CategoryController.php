@@ -33,9 +33,7 @@ class CategoryController extends Controller
         return view('categories.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(StoreCategoryRequest $request)
     {
         Category::create($request->validated());
@@ -45,9 +43,7 @@ class CategoryController extends Controller
             ->with('success', 'Categoria cadastrada com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Category $category)
     {
         $category->load('parent', 'children');
@@ -55,9 +51,7 @@ class CategoryController extends Controller
         return view('categories.show', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Category $category)
     {
         $categories = Category::whereNull('parent_id')
@@ -68,9 +62,7 @@ class CategoryController extends Controller
         return view('categories.edit', compact('category', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $category->update($request->validated());
@@ -80,11 +72,22 @@ class CategoryController extends Controller
             ->with('success', 'Categoria atualizada com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Category $category)
     {
+        if ($category->children()->exists()) {
+
+            return redirect()
+                ->back()
+                ->with('error', 'A categoria possui subcategorias vinculadas.');
+        }
+
+        if ($category->products()->exists()) {
+
+            return redirect()
+                ->back()
+                ->with('error', 'A categoria possui produtos vinculados.');
+        }
+
         $category->delete();
 
         return redirect()
