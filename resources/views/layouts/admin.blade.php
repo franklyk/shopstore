@@ -65,32 +65,42 @@
 
             <aside class="col-2 min-vh-100 p-0 bg-primary">
 
-                <div class="p-3 border-bottom">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link text-light">
-                    <h5>Dashboard</h5>
-                    </a>
-                </div>
+                @can('view dashboard')
+                    <div class="p-3 border-bottom">
+                        <a href="{{ route('admin.dashboard') }}" class="nav-link text-light">
+                            <h5>Dashboard</h5>
+                        </a>
+                    </div>
+                @endcan
+
 
                 <nav class="nav flex-column p-2">
+                    @can('view products')
+                        <a href="{{ route('products.index') }}" class="nav-link text-light">
+                            Produtos
+                        </a>
+                    @endcan
 
-                    <a href="{{ route('products.index') }}" class="nav-link text-light">
-                        Produtos
-                    </a>
+                    @can('view categories')
+                        <a href="{{ route('categories.index') }}" class="nav-link text-light">
+                            Categorias
+                        </a>
+                    @endcan
 
-                    <a href="{{ route('categories.index') }}" class="nav-link text-light">
-                        Categorias
-                    </a>
+                    @can('view products')
+                        <a href="{{ route('users.index') }}" class="nav-link text-light">
+                            Usuários
+                        </a>
+                    @endcan
 
-                    <a href="{{ route('users.index') }}" class="nav-link text-light">
-                        Usuários
-                    </a>
-
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="nav-link text-light">
-                            Sair
-                        </button>
-                    </form>
+                    @auth
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="nav-link text-light">
+                                Sair
+                            </button>
+                        </form>
+                    @endauth
 
                 </nav>
 

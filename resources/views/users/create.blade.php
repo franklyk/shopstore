@@ -56,19 +56,21 @@
             </form>
         </div>
         <div class="card-footer">
-            <a href="{{ route('users.index') }}" class="btn btn-sm btn-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                    stroke-width="2" viewBox="0 0 24 24">
+            @can('view users')
+                <a href="{{ route('users.index') }}" class="btn btn-sm btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
 
-                    <path d="M9 14L4 9l5-5" />
+                        <path d="M9 14L4 9l5-5" />
 
-                    <path d="M20 20v-7a4 4 0 0 0-4-4H4" />
+                        <path d="M20 20v-7a4 4 0 0 0-4-4H4" />
 
-                </svg>
+                    </svg>
 
-                Voltar
-            </a>
-
+                    Voltar
+                </a>
+            @endcan
+            
             <button type="submit" class="btn btn-sm btn-success" form="create-form">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
                     stroke-width="2" viewBox="0 0 24 24">

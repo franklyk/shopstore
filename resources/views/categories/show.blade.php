@@ -27,29 +27,34 @@
 
         </div>
         <div class="card-footer">
-            <a href="{{ route('categories.index') }}" class="btn btn-sm btn-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                    stroke-width="2" viewBox="0 0 24 24">
+            @can('view categories')
+                <a href="{{ route('categories.index') }}" class="btn btn-sm btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
 
-                    <path d="M9 14L4 9l5-5" />
+                        <path d="M9 14L4 9l5-5" />
 
-                    <path d="M20 20v-7a4 4 0 0 0-4-4H4" />
+                        <path d="M20 20v-7a4 4 0 0 0-4-4H4" />
 
-                </svg>
+                    </svg>
 
-                Voltar
-            </a>
+                    Voltar
+                </a>
+            @endcan
 
-            <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-warning">
+            @can('edit categories')
+                <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-warning">
 
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                    stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M12 20h9" />
-                    <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
-                </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M12 20h9" />
+                        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                    </svg>
 
-                Editar
-            </a>
+                    Editar
+                </a>
+            @endcan
+
         </div>
     </div>
 

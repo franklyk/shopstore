@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Listeners\MergeCartOnLogin;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -31,5 +32,6 @@ class AppServiceProvider extends ServiceProvider
             // dd('EVENTO LOGIN DISPARADO');
         });
         // Event::listen(Login::class, MergeCartOnLogin::class);
+        Paginator::useBootstrapFive();
     }
 }

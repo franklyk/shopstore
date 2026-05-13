@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -12,6 +14,49 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // ==================//
+        // Administrador    //
+        // ==================//
+        $admin = User::create([
+            'name' => 'Administrador',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('password'),
+        ]);
+        $admin->assignRole('admin');
+
+        // ==================//
+        // Gerente           //
+        // ==================//
+        $manager = User::create([
+            'name' => 'Gerente',
+            'email' => 'manager@admin.com',
+            'password' => Hash::make('password'),
+        ]);
+        $manager->assignRole('manager');
+
+        //==================//
+        // Funcionário      //
+        //==================//
+        $employee = User::create([
+            'name' => 'Funcionário',
+            'email' => 'employee@admin.com',
+            'password' => Hash::make('password'),
+        ]);
+        $employee->assignRole('employee');
+        
+        //==================//
+        // Cliente          //
+        //==================//
+        $customer = User::create([
+            'name' => 'Cliente',
+            'email' => 'customer@admin.com',
+            'password' => Hash::make('password'),
+        ]);
+        $customer->assignRole('customer');
+
+        //==================//
+        // UserFactory      //
+        //==================//
+        User::factory(100)->create();
     }
 }

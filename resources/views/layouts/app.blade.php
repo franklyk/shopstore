@@ -23,9 +23,9 @@
 
 <body>
 
-    <header class="container-fluid d-flex align-items-center justify-content-center">
+    <header class="container-fluid d-flex align-items-center justify-content-center px-3 bg-primary">
 
-        <nav class="navbar container bg-primary">
+        <nav class="navbar container-fluid">
             <div class="container-fluid d-flex align-items-center">
 
                 <a class="navbar-brand" style="width:150px" href="{{ route('home') }}">
@@ -37,37 +37,109 @@
                     <button class="btn btn-outline-light">Pesquisar</button>
                 </form>
 
-                <ul class="nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('products.index') }}">Produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('cart.index') }}">Carrinho</a>
-                    </li>
-                    @guest
+                <ul class="nav ms-auto align-items-center">
+
+                    @can('view products')
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('login') }}">Login</a>
-                        </li>
-                    @endguest
-                    @auth
-                        <li class="nav-item">
-                            <a class="nav-link text-white"  href="{{ route('admin.dashboard') }}">
-                                Dashboard
+                            <a class="nav-link text-white" href="{{ route('products.index') }}">
+                                Produtos
                             </a>
                         </li>
-                    @endauth
+                    @endcan
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('cart.index') }}">
+                            Carrinho
+                        </a>
+                    </li>
+
+                    @guest
+
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                                data-bs-toggle="dropdown">
+
+                                <img src="{{ asset('images/users/user.png') }}" class="rounded-circle" width="40"
+                                    height="40" style="object-fit: cover;">
+
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end">
+
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('login') }}">
+                                        Entrar
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                    @endguest
+
                     @auth
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="nav-link text-white">
-                                Sair
-                            </button>
-                        </form>
+
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-2" href="#"
+                                role="button" data-bs-toggle="dropdown">
+
+                                <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('images/users/user.png') }}"
+                                    class="rounded-circle" width="40" height="40" style="object-fit: cover;">
+
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end">
+
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        Minha Conta
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        Meus Pedidos
+                                    </a>
+                                </li>
+
+                                @can('view dashboard')
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+                                            Dashboard
+                                        </a>
+                                    </li>
+                                @endcan
+
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+
+                                <li>
+
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+
+                                        <button type="submit" class="dropdown-item">
+                                            Sair
+                                        </button>
+                                    </form>
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+
                     @endauth
 
                     <button class="btn btn-primary d-block d-md-none" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                        data-bs-target="#offcanvasWithBothOptions">
+
                         Menu
+
                     </button>
 
                 </ul>
@@ -75,7 +147,6 @@
             </div>
         </nav>
     </header>
-
 
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
         aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -97,8 +168,6 @@
     <div class="container mt-4">
         @yield('content')
     </div>
-
-    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script> --}}
 
 </body>
 
