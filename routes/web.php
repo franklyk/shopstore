@@ -17,9 +17,13 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
-// ================================//
-//  Página home                   //
-// ================================//
+// Route::get('/debug-modal', function () {
+//     return view('modal');
+// });
+
+/**
+ * start pagina home
+ */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // ================================//
@@ -119,32 +123,21 @@ Route::post('/reset-password', function (Request $request) {
         ->with('success', 'Senha redefinida com sucesso!')
     : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
+/*************************************************************************** */
+/*************************************************************************** */
+/* Bloco de redefinicao de senha */
+/*************************************************************************** */
+/*************************************************************************** */
 
-// ================================//
-//  Bloco Administrativo          //
-// ================================//
-// Route::prefix('admin')
-// ->middleware(['auth', 'role:admin'])->group(function () {
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified']);
 
-//     Route::get('/admin', [DashboardController::class, 'index'])
-//         ->middleware(['auth', 'verified'])
-//         ->name('admin.dashboard');
-//     // todas as rotas aqui viram /admin/...
-//     Route::resource('products', AdminProductController::class);
-
-//     Route::resource('users', AdminUserController::class);
-
-//     Route::resource('categories', AdminCategoryController::class);
-// });
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/admin', [DashboardController::class, 'index'])
-        ->middleware('permission:view dashboard')
+        ->middleware(['auth', 'verified'])
         ->name('admin.dashboard');
-
-    // ================================//
-    // Products                       //
-    // ================================//
 
     Route::get('/products', [AdminProductController::class, 'index'])
         ->middleware('permission:view products')
@@ -158,19 +151,19 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         ->middleware('permission:create products')
         ->name('products.store');
 
-    Route::get('/products/{product}', [AdminProductController::class, 'show'])
+    Route::get('/products/{products}', [AdminProductController::class, 'show'])
         ->middleware('permission:view products')
         ->name('products.show');
 
-    Route::get('/products/{product}/edit', [AdminProductController::class, 'edit'])
+    Route::get('/products/{products}/edit', [AdminProductController::class, 'edit'])
         ->middleware('permission:edit products')
         ->name('products.edit');
 
-    Route::put('/products/{product}', [AdminProductController::class, 'update'])
-        ->middleware('permission:edit products')
-        ->name('products.update');
+    Route::put('/categories/{category}', [AdminProductController::class, 'update'])
+        ->middleware('permission:edit categories')
+        ->name('categories.update');
 
-    Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])
+    Route::delete('/products/{products}', [AdminProductController::class, 'destroy'])
         ->middleware('permission:delete products')
         ->name('products.destroy');
 
