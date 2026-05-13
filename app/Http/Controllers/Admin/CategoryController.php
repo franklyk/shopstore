@@ -18,7 +18,7 @@ class CategoryController extends Controller
             ->latest()
             ->paginate(15);
 
-        return view('categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -30,7 +30,7 @@ class CategoryController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('categories.create', compact('categories'));
+        return view('admin.categories.create', compact('categories'));
     }
 
 
@@ -48,7 +48,7 @@ class CategoryController extends Controller
     {
         $category->load('parent', 'children');
 
-        return view('categories.show', compact('category'));
+        return view('admin.categories.show', compact('category'));
     }
 
 
@@ -59,7 +59,7 @@ class CategoryController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('categories.edit', compact('category', 'categories'));
+        return view('admin.categories.edit', compact('category', 'categories'));
     }
 
     
