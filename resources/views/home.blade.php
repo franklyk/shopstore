@@ -16,7 +16,7 @@
     @endif --}}
 
         <div class="row">
-
+            
             @forelse ($products as $product)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">

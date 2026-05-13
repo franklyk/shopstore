@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -12,6 +13,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
+        'uuid',
         'name',
         'description',
         'price',
@@ -22,6 +24,22 @@ class Product extends Model
         'price' => 'decimal:2',
         'stock' => 'integer',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function ($product) {
+
+            if (empty($product->uuid)) {
+                $product->uuid = (string) Str::ulid();
+            }
+
+        });
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
 
     public function categories()
     {

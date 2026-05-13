@@ -67,7 +67,7 @@
 
                                 @can('delete products')
                                     <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal{{ $product->id }}">
+                                        data-bs-target="#deleteModal{{ $product }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path d="M3 6h18" />
