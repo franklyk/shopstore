@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
@@ -15,7 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::cursorPaginate(15);
+        $categories = Category::with('parent')
+            ->latest()
+            ->paginate(15);
+
         return view('categories.index', compact('categories'));
     }
 
@@ -24,7 +26,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        $categories = Category::whereNull('parent_id')
+            ->orderBy('name')
+            ->get();
+
+        return view('categories.create', compact('categories'));
     }
 
     /**
@@ -35,8 +41,8 @@ class CategoryController extends Controller
         Category::create($request->validated());
 
         return redirect()
-        ->route('categories.index')
-        ->with('success', 'Categoria cadastrada com sucesso!!');
+            ->route('categories.index')
+            ->with('success', 'Categoria cadastrada com sucesso!');
     }
 
     /**
@@ -44,6 +50,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $category->load('parent', 'children');
+
         return view('categories.show', compact('category'));
     }
 
@@ -52,7 +60,12 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('categories.edit', compact('category'));
+        $categories = Category::whereNull('parent_id')
+            ->where('id', '!=', $category->id)
+            ->orderBy('name')
+            ->get();
+
+        return view('categories.edit', compact('category', 'categories'));
     }
 
     /**
@@ -60,11 +73,11 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        Category::update($request->validated());
+        $category->update($request->validated());
 
         return redirect()
-        ->route('categories.index')
-        ->with('success', 'Categoria atualizada com sucesso!!');
+            ->route('categories.index')
+            ->with('success', 'Categoria atualizada com sucesso!');
     }
 
     /**
@@ -72,7 +85,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete($category->id);
+        $category->delete();
 
         return redirect()
             ->route('categories.index')
