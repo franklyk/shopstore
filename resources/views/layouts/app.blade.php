@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ env('APP_NAME') }} @yield('title', 'Home')</title>
 
-    <!-- Bootstrap 5 CDN -->
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
     <script>
         window.APP_CONFIG = {
             baseUrl: "{{ url('/admin') }}",
@@ -18,87 +16,131 @@
     </script>
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
 </head>
 
 <body>
 
-    <header class="container-fluid d-flex align-items-center justify-content-center px-3 bg-primary">
+    @php
+        $menuCategories = \App\Models\Category::with('children')
+            ->whereNull('parent_id')
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get();
+    @endphp
 
-        <nav class="navbar container-fluid">
-            <div class="container-fluid d-flex align-items-center">
+    <header class="container-fluid bg-primary px-3">
 
-                <a class="navbar-brand" style="width:150px" href="{{ route('home') }}">
-                    <img class="w-100" src="{{ asset('images/logo/logo.png') }}">
-                </a>
+        <nav class="navbar navbar-expand-lg container-fluid">
 
-                <form class="d-none d-md-flex ms-3 flex-grow-1" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search">
-                    <button class="btn btn-outline-light">Pesquisar</button>
-                </form>
+            {{-- LOGO --}}
+            <a class="navbar-brand" style="width:150px" href="{{ route('home') }}">
+                <img class="w-100" src="{{ asset('images/logo/logo.png') }}">
+            </a>
 
-                @php
+            {{-- BUSCA --}}
+            <form class="d-none d-md-flex ms-3 flex-grow-1" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar produtos...">
+                <button class="btn btn-outline-light">
+                    Pesquisar
+                </button>
+            </form>
 
-                    $menuCategories = \App\Models\Category::with('children')
-                        ->whereNull('parent_id')
-                        ->where('is_active', true)
-                        ->orderBy('name')
-                        ->get();
+            {{-- MENU PRINCIPAL --}}
+            <ul class="navbar-nav ms-3">
 
-                @endphp
+                {{-- PRODUTOS --}}
+                <li class="nav-item dropdown">
 
-                <li class="nav-item dropdown ms-3">
+                    <a class="nav-link dropdown-toggle text-white fw-semibold"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        data-bs-auto-close="outside">
 
-                    <a class="nav-link dropdown-toggle text-white" href="#" role="button"
-                        data-bs-toggle="dropdown">
-
-                        Categorias
+                        Produtos
 
                     </a>
 
-                    <div class="dropdown-menu p-3" style="min-width: 320px;">
+                    <div class="dropdown-menu shadow border-0 p-0 overflow-hidden"
+                        style="min-width: 360px;">
 
-                        <div class="accordion accordion-flush" id="categoriesAccordion">
+                        {{-- LINK GERAL --}}
+                        <div class="p-3 border-bottom bg-light">
+
+                            <a href="{{ route('products.public.index') }}"
+                                class="btn btn-primary w-100">
+
+                                Ver todos os produtos
+
+                            </a>
+
+                        </div>
+
+                        {{-- ACCORDION --}}
+                        <div class="accordion accordion-flush"
+                            id="categoriesAccordion">
 
                             @foreach ($menuCategories as $category)
-                                <div class="accordion-item">
 
-                                    <h2 class="accordion-header">
+                                <div class="accordion-item border-0">
 
-                                        <button class="accordion-button collapsed py-2" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#category{{ $category->id }}">
+                                    {{-- HEADER --}}
+                                    <h2 class="accordion-header"
+                                        id="heading{{ $category->id }}">
 
-                                            {{ $category->name }}
+                                        <button class="accordion-button collapsed py-3 shadow-none"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ $category->id }}"
+                                            aria-expanded="false">
+
+                                            <strong>
+                                                {{ $category->name }}
+                                            </strong>
 
                                         </button>
 
                                     </h2>
 
-                                    <div id="category{{ $category->id }}" class="accordion-collapse collapse"
+                                    {{-- BODY --}}
+                                    <div id="collapse{{ $category->id }}"
+                                        class="accordion-collapse collapse"
                                         data-bs-parent="#categoriesAccordion">
 
-                                        <div class="accordion-body p-2">
+                                        <div class="accordion-body pt-2">
 
+                                            {{-- LINK CATEGORIA PAI --}}
+                                            <a href="{{ route('categories.public.show', $category->slug) }}"
+                                                class="dropdown-item rounded fw-semibold text-primary mb-2">
+
+                                                Ver tudo em {{ $category->name }}
+
+                                            </a>
+
+                                            {{-- FILHAS --}}
                                             @if ($category->children->count())
-                                                <ul class="list-unstyled mb-0">
+
+                                                <div class="d-flex flex-column gap-1">
 
                                                     @foreach ($category->children as $child)
-                                                        <li>
 
-                                                            <a href="#" class="dropdown-item rounded">
+                                                        <a href="{{ route('categories.public.show', $child->slug) }}"
+                                                            class="dropdown-item rounded">
 
-                                                                {{ $child->name }}
+                                                            {{ $child->name }}
 
-                                                            </a>
+                                                        </a>
 
-                                                        </li>
                                                     @endforeach
 
-                                                </ul>
+                                                </div>
+
                                             @else
-                                                <span class="text-muted small">
+
+                                                <small class="text-muted">
                                                     Sem subcategorias
-                                                </span>
+                                                </small>
+
                                             @endif
 
                                         </div>
@@ -106,6 +148,7 @@
                                     </div>
 
                                 </div>
+
                             @endforeach
 
                         </div>
@@ -114,137 +157,245 @@
 
                 </li>
 
-                <ul class="nav ms-auto align-items-center">
+            </ul>
 
-                    @can('view products')
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('products.index') }}">
-                                Produtos
-                            </a>
-                        </li>
-                    @endcan
+            {{-- MENU DIREITA --}}
+            <ul class="nav ms-auto align-items-center">
 
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('cart.index') }}">
-                            Carrinho
+                {{-- CARRINHO --}}
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ route('cart.index') }}">
+                        Carrinho
+                    </a>
+                </li>
+
+                {{-- VISITANTE --}}
+                @guest
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle text-white"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown">
+
+                            <img src="{{ asset('images/users/user.png') }}"
+                                class="rounded-circle"
+                                width="40"
+                                height="40"
+                                style="object-fit: cover;">
+
                         </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                            <li>
+                                <a class="dropdown-item"
+                                    href="{{ route('login') }}">
+
+                                    Entrar
+
+                                </a>
+                            </li>
+
+                        </ul>
+
                     </li>
 
-                    @guest
+                @endguest
 
-                        <li class="nav-item dropdown">
+                {{-- AUTENTICADO --}}
+                @auth
 
-                            <a class="nav-link dropdown-toggle text-white" href="#" role="button"
-                                data-bs-toggle="dropdown">
+                    <li class="nav-item dropdown">
 
-                                <img src="{{ asset('images/users/user.png') }}" class="rounded-circle" width="40"
-                                    height="40" style="object-fit: cover;">
+                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-2"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown">
 
-                            </a>
+                            <img src="{{ auth()->user()->avatar
+                                ? asset('storage/' . auth()->user()->avatar)
+                                : asset('images/users/user.png') }}"
+                                class="rounded-circle"
+                                width="40"
+                                height="40"
+                                style="object-fit: cover;">
 
-                            <ul class="dropdown-menu dropdown-menu-end">
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Minha Conta
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Meus Pedidos
+                                </a>
+                            </li>
+
+                            @can('view dashboard')
 
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('login') }}">
-                                        Entrar
+                                    <a class="dropdown-item"
+                                        href="{{ route('admin.dashboard') }}">
+
+                                        Dashboard
+
                                     </a>
                                 </li>
 
-                            </ul>
+                            @endcan
 
-                        </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
 
-                    @endguest
+                            <li>
 
-                    @auth
+                                <form method="POST"
+                                    action="{{ route('logout') }}">
 
-                        <li class="nav-item dropdown">
+                                    @csrf
 
-                            <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-2" href="#"
-                                role="button" data-bs-toggle="dropdown">
+                                    <button type="submit"
+                                        class="dropdown-item">
 
-                                <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('images/users/user.png') }}"
-                                    class="rounded-circle" width="40" height="40" style="object-fit: cover;">
+                                        Sair
 
-                            </a>
+                                    </button>
 
-                            <ul class="dropdown-menu dropdown-menu-end">
+                                </form>
 
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        Minha Conta
-                                    </a>
-                                </li>
+                            </li>
 
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        Meus Pedidos
-                                    </a>
-                                </li>
+                        </ul>
 
-                                @can('view dashboard')
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                                            Dashboard
-                                        </a>
-                                    </li>
-                                @endcan
+                    </li>
 
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
+                @endauth
 
-                                <li>
+                {{-- MOBILE --}}
+                <li class="nav-item d-block d-md-none">
 
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-
-                                        <button type="submit" class="dropdown-item">
-                                            Sair
-                                        </button>
-                                    </form>
-
-                                </li>
-
-                            </ul>
-
-                        </li>
-
-                    @endauth
-
-                    <button class="btn btn-primary d-block d-md-none" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasWithBothOptions">
+                    <button class="btn btn-primary"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasMenu">
 
                         Menu
 
                     </button>
 
-                </ul>
+                </li>
 
-            </div>
+            </ul>
+
         </nav>
+
     </header>
 
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
-        aria-labelledby="offcanvasWithBothOptionsLabel">
+    {{-- OFFCANVAS MOBILE --}}
+    <div class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="offcanvasMenu">
+
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+            <h5 class="offcanvas-title">
+                Menu
+            </h5>
+
+            <button type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas">
+            </button>
+
         </div>
+
         <div class="offcanvas-body">
-            <p>Try scrolling the rest of the page to see this option in action.</p>
+
+            <a href="{{ route('products.public.index') }}"
+                class="btn btn-primary w-100 mb-3">
+
+                Todos os Produtos
+
+            </a>
+
+            <div class="accordion accordion-flush"
+                id="mobileCategoriesAccordion">
+
+                @foreach ($menuCategories as $category)
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#mobileCollapse{{ $category->id }}">
+
+                                {{ $category->name }}
+
+                            </button>
+
+                        </h2>
+
+                        <div id="mobileCollapse{{ $category->id }}"
+                            class="accordion-collapse collapse">
+
+                            <div class="accordion-body">
+
+                                <a href="{{ route('categories.public.show', $category->slug) }}"
+                                    class="dropdown-item fw-bold text-primary">
+
+                                    Ver tudo
+
+                                </a>
+
+                                @foreach ($category->children as $child)
+
+                                    <a href="{{ route('categories.public.show', $child->slug) }}"
+                                        class="dropdown-item">
+
+                                        {{ $child->name }}
+
+                                    </a>
+
+                                @endforeach
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                @endforeach
+
+            </div>
+
         </div>
+
     </div>
 
+    {{-- ALERTAS --}}
     @if (session('success'))
-        <div class="alert alert-success">
+
+        <div class="alert alert-success m-0 rounded-0">
             {{ session('success') }}
         </div>
+
     @endif
 
-    <div class="container mt-4">
+    {{-- CONTEÚDO --}}
+    <main class="container mt-4">
         @yield('content')
-    </div>
+    </main>
 
 </body>
 

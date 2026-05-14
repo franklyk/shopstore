@@ -10,20 +10,23 @@ use App\Http\Controllers\Auth\RegisterController as AuthRegisterController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Store\CartController as StoreCartController;
 use App\Http\Controllers\Store\HomeController as StoreHomeController;
+use App\Http\Controllers\Store\ProductController as StoreProductController;
+use App\Http\Controllers\Store\CategoryController as StoreCategoryController;
 use Illuminate\Support\Facades\Route;
 
-
-// Route::get('/debug-modal', function () {
-//     return view('modal');
-// });
-
-/**
- * start pagina home
- */
+// ================================//
+//            Loja                 //
+// ================================//
 Route::get('/', [StoreHomeController::class, 'index'])->name('home');
 
+Route::get('/produtos', [StoreProductController::class, 'index'])
+    ->name('products.public.index');
+
+Route::get('/categoria/{slug}', [StoreCategoryController::class, 'show'])
+    ->name('categories.public.show');
+
 // ================================//
-//  Carrinho de compras           //
+//   Carrinho de compras           //
 // ================================//
 Route::get('/cart', [StoreCartController::class, 'index'])->name('cart.index');
 
@@ -32,6 +35,9 @@ Route::post('/cart/add/{product}', [StoreCartController::class, 'add'])->name('c
 Route::delete('/cart/remove/{id}', [StoreCartController::class, 'remove'])->name('cart.remove');
 
 Route::post('/cart/update/{id}', [StoreCartController::class, 'update'])->name('cart.update');
+// ================================//
+//            Loja                 //
+// ================================//
 
 // ================================//
 //  Bloco de cadastro de usuarios //
@@ -42,8 +48,8 @@ Route::middleware('guest')->group(function () {
 });
 
 // ================================//
-//  Bloco de login de usuarios    //
-// ================================//
+//  Bloco de login de usuarios     //
+// =============================== //
 Route::middleware('guest')->group(function () {
     Route::get('/login', [SessionController::class, 'create'])->name('login');
     Route::post('/login', [SessionController::class, 'store']);
@@ -52,7 +58,7 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
 // ================================//
-//  Bloco de verificacao de email //
+//  Bloco de verificacao de email  //
 // ================================//
 
 Route::middleware('auth')->group(function () {
@@ -70,7 +76,7 @@ Route::middleware('auth')->group(function () {
 
 });
 // ================================//
-//  Bloco de redefinicao de senha //
+//  Bloco de redefinicao de senha  //
 // ================================//
 
 Route::middleware('guest')->group(function () {
@@ -88,7 +94,6 @@ Route::middleware('guest')->group(function () {
         ->name('password.update');
 
 });
-
 
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 

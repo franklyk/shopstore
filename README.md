@@ -246,3 +246,98 @@ Evitar:
 ❌ otimização prematura
 ❌ abstração precoce
 ❌ mini-framework frontend antes do fluxo estar estável
+
+
+
+========================================
+PRÓXIMO PASSO DO PROJETO 
+========================================
+
+OBJETIVO:
+Construir a página pública individual do produto.
+
+EXEMPLO:
+- /produto/notebook-gamer-asus
+- /produto/iphone-15
+
+----------------------------------------
+O QUE IMPLEMENTAR
+----------------------------------------
+
+1. ROTA PÚBLICA
+- Criar rota:
+  Route::get('/produto/{slug}', ...)
+
+2. STORE PRODUCT CONTROLLER
+- Criar controller público:
+  App\Http\Controllers\Store\ProductController
+
+- Método:
+  show(string $slug)
+
+3. MODEL PRODUCT
+Garantir:
+- campo slug
+- relacionamento categories()
+- relacionamento images() futuramente
+
+4. VIEW
+Criar:
+resources/views/store/products/show.blade.php
+
+A página deve conter:
+- nome
+- descrição
+- preço
+- estoque
+- categorias
+- botão adicionar ao carrinho
+- imagem placeholder
+- breadcrumb
+
+5. LINKS
+Atualizar:
+- cards da home
+- cards da categoria
+- navbar
+
+Todos devem apontar para:
+route('products.public.show', $product->slug)
+
+6. SEO BÁSICO
+Adicionar:
+- title dinâmico
+- meta description
+- URL amigável via slug
+
+7. UX
+Adicionar:
+- botão “Continuar comprando”
+- produtos relacionados futuramente
+
+----------------------------------------
+ESTRUTURA FINAL ESPERADA
+----------------------------------------
+
+/
+|-- produtos
+|-- categoria/informatica
+|-- produto/notebook-gamer-asus
+
+----------------------------------------
+DEPOIS DISSO
+----------------------------------------
+
+PRIORIDADE 1:
+Sistema de imagens de produto
+
+PRIORIDADE 2:
+Busca de produtos
+
+PRIORIDADE 3:
+Filtros e ordenação
+
+PRIORIDADE 4:
+Carrinho persistente
+
+========================================
