@@ -107,7 +107,10 @@
             </aside>
 
             <main class="col p-4">
+                <x-admin.forms.flesh/>
+
                 @yield('content')
+                
             </main>
 
         </div>

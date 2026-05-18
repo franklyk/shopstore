@@ -4,209 +4,139 @@
 
 @section('content')
 
-    <div class="card">
-
-        <div class="card-header d-flex align-items-center">
-
-            <div class="card-title">
-                <h2>Categorias Cadastradas</h2>
-            </div>
+    <x-card title="Categorias Cadastradas">
+        <x-slot:actions>
 
             @can('create categories')
-                <a href="{{ route('categories.create') }}" class="ms-auto btn btn-sm btn-primary">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                        stroke-width="2" viewBox="0 0 24 24">
-
-                        <path d="M12 5v14" />
-                        <path d="M5 12h14" />
-
-                    </svg>
-
-                    Novo
-
-                </a>
+                <x-buttons.button href="{{ route('categories.create') }}" color="primary" icon="plus" label="Novo" />
             @endcan
 
-        </div>
+        </x-slot:actions>
+        <table class="table table-bordered align-middle">
 
-        <div class="card-body">
+            <thead class="text-center">
+                <tr>
+                    <th scope="col">COD</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Categoria Pai</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
 
-            <table class="table table-bordered align-middle">
+            <tbody class="table-group-divider">
 
-                <thead class="text-center">
+                @forelse ($categories as $category)
+                    <tr class="text-center">
 
-                    <tr>
+                        <th scope="row">
+                            {{ $category->id }}
+                        </th>
 
-                        <th scope="col">COD</th>
+                        <td>
+                            {{ $category->name }}
+                        </td>
 
-                        <th scope="col">Nome</th>
+                        <td>
 
-                        <th scope="col">Categoria Pai</th>
+                            @if ($category->parent)
+                                {{ $category->parent->name }}
+                            @else
+                                <span class="badge bg-secondary">
+                                    Principal
+                                </span>
+                            @endif
 
-                        <th scope="col">Status</th>
+                        </td>
 
-                        <th scope="col">Ações</th>
+                        <td>
+
+                            @if ($category->is_active)
+                                <span class="badge bg-success">
+                                    Ativa
+                                </span>
+                            @else
+                                <span class="badge bg-danger">
+                                    Inativa
+                                </span>
+                            @endif
+
+                        </td>
+
+                        <td>
+
+                            @can('view categories')
+                                <x-buttons.button href="{{ route('categories.show', $category) }}" color="info"
+                                    icon="eye" />
+                            @endcan
+
+                            @can('edit categories')
+                                <x-buttons.button href="{{ route('categories.edit', $category) }}" color="warning"
+                                    icon="edit" />
+                            @endcan
+
+                            @can('delete categories')
+                                <x-buttons.button type="button" color="danger" icon="trash" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal{{ $category->id }}" />
+                            @endcan
+
+                        </td>
 
                     </tr>
 
-                </thead>
+                @empty
 
-                <tbody class="table-group-divider">
+                    <tr>
 
-                    @forelse ($categories as $category)
-                        <tr class="text-center">
+                        <td colspan="5" class="text-center py-5">
 
-                            <th scope="row">
-                                {{ $category->id }}
-                            </th>
+                            <div class="d-flex flex-column align-items-center gap-2">
 
-                            <td>
-                                {{ $category->name }}
-                            </td>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="none"
+                                    stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="text-secondary">
 
-                            <td>
+                                    <path d="M3 7h18" />
+                                    <path d="M6 3h12l1 4H5l1-4Z" />
+                                    <path d="M5 7v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7" />
 
-                                @if ($category->parent)
-                                    {{ $category->parent->name }}
-                                @else
-                                    <span class="badge bg-secondary">
-                                        Principal
-                                    </span>
-                                @endif
+                                </svg>
 
-                            </td>
+                                <h5 class="mb-0">
+                                    Nenhuma categoria cadastrada
+                                </h5>
+                                <p class="text-muted mb-0">
+                                    Ainda não existem categorias no sistema.
+                                </p>
 
-                            <td>
-
-                                @if ($category->is_active)
-                                    <span class="badge bg-success">
-                                        Ativa
-                                    </span>
-                                @else
-                                    <span class="badge bg-danger">
-                                        Inativa
-                                    </span>
-                                @endif
-
-                            </td>
-
-                            <td>
-
-                                @can('view categories')
-                                    <a href="{{ route('categories.show', $category) }}" class="btn btn-sm btn-info">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-
-                                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" />
-
-                                            <circle cx="12" cy="12" r="3" />
-
-                                        </svg>
-
-                                    </a>
+                                @can('create categories')
+                                    <x-buttons.button href="{{ route('categories.create') }}" color="primary" icon="plus"
+                                        label="Criar primeira categoria" />
                                 @endcan
 
-                                @can('edit categories')
-                                    <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-warning">
+                            </div>
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        </td>
 
-                                            <path d="M12 20h9" />
+                    </tr>
+                @endforelse
 
-                                            <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+            </tbody>
 
-                                        </svg>
+        </table>
+        @can('delete categories')
 
-                                    </a>
-                                @endcan
+            @foreach ($categories as $category)
+                <x-modal.delete :action="route('categories.destroy', $category)" :id="$category->id" :name="$category->name" />
+            @endforeach
 
-                                @can('delete categories')
-                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal{{ $category->id }}">
+        @endcan
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <div class="mt-3">
 
-                                            <path d="M3 6h18" />
-                                            <path d="M8 6V4h8v2" />
-                                            <path d="M19 6l-1 14H6L5 6" />
-                                            <path d="M10 11v6" />
-                                            <path d="M14 11v6" />
-
-                                        </svg>
-
-                                    </button>
-                                @endcan
-
-                            </td>
-
-                        </tr>
-
-                    @empty
-
-                        <tr>
-
-                            <td colspan="5" class="text-center py-5">
-
-                                <div class="d-flex flex-column align-items-center gap-2">
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="none"
-                                        stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="text-secondary">
-
-                                        <path d="M3 7h18" />
-                                        <path d="M6 3h12l1 4H5l1-4Z" />
-                                        <path d="M5 7v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7" />
-
-                                    </svg>
-
-                                    <h5 class="mb-0">
-                                        Nenhuma categoria cadastrada
-                                    </h5>
-
-                                    <p class="text-muted mb-0">
-
-                                        Ainda não existem categorias no sistema.
-
-                                    </p>
-
-                                    @can('create categories')
-                                        <a href="{{ route('categories.create') }}" class="btn btn-sm btn-primary mt-2">
-
-                                            Criar primeira categoria
-
-                                        </a>
-                                    @endcan
-
-                                </div>
-
-                            </td>
-
-                        </tr>
-                    @endforelse
-
-                </tbody>
-
-            </table>
+            {{ $categories->links() }}
 
         </div>
 
-    </div>
-
-    @can('delete categories')
-
-        @foreach ($categories as $category)
-            <x-modal.delete :action="route('categories.destroy', $category)" :id="$category->id" :name="$category->name" />
-        @endforeach
-
-    @endcan
-
-    <div class="mt-3">
-
-        {{ $categories->links() }}
-
-    </div>
+    </x-card>
 
 @endsection
