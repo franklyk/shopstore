@@ -33,7 +33,7 @@ class SessionController extends Controller
         }
         $request->session()->regenerate();
 
-        return redirect()->route('products.index');
+        return redirect()->route('admin.dashboard');
     }
 
     /**

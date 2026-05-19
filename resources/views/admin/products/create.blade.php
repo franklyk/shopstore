@@ -18,12 +18,8 @@
                     <x-admin.forms.input type="text" name="name" label="Nome" />
                 </x-admin.forms.row>
 
-
                 <x-admin.forms.row>
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Descrição</label>
-                        <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
-                    </div>
+                    <x-admin.forms.textarea label="Descrição" name="description"></x-admin.forms.textarea>
                 </x-admin.forms.row>
 
                 <x-admin.forms.row>
@@ -36,51 +32,35 @@
 
                 <x-admin.forms.row>
                     <div class="mb-3">
-                        <p class="form-label"><strong>Categorias</strong></p>
+                        <p class="form-label">
+                            <strong>Categorias</strong>
+                        </p>
 
                         <div class="border rounded p-3">
-
                             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-
                                 @forelse($categories as $parent)
                                     <div class="col">
-
                                         <div class="p-2 border rounded h-100">
-
-                                            {{-- PAI --}}
                                             <div class="fw-bold text-primary mb-2">
                                                 {{ $parent->name }}
                                             </div>
-
-                                            {{-- FILHAS --}}
                                             <div class="ms-2">
-
                                                 @forelse($parent->children as $child)
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="categories[]"
-                                                            value="{{ $child->id }}" id="cat_{{ $child->id }}">
-
-                                                        <label class="form-check-label" for="cat_{{ $child->id }}">
-                                                            {{ $child->name }}
-                                                        </label>
-                                                    </div>
+                                                    <x-admin.forms.checkbox :name="$child->name" :label="$child->name"
+                                                        value="{{ $child->id }}" id="{{ $child->slug }}" />
                                                 @empty
                                                     <small class="text-muted">Sem subcategorias</small>
                                                 @endforelse
-
                                             </div>
 
                                         </div>
-
                                     </div>
                                 @empty
                                     <div class="col">
                                         <p class="text-muted mb-0">Nenhuma categoria cadastrada.</p>
                                     </div>
                                 @endforelse
-
                             </div>
-
                         </div>
                     </div>
                 </x-admin.forms.row>

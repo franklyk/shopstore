@@ -7,70 +7,41 @@
         <x-slot:actions>
 
             @can('create products')
-                <a href="{{ route('products.create') }}" class="btn btn-sm btn-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                        stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M12 5v14" />
-                        <path d="M5 12h14" />
-                    </svg>
-
-                    Novo
-                </a>
+                <x-buttons.button href="{{ route('products.create') }}" color="primary" icon="plus" label="Novo" />
             @endcan
 
         </x-slot:actions>
-        <table class="table table-bordered table-hover">
-            <thead class="text-center">
-                <tr>
-                    <th scope="col">COD</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Descrição</th>
-                    <th scope="col">Preço</th>
-                    <th scope="col">Estoque</th>
-                    <th scope="col">Ações</th>
-                </tr>
-            </thead>
+        <x-admin.table.table>
+            <x-admin.table.thead :columns="['CÓDIGO', 'Nome', 'Descrição', 'Preço', 'Estoque', 'Ações']" />
 
-            <tbody class="table-group-divider">
-                @foreach ($products as $product)
+            <x-admin.table.tbody>
+                @forelse ($products as $product)
                     <tr>
-                        <th scope="row">{{ $product->id }}</th>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->description }}</td>
-                        <td>R$ {{ $product->price }}</td>
-                        <td>{{ $product->stock }}</td>
+                        <th scope="row" class="text-center">{{ $product->id }}</th>
+                        <x-admin.table.td value="{{ $product->name }}" />
+                        <x-admin.table.td value="{{ $product->description }}" />
+                        <x-admin.table.td value="R$ {{ $product->price }}" />
+                        <x-admin.table.td value="{{ $product->stock }}" />
 
-                        <td>
-                            @can('view products')
-                                <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-info">
-                                    <x-icons.eye />
-                                </a>
-                            @endcan
-
-                            @can('edit products')
-                                <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning">
-
-                                    <x-icons.edit />
-
-                                </a>
-                            @endcan
-
-                            @can('delete products')
-                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal{{ $product }}">
-
-                                    <x-icons.trash />
-
-                                </button>
-                            @endcan
-
-                        </td>
+                        <x-admin.table.td>
+                            <x-admin.table.actions :item="$product" :view="route('products.show', $product)" :edit="route('products.edit', $product)" :delete="route('products.destroy', $product)"
+                                permission="products" />
+                        </x-admin.table.td>
                     </tr>
-                @endforeach
-            </tbody>
+                @empty
 
-        </table>
-        <div class="mt-3">
+                    <tr>
+
+                        <x-admin.table.td colspan="6" class="text-center text-muted py-4">
+                            Nenhum produto encontrado.
+                        </x-admin.table.td>
+
+                    </tr>
+                @endforelse
+            </x-admin.table.tbody>
+
+        </x-admin.table.table>
+        <div class="mt-5">
 
             {{ $products->links() }}
         </div>
