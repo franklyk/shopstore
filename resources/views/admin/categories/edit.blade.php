@@ -4,189 +4,53 @@
 
 @section('content')
 
-<div class="card">
+    <x-card title="Editar Categoria">
 
-    <div class="card-header">
+        <x-admin.forms.form action="{{ route('categories.update', $category->id) }}" method="PUT">
 
-        <div class="card-title">
-            <h2>Editar Categoria</h2>
-        </div>
+            <x-admin.forms.row>
+                <x-admin.forms.input type="text" name="name" label="Nome" value="{{ $category->name }}" />
+            </x-admin.forms.row>
 
-    </div>
+            <x-admin.forms.row>
+                <x-admin.forms.input type="text" name="slug" label="Slug" value="{{ $category->slug }}" />
+            </x-admin.forms.row>
 
-    <div class="card-body">
+            <x-admin.forms.row>
+                <x-admin.forms.checkbox name="is_active" value="1" id="is_active" label="Categoria ativa" />
+            </x-admin.forms.row>
 
-        <form action="{{ route('categories.update', $category) }}"
-              method="POST"
-              id="edit-form">
-
-            @csrf
-            @method('PUT')
 
             <div class="mb-3">
 
-                <label for="name" class="form-label">
-
-                    <strong>Nome</strong>
-
-                </label>
-
-                <input type="text"
-                       class="form-control @error('name') is-invalid @enderror"
-                       id="name"
-                       name="name"
-                       value="{{ old('name', $category->name) }}">
-
-                @error('name')
-
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-
-                @enderror
-
-            </div>
-
-            <div class="mb-3">
-
-                <label for="slug" class="form-label">
-
-                    <strong>Slug</strong>
-
-                </label>
-
-                <input type="text"
-                       class="form-control @error('slug') is-invalid @enderror"
-                       id="slug"
-                       name="slug"
-                       value="{{ old('slug', $category->slug) }}">
-
-                @error('slug')
-
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-
-                @enderror
-
-            </div>
-
-            <div class="mb-3">
-
-                <label for="parent_id" class="form-label">
-
+                <p for="parent_id" class="form-label">
                     <strong>Categoria Pai</strong>
+                </p>
 
-                </label>
-
-                <select name="parent_id"
-                        id="parent_id"
-                        class="form-select @error('parent_id') is-invalid @enderror">
+                <select name="parent_id" id="parent_id" class="form-select @error('parent_id') is-invalid @enderror">
 
                     <option value="">
                         Categoria Principal
                     </option>
 
-                    @foreach($categories as $parent)
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" @selected(old('parent_id') == $category->id)>
 
-                        <option value="{{ $parent->id }}"
-                            @selected(old('parent_id', $category->parent_id) == $parent->id)>
-
-                            {{ $parent->name }}
+                            {{ $category->name }}
 
                         </option>
-
                     @endforeach
 
                 </select>
-
-                @error('parent_id')
-
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-
-                @enderror
-
             </div>
 
-            <div class="form-check">
+            @can('view categories')
+                <x-buttons.button href="{{ route('categories.index') }}" color="secondary" icon="return" label="Voltar" />
+            @endcan
 
-                <input type="hidden"
-                       name="is_active"
-                       value="0">
+            <x-buttons.button type="submit" color="success" icon="check" label="Cadastrar" />
 
-                <input class="form-check-input"
-                       type="checkbox"
-                       id="is_active"
-                       name="is_active"
-                       value="1"
-                       @checked(old('is_active', $category->is_active))>
-
-                <label class="form-check-label" for="is_active">
-
-                    Categoria ativa
-
-                </label>
-
-            </div>
-
-        </form>
-
-    </div>
-
-    <div class="card-footer">
-
-        @can('view categories')
-
-            <a href="{{ route('categories.index') }}"
-               class="btn btn-sm btn-secondary">
-
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     width="20"
-                     height="20"
-                     fill="none"
-                     stroke="currentColor"
-                     stroke-width="2"
-                     viewBox="0 0 24 24">
-
-                    <path d="M9 14L4 9l5-5" />
-                    <path d="M20 20v-7a4 4 0 0 0-4-4H4" />
-
-                </svg>
-
-                Voltar
-
-            </a>
-
-        @endcan
-
-        <button type="submit"
-                class="btn btn-sm btn-warning"
-                form="edit-form">
-
-            <strong>
-
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     width="20"
-                     height="20"
-                     fill="none"
-                     stroke="currentColor"
-                     stroke-width="2"
-                     viewBox="0 0 24 24">
-
-                    <path d="M20 6L9 17l-5-5" />
-
-                </svg>
-
-                Salvar
-
-            </strong>
-
-        </button>
-
-    </div>
-
-</div>
+        </x-admin.forms.form>
+    </x-card>
 
 @endsection

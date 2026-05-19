@@ -1,6 +1,6 @@
 @props(['value' => null])
 
-<td class="text-center">
+<td>
     {{ $value }}
     {{ $slot }}
 </td>

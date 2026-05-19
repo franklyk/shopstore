@@ -2,7 +2,7 @@
 
 <div class="form-check">
 
-    <label class="form-check-label" for="{{ $id }}">
+    <label class="form-check-label ms-3" for="{{ $id }}">
 
         <input type="checkbox" id="{{ $id }}" name="{{ $name }}" value="{{ $value }}"
             class="form-check-input" @checked(old($name, $checked)) {{ $attributes }}>
