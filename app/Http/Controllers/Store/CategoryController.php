@@ -19,12 +19,12 @@ class CategoryController extends Controller
             ->toArray();
 
         // produtos (ajustar depois quando tiver pivot N:N se necessário)
-        $products = $category->products()
-            ->paginate(12);
+        $products = $category->allProducts()->paginate(40);
 
-        return view('store.categories.show', compact(
+        return view('store.categories.index', compact(
             'category',
-            'products'
+            'products',
+            'categoryIds'
         ));
     }
 }

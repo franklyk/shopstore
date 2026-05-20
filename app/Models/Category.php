@@ -39,7 +39,7 @@ class Category extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class);
-    }
+    }       
 
     public function parent()
     {
@@ -50,4 +50,13 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
+    
+    public function allProducts()
+{
+    $categoryIds = $this->children->pluck('id')->push($this->id);
+
+    return Product::whereHas('categories', function ($query) use ($categoryIds) {
+        $query->whereIn('categories.id', $categoryIds);
+    });
+}
 }

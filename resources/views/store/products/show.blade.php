@@ -19,7 +19,10 @@
 
             {{-- Imagem --}}
             <div class="col-md-5">
-                <img src="https://placehold.co/600x600" class="img-fluid rounded" alt="{{ $product->name }}">
+                {{-- <img src="https://placehold.co/600x600" class="img-fluid rounded" alt="{{ $product->name }}">
+                https://picsum.photos/seed/{{ $product->slug }}/400/300 --}}
+                <img src="https://picsum.photos/seed/{{ rand(1, 10000) }}/600/600" class="card-img-top"
+                    alt="{{ $product->name }}">
             </div>
 
             {{-- Dados --}}
