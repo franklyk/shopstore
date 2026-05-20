@@ -21,14 +21,12 @@ class ProductFactory extends Factory
         return [
 
             'uuid' => (string) Str::ulid(),
-
             'name' => fake('pt_BR')->words(3, true),
-
+            'slug' => fake()->slug(),
             'description' => fake('pt_BR')->sentence(),
-
             'price' => fake()->randomFloat(2, 10, 1000),
-
             'stock' => fake()->numberBetween(0, 100),
+            'is_active' => true,
 
         ];
     }

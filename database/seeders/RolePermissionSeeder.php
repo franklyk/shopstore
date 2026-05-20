@@ -3,37 +3,44 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class RolePermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        //================================//
+        app()[PermissionRegistrar::class]
+            ->forgetCachedPermissions();
+
+        // ================================//
         // Roles                          //
-        //================================//
+        // ================================//
 
         $customer = Role::firstOrCreate([
-            'name' => 'customer'
+            'name' => 'customer',
         ]);
 
         $employee = Role::firstOrCreate([
-            'name' => 'employee'
+            'name' => 'employee',
         ]);
 
         $manager = Role::firstOrCreate([
-            'name' => 'manager'
+            'name' => 'manager',
         ]);
 
         $admin = Role::firstOrCreate([
-            'name' => 'admin'
+            'name' => 'admin',
         ]);
 
-        //================================//
+        Role::firstOrCreate([
+            'name' => 'super-admin',
+        ]);
+
+        // ================================//
         // Permissions                    //
-        //================================//
+        // ================================//
 
         $permissions = [
 
@@ -63,20 +70,18 @@ class RolePermissionSeeder extends Seeder
         foreach ($permissions as $permission) {
 
             Permission::firstOrCreate([
-                'name' => $permission
+                'name' => $permission,
             ]);
         }
 
-        //================================//
+        // ================================//
         // Customer Permissions           //
-        //================================//
-
+        // ================================//
         $customer->givePermissionTo([]);
 
-        //================================//
+        // ================================//
         // Employee Permissions           //
-        //================================//
-
+        // ================================//
         $employee->givePermissionTo([
 
             'view dashboard',
@@ -86,10 +91,9 @@ class RolePermissionSeeder extends Seeder
 
         ]);
 
-        //================================//
+        // ================================//
         // Manager Permissions            //
-        //================================//
-
+        // ================================//
         $manager->givePermissionTo([
 
             'view dashboard',
@@ -106,10 +110,9 @@ class RolePermissionSeeder extends Seeder
 
         ]);
 
-        //================================//
+        // ================================//
         // Admin Permissions              //
-        //================================//
-
+        // ================================//
         $admin->givePermissionTo(
             Permission::all()
         );

@@ -8,15 +8,8 @@
 
         <h1 class="mb-4">Produtos</h1>
 
-        {{-- Feedback --}}
-        {{-- @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif --}}
-
         <div class="row">
-            
+
             @forelse ($products as $product)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">
@@ -24,7 +17,10 @@
                         <div class="card-body d-flex flex-column">
 
                             <h5 class="card-title">
-                                {{ $product->name }}
+                                <a href="{{ route('products.public.show', $product->slug) }}">
+                                    {{ $product->name }}
+                                </a>
+
                             </h5>
 
                             <p class="card-text text-muted">
@@ -36,6 +32,9 @@
                                 <strong class="d-block mb-2">
                                     R$ {{ number_format($product->price, 2, ',', '.') }}
                                 </strong>
+
+                                {{-- <x-buttons.button href="{{ route('products.public.show', $product->slug) }}" color="info" icon="eye" label="Saiba Mais"/> --}}
+
 
                                 <form action="{{ route('cart.add', $product) }}" method="POST">
                                     @csrf

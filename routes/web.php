@@ -9,9 +9,9 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegisterController as AuthRegisterController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Store\CartController as StoreCartController;
+use App\Http\Controllers\Store\CategoryController as StoreCategoryController;
 use App\Http\Controllers\Store\HomeController as StoreHomeController;
 use App\Http\Controllers\Store\ProductController as StoreProductController;
-use App\Http\Controllers\Store\CategoryController as StoreCategoryController;
 use Illuminate\Support\Facades\Route;
 
 // ================================//
@@ -19,10 +19,16 @@ use Illuminate\Support\Facades\Route;
 // ================================//
 Route::get('/', [StoreHomeController::class, 'index'])->name('home');
 
-Route::get('/produtos', [StoreProductController::class, 'index'])
+Route::get('/products', [StoreProductController::class, 'index'])
     ->name('products.public.index');
 
-Route::get('/categoria/{slug}', [StoreCategoryController::class, 'show'])
+Route::get('/produto/{product:slug}', [StoreProductController::class, 'show'])
+    ->name('products.public.show');
+
+
+
+
+Route::get('/categories/{slug}', [StoreCategoryController::class, 'show'])
     ->name('categories.public.show');
 
 // ================================//

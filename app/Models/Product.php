@@ -15,9 +15,11 @@ class Product extends Model
     protected $fillable = [
         'uuid',
         'name',
+        'slug',
         'description',
         'price',
         'stock',
+        'is_active',
     ];
 
     protected $casts = [
@@ -27,12 +29,20 @@ class Product extends Model
 
     protected static function booted(): void
     {
+        parent::boot();
+
         static::creating(function ($product) {
 
             if (empty($product->uuid)) {
                 $product->uuid = (string) Str::ulid();
             }
 
+            $product->slug = Str::slug($product->name);
+
+        });
+        static::updating(function ($product) {
+            
+            $product->slug = Str::slug($product->name);
         });
     }
 
@@ -45,4 +55,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    // public function images()
+    // {
+    //     return $this->hasMany(ProductImage::class);
+    // }
 }

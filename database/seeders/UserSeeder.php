@@ -6,6 +6,7 @@ use App\Models\User;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -14,6 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        
         // ==================//
         // Administrador    //
         // ==================//
@@ -34,19 +36,19 @@ class UserSeeder extends Seeder
         ]);
         $manager->assignRole('manager');
 
-        //==================//
+        // ==================//
         // Funcionário      //
-        //==================//
+        // ==================//
         $employee = User::create([
             'name' => 'Funcionário',
             'email' => 'employee@admin.com',
             'password' => Hash::make('password'),
         ]);
         $employee->assignRole('employee');
-        
-        //==================//
+
+        // ==================//
         // Cliente          //
-        //==================//
+        // ==================//
         $customer = User::create([
             'name' => 'Cliente',
             'email' => 'customer@admin.com',
@@ -54,9 +56,9 @@ class UserSeeder extends Seeder
         ]);
         $customer->assignRole('customer');
 
-        //==================//
+        // ==================//
         // UserFactory      //
-        //==================//
+        // ==================//
         User::factory(100)->create();
     }
 }
