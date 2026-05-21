@@ -27,17 +27,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //================================//
+        // ================================//
         // Force HTTPS                    //
-        //================================//
+        // ================================//
 
         if (! app()->environment('local')) {
             URL::forceScheme('https');
         }
 
-        //================================//
+        // ================================//
         // Super Admin Bypass             //
-        //================================//
+        // ================================//
 
         Gate::before(function ($user, $ability) {
 
@@ -47,11 +47,11 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
-        //================================//
+        // ================================//
         // Global Categories              //
-        //================================//
+        // ================================//
 
-        View::composer('layouts.app', function ($view) {
+        View::composer('layouts.store', function ($view) {
 
             $categories = Category::with('children')
                 ->whereNull('parent_id')
@@ -61,15 +61,26 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
-        //================================//
+        View::composer('layouts.partials.headers.*', function ($view) {
+
+            $menuCategories = Category::with('children')
+                ->whereNull('parent_id')
+                ->where('is_active', true)
+                ->orderBy('name')
+                ->get();
+
+            $view->with('menuCategories', $menuCategories);
+        });
+
+        // ================================//
         // Cart Merge On Login            //
-        //================================//
+        // ================================//
 
         Event::listen(Login::class, MergeCartOnLogin::class);
 
-        //================================//
+        // ================================//
         // Pagination                     //
-        //================================//
+        // ================================//
 
         Paginator::useBootstrapFive();
     }

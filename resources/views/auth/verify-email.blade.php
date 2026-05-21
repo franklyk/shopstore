@@ -17,9 +17,7 @@
         <form method="POST" action="{{ route('verification.send') }}">
             @csrf
 
-            <x-buttons.button class="w-100" type="submit">
-                Enviar novo link
-            </x-buttons.button>
+        <x-buttons.button class="w-100" type="submit" color="info" label="Enviar novo link"/>
         </form>
 
     </x-forms.card>

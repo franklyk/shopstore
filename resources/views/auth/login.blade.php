@@ -12,9 +12,7 @@
 
         <x-forms.checkbox name="remember" label="Sempre Conectado" />
 
-        <x-buttons.button type="submit" color="primary" class="w-100">
-            Entrar
-        </x-buttons.button>
+        <x-buttons.button type="submit" color="primary" class="w-100" label="Entrar"/>
 
     </x-forms.form>
     <div class="d-flex justify-content-between m-3 small">

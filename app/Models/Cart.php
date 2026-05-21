@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-
-use App\Models\CartItem;
-
 use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
@@ -28,8 +25,17 @@ class Cart extends Model
     // 🧮 Total do carrinho
     public function total()
     {
-        return $this->items->sum(function ($item) {
-            return $item->quantity * $item->product->price;
-        });
+        return $this->items()
+            ->with('product')
+            ->get()
+            ->sum(fn ($item) => $item->quantity * $item->product->price);
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->items()
+            ->with('product')
+            ->get()
+            ->sum(fn ($item) => $item->quantity * $item->product->price);
     }
 }

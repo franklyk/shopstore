@@ -16,13 +16,13 @@ class CartController extends Controller
             $cart = Cart::with('items.product')
                 ->firstOrCreate(['user_id' => Auth::id()]);
 
-            return view('cart.index', [
+            return view('store.cart.index', [
                 'items' => $cart->items,
                 'isSession' => false
             ]);
         }
 
-        return view('cart.index', [
+        return view('store.cart.index', [
             'items' => session('cart', []),
             'isSession' => true
         ]);
@@ -72,7 +72,7 @@ class CartController extends Controller
     }
 
     // ❌ Remover item
-    public function remove($id)
+    public function remove(int|string $id)
     {
         if (Auth::check()) {
 

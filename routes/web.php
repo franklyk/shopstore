@@ -8,10 +8,13 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegisterController as AuthRegisterController;
 use App\Http\Controllers\Auth\SessionController;
+use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Store\AddressController;
 use App\Http\Controllers\Store\CartController as StoreCartController;
 use App\Http\Controllers\Store\CategoryController as StoreCategoryController;
 use App\Http\Controllers\Store\HomeController as StoreHomeController;
 use App\Http\Controllers\Store\ProductController as StoreProductController;
+use App\Http\Controllers\UserAddressController;
 use Illuminate\Support\Facades\Route;
 
 // ================================//
@@ -25,9 +28,6 @@ Route::get('/products', [StoreProductController::class, 'index'])
 Route::get('/produto/{product:slug}', [StoreProductController::class, 'show'])
     ->name('products.public.show');
 
-
-
-
 Route::get('/categories/{slug}', [StoreCategoryController::class, 'show'])
     ->name('categories.public.show');
 
@@ -35,12 +35,10 @@ Route::get('/categories/{slug}', [StoreCategoryController::class, 'show'])
 //   Carrinho de compras           //
 // ================================//
 Route::get('/cart', [StoreCartController::class, 'index'])->name('cart.index');
-
 Route::post('/cart/add/{product}', [StoreCartController::class, 'add'])->name('cart.add');
-
+Route::post('/cart/update/{id}', [StoreCartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{id}', [StoreCartController::class, 'remove'])->name('cart.remove');
 
-Route::post('/cart/update/{id}', [StoreCartController::class, 'update'])->name('cart.update');
 // ================================//
 //            Loja                 //
 // ================================//
@@ -101,6 +99,23 @@ Route::middleware('guest')->group(function () {
 
 });
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('addresses', UserAddressController::class);
+});
+
+
+
+
+// ================================//// ================================//
+//                          BLOCO ADMINISTRATIVO                        //
+// ================================//// ================================//
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])
@@ -198,4 +213,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         ->middleware('permission:delete users')
         ->name('users.destroy');
 
+    // ================================//// ================================//
+    //                          BLOCO ADMINISTRATIVO                        //
+    // ================================//// ================================//
 });
