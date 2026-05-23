@@ -9,14 +9,13 @@
 
 @foreach ($types as $key => $class)
     @if (session($key))
-    <div class="w-100 px-3">
-        <div class="alert {{ $class }} alert-dismissible fade show" role="alert">
+        <div class="w-100 px-3">
+            <div class="alert {{ $class }} alert-dismissible fade show" role="alert">
 
-            {{ session($key) }}
+                {{ session($key) }}
 
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
         </div>
-    </div>
-        
     @endif
 @endforeach

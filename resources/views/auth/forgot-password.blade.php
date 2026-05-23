@@ -4,7 +4,7 @@
 
 @section('auth')
 
-    <x-forms.form method="POST" route='password.email' title="Recuperar Senha">
+    <x-forms.form action="{{ route('password.email') }}" method="POST"  title="Recuperar Senha">
 
         {{-- Email --}}
         <x-forms.input name="email" type="email" label="Email" :value="old('email')" />
@@ -25,7 +25,7 @@
 
     {{-- Link voltar --}}
     <div class="text-center mt-3">
-        <a href="{{ route('login') }}">
+        <a href="{{ route('login.create') }}">
             Voltar para login
         </a>
     </div>

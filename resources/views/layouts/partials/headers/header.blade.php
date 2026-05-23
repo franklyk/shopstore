@@ -33,7 +33,7 @@
                     {{-- LINK GERAL --}}
                     <div class="p-3 border-bottom bg-light">
 
-                        <a href="{{ route('products.public.index') }}" class="btn btn-primary w-100">
+                        <a href="{{ route('products.index') }}" class="btn btn-primary w-100">
 
                             Ver todos os produtos
 
@@ -69,7 +69,7 @@
                                     <div class="accordion-body pt-2">
 
                                         {{-- LINK CATEGORIA PAI --}}
-                                        <a href="{{ route('categories.public.show', $category->slug) }}"
+                                        <a href="{{ route('categories.show', $category->slug) }}"
                                             class="dropdown-item rounded fw-semibold text-primary mb-2">
 
                                             Ver tudo em {{ $category->name }}
@@ -81,7 +81,7 @@
                                             <div class="d-flex flex-column gap-1">
 
                                                 @foreach ($category->children as $child)
-                                                    <a href="{{ route('categories.public.show', $child->slug) }}"
+                                                    <a href="{{ route('categories.show', $child->slug) }}"
                                                         class="dropdown-item rounded">
 
                                                         {{ $child->name }}
@@ -136,7 +136,7 @@
                     <ul class="dropdown-menu dropdown-menu-end">
 
                         <li>
-                            <a class="dropdown-item" href="{{ route('login') }}">
+                            <a class="dropdown-item" href="{{ route('login.create') }}">
 
                                 Entrar
 

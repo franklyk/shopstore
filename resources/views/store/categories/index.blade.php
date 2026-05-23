@@ -24,7 +24,7 @@
                     <span class="text-muted">Subcategorias:</span>
 
                     @foreach ($category->children as $child)
-                        <a href="{{ route('categories.public.show', $child->slug) }}"
+                        <a href="{{ route('categories.show', $child->slug) }}"
                             class="badge bg-primary text-decoration-none">
                             {{ $child->name }}
                         </a>
@@ -63,7 +63,7 @@
 
                         <div class="card-footer bg-white border-0">
 
-                            <a href="{{ route('products.public.show', $product) }}" class="btn btn-sm btn-primary w-100">
+                            <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-primary w-100">
                                 Ver produto
                             </a>
 

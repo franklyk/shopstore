@@ -14,7 +14,5 @@
 
     <input {{ $attributes->merge($defaults) }}>
     <x-forms.label :for="$name" :label="$label" />
-
-
-
+    
 </div>

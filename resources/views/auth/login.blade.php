@@ -4,7 +4,7 @@
 
 @section('auth')
 
-    <x-forms.form method="POST" action="{{ route('login') }}" title="Login">
+    <x-forms.form method="POST" action="{{ route('login.create') }}" title="Login">
 
         <x-forms.input name="email" type="email" label="Email" />
 
@@ -17,7 +17,7 @@
     </x-forms.form>
     <div class="d-flex justify-content-between m-3 small">
         <a href="{{ route('password.request') }}">Esqueceu a senha?</a>
-        <a href="{{ route('register') }}">Criar conta</a>
+        <a href="{{ route('register.create') }}">Criar conta</a>
     </div>
 
     

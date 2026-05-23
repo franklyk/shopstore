@@ -21,7 +21,7 @@
                         <div class="card-body d-flex flex-column">
 
                             <h5 class="card-title">
-                                <a href="{{ route('products.public.show', $product) }}">
+                                <a href="{{ route('products.show', $product) }}">
                                     {{ $product->name }}
                                 </a>
                             </h5>
@@ -37,7 +37,7 @@
                                 </strong>
                             </div>
 
-                            <a href="{{ route('products.public.show', $product) }}" class="btn btn-primary btn-sm mt-3">
+                            <a href="{{ route('products.show', $product) }}" class="btn btn-primary btn-sm mt-3">
                                 Ver produto
                             </a>
 

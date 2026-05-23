@@ -4,10 +4,7 @@
 
 @section('auth')
 
-
-
-
-    <x-forms.form method="POST" route='register' title="Cadastre-se">
+    <x-forms.form action="{{ route('register.store') }}" method="POST" title="Cadastre-se">
 
         <x-forms.input name="name" label="Nome" :value="old('name')" />
 
@@ -19,14 +16,12 @@
 
         <div class="d-flex align-items-center justify-content-between text-end mb-3 small">
             <x-forms.checkbox name="newsletter" label="Receba Novidades" />
-            <a href="{{ route('login') }}">
+            <a href="{{ route('login.create') }}">
                 Já possui conta?
             </a>
         </div>
 
-        <x-buttons.button type="submit" color="primary" class="w-100">
-            Cadastrar
-        </x-buttons.button>
+        <x-buttons.button type="submit" color="primary" class="w-100" label="Cadastrar"/>
 
     </x-forms.form>
 

@@ -68,7 +68,7 @@
                         Adicionar ao carrinho
                     </button>
 
-                    <a href="{{ route('products.public.index') }}" class="btn btn-outline-secondary">
+                    <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">
                         Continuar comprando
                     </a>
 
