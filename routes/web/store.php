@@ -1,34 +1,60 @@
-<?php 
-
+<?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Store\Cart\CartController as StoreCartController;
-use App\Http\Controllers\Store\Category\CategoryController as StoreCategoryController;
-use App\Http\Controllers\Store\HomeController as StoreHomeController;
-use App\Http\Controllers\Store\Products\ProductController as StoreProductController;
+use App\Http\Controllers\Store\Cart\CartController;
+use App\Http\Controllers\Store\Category\CategoryController;
+use App\Http\Controllers\Store\HomeController;
+use App\Http\Controllers\Store\Products\ProductController;
 
 // ================================//
-//            Loja                 //
+// Home
 // ================================//
-Route::get('/', [StoreHomeController::class, 'index'])->name('home');
 
-Route::get('/products', [StoreProductController::class, 'index'])
-    ->name('products.public.index');
-
-Route::get('/produto/{product:slug}', [StoreProductController::class, 'show'])
-    ->name('products.public.show');
-
-Route::get('/categories/{slug}', [StoreCategoryController::class, 'show'])
-    ->name('categories.public.show');
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
 
 // ================================//
-//   Carrinho de compras           //
+// Products
 // ================================//
-Route::get('/cart', [StoreCartController::class, 'index'])->name('cart.index');
-Route::post('/cart/add/{product}', [StoreCartController::class, 'add'])->name('cart.add');
-Route::post('/cart/update/{id}', [StoreCartController::class, 'update'])->name('cart.update');
-Route::delete('/cart/remove/{id}', [StoreCartController::class, 'remove'])->name('cart.remove');
+
+Route::prefix('products')
+    ->name('products.')
+    ->group(function () {
+
+        Route::get('/', [ProductController::class, 'index'])
+            ->name('index');
+    });
+
+Route::get('/produto/{product:slug}', [ProductController::class, 'show'])
+    ->name('products.show');
 
 // ================================//
-//            Loja                 //
+// Categories
 // ================================//
+
+Route::prefix('categories')
+    ->name('categories.')
+    ->group(function () {
+
+        Route::get('/{slug}', [CategoryController::class, 'show'])
+            ->name('show');
+    });
+
+// ================================//
+// Cart
+// ================================//
+
+Route::prefix('cart')->name('cart.')->group(function () {
+
+        Route::get('/', [CartController::class, 'index'])
+            ->name('index');
+
+        Route::post('/add/{product}', [CartController::class, 'add'])
+            ->name('add');
+
+        Route::post('/update/{id}', [CartController::class, 'update'])
+            ->name('update');
+
+        Route::delete('/remove/{id}', [CartController::class, 'remove'])
+            ->name('remove');
+    });

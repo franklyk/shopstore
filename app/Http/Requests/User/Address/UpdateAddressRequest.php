@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User\Profile;
+namespace App\Http\Requests\User\Address;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAddressRequest extends FormRequest
+class UpdateAddressRequest extends FormRequest
 {
     public function authorize(): bool
     {

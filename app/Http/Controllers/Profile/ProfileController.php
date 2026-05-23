@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
     public function show()
     {
-        $user = auth()->user()->load('addresses');
+        $user = Auth::user()->load('addresses');
 
         return view('profile.show', compact('user'));
     }
@@ -17,7 +18,7 @@ class ProfileController extends Controller
     public function edit()
     {
         return view('profile.edit', [
-            'user' => auth()->user()
+            'user' => Auth::user()
         ]);
     }
 
@@ -27,7 +28,7 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        auth()->user()->update($data);
+         Auth::user()->update($data);
 
         return redirect()
             ->route('profile.show')

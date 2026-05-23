@@ -1,17 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\AddressController;
+use App\Http\Controllers\Profile\ProfileController;
+use Illuminate\Support\Facades\Route;
 
+Route::middleware('auth')->prefix('profile')->name('profile.')->group(function () {
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-});
+    Route::get('/', [ProfileController::class, 'show'])
+        ->name('show');
 
-Route::middleware('auth')->group(function () {
+    Route::get('/edit', [ProfileController::class, 'edit'])
+        ->name('edit');
+
+    Route::put('/', [ProfileController::class, 'update'])
+        ->name('update');
+
     Route::resource('addresses', AddressController::class);
-});
 
+});

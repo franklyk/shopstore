@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 
 use App\Http\Controllers\Admin\Category\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -7,107 +6,121 @@ use App\Http\Controllers\Admin\Products\ProductController as AdminProductControl
 use App\Http\Controllers\Admin\Users\UserController as AdminUserController;
 use Illuminate\Support\Facades\Route;
 
-// ================================//// ================================//
-//                          BLOCO ADMINISTRATIVO                        //
-// ================================//// ================================//
-Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
 
-    Route::get('/', [DashboardController::class, 'index'])
-        ->name('admin.dashboard');
+        // ================================//
+        // Dashboard
+        // ================================//
 
-    Route::get('/products', [AdminProductController::class, 'index'])
-        ->middleware('permission:view products')
-        ->name('products.index');
+        Route::get('/', [DashboardController::class, 'index'])
+            ->name('dashboard');
 
-    Route::get('/products/create', [AdminProductController::class, 'create'])
-        ->middleware('permission:create products')
-        ->name('products.create');
+        // ================================//
+        // Products
+        // ================================//
 
-    Route::post('/products', [AdminProductController::class, 'store'])
-        ->middleware('permission:create products')
-        ->name('products.store');
+        Route::prefix('products')->name('products.')->group(function () {
 
-    Route::get('/products/{product}', [AdminProductController::class, 'show'])
-        ->middleware('permission:view products')
-        ->name('products.show');
+                Route::get('/', [AdminProductController::class, 'index'])
+                    ->middleware('permission:view products')
+                    ->name('index');
 
-    Route::get('/products/{product}/edit', [AdminProductController::class, 'edit'])
-        ->middleware('permission:edit products')
-        ->name('products.edit');
+                Route::get('/create', [AdminProductController::class, 'create'])
+                    ->middleware('permission:create products')
+                    ->name('create');
 
-    Route::put('/products/{product}', [AdminProductController::class, 'update'])
-        ->middleware('permission:edit products')
-        ->name('products.update');
+                Route::post('/', [AdminProductController::class, 'store'])
+                    ->middleware('permission:create products')
+                    ->name('store');
 
-    Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])
-        ->middleware('permission:delete products')
-        ->name('products.destroy');
+                Route::get('/{product}', [AdminProductController::class, 'show'])
+                    ->middleware('permission:view products')
+                    ->name('show');
 
-    // ================================//
-    // Categories                     //
-    // ================================//
+                Route::get('/{product}/edit', [AdminProductController::class, 'edit'])
+                    ->middleware('permission:edit products')
+                    ->name('edit');
 
-    Route::get('/categories', [AdminCategoryController::class, 'index'])
-        ->middleware('permission:view categories')
-        ->name('categories.index');
+                Route::put('/{product}', [AdminProductController::class, 'update'])
+                    ->middleware('permission:edit products')
+                    ->name('update');
 
-    Route::get('/categories/create', [AdminCategoryController::class, 'create'])
-        ->middleware('permission:create categories')
-        ->name('categories.create');
+                Route::delete('/{product}', [AdminProductController::class, 'destroy'])
+                    ->middleware('permission:delete products')
+                    ->name('destroy');
+            });
 
-    Route::post('/categories', [AdminCategoryController::class, 'store'])
-        ->middleware('permission:create categories')
-        ->name('categories.store');
+        // ================================//
+        // Categories
+        // ================================//
 
-    Route::get('/categories/{category}', [AdminCategoryController::class, 'show'])
-        ->middleware('permission:view categories')
-        ->name('categories.show');
+        Route::prefix('categories')
+            ->name('categories.')
+            ->group(function () {
 
-    Route::get('/categories/{category}/edit', [AdminCategoryController::class, 'edit'])
-        ->middleware('permission:edit categories')
-        ->name('categories.edit');
+                Route::get('/', [AdminCategoryController::class, 'index'])
+                    ->middleware('permission:view categories')
+                    ->name('index');
 
-    Route::put('/categories/{category}', [AdminCategoryController::class, 'update'])
-        ->middleware('permission:edit categories')
-        ->name('categories.update');
+                Route::get('/create', [AdminCategoryController::class, 'create'])
+                    ->middleware('permission:create categories')
+                    ->name('create');
 
-    Route::delete('/categories/{category}', [AdminCategoryController::class, 'destroy'])
-        ->middleware('permission:delete categories')
-        ->name('categories.destroy');
+                Route::post('/', [AdminCategoryController::class, 'store'])
+                    ->middleware('permission:create categories')
+                    ->name('store');
 
-    // ================================//
-    // Users                          //
-    // ================================//
+                Route::get('/{category}', [AdminCategoryController::class, 'show'])
+                    ->middleware('permission:view categories')
+                    ->name('show');
 
-    Route::get('/users', [AdminUserController::class, 'index'])
-        ->middleware('permission:view users')
-        ->name('users.index');
+                Route::get('/{category}/edit', [AdminCategoryController::class, 'edit'])
+                    ->middleware('permission:edit categories')
+                    ->name('edit');
 
-    Route::get('/users/create', [AdminUserController::class, 'create'])
-        ->middleware('permission:create users')
-        ->name('users.create');
+                Route::put('/{category}', [AdminCategoryController::class, 'update'])
+                    ->middleware('permission:edit categories')
+                    ->name('update');
 
-    Route::post('/users', [AdminUserController::class, 'store'])
-        ->middleware('permission:create users')
-        ->name('users.store');
+                Route::delete('/{category}', [AdminCategoryController::class, 'destroy'])
+                    ->middleware('permission:delete categories')
+                    ->name('destroy');
+            });
 
-    Route::get('/users/{user}', [AdminUserController::class, 'show'])
-        ->middleware('permission:view users')
-        ->name('users.show');
+        // ================================//
+        //              Users              //
+        // ================================//
 
-    Route::get('/users/{user}/edit', [AdminUserController::class, 'edit'])
-        ->middleware('permission:edit users')
-        ->name('users.edit');
+        Route::prefix('users')
+            ->name('users.')
+            ->group(function () {
 
-    Route::put('/users/{user}', [AdminUserController::class, 'update'])
-        ->middleware('permission:edit users')
-        ->name('users.update');
+                Route::get('/', [AdminUserController::class, 'index'])
+                    ->middleware('permission:view users')
+                    ->name('index');
 
-    Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])
-        ->middleware('permission:delete users')
-        ->name('users.destroy');
+                Route::get('/create', [AdminUserController::class, 'create'])
+                    ->middleware('permission:create users')
+                    ->name('create');
 
-    // ================================//// ================================//
-    //                          BLOCO ADMINISTRATIVO                        //
-    // ================================//// ================================//
-});
+                Route::post('/', [AdminUserController::class, 'store'])
+                    ->middleware('permission:create users')
+                    ->name('store');
+
+                Route::get('/{user}', [AdminUserController::class, 'show'])
+                    ->middleware('permission:view users')
+                    ->name('show');
+
+                Route::get('/{user}/edit', [AdminUserController::class, 'edit'])
+                    ->middleware('permission:edit users')
+                    ->name('edit');
+
+                Route::put('/{user}', [AdminUserController::class, 'update'])
+                    ->middleware('permission:edit users')
+                    ->name('update');
+
+                Route::delete('/{user}', [AdminUserController::class, 'destroy'])
+                    ->middleware('permission:delete users')
+                    ->name('destroy');
+            });
+    });
