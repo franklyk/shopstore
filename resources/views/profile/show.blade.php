@@ -14,7 +14,7 @@
                 Minha Conta
             </a>
 
-            <a href="{{ route('addresses.index') }}"
+            <a href="{{ route('profile.addresses.index') }}"
                class="list-group-item list-group-item-action">
                 Endereços
             </a>

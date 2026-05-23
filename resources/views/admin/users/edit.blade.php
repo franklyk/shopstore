@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="{{ route('users.store') }}" method="POST">
+            <form action="{{ route('admin.users.store') }}" method="POST">
 
                 @csrf
                 @method('PUT')
@@ -51,7 +51,7 @@
         </div>
         <div class="card-footer">
             @can('view users')
-                <a href="{{ route('users.index') }}" class="btn btn-sm btn-secondary">
+                <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-secondary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
                         stroke-width="2" viewBox="0 0 24 24">
 

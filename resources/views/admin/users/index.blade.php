@@ -10,7 +10,7 @@
                 <h2>Usuários Cadastrados</h2>
             </div>
             @can('create users')
-                <a href="{{ route('users.create') }}" class="ms-auto btn btn-sm btn-primary">
+                <a href="{{ route('admin.users.create') }}" class="ms-auto btn btn-sm btn-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
                         stroke-width="2" viewBox="0 0 24 24">
                         <path d="M12 5v14" />
@@ -45,7 +45,7 @@
                             <td>
 
                                 @can('view users')
-                                    <a href="{{ route('users.show', $user) }}" class="btn btn-info btn-sm">
+                                    <a href="{{ route('admin.users.show', $user) }}" class="btn btn-info btn-sm">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" />
@@ -55,7 +55,7 @@
                                 @endcan
 
                                 @can('edit users')
-                                    <a href="{{ route('users.edit', $user) }}" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-warning btn-sm">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path d="M12 20h9" />

@@ -6,7 +6,7 @@
 
     <x-card title="Editar Categoria">
 
-        <x-admin.forms.form action="{{ route('categories.update', $category->id) }}" method="PUT">
+        <x-admin.forms.form action="{{ route('admin.categories.update', $category->id) }}" method="PUT">
 
             <x-admin.forms.row>
                 <x-admin.forms.input type="text" name="name" label="Nome" value="{{ $category->name }}" />
@@ -45,7 +45,7 @@
             </div>
 
             @can('view categories')
-                <x-buttons.button href="{{ route('categories.index') }}" color="secondary" icon="return" label="Voltar" />
+                <x-buttons.button href="{{ route('admin.categories.index') }}" color="secondary" icon="return" label="Voltar" />
             @endcan
 
             <x-buttons.button type="submit" color="success" icon="check" label="Cadastrar" />

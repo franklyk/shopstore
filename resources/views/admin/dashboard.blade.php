@@ -44,7 +44,7 @@
                         Gerenciar categorias.
                     </p>
 
-                    <a href="{{ route('categories.index') }}"
+                    <a href="{{ route('admin.categories.index') }}"
                        class="btn btn-primary">
                         Acessar
                     </a>
@@ -67,7 +67,7 @@
                         Gerenciar usuários.
                     </p>
 
-                    <a href="{{ route('users.index') }}"
+                    <a href="{{ route('admin.users.index') }}"
                        class="btn btn-primary">
                         Acessar
                     </a>

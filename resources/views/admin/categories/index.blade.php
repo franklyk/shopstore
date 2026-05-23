@@ -8,7 +8,7 @@
         <x-slot:actions>
 
             @can('create categories')
-                <x-buttons.button href="{{ route('categories.create') }}" color="primary" icon="plus" label="Novo" />
+                <x-buttons.button href="{{ route('admin.categories.create') }}" color="primary" icon="plus" label="Novo" />
             @endcan
 
         </x-slot:actions>
@@ -66,12 +66,12 @@
                         <td>
 
                             @can('view categories')
-                                <x-buttons.button href="{{ route('categories.show', $category) }}" color="info"
+                                <x-buttons.button href="{{ route('admin.categories.show', $category) }}" color="info"
                                     icon="eye" />
                             @endcan
 
                             @can('edit categories')
-                                <x-buttons.button href="{{ route('categories.edit', $category) }}" color="warning"
+                                <x-buttons.button href="{{ route('admin.categories.edit', $category) }}" color="warning"
                                     icon="edit" />
                             @endcan
 
@@ -109,7 +109,7 @@
                                 </p>
 
                                 @can('create categories')
-                                    <x-buttons.button href="{{ route('categories.create') }}" color="primary" icon="plus"
+                                    <x-buttons.button href="{{ route('admin.categories.create') }}" color="primary" icon="plus"
                                         label="Criar primeira categoria" />
                                 @endcan
 
@@ -126,7 +126,7 @@
         @can('delete categories')
 
             @foreach ($categories as $category)
-                <x-modal.delete :action="route('categories.destroy', $category)" :id="$category->id" :name="$category->name" />
+                <x-modal.delete :action="route('admin.categories.destroy', $category)" :id="$category->id" :name="$category->name" />
             @endforeach
 
         @endcan

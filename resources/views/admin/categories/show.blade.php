@@ -136,7 +136,7 @@
 
         @can('view categories')
 
-            <a href="{{ route('categories.index') }}"
+            <a href="{{ route('admin.categories.index') }}"
                class="btn btn-sm btn-secondary">
 
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +160,7 @@
 
         @can('edit categories')
 
-            <a href="{{ route('categories.edit', $category) }}"
+            <a href="{{ route('admin.categories.edit', $category) }}"
                class="btn btn-sm btn-warning">
 
                 <svg xmlns="http://www.w3.org/2000/svg"

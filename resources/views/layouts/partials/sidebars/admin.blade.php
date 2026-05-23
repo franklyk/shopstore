@@ -32,7 +32,7 @@
 
         @can('view categories')
 
-            <a href="{{ route('categories.index') }}"
+            <a href="{{ route('admin.categories.index') }}"
                class="nav-link text-white rounded">
 
                 Categorias
@@ -43,7 +43,7 @@
 
         @can('view users')
 
-            <a href="{{ route('users.index') }}"
+            <a href="{{ route('admin.users.index') }}"
                class="nav-link text-white rounded">
 
                 Usuários
