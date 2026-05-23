@@ -4,31 +4,34 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
-use App\Http\Requests\StoreAddressRequest;
-use App\Http\Requests\UpdateAddressRequest;
+use App\Http\Requests\User\Profile\StoreAddressRequest;
+use App\Http\Requests\User\Profile\UpdateAddressRequest;
 
-class UserAddressController extends Controller
+use Illuminate\Support\Facades\Auth;
+
+class AddressController extends Controller
 {
     public function index()
     {
-        $addresses = auth()->user()
+        // $addresses = auth()->user()
+        $addresses = Auth::user()
             ->addresses()
             ->latest()
             ->get();
 
-        return view('addresses.index', compact('addresses'));
+        return view('profile.addresses.index', compact('addresses'));
     }
 
     public function create()
     {
-        return view('addresses.create');
+        return view('profile.addresses.create');
     }
 
     public function store(StoreAddressRequest $request)
     {
         $data = $request->validated();
 
-        $user = auth()->user();
+        $user = Auth::user();
 
         if (!empty($data['is_default'])) {
             $user->addresses()->update(['is_default' => false]);
@@ -45,7 +48,7 @@ class UserAddressController extends Controller
     {
         $this->authorizeAddress($address);
 
-        return view('addresses.edit', compact('address'));
+        return view('profile.addresses.edit', compact('address'));
     }
 
     public function update(UpdateAddressRequest $request, Address $address)
@@ -54,7 +57,7 @@ class UserAddressController extends Controller
 
         $data = $request->validated();
 
-        $user = auth()->user();
+        $user = Auth::user();
 
         if (!empty($data['is_default'])) {
             $user->addresses()->update(['is_default' => false]);
@@ -81,7 +84,7 @@ class UserAddressController extends Controller
     private function authorizeAddress(Address $address): void
     {
         abort_unless(
-            $address->user_id === auth()->id(),
+            $address->user_id === Auth::id(),
             403
         );
     }

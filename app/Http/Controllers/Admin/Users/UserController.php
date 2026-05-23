@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\Admin\Category\StoreUserRequest;
+use App\Http\Requests\Admin\Category\UpdateUserRequest;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 
