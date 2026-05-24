@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         $categories = Category::with('parent')
             ->latest()
-            ->paginate(15);
+            ->simplPaginate(15);
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -39,7 +39,7 @@ class CategoryController extends Controller
         Category::create($request->validated());
 
         return redirect()
-            ->route('categories.index')
+            ->route('admin.categories.index')
             ->with('success', 'Categoria cadastrada com sucesso!');
     }
 
@@ -68,7 +68,7 @@ class CategoryController extends Controller
         $category->update($request->validated());
 
         return redirect()
-            ->route('categories.index')
+            ->route('admin.categories.index')
             ->with('success', 'Categoria atualizada com sucesso!');
     }
 
@@ -91,7 +91,7 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()
-            ->route('categories.index')
+            ->route('admin.categories.index')
             ->with('success', 'Categoria excluída com sucesso!');
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Products;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Category\StoreProductRequest;
-use App\Http\Requests\Admin\Category\UpdateProductRequest;
+use App\Http\Requests\Admin\Products\StoreProductRequest;
+use App\Http\Requests\Admin\Products\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index()
     {
 
-        $products = Product::with('categories')->paginate(15);
+        $products = Product::with('categories')->simplePaginate(15);
 
         return view('admin.products.index', compact('products'));
     }
@@ -41,7 +41,7 @@ class ProductController extends Controller
         $product->categories()->attach($request->categories);
 
         return redirect()
-            ->route('products.index')
+            ->route('admin.products.index')
             ->with('success', 'Produto cadastrado com sucesso!!');
     }
 
@@ -76,7 +76,7 @@ class ProductController extends Controller
         $product->categories()->sync($request->categories);
 
         return redirect()
-            ->route('products.index')
+            ->route('admin.products.index')
             ->with('success', 'Produto atualizado com sucesso!');
     }
 
@@ -89,7 +89,7 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()
-            ->route('products.index')
+            ->route('admin.products.index')
             ->with('success', 'Produto excluído com sucesso!');
     }
 }

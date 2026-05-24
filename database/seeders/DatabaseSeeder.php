@@ -22,12 +22,12 @@ class DatabaseSeeder extends Seeder
 
             UserSeeder::class,
 
+            AddressSeeder::class,
+
             CategorySeeder::class,
 
-            ProductSeeder::class,
-
-            AddressSeeder::class
-
+            ProductSeeder::class
+            
         ]);
 
     }

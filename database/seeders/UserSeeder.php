@@ -6,7 +6,6 @@ use App\Models\User;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -15,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        
+
         // ==================//
         // Administrador    //
         // ==================//
@@ -60,6 +59,10 @@ class UserSeeder extends Seeder
         // ==================//
         // UserFactory      //
         // ==================//
-        User::factory(100)->create();
+        User::factory(100)
+            ->create()
+            ->each(function ($user) {
+                $user->assignRole('customer');
+            });
     }
 }

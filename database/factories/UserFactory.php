@@ -44,4 +44,13 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            if (! $user->roles()->exists()) {
+                $user->assignRole('customer');
+            }
+        });
+    }
 }

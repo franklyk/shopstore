@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Category\StoreUserRequest;
-use App\Http\Requests\Admin\Category\UpdateUserRequest;
+use App\Http\Requests\Admin\Users\StoreUserRequest;
+use App\Http\Requests\Admin\Users\UpdateUserRequest;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 
@@ -38,7 +38,7 @@ class UserController extends Controller
         $user->assignRole($request->role);
 
         return redirect()
-        ->route('users.index')
+        ->route('admin.users.index')
         ->with('success', 'Usuario cadastrado com sucesso!');
     }
 
@@ -69,7 +69,7 @@ class UserController extends Controller
         $user->syncRoles([$request->role]);
 
         return redirect()
-        ->route('users.index')
+        ->route('admin.users.index')
         ->with('success', 'Usuario atualizado com sucesso!');
     }
 
@@ -82,7 +82,7 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()
-            ->route('users.index')
+            ->route('admin.users.index')
             ->with('success', 'Usuario excluído com sucesso!');
     }
 }
