@@ -14,9 +14,10 @@
                 <div class="col-12 col-md-3 mb-3">
 
                     <div class="card h-100">
+                        <img src="https://placehold.co/400x300" class="img-fluid rounded" alt="{{ $product->name }}">
 
-                        <img src="https://picsum.photos/seed/{{ rand(1, 10000) }}/400/300" class="card-img-top"
-                            alt="{{ $product->name }}">
+                        {{-- <img src="https://picsum.photos/seed/{{ rand(1, 10000) }}/400/300" class="card-img-top"
+                            alt="{{ $product->name }}"> --}}
                             
                         <div class="card-body d-flex flex-column">
 

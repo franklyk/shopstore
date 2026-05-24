@@ -2,35 +2,29 @@
 
 namespace Database\Seeders;
 
+use App\Models\Address;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AddressSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        User::factory()
-            ->count(10)
-            ->create()
-            ->each(function ($user) {
+        User::all()->each(function (User $user) {
 
-                // 2 a 4 endereços por usuário
-                $user->addresses()->createMany(
-                    \App\Models\Address::factory()
-                        ->count(rand(2, 4))
-                        ->make()
-                        ->toArray()
-                );
+            Address::factory()
+                ->count(rand(1, 3))
+                ->create([
+                    'user_id' => $user->id,
+                    'is_default' => false,
+                ]);
 
-                // define um padrão aleatório
-                $user->addresses()
-                    ->inRandomOrder()
-                    ->first()
-                    ?->update(['is_default' => true]);
-            });
+            $user->addresses()
+                ->inRandomOrder()
+                ->first()
+                ?->update([
+                    'is_default' => true,
+                ]);
+        });
     }
 }

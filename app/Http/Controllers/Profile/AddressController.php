@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\Address\StoreAddressRequest;
 use App\Models\Address;
-use App\Http\Requests\User\Profile\StoreAddressRequest;
-use App\Http\Requests\User\Profile\UpdateAddressRequest;
+use App\Http\Requests\User\Address\UpdateAddressRequest;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -40,7 +40,7 @@ class AddressController extends Controller
         $user->addresses()->create($data);
 
         return redirect()
-            ->route('addresses.index')
+            ->route('profile.addresses.index')
             ->with('success', 'Endereço criado com sucesso.');
     }
 
@@ -66,7 +66,7 @@ class AddressController extends Controller
         $address->update($data);
 
         return redirect()
-            ->route('addresses.index')
+            ->route('profile.addresses.index')
             ->with('success', 'Endereço atualizado com sucesso.');
     }
 
@@ -77,7 +77,7 @@ class AddressController extends Controller
         $address->delete();
 
         return redirect()
-            ->route('addresses.index')
+            ->route('profile.addresses.index')
             ->with('success', 'Endereço removido com sucesso.');
     }
 

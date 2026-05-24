@@ -90,7 +90,7 @@ class PasswordResetController extends Controller
         return $status === Password::PasswordReset
 
             ? redirect()
-                ->route('login')
+                ->route('login.create')
                 ->with('success', 'Senha redefinida com sucesso!')
 
             : back()->withErrors([

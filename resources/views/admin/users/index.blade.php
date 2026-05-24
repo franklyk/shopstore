@@ -91,7 +91,7 @@
     </div>
     @can('delete users')
         @foreach ($users as $user)
-            <x-modal.delete :action="route('products.destroy', $user->id)" :id="$user->id" :name="$user->name" />
+            <x-modal.delete :action="route('admin.users.destroy', $user->id)" :id="$user->id" :name="$user->name" />
         @endforeach
     @endcan
 

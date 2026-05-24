@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('name'); // Casa, Trabalho etc.
             $table->string('cep');
             $table->string('street');
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('complement')->nullable();
             $table->string('district');
             $table->string('city');
-            $table->string('state');
+            $table->string('state', 2);
             $table->boolean('is_default')->default(false);
             $table->timestamps();
 

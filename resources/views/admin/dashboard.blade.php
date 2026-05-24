@@ -21,7 +21,7 @@
                         Gerenciar produtos da loja.
                     </p>
 
-                    <a href="{{ route('products.index') }}"
+                    <a href="{{ route('admin.products.index') }}"
                        class="btn btn-primary">
                         Acessar
                     </a>

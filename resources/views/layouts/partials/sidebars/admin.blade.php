@@ -21,7 +21,7 @@
 
         @can('view products')
 
-            <a href="{{ route('products.index') }}"
+            <a href="{{ route('admin.products.index') }}"
                class="nav-link text-white rounded">
 
                 Produtos

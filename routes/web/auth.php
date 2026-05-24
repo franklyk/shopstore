@@ -25,9 +25,7 @@ Route::middleware('guest')
 // Session / Login
 // ================================//
 
-Route::middleware('guest')
-    ->name('login.')
-    ->group(function () {
+Route::middleware('guest')->name('login.')->group(function () {
 
         Route::get('/login', [SessionController::class, 'create'])
             ->name('create');

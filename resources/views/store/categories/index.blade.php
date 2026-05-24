@@ -41,9 +41,11 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
 
                     <div class="card h-100 shadow-sm">
+                        
+                        <img src="https://placehold.co/400x300" class="img-fluid rounded" alt="{{ $product->name }}">
 
-                        <img src="https://picsum.photos/seed/{{ rand(1, 10000) }}/400/300" class="card-img-top"
-                            alt="{{ $product->name }}">
+                        {{-- <img src="https://picsum.photos/seed/{{ rand(1, 10000) }}/400/300" class="card-img-top"
+                            alt="{{ $product->name }}"> --}}
 
                         <div class="card-body">
 

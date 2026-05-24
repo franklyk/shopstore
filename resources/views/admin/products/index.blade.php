@@ -7,7 +7,7 @@
         <x-slot:actions>
 
             @can('create products')
-                <x-buttons.button href="{{ route('products.create') }}" color="primary" icon="plus" label="Novo" />
+                <x-buttons.button href="{{ route('admin.products.create') }}" color="primary" icon="plus" label="Novo" />
             @endcan
 
         </x-slot:actions>
@@ -24,7 +24,7 @@
                         <x-admin.table.td value="{{ $product->stock }}" />
 
                         <x-admin.table.td>
-                            <x-admin.table.actions :item="$product" :view="route('products.show', $product)" :edit="route('products.edit', $product)" :delete="route('products.destroy', $product)"
+                            <x-admin.table.actions :item="$product" :view="route('products.show', $product)" :edit="route('admin.products.edit', $product)" :delete="route('admin.products.destroy', $product)"
                                 permission="products" />
                         </x-admin.table.td>
                     </tr>
@@ -48,7 +48,7 @@
 
         @can('delete products')
             @foreach ($products as $product)
-                <x-modal.delete :action="route('products.destroy', $product->id)" :id="$product->id" :name="$product->name" />
+                <x-modal.delete :action="route('admin.products.destroy', $product->id)" :id="$product->id" :name="$product->name" />
             @endforeach
         @endcan
 

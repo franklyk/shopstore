@@ -3,7 +3,7 @@
 @section('title', 'Reset Password')
 
 @section('auth')
-    <x-forms.form method="POST" route='password.update' title="Redefinir Senha">
+    <x-forms.form method="POST" action="{{ route('password.update') }}" title="Redefinir Senha">
 
         {{-- Token --}}
         <input type="hidden" name="token" value="{{ request()->route('token') }}">

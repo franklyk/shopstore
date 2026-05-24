@@ -13,8 +13,10 @@
             @forelse ($products as $product)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">
-                        <img src="https://picsum.photos/seed/{{ rand(1, 10000) }}/400/300" class="card-img-top"
-                            alt="{{ $product->name }}">
+                        <img src="https://placehold.co/400x300" class="img-fluid rounded" alt="{{ $product->name }}">
+                        
+                        {{-- <img src="https://picsum.photos/seed/{{ rand(1, 10000) }}/400/300" class="card-img-top"
+                            alt="{{ $product->name }}"> --}}
 
                         <div class="card-body d-flex flex-column">
 
@@ -35,15 +37,20 @@
                                     R$ {{ number_format($product->price, 2, ',', '.') }}
                                 </strong>
 
-                                {{-- <x-buttons.button href="{{ route('products.public.show', $product->slug) }}" color="info" icon="eye" label="Saiba Mais"/> --}}
+                                <div class="d-flex gap-2 justify-content-end align-items-center">
+
+                                    <x-buttons.button href="{{ route('products.show', $product->slug) }}" color="info"
+                                        icon="eye" label="Saiba Mais" />
 
 
-                                <form action="{{ route('cart.add', $product) }}" method="POST">
-                                    @csrf
-                                    <button class="btn btn-primary w-100">
-                                        Adicionar ao carrinho
-                                    </button>
-                                </form>
+                                    <form action="{{ route('cart.add', $product) }}" method="POST">
+                                        @csrf
+
+                                        <x-buttons.button tipe="submit" color="primary" icon="check"
+                                            label="Adicionar ao carrinho" />
+
+                                    </form>
+                                </div>
 
                             </div>
 

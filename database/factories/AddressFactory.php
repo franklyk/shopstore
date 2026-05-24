@@ -21,15 +21,18 @@ class AddressFactory extends Factory
         return [
             'user_id' => User::factory(),
 
-            'name' => $this->faker->randomElement(['Casa', 'Trabalho', 'Outro']),
-            'cep' => $this->faker->postcode,
-            'street' => $this->faker->streetName,
-            'number' => $this->faker->buildingNumber,
-            'complement' => $this->faker->secondaryAddress,
-            'district' => $this->faker->citySuffix,
-            'city' => $this->faker->city,
-            'state' => $this->faker->stateAbbr,
-
+            'name' => fake()->randomElement([
+                'Casa',
+                'Trabalho',
+                'Apartamento',
+            ]),
+            'cep' => fake()->numerify('#####-###'),
+            'street' => fake()->streetName(),
+            'number' => fake()->buildingNumber(),
+            'complement' => fake()->optional()->secondaryAddress(),
+            'district' => fake()->citySuffix(),
+            'city' => fake()->city(),
+            'state' => fake()->stateAbbr(),
             'is_default' => false,
         ];
     }
