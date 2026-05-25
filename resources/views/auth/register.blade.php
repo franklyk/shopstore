@@ -16,7 +16,7 @@
 
         <div class="d-flex align-items-center justify-content-between text-end mb-3 small">
             <x-forms.checkbox name="newsletter" label="Receba Novidades" />
-            <a href="{{ route('login.create') }}">
+            <a href="{{ route('login') }}">
                 Já possui conta?
             </a>
         </div>

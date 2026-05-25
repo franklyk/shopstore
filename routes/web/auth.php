@@ -1,38 +1,34 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\SessionController;
+use Illuminate\Support\Facades\Route;
 
 // ================================//
 // Register
 // ================================//
 
-Route::middleware('guest')
-    ->name('register.')
-    ->group(function () {
+Route::middleware('guest')->group(function () {
 
-        Route::get('/register', [RegisterController::class, 'create'])
-            ->name('create');
+    Route::get('/register', [RegisterController::class, 'create'])
+        ->name('register');
 
-        Route::post('/register', [RegisterController::class, 'store'])
-            ->name('store');
-    });
+    Route::post('/register', [RegisterController::class, 'store'])
+        ->name('register.store');
+});
 
 // ================================//
 // Session / Login
 // ================================//
 
-Route::middleware('guest')->name('login.')->group(function () {
+Route::middleware('guest')->group(function () {
 
-        Route::get('/login', [SessionController::class, 'create'])
-            ->name('create');
+    Route::get('/login', [SessionController::class, 'create'])->name('login');
 
-        Route::post('/login', [SessionController::class, 'store'])
-            ->name('store');
-    });
+    Route::post('/login', [SessionController::class, 'store'])->name('login.store');
+});
 
 Route::post('/logout', [SessionController::class, 'destroy'])
     ->middleware('auth')
