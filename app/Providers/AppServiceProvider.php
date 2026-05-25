@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Address;
 use App\Listeners\MergeCartOnLogin;
 use App\Models\Category;
+use App\Policies\AddressPolicy;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
@@ -77,6 +79,11 @@ class AppServiceProvider extends ServiceProvider
         // ================================//
 
         Event::listen(Login::class, MergeCartOnLogin::class);
+
+        // ================================//
+        // Address Policy                  //
+        // ================================//
+        Gate::policy(Address::class, AddressPolicy::class);
 
         // ================================//
         // Pagination                     //

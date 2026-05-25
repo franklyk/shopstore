@@ -11,7 +11,7 @@ class ProfileController extends Controller
     public function show()
     {
         $user = Auth::user()->load('addresses');
-
+        
         return view('profile.show', compact('user'));
     }
 
