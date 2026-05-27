@@ -17,4 +17,6 @@ Route::middleware('auth')->prefix('profile')->name('profile.')->group(function (
 
     Route::resource('addresses', AddressController::class);
 
+    Route::patch('/addresses/{address}/default',[AddressController::class, 'setDefault'])->name('addresses.default');
+
 });
