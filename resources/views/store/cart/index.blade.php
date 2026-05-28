@@ -1,9 +1,11 @@
 @extends('layouts.store')
 
 @section('content')
+    
     <div class="container">
 
         <h2 class="mb-4">🛒 Carrinho</h2>
+
 
         @if (empty($items) || (is_countable($items) && count($items) === 0))
             <div class="alert alert-info">
@@ -74,6 +76,19 @@
             </div>
         @endif
 
+        <a href="{{ route('checkout.index') }}" class="btn btn-primary">
+            Ir para Checkout
+        </a>
+        {{-- <form action="{{ route('checkout.store') }}" method="POST">
+
+            @csrf
+
+            <button type="submit">
+                Finalizar Compra
+            </button>
+
+        </form> --}}
+
     </div>
-    
+
 @endsection

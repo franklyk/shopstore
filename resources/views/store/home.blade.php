@@ -46,7 +46,7 @@
                                     <form action="{{ route('cart.add', $product) }}" method="POST">
                                         @csrf
 
-                                        <x-buttons.button tipe="submit" color="primary" icon="check"
+                                        <x-buttons.button type="submit" color="primary" icon="check"
                                             label="Adicionar ao carrinho" />
 
                                     </form>

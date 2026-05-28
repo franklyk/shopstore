@@ -32,7 +32,6 @@ class CartService
                 $cart->items()->create([
                     'product_id' => $productId,
                     'quantity' => $item['quantity'],
-                    'price' => $item['price'] ?? 0
                 ]);
             }
         }

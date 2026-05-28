@@ -47,7 +47,6 @@ class CartController extends Controller
                 $cart->items()->create([
                     'product_id' => $product->id,
                     'quantity' => 1,
-                    'price' => $product->price
                 ]);
             }
 
@@ -60,7 +59,6 @@ class CartController extends Controller
             } else {
                 $cart[$product->id] = [
                     'quantity' => 1,
-                    'price' => $product->price,
                     'name' => $product->name
                 ];
             }

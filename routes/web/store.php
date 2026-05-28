@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Store\Cart\CartController;
 use App\Http\Controllers\Store\Category\CategoryController;
 use App\Http\Controllers\Store\HomeController;
+use App\Http\Controllers\Store\Orders\OrderController;
 use App\Http\Controllers\Store\Products\ProductController;
+use Illuminate\Support\Facades\Route;
 
 // ================================//
 // Home
@@ -46,15 +47,28 @@ Route::prefix('categories')
 
 Route::prefix('cart')->name('cart.')->group(function () {
 
-        Route::get('/', [CartController::class, 'index'])
-            ->name('index');
+    Route::get('/', [CartController::class, 'index'])
+        ->name('index');
 
-        Route::post('/add/{product}', [CartController::class, 'add'])
-            ->name('add');
+    Route::post('/add/{product}', [CartController::class, 'add'])
+        ->name('add');
 
-        Route::post('/update/{id}', [CartController::class, 'update'])
-            ->name('update');
+    Route::post('/update/{id}', [CartController::class, 'update'])
+        ->name('update');
 
-        Route::delete('/remove/{id}', [CartController::class, 'remove'])
-            ->name('remove');
-    });
+    Route::delete('/remove/{id}', [CartController::class, 'remove'])
+        ->name('remove');
+});
+
+// ================================//
+// checkout                        //
+// ================================//
+Route::middleware('auth')->group(function () {
+
+    Route::get('/checkout', [OrderController::class, 'index'])
+    ->name('checkout.index');
+
+    Route::post('/checkout', [OrderController::class, 'store'])
+        ->name('checkout.store');
+
+});
