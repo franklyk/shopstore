@@ -3,7 +3,7 @@
 use App\Http\Controllers\Store\Cart\CartController;
 use App\Http\Controllers\Store\Category\CategoryController;
 use App\Http\Controllers\Store\HomeController;
-use App\Http\Controllers\Store\Orders\OrderController;
+use App\Http\Controllers\Store\Checkout\CheckoutController;
 use App\Http\Controllers\Store\Products\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -65,10 +65,12 @@ Route::prefix('cart')->name('cart.')->group(function () {
 // ================================//
 Route::middleware('auth')->group(function () {
 
-    Route::get('/checkout', [OrderController::class, 'index'])
+    Route::get('/checkout', [CheckoutController::class, 'create'])
     ->name('checkout.index');
 
-    Route::post('/checkout', [OrderController::class, 'store'])
+    Route::post('/checkout', [CheckoutController::class, 'store'])
         ->name('checkout.store');
 
 });
+
+

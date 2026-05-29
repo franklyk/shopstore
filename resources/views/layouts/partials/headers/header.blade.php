@@ -185,7 +185,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item" href="{{ route("checkout.index") }}">
+                            <a class="dropdown-item" href="{{ route("profile.orders.index") }}">
                                 Meus Pedidos
                             </a>
                         </li>
