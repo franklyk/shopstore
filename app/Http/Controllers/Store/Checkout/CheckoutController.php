@@ -40,8 +40,7 @@ class CheckoutController extends Controller
             data: $request->validated(),
         );
 
-        return redirect()
-            ->route('home')
+        return redirect()->route('profile.orders.pay', $order)
             ->with('success', 'Pedido criado com sucesso.');
     }
 

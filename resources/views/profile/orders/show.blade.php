@@ -4,115 +4,119 @@
 
 @section('content')
 
-<div class="row justify-content-center">
+    <div class="row justify-content-center">
 
-    <div class="col-lg-8">
+        <div class="col-lg-8">
 
-        <div class="card">
+            <div class="card">
 
-            <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex justify-content-between align-items-center">
 
-                <div class="card-title">
-                    <h2>Pedido #{{ $order->id }}</h2>
-                </div>
-
-                <span class="badge bg-secondary">
-                    {{ ucfirst($order->status) }}
-                </span>
-
-            </div>
-
-            <div class="card-body">
-
-                {{-- RESUMO --}}
-                <div class="mb-4">
-
-                    <h5>Resumo</h5>
-
-                    <div class="d-flex justify-content-between">
-                        <span>Subtotal</span>
-                        <span>R$ {{ number_format($order->subtotal, 2, ',', '.') }}</span>
+                    <div class="card-title">
+                        <h2>Pedido #{{ $order->id }}</h2>
                     </div>
 
-                    <div class="d-flex justify-content-between">
-                        <span>Frete</span>
-                        <span>R$ {{ number_format($order->shipping, 2, ',', '.') }}</span>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <span>Desconto</span>
-                        <span>R$ {{ number_format($order->discount, 2, ',', '.') }}</span>
-                    </div>
-
-                    <hr>
-
-                    <div class="d-flex justify-content-between fw-bold">
-                        <span>Total</span>
-                        <span>R$ {{ number_format($order->total, 2, ',', '.') }}</span>
-                    </div>
+                    <span class="badge bg-secondary">
+                        {{ ucfirst($order->status) }}
+                    </span>
 
                 </div>
 
-                {{-- ENDEREÇO --}}
-                <div class="mb-4">
+                <div class="card-body">
 
-                    <h5>Endereço de entrega</h5>
+                    {{-- RESUMO --}}
+                    <div class="mb-4">
 
-                    <p class="mb-0">
-                        {{ $order->customer_name }} <br>
-                        {{ $order->street }}, {{ $order->number }} <br>
-                        {{ $order->district }} - {{ $order->city }}/{{ $order->state }} <br>
-                        CEP: {{ $order->zipcode }}
-                    </p>
+                        <h5>Resumo</h5>
 
-                </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Subtotal</span>
+                            <span>R$ {{ number_format($order->subtotal, 2, ',', '.') }}</span>
+                        </div>
 
-                {{-- ITENS --}}
-                <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>Frete</span>
+                            <span>R$ {{ number_format($order->shipping, 2, ',', '.') }}</span>
+                        </div>
 
-                    <h5>Itens</h5>
+                        <div class="d-flex justify-content-between">
+                            <span>Desconto</span>
+                            <span>R$ {{ number_format($order->discount, 2, ',', '.') }}</span>
+                        </div>
 
-                    <div class="list-group">
+                        <hr>
 
-                        @foreach($order->items as $item)
+                        <div class="d-flex justify-content-between fw-bold">
+                            <span>Total</span>
+                            <span>R$ {{ number_format($order->total, 2, ',', '.') }}</span>
+                        </div>
 
-                            <div class="list-group-item d-flex justify-content-between">
+                    </div>
 
-                                <div>
-                                    <strong>{{ $item->product_name }}</strong><br>
-                                    <small class="text-muted">
-                                        SKU: {{ $item->sku }} | Qtd: {{ $item->quantity }}
-                                    </small>
+                    {{-- ENDEREÇO --}}
+                    <div class="mb-4">
+
+                        <h5>Endereço de entrega</h5>
+
+                        <p class="mb-0">
+                            {{ $order->customer_name }} <br>
+                            {{ $order->street }}, {{ $order->number }} <br>
+                            {{ $order->district }} - {{ $order->city }}/{{ $order->state }} <br>
+                            CEP: {{ $order->zipcode }}
+                        </p>
+
+                    </div>
+
+                    {{-- ITENS --}}
+                    <div class="mb-3">
+
+                        <h5>Itens</h5>
+
+                        <div class="list-group">
+
+                            @foreach ($order->items as $item)
+                                <div class="list-group-item d-flex justify-content-between">
+
+                                    <div>
+                                        <strong>{{ $item->product_name }}</strong><br>
+                                        <small class="text-muted">
+                                            SKU: {{ $item->sku }} | Qtd: {{ $item->quantity }}
+                                        </small>
+                                    </div>
+
+                                    <div>
+                                        R$ {{ number_format($item->price * $item->quantity, 2, ',', '.') }}
+                                    </div>
+
                                 </div>
+                            @endforeach
 
-                                <div>
-                                    R$ {{ number_format($item->price * $item->quantity, 2, ',', '.') }}
-                                </div>
-
-                            </div>
-
-                        @endforeach
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
+                <div class="card-footer d-flex gap-1">
 
-            <div class="card-footer d-flex gap-1">
+                    <x-buttons.button href="{{ route('profile.orders.index') }}" color="secondary" icon="return"
+                        label="Voltar" />
+                    @if ($order->status === 'pending')
+                        <form action="{{ route('profile.orders.pay', $order) }}" method="POST">
+                            @csrf
 
-                <x-buttons.button
-                    href="{{ route('profile.orders.index') }}"
-                    color="secondary"
-                    icon="return"
-                    label="Voltar" />
+                            <button type="submit" class="btn btn-success">
+                                Pagar Pedido
+                            </button>
+                        </form>
+                    @endif
+
+                </div>
 
             </div>
 
         </div>
 
     </div>
-
-</div>
 
 @endsection

@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Profile\AddressController;
-use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\Orders\OrderController;
+use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Store\Payments\PaymentController;
 use Illuminate\Support\Facades\Route;
-
 
 Route::middleware('auth')->prefix('profile')->name('profile.')->group(function () {
 
@@ -19,7 +19,7 @@ Route::middleware('auth')->prefix('profile')->name('profile.')->group(function (
 
     Route::resource('addresses', AddressController::class);
 
-    Route::patch('/addresses/{address}/default',[AddressController::class, 'setDefault'])->name('addresses.default');
+    Route::patch('/addresses/{address}/default', [AddressController::class, 'setDefault'])->name('addresses.default');
 
     Route::get('/orders', [OrderController::class, 'index'])
         ->name('orders.index');
@@ -27,5 +27,7 @@ Route::middleware('auth')->prefix('profile')->name('profile.')->group(function (
     Route::get('/orders/{order}', [OrderController::class, 'show'])
         ->name('orders.show');
 
-});
+    Route::post('/orders/{order}/pay', [PaymentController::class, 'pay'])
+        ->name('orders.pay');
 
+});

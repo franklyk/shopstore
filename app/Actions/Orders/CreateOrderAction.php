@@ -2,9 +2,11 @@
 
 namespace App\Actions\Orders;
 
+use App\Enums\PaymentStatus;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -112,6 +114,13 @@ class CreateOrderAction
                 'city' => $address->city,
 
                 'state' => $address->state,
+            ]);
+
+            
+            Payment::create([
+                'order_id' => $order->id,
+                'status' => PaymentStatus::PENDING->value,
+                'amount' => $order->total,
             ]);
 
             /*
