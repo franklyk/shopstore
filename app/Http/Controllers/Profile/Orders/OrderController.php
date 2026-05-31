@@ -4,22 +4,33 @@ namespace App\Http\Controllers\Profile\Orders;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Illuminate\View\View;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(): View
     {
-        $orders = Order::where('user_id', auth()->id())
+        $orders = Order::query()
+            ->where('user_id', auth()->id())
             ->latest()
             ->get();
 
         return view('profile.orders.index', compact('orders'));
     }
 
-    public function show(Order $order)
-    {
-        abort_unless($order->user_id === auth()->id(), 403);
+    public function show(Order $order): View
+{
+    $this->authorize('view', $order);
 
-        return view('profile.orders.show', compact('order'));
-    }
+    $order->load([
+        'items',
+        'payment',
+        'shipment',
+    ]);
+
+    return view(
+        'profile.orders.show',
+        compact('order')
+    );
+}
 }

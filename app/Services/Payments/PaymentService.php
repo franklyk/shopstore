@@ -2,13 +2,15 @@
 
 namespace App\Services\Payments;
 
-use App\Models\Order;
+use App\Enums\PaymentStatus;
 use App\Models\Payment;
+use App\Services\Shipment\ShipmentService;
 
 class PaymentService
 {
     public function __construct(
-        protected FakeGateway $gateway
+        protected FakeGateway $gateway,
+        protected ShipmentService $shipmentService,
     ) {}
 
     public function process(Payment $payment): Payment
@@ -16,49 +18,54 @@ class PaymentService
         $result = $this->gateway->process($payment);
 
         if ($result['success']) {
-            $this->markAsPaid($payment, $result['transaction_id']);
+            $this->markAsPaid(
+                $payment,
+                $result['transaction_id']
+            );
         } else {
-            $this->markAsFailed($payment, $result['transaction_id']);
+            $this->markAsFailed(
+                $payment,
+                $result['transaction_id']
+            );
         }
 
         return $payment->fresh('order');
     }
 
-    private function markAsPaid(Payment $payment, string $transactionId): void
-    {
+    private function markAsPaid(
+        Payment $payment,
+        string $transactionId
+    ): void {
         $payment->update([
-            'status' => 'paid',
+            'status' => PaymentStatus::PAID->value,
             'transaction_id' => $transactionId,
         ]);
 
-        $payment->order->update([
+        $order = $payment->order;
+
+        $order->update([
             'status' => 'paid',
-            'payment_status' => 'paid',
+            'payment_status' => PaymentStatus::PAID->value,
             'paid_at' => now(),
         ]);
 
-        // app(StockService::class)->decrease($payment->order);
+        $this->shipmentService->create($order);
+
+        // app(StockService::class)->decrease($order);
     }
 
-    private function markAsFailed(Payment $payment, string $transactionId): void
-    {
+    private function markAsFailed(
+        Payment $payment,
+        string $transactionId
+    ): void {   
         $payment->update([
-            'status' => 'failed',
+            'status' => PaymentStatus::FAILED->value,
             'transaction_id' => $transactionId,
         ]);
 
         $payment->order->update([
             'status' => 'failed',
+            'payment_status' => PaymentStatus::FAILED->value,
         ]);
-    }
-
-    public function pay(Order $order, PaymentService $service)
-    {
-        $payment = $order->payment;
-
-        $service->process($payment);
-
-        return redirect()
-            ->route('profile.orders.show', $order);
     }
 }

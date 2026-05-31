@@ -79,15 +79,7 @@
         <a href="{{ route('checkout.index') }}" class="btn btn-primary">
             Ir para Checkout
         </a>
-        {{-- <form action="{{ route('checkout.store') }}" method="POST">
-
-            @csrf
-
-            <button type="submit">
-                Finalizar Compra
-            </button>
-
-        </form> --}}
+        
 
     </div>
 

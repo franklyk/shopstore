@@ -2,25 +2,29 @@
 
 namespace App\Models;
 
-use App\Enums\PaymentStatus;
+use App\Enums\ShipmentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Payment extends Model
+class Shipment extends Model
 {
     protected $fillable = [
         'order_id',
         'status',
-        'transaction_id',
-        'amount',
+        'tracking_code',
+        'carrier',
+        'shipped_at',
+        'delivered_at',
         'payload',
     ];
 
     protected function casts(): array
     {
         return [
-            'status' => PaymentStatus::class,
+            'status' => ShipmentStatus::class,
             'payload' => 'array',
+            'shipped_at' => 'datetime',
+            'delivered_at' => 'datetime',
         ];
     }
 

@@ -53,6 +53,69 @@
 
                     </div>
 
+                    {{-- PAGAMENTO --}}
+                    <div class="mb-4">
+
+                        <h5>Pagamento</h5>
+
+                        <p class="mb-0">
+                            Status:
+                            <strong>{{ ucfirst($order->payment_status) }}</strong>
+                        </p>
+
+                        @if ($order->paid_at)
+                            <p class="mb-0">
+                                Pago em:
+                                {{ $order->paid_at->format('d/m/Y H:i') }}
+                            </p>
+                        @endif
+
+                    </div>
+
+                    {{-- ENTREGA --}}
+                    @if ($order->shipment)
+
+                        <div class="mb-4">
+
+                            <h5>Entrega</h5>
+
+                            <p class="mb-0">
+                                Status:
+                                <strong>{{ ucfirst($order->shipment->status->value) }}</strong>
+                            </p>
+
+                            @if ($order->shipment->carrier)
+                                <p class="mb-0">
+                                    Transportadora:
+                                    {{ $order->shipment->carrier }}
+                                </p>
+                            @endif
+
+                            @if ($order->shipment->tracking_code)
+                                <p class="mb-0">
+                                    Código de rastreio:
+                                    {{ $order->shipment->tracking_code }}
+                                </p>
+                            @endif
+
+                            @if ($order->shipment->shipped_at)
+                                <p class="mb-0">
+                                    Enviado em:
+                                    {{ $order->shipment->shipped_at->format('d/m/Y H:i') }}
+                                </p>
+                            @endif
+
+                            @if ($order->shipment->delivered_at)
+                                <p class="mb-0">
+                                    Entregue em:
+                                    {{ $order->shipment->delivered_at->format('d/m/Y H:i') }}
+                                </p>
+                            @endif
+
+                        </div>
+
+                    @endif
+
                     {{-- ENDEREÇO --}}
                     <div class="mb-4">
 
@@ -78,14 +141,18 @@
                                 <div class="list-group-item d-flex justify-content-between">
 
                                     <div>
-                                        <strong>{{ $item->product_name }}</strong><br>
+                                        <strong>{{ $item->name }}</strong><br>
+
                                         <small class="text-muted">
-                                            SKU: {{ $item->sku }} | Qtd: {{ $item->quantity }}
+                                            SKU: {{ $item->sku }}
+                                            |
+                                            Qtd: {{ $item->quantity }}
                                         </small>
                                     </div>
 
                                     <div>
-                                        R$ {{ number_format($item->price * $item->quantity, 2, ',', '.') }}
+                                        R$
+                                        {{ number_format($item->price * $item->quantity, 2, ',', '.') }}
                                     </div>
 
                                 </div>
@@ -101,13 +168,15 @@
 
                     <x-buttons.button href="{{ route('profile.orders.index') }}" color="secondary" icon="return"
                         label="Voltar" />
-                    @if ($order->status === 'pending')
+
+                    @if (in_array($order->payment_status, ['pending', 'failed']))
                         <form action="{{ route('profile.orders.pay', $order) }}" method="POST">
                             @csrf
 
                             <button type="submit" class="btn btn-success">
                                 Pagar Pedido
                             </button>
+
                         </form>
                     @endif
 

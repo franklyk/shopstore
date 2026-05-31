@@ -34,14 +34,15 @@ class CheckoutController extends Controller
     }
 
     public function store(StoreCheckoutRequest $request)
-    {
-        $order = CreateOrderAction::run(
-            user: $request->user(),
-            data: $request->validated(),
-        );
+{
+    $order = CreateOrderAction::run(
+        user: $request->user(),
+        data: $request->validated(),
+    );
 
-        return redirect()->route('profile.orders.pay', $order)
-            ->with('success', 'Pedido criado com sucesso.');
-    }
+    return redirect()
+        ->route('profile.orders.show', $order)
+        ->with('success', 'Pedido criado com sucesso.');
+}
 
 }
