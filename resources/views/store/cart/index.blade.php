@@ -1,7 +1,7 @@
 @extends('layouts.store')
 
 @section('content')
-    
+
     <div class="container">
 
         <h2 class="mb-4">🛒 Carrinho</h2>
@@ -31,7 +31,7 @@
                         @php
                             $id = $isSession ? $key : $item->id;
                             $name = $isSession ? $item['name'] : $item->product->name;
-                            $price = $isSession ? $item['price'] : $item->price;
+                            $price = $isSession ? $item['price'] : $item->product->price;
                             $qty = $isSession ? $item['quantity'] : $item->quantity;
 
                             $subtotal = $price * $qty;
@@ -79,7 +79,7 @@
         <a href="{{ route('checkout.index') }}" class="btn btn-primary">
             Ir para Checkout
         </a>
-        
+
 
     </div>
 

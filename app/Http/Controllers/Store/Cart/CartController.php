@@ -9,32 +9,33 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    // 🛒 Ver carrinho
     public function index()
     {
         if (Auth::check()) {
+
             $cart = Cart::with('items.product')
-                ->firstOrCreate(['user_id' => Auth::id()]);
+                ->firstOrCreate([
+                    'user_id' => Auth::id(),
+                ]);
 
             return view('store.cart.index', [
                 'items' => $cart->items,
-                'isSession' => false
+                'isSession' => false,
             ]);
         }
 
         return view('store.cart.index', [
             'items' => session('cart', []),
-            'isSession' => true
+            'isSession' => true,
         ]);
     }
 
-    // ➕ Adicionar produto
     public function add(Product $product)
     {
         if (Auth::check()) {
 
             $cart = Cart::firstOrCreate([
-                'user_id' => Auth::id()
+                'user_id' => Auth::id(),
             ]);
 
             $item = $cart->items()
@@ -42,8 +43,11 @@ class CartController extends Controller
                 ->first();
 
             if ($item) {
+
                 $item->increment('quantity');
+
             } else {
+
                 $cart->items()->create([
                     'product_id' => $product->id,
                     'quantity' => 1,
@@ -55,11 +59,16 @@ class CartController extends Controller
             $cart = session()->get('cart', []);
 
             if (isset($cart[$product->id])) {
+
                 $cart[$product->id]['quantity']++;
+
             } else {
+
                 $cart[$product->id] = [
+                    'product_id' => $product->id,
+                    'name' => $product->name,
+                    'price' => $product->price,
                     'quantity' => 1,
-                    'name' => $product->name
                 ];
             }
 
@@ -69,43 +78,61 @@ class CartController extends Controller
         return $this->response();
     }
 
-    // ❌ Remover item
     public function remove(int|string $id)
     {
         if (Auth::check()) {
 
-            $cart = Cart::firstWhere('user_id', Auth::id());
+            $cart = Cart::firstWhere(
+                'user_id',
+                Auth::id()
+            );
 
             if ($cart) {
-                $cart->items()->where('id', $id)->delete();
+
+                $cart->items()
+                    ->where('id', $id)
+                    ->delete();
             }
 
         } else {
 
             $cart = session()->get('cart', []);
+
             unset($cart[$id]);
+
             session()->put('cart', $cart);
         }
 
         return $this->response();
     }
 
-    // 🔄 Atualizar quantidade
-    public function update($id)
+    public function update(int|string $id)
     {
-        $quantity = request('quantity');
+        $quantity = (int) request('quantity');
 
         if (Auth::check()) {
 
-            $cart = Cart::firstWhere('user_id', Auth::id());
+            $cart = Cart::firstWhere(
+                'user_id',
+                Auth::id()
+            );
 
             if ($cart) {
-                $item = $cart->items()->where('id', $id)->first();
+
+                $item = $cart->items()
+                    ->where('id', $id)
+                    ->first();
 
                 if ($item) {
+
                     if ($quantity > 0) {
-                        $item->update(['quantity' => $quantity]);
+
+                        $item->update([
+                            'quantity' => $quantity,
+                        ]);
+
                     } else {
+
                         $item->delete();
                     }
                 }
@@ -116,9 +143,13 @@ class CartController extends Controller
             $cart = session()->get('cart', []);
 
             if (isset($cart[$id])) {
+
                 if ($quantity > 0) {
+
                     $cart[$id]['quantity'] = $quantity;
+
                 } else {
+
                     unset($cart[$id]);
                 }
             }
@@ -129,17 +160,19 @@ class CartController extends Controller
         return $this->response();
     }
 
-    // 📦 Resposta padrão (AJAX ou redirect)
     private function response()
     {
         if (request()->expectsJson()) {
 
             return response()->json([
                 'success' => true,
-                'cart' => session('cart', []), // útil para debug/upgrade depois
+                'cart' => session('cart', []),
             ]);
         }
 
-        return back()->with('success', 'Carrinho atualizado');
+        return back()->with(
+            'success',
+            'Carrinho atualizado.'
+        );
     }
 }
