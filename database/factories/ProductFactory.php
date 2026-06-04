@@ -16,19 +16,17 @@ class ProductFactory extends Factory
         return [
 
             'uuid' => (string) Str::ulid(),
-            
+
             'name' => fake('pt_BR')->words(2, true),
-            
+
             'slug' => fake()->unique()->slug(),
-            
+
             'sku' => strtoupper(fake()->bothify('SKU-#####')),
-            
+
             'description' => fake('pt_BR')->sentence(),
-            
+
             'price' => fake()->randomFloat(2, 10, 1000),
-            
-            'stock' => fake()->numberBetween(0, 100),
-            
+
             'is_active' => true,
 
         ];

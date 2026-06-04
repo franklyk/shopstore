@@ -32,6 +32,7 @@ class UserSeeder extends Seeder
         $manager = User::create([
             'name' => 'Gerente',
             'email' => 'manager@admin.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);
         $manager->assignRole('manager');
@@ -42,6 +43,7 @@ class UserSeeder extends Seeder
         $employee = User::create([
             'name' => 'Funcionário',
             'email' => 'employee@admin.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);
         $employee->assignRole('employee');
@@ -52,6 +54,7 @@ class UserSeeder extends Seeder
         $customer = User::create([
             'name' => 'Cliente',
             'email' => 'customer@admin.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);
         $customer->assignRole('customer');

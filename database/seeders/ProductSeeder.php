@@ -10,7 +10,7 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        $categories = Category::whereNotNull('parent_id')->get();
+        $categories = Category::query()->whereNotNull('parent_id')->get();
 
         Product::factory(100)->create()->each(function ($product) use ($categories) {
 

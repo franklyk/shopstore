@@ -33,12 +33,6 @@ class OrderItem extends Model
         ];
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Relationships
-    |--------------------------------------------------------------------------
-    */
-
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);

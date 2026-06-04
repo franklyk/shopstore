@@ -5,12 +5,15 @@ namespace App\Services\Payments;
 use App\Enums\PaymentStatus;
 use App\Models\Payment;
 use App\Services\Shipment\ShipmentService;
+use App\Services\Stock\StockService;
 
 class PaymentService
 {
+
     public function __construct(
         protected FakeGateway $gateway,
         protected ShipmentService $shipmentService,
+        protected StockService $stockService,
     ) {}
 
     public function process(Payment $payment): Payment
@@ -48,16 +51,15 @@ class PaymentService
             'payment_status' => PaymentStatus::PAID->value,
             'paid_at' => now(),
         ]);
+        $this->stockService->decrease($order);
 
         $this->shipmentService->create($order);
-
-        // app(StockService::class)->decrease($order);
     }
 
     private function markAsFailed(
         Payment $payment,
         string $transactionId
-    ): void {   
+    ): void {
         $payment->update([
             'status' => PaymentStatus::FAILED->value,
             'transaction_id' => $transactionId,

@@ -9,7 +9,7 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    
+
     public function index()
     {
         $categories = Category::with('parent')
@@ -21,7 +21,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $categories = Category::whereNull('parent_id')
+        $categories = Category::whereNull('parent_id', true, [])
             ->orderBy('name')
             ->get();
 
@@ -49,7 +49,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        $categories = Category::whereNull('parent_id')
+        $categories = Category::whereNull('parent_id', true, [])
             ->where('id', '!=', $category->id)
             ->orderBy('name')
             ->get();
@@ -57,7 +57,7 @@ class CategoryController extends Controller
         return view('admin.categories.edit', compact('category', 'categories'));
     }
 
-    
+
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $category->update($request->validated());
@@ -83,7 +83,7 @@ class CategoryController extends Controller
                 ->with('error', 'A categoria possui produtos vinculados.');
         }
 
-        $category->delete();
+        $category->delete($category);
 
         return redirect()
             ->route('admin.categories.index')
