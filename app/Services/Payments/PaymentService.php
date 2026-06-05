@@ -6,10 +6,10 @@ use App\Enums\PaymentStatus;
 use App\Models\Payment;
 use App\Services\Shipment\ShipmentService;
 use App\Services\Stock\StockService;
+use Illuminate\Support\Facades\DB;
 
 class PaymentService
 {
-
     public function __construct(
         protected FakeGateway $gateway,
         protected ShipmentService $shipmentService,
@@ -39,21 +39,29 @@ class PaymentService
         Payment $payment,
         string $transactionId
     ): void {
-        $payment->update([
-            'status' => PaymentStatus::PAID->value,
-            'transaction_id' => $transactionId,
-        ]);
 
-        $order = $payment->order;
+        DB::transaction(function () use (
+            $payment,
+            $transactionId
+        ) {
 
-        $order->update([
-            'status' => 'paid',
-            'payment_status' => PaymentStatus::PAID->value,
-            'paid_at' => now(),
-        ]);
-        $this->stockService->decrease($order);
+            $payment->update([
+                'status' => PaymentStatus::PAID->value,
+                'transaction_id' => $transactionId,
+            ]);
 
-        $this->shipmentService->create($order);
+            $order = $payment->order;
+
+            $order->update([
+                'status' => 'paid',
+                'payment_status' => PaymentStatus::PAID->value,
+                'paid_at' => now(),
+            ]);
+
+            $this->stockService->decrease($order);
+
+            $this->shipmentService->create($order);
+        });
     }
 
     private function markAsFailed(

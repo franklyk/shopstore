@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shipment;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Shipment\ShipShipmentRequest;
 use App\Models\Shipment;
 use App\Services\Shipment\ShipmentService;
 use Illuminate\Http\RedirectResponse;
@@ -37,13 +38,17 @@ class ShipmentController extends Controller
     }
 
     public function ship(
+        ShipShipmentRequest $request,
         Shipment $shipment,
         ShipmentService $service
     ): RedirectResponse {
+
+        $data = $request->validated();
+
         $service->ship(
             shipment: $shipment,
-            carrier: request('carrier'),
-            trackingCode: request('tracking_code')
+            carrier: $data['carrier'],
+            trackingCode: $data['tracking_code']
         );
 
         return back();

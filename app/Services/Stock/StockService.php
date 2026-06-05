@@ -94,7 +94,7 @@ class StockService
             ->lockForUpdate()
             ->first();
 
-        if (! $stock) {
+        if (!$stock) {
             throw new DomainException(
                 "Stock not found for product {$item->product_id}"
             );

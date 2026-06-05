@@ -26,6 +26,8 @@ return new class extends Migration
 
             $table->json('payload')->nullable();
 
+            $table->timestamp('returned_at')->nullable();
+
             $table->timestamps();
         });
     }

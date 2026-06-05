@@ -25,7 +25,7 @@ class ShipmentService
     {
         if ($shipment->status !== ShipmentStatus::PENDING) {
             throw new DomainException(
-                'Shipment must be pending before processing.'
+                'O envio deve estar pendente antes do processamento.'
             );
         }
 
@@ -44,7 +44,7 @@ class ShipmentService
     ): Shipment {
         if ($shipment->status !== ShipmentStatus::PROCESSING) {
             throw new DomainException(
-                'Shipment must be processing before shipping.'
+                'O processamento do pedido deve ser concluído antes do envio.'
             );
         }
 
@@ -88,13 +88,13 @@ class ShipmentService
             )
         ) {
             throw new DomainException(
-                'Shipment cannot be returned.'
+                'A encomenda não pode ser devolvida..'
             );
         }
 
         $shipment->update([
-            'status' => ShipmentStatus::DELIVERED,
-            'delivered_at' => now(),
+            'status' => ShipmentStatus::RETURNED,
+            'returned_at' => now(),
         ]);
 
         return $shipment->fresh();

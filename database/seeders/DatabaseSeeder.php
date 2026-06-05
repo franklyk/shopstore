@@ -28,7 +28,9 @@ class DatabaseSeeder extends Seeder
 
             ProductSeeder::class,
 
-            WarehouseSeeder::class
+            WarehouseSeeder::class,
+
+            StockSeeder::class
 
         ]);
 

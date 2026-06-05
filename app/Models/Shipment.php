@@ -21,11 +21,12 @@ class Shipment extends Model
     protected function casts(): array
     {
         return [
-            'status' => ShipmentStatus::class,
-            'payload' => 'array',
-            'shipped_at' => 'datetime',
-            'delivered_at' => 'datetime',
-        ];
+        'status' => ShipmentStatus::class,
+        'payload' => 'array',
+        'shipped_at' => 'datetime',
+        'delivered_at' => 'datetime',
+        'returned_at' => 'datetime',
+    ];
     }
 
     public function order(): BelongsTo

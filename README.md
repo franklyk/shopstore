@@ -242,7 +242,7 @@ Produto → Carrinho → Endereço → Pedido
 
 
 
-
+franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 .
 ├── app
 │   ├── Actions
@@ -250,7 +250,8 @@ Produto → Carrinho → Endereço → Pedido
 │   │       └── CreateOrderAction.php
 │   ├── Enums
 │   │   ├── PaymentStatus.php
-│   │   └── ShipmentStatus.php
+│   │   ├── ShipmentStatus.php
+│   │   └── StockMovementType.php
 │   ├── Http
 │   │   ├── Controllers
 │   │   │   ├── Admin
@@ -307,11 +308,15 @@ Produto → Carrinho → Endereço → Pedido
 │   │   ├── Payment.php
 │   │   ├── Product.php
 │   │   ├── Shipment.php
-│   │   └── User.php
+│   │   ├── StockMovement.php
+│   │   ├── Stock.php
+│   │   ├── User.php
+│   │   └── Warehouse.php
 │   ├── Policies
 │   │   ├── AddressPolicy.php
 │   │   ├── CategoryPolicy.php
 │   │   ├── OrderItemPolicy.php
+│   │   ├── OrderPolicy.php
 │   │   ├── ProductPolicy.php
 │   │   └── UserPolicy.php
 │   ├── Providers
@@ -321,10 +326,17 @@ Produto → Carrinho → Endereço → Pedido
 │       ├── Payments
 │       │   ├── FakeGateway.php
 │       │   └── PaymentService.php
-│       └── Shipment
-│           └── ShipmentService.php
+│       ├── Shipment
+│       │   └── ShipmentService.php
+│       └── Stock
+│           └── StockService.php
 ├── artisan
 ├── bootstrap
+│   ├── app.php
+│   ├── cache
+│   │   ├── packages.php
+│   │   └── services.php
+│   └── providers.php
 ├── composer.json
 ├── composer.lock
 ├── config
@@ -350,7 +362,10 @@ Produto → Carrinho → Endereço → Pedido
 │   │   ├── 2026_05_27_000003_create_orders_table.php
 │   │   ├── 2026_05_27_000040_create_order_items_table.php
 │   │   ├── 2026_05_28_233356_create_payments_table.php
-│   │   └── 2026_05_30_215253_create_shipments_table.php
+│   │   ├── 2026_05_30_215253_create_shipments_table.php
+│   │   ├── 2026_06_01_223150_create_warehouses_table.php
+│   │   ├── 2026_06_01_223221_create_stocks_table.php
+│   │   └── 2026_06_01_223351_create_stock_movements_table.php
 │   └── seeders
 │       ├── AddressSeeder.php
 │       ├── CategorySeeder.php
@@ -359,8 +374,10 @@ Produto → Carrinho → Endereço → Pedido
 │       ├── OrderSeeder.php
 │       ├── ProductSeeder.php
 │       ├── RolePermissionSeeder.php
+│       ├── StockSeeder.php
 │       ├── SuperAdminSeeder.php
-│       └── UserSeeder.php
+│       ├── UserSeeder.php
+│       └── WarehouseSeeder.php
 ├── lang
 ├── LICENSE
 ├── node_modules
@@ -491,4 +508,3 @@ Produto → Carrinho → Endereço → Pedido
 ├── tests
 ├── vendor
 └── vite.config.js
-
