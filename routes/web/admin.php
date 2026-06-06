@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\Admin\Category\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Dashboard\DashboardController;
+use App\Http\Controllers\Admin\Orders\OrderController;
 use App\Http\Controllers\Admin\Products\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\Users\UserController as AdminUserController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
         // ================================//
         // Dashboard
@@ -19,7 +23,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         // Products
         // ================================//
 
-        Route::prefix('products')->name('products.')->group(function () {
+        Route::prefix('products')
+            ->name('products.')
+            ->group(function () {
 
                 Route::get('/', [AdminProductController::class, 'index'])
                     ->middleware('permission:view products')
@@ -122,5 +128,21 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
                 Route::delete('/{user}', [AdminUserController::class, 'destroy'])
                     ->middleware('permission:delete users')
                     ->name('destroy');
+            });
+
+        // ================================//
+        //              Orders             //
+        // ================================//
+        Route::prefix('orders')
+            ->name('orders.')
+            ->group(function () {
+
+                Route::get('/', [OrderController::class, 'index'])
+                    ->middleware('permission:view orders')
+                    ->name('index');
+
+                Route::get('/{order}', [OrderController::class, 'show'])
+                    ->middleware('permission:view orders')
+                    ->name('show');
             });
     });

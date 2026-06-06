@@ -65,6 +65,9 @@ class RolePermissionSeeder extends Seeder
             'edit users',
             'delete users',
 
+            // Orders
+            'view orders'
+
         ];
 
         foreach ($permissions as $permission) {
@@ -107,6 +110,8 @@ class RolePermissionSeeder extends Seeder
             'edit categories',
 
             'view users',
+
+            'view orders'
 
         ]);
 
