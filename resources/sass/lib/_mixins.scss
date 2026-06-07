@@ -1,0 +1,182 @@
+///
+/// 
+///@author Franklin Klyk
+/// 
+///@email frsbatist@gmail.com
+/// 
+///https://github.com/franklyk   
+/// 
+/// 
+/// /* Mixins */
+/// 
+/// 
+
+@use "sass:map";
+@use "sass:math";
+
+@use 'breakpoints' as *;
+
+
+@function rem($pixel) {
+    @return math.div($pixel, 10)+rem;
+}
+
+@mixin config($collor: null) {
+    border: 1px solid $collor;
+}
+
+@mixin xs() {
+    @include breakpoint(">=xsmall") {
+        @content;
+    }
+}
+
+@mixin sm() {
+    @include breakpoint(">=small") {
+        @content;
+    }
+}
+
+@mixin md() {
+    @include breakpoint(">=medium") {
+        @content;
+    }
+}
+
+@mixin lg() {
+    @include breakpoint(">=large") {
+        @content;
+    }
+}
+
+@mixin xl() {
+    @include breakpoint(">=xlarge") {
+        @content;
+    }
+}
+
+@mixin xxl() {
+    @include breakpoint(">=xxlarge") {
+        @content;
+    }
+}
+
+@mixin fluid($property, $min_px, $max_px) {
+    // $prefer: calc(1rem);
+    $prefer: calc(1vw + 2.2rem);
+
+    #{$property}: clamp(rem($min_px), $prefer, rem($max_px));
+}
+
+@mixin autoGrid($minWidth: 100px) {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax($minWidth, auto));
+    padding: 20px 0px;
+}
+
+@mixin lineRainbow() {
+    bottom: 0;
+    background-size: 500%;
+    height: 2px;
+    background-image: linear-gradient(to right,
+            #ff0000,
+            #ffa500,
+            #ffff00,
+            #008000,
+            #0000ff,
+            #4b0082,
+            #ee82ee,
+            #ff0000);
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    animation: rainbowAnimated 10s linear infinite;
+
+}
+
+@mixin etchedGlass($blur: 5px, $opacity: 0.162) {
+    background-color: rgba(255, 255, 255, $opacity);
+    @include fluid('padding', 20, 20);
+}
+
+@mixin glass-effect($blur: 3px, $opacity: 0.162) {
+
+    background: rgba(74, 38, 236, 0.393);
+    border: 1px solid $glass-border;
+    box-shadow: inset 0px 0px 100px 20px rgb(81, 81, 248), inset 0px 0px 100px 20px rgba(45, 18, 250, 0.362);
+}
+
+@mixin softGlass($opacity: 0.631) {
+    background-color: rgba($site-color, $opacity);
+    border: 1px solid;
+    box-shadow: inset 0px 0px 100px 20px rgba($site-color-dark, $opacity), inset 0px 0px 200px 20px rgba($site-color-dark, $opacity);
+
+    margin: auto;
+    padding: clamp(12px, 0.52vw, 18px) clamp(25px, 0.52vw, 45px);
+}
+
+@mixin cardStyle {
+    border: 1px solid #ff63474a;
+    border-radius: 20px;
+    box-shadow: var(--shadow-warning-color);
+}
+
+@mixin cardFadein() {
+    @include cardStyle();
+
+    aspect-ratio: 1 / 1.424;
+    opacity: 0;
+    overflow: hidden;
+    position: relative;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: opacity, transform;
+    min-width: 100%;
+
+    &:nth-child(odd) {
+        transform: translate(-30px, 30px);
+    }
+
+    &:nth-child(even) {
+        transform: translate(30px, 30px);
+    }
+
+    &.slide-up {
+        opacity: 1;
+        transform: translate(0px, 0px);
+
+        &:nth-child(even) {
+            transition-delay: .2s;
+        }
+    }
+}
+
+@mixin sectionHeader($color: #fff) {
+    color: $color;
+    letter-spacing: 1.1px;
+    margin-bottom: 5rem;
+    text-align: center;
+    text-shadow: 2px 2px 2px #000000;
+    text-transform: uppercase;
+
+    .main-title {
+        @include fluid("font-size", 20, 60);
+        font-family: var(--font-title);
+
+    }
+
+    .sub-title {
+        @include fluid("font-size", 12, 14);
+
+        &::after {
+            border-radius: 10px;
+            content: '';
+            display: block;
+            height: 3px;
+            background: var(--accent-gradient);
+            margin: 15px auto 0;
+            width: 100%;
+        }
+    }
+}

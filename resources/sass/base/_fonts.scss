@@ -1,0 +1,38 @@
+///
+/// 
+///@author Franklin Klyk
+/// 
+///@email frsbatist@gmail.com
+/// 
+///https://github.com/franklyk   
+/// 
+/// 
+///
+/// 
+
+
+@font-face {
+  font-family: 'Knewave';
+  /* Use barras normais e verifique se o caminho é relativo ao seu arquivo CSS */
+  src: url('./../../assets/fonts/Knewave/Knewave-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Racing_Sans_One';
+  /* Use barras normais e verifique se o caminho é relativo ao seu arquivo CSS */
+  src: url('./../../assets/fonts/Racing_Sans_One/RacingSansOne-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto Flex';
+  src: url('./../../assets/fonts/Roboto_Flex/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf') format('truetype-variations');
+  /* Define que esta fonte cobre do peso 100 ao 1000 */
+  font-weight: 100 1000; 
+  font-stretch: 25% 150%;
+  font-style: normal;
+  display: swap;
+}
