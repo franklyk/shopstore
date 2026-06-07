@@ -1,15 +1,22 @@
 ///
-/// 
+///
 ///@author Franklin Klyk
-/// 
+///
 ///@email frsbatist@gmail.com
-/// 
-///https://github.com/franklyk   
-/// 
-/// 
-/// /* Basic from page */
-/// 
-/// 
+///
+///https://github.com/franklyk
+///
+///
+/// /* Basic from app */
+///
 
+
+
+
+@use "base" as *;
 @use "lib" as *;
-@import "bootstrap/scss/bootstrap";
+
+@use "layout" as *;
+@use "components" as *;
+@use "pages" as *;
+
