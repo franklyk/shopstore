@@ -1,0 +1,28 @@
+///
+///
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* pages/admin */
+///
+
+@use "../base" as *;
+
+.admin-layout {
+    height: calc(100vh - #{$header-height});
+}
+.admin-content {
+    margin-top: $header-height;
+    margin-left: $sidebar-width;
+
+    min-height: calc(100vh - #{$header-height});
+
+    overflow-y: auto;
+
+    padding: 2rem;
+    min-height: 10000px;
+}

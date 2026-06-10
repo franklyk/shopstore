@@ -1,4 +1,4 @@
-<aside class="col-lg-2 min-vh-100 p-0 bg-primary">
+{{-- <aside class="col-lg-2 min-vh-100 p-0 bg-primary">
 
     @can('view dashboard')
 
@@ -81,4 +81,4 @@
 
     </nav>
 
-</aside>
+</aside> --}}

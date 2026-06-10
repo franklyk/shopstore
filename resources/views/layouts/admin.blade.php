@@ -2,22 +2,20 @@
 
 @section('layout')
 
-<div class="container-fluid">
+    <x-layout.header />
 
-    <div class="row">
+    <div class="admin-layout">
 
-        @include('layouts.partials.headers.header')
-        <aside class="col-2 min-vh-100 p-0 bg-primary">
-            @include('layouts.partials.sidebars.admin')
-        </aside>
+        <x-layout.sidebar />
 
-        <main class="col p-4">
+        <main class="admin-content">
+
             <x-admin.forms.flesh />
-            @yield('content')
+
+            @yield('admin')
+
         </main>
 
     </div>
-
-</div>
 
 @endsection
