@@ -17,6 +17,7 @@ Route::middleware(['auth', 'verified'])
         // ================================//
 
         Route::get('/', [DashboardController::class, 'index'])
+            ->middleware('permission:view dashboard')
             ->name('dashboard');
 
         // ================================//

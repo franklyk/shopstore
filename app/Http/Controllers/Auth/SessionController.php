@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
 {
-    
     /**
      * Show the form for creating a new resource.
      */
@@ -24,15 +23,26 @@ class SessionController extends Controller
     {
         $credentials = $request->validated();
 
-        if(! Auth::attempt($credentials)){
+        if (! Auth::attempt($credentials)) {
 
             return back()->withErrors([
-                'email' => 'Credenciais inválidas.'
+                'email' => 'Credenciais inválidas.',
             ])->onlyInput('email');
         }
         $request->session()->regenerate();
 
-        return redirect()->route('admin.dashboard');
+        $user = Auth::user();
+
+        if ($user->hasAnyRole([
+            'super-admin',
+            'admin',
+            'manager',
+            'employee',
+        ])) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        return redirect()->route('home');
     }
 
     /**

@@ -242,8 +242,6 @@ Produto → Carrinho → Endereço → Pedido
 
 
 
-franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
-.
 ├── app
 │   ├── Actions
 │   │   └── Orders
@@ -256,7 +254,8 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │   │   ├── Controllers
 │   │   │   ├── Admin
 │   │   │   │   ├── Category
-│   │   │   │   ├── DashboardController.php
+│   │   │   │   ├── Dashboard
+│   │   │   │   ├── Orders
 │   │   │   │   ├── Products
 │   │   │   │   └── Users
 │   │   │   ├── Auth
@@ -293,6 +292,8 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │   │       │   └── StoreCheckoutRequest.php
 │   │       ├── Orders
 │   │       │   └── StoreOrderRequest.php
+│   │       ├── Shipment
+│   │       │   └── ShipShipmentRequest.php
 │   │       └── User
 │   │           ├── Address
 │   │           └── Profile
@@ -331,21 +332,24 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │       └── Stock
 │           └── StockService.php
 ├── artisan
-├── bootstrap
-│   ├── app.php
-│   ├── cache
-│   │   ├── packages.php
-│   │   └── services.php
-│   └── providers.php
 ├── composer.json
 ├── composer.lock
 ├── config
+│   ├── app.php
+│   ├── auth.php
+│   ├── cache.php
+│   ├── database.php
+│   ├── filesystems.php
+│   ├── logging.php
+│   ├── mail.php
+│   ├── permission.php
+│   ├── queue.php
+│   ├── services.php
+│   └── session.php
 ├── database
 │   ├── factories
 │   │   ├── AddressFactory.php
 │   │   ├── CategoryFactory.php
-│   │   ├── OrderFactory.php
-│   │   ├── OrderItemFactory.php
 │   │   ├── ProductFactory.php
 │   │   └── UserFactory.php
 │   ├── migrations
@@ -379,19 +383,10 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │       ├── UserSeeder.php
 │       └── WarehouseSeeder.php
 ├── lang
-├── LICENSE
-├── node_modules
 ├── package.json
 ├── package-lock.json
 ├── phpunit.xml
 ├── public
-│   ├── build
-│   │   ├── assets
-│   │   │   ├── app-0BmDVrxS.css
-│   │   │   └── app-BhycOtH4.js
-│   │   └── manifest.json
-│   ├── favicon.ico
-│   ├── images
 │   ├── index.php
 │   ├── robots.txt
 │   └── storage -> /var/www/lojavirtual/storage/app/public
@@ -407,12 +402,40 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │   │       └── delete.js
 │   ├── sass
 │   │   ├── app.scss
+│   │   ├── base
+│   │   │   ├── _fonts.scss
+│   │   │   ├── index.scss
+│   │   │   ├── _reset.scss
+│   │   │   ├── _typography.scss
+│   │   │   └── _variables.scss
+│   │   ├── bootstrap.scss
+│   │   ├── components
+│   │   │   ├── _avatar.scss
+│   │   │   ├── _badge.scss
+│   │   │   ├── _button.scss
+│   │   │   ├── _card.scss
+│   │   │   ├── _dropdown.scss
+│   │   │   ├── _form.scss
+│   │   │   ├── index.scss
+│   │   │   ├── _links.scss
+│   │   │   ├── _logo.scss
+│   │   │   ├── _pagination.scss
+│   │   │   └── _table.scss
 │   │   ├── fonts
-│   │   │   └── _fonts.scss
-│   │   └── lib
-│   │       ├── _breakpoints.scss
+│   │   ├── layout
+│   │   │   ├── _footer.scss
+│   │   │   ├── _header.scss
+│   │   │   ├── index.scss
+│   │   │   ├── _nav.scss
+│   │   │   └── _sidebar.scss
+│   │   ├── lib
+│   │   │   ├── _breakpoints.scss
+│   │   │   ├── index.scss
+│   │   │   └── _mixins.scss
+│   │   └── pages
+│   │       ├── _admin.scss
 │   │       ├── index.scss
-│   │       └── _mixins.scss
+│   │       └── _store.scss
 │   └── views
 │       ├── admin
 │       │   ├── categories
@@ -421,9 +444,15 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │       │   │   ├── index.blade.php
 │       │   │   └── show.blade.php
 │       │   ├── dashboard.blade.php
+│       │   ├── orders
+│       │   │   ├── index.blade.php
+│       │   │   └── show.blade.php
 │       │   ├── products
 │       │   │   ├── create.blade.php
 │       │   │   ├── edit.blade.php
+│       │   │   ├── index.blade.php
+│       │   │   └── show.blade.php
+│       │   ├── shipments
 │       │   │   ├── index.blade.php
 │       │   │   └── show.blade.php
 │       │   └── users
@@ -445,6 +474,7 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │       │   │   └── button.blade.php
 │       │   ├── card.blade.php
 │       │   ├── detail-item.blade.php
+│       │   ├── feedback
 │       │   ├── forms
 │       │   │   ├── card.blade.php
 │       │   │   ├── checkbox.blade.php
@@ -463,8 +493,26 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │       │   │   ├── plus.blade.php
 │       │   │   ├── return.blade.php
 │       │   │   └── trash.blade.php
-│       │   └── modal
-│       │       └── delete.blade.php
+│       │   ├── layout
+│       │   │   ├── header.blade.php
+│       │   │   ├── logo.blade.php
+│       │   │   ├── page-header.blade.php
+│       │   │   └── sidebar.blade.php
+│       │   ├── menu
+│       │   │   ├── item.blade.php
+│       │   │   ├── link.blade.php
+│       │   │   ├── list.blade.php
+│       │   │   └── nav.blade.php
+│       │   ├── modal
+│       │   │   └── delete.blade.php
+│       │   ├── theme
+│       │   │   └── variables.blade.php
+│       │   └── ui
+│       │       ├── avatar.blade.php
+│       │       ├── badge.blade.php
+│       │       ├── button.blade.php
+│       │       ├── card.blade.php
+│       │       └── table.blade.php
 │       ├── layouts
 │       │   ├── admin.blade.php
 │       │   ├── auth.blade.php
@@ -505,6 +553,10 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │   │   └── store.php
 │   └── web.php
 ├── storage
-├── tests
-├── vendor
+│   ├── app
+│   │   ├── private
+│   │   └── public
+│   │       └── avatars
+│   │           ├── Franklin.jpg
+│   │           └── user.png
 └── vite.config.js

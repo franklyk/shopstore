@@ -17,7 +17,8 @@ Route::middleware('auth')->prefix('profile')->name('profile.')->group(function (
     Route::put('/', [ProfileController::class, 'update'])
         ->name('update');
 
-    Route::resource('addresses', AddressController::class);
+    Route::resource('addresses', AddressController::class)
+        ->except('show');
 
     Route::patch('/addresses/{address}/default', [AddressController::class, 'setDefault'])->name('addresses.default');
 
