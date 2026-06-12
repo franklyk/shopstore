@@ -4,6 +4,9 @@
         @can('view dashboard')
             <x-menu.link href="{{ route('admin.dashboard') }}" label="Dashboard" />
         @endcan
+        @can('view orders')
+            <x-menu.link href="{{ route('admin.shipments.index') }}" label="Pedidos" />
+        @endcan
         @can('view products')
             <x-menu.link href="{{ route('admin.products.index') }}" label="Produtos" />
         @endcan

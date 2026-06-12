@@ -28,11 +28,29 @@ class ShipmentController extends Controller
         return view('admin.shipments.show', compact('shipment'));
     }
 
-    public function process(
+    public function pick(
         Shipment $shipment,
         ShipmentService $service
     ): RedirectResponse {
-        $service->process($shipment);
+        $service->startPicking($shipment);
+
+        return back();
+    }
+
+    public function pack(
+        Shipment $shipment,
+        ShipmentService $service
+    ): RedirectResponse {
+        $service->startPacking($shipment);
+
+        return back();
+    }
+
+    public function dispatch(
+        Shipment $shipment,
+        ShipmentService $service
+    ): RedirectResponse {
+        $service->startDispatching($shipment);
 
         return back();
     }

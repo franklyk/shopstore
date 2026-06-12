@@ -18,8 +18,14 @@ Route::middleware([
         Route::get('/shipments/{shipment}', [ShipmentController::class, 'show'])
             ->name('show');
 
-        Route::post('/shipments/{shipment}/process', [ShipmentController::class, 'process'])
-            ->name('process');
+        Route::post('/shipments/{shipment}/pick', [ShipmentController::class, 'pick'])
+            ->name('pick');
+
+        Route::post('/shipments/{shipment}/pack', [ShipmentController::class, 'pack'])
+            ->name('pack');
+
+        Route::post('/shipments/{shipment}/dispatch', [ShipmentController::class, 'dispatch'])
+            ->name('dispatch');
 
         Route::post('/shipments/{shipment}/ship', [ShipmentController::class, 'ship'])
             ->name('ship');

@@ -2,7 +2,7 @@
 
 @section('title', 'Pedido #' . $order->id)
 
-@section('content')
+@section('admin')
 
     <div class="container-fluid">
 
@@ -193,7 +193,7 @@
         </div>
 
         {{-- Pagamento --}}
-        <div class="card mb-4">
+        {{-- <div class="card mb-4">
             <div class="card-header">
                 Pagamento
             </div>
@@ -211,10 +211,10 @@
                 @endif
 
             </div>
-        </div>
+        </div> --}}
 
         {{-- Shipment --}}
-        <div class="card mb-4">
+        {{-- <div class="card mb-4">
             <div class="card-header">
                 Shipment
             </div>
@@ -232,7 +232,7 @@
                 @endif
 
             </div>
-        </div>
+        </div> --}}
 
     </div>
 

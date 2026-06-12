@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
-@section('title', 'Shipment #'.$shipment->id)
+@section('title', 'Shipment #' . $shipment->id)
 
-@section('content')
+@section('admin')
 
 <div class="container">
 
@@ -53,54 +53,41 @@
     <div class="card mb-4">
         <div class="card-body">
 
-            <h3>Fluxo Logístico</h3>
+            <h3>Fluxo Operacional</h3>
 
             <hr>
 
-            <div style="font-size:18px">
+            <div class="d-flex flex-wrap gap-2">
 
-                Pedido Pago
+                <span class="badge bg-secondary">
+                    Pedido Pago
+                </span>
 
-                →
+                <span class="badge {{ in_array($shipment->status->value, ['picking','packing','dispatching','shipped','delivered','returned']) ? 'bg-success' : 'bg-light text-dark' }}">
+                    Separação
+                </span>
 
-                <strong @class([
-                    'text-success' => in_array(
-                        $shipment->status->value,
-                        ['processing','shipped','delivered','returned']
-                    )
-                ])>
-                    Processing
-                </strong>
+                <span class="badge {{ in_array($shipment->status->value, ['packing','dispatching','shipped','delivered','returned']) ? 'bg-success' : 'bg-light text-dark' }}">
+                    Empacotamento
+                </span>
 
-                →
+                <span class="badge {{ in_array($shipment->status->value, ['dispatching','shipped','delivered','returned']) ? 'bg-success' : 'bg-light text-dark' }}">
+                    Despacho
+                </span>
 
-                <strong @class([
-                    'text-success' => in_array(
-                        $shipment->status->value,
-                        ['shipped','delivered','returned']
-                    )
-                ])>
-                    Shipped
-                </strong>
+                <span class="badge {{ in_array($shipment->status->value, ['shipped','delivered','returned']) ? 'bg-success' : 'bg-light text-dark' }}">
+                    Enviado
+                </span>
 
-                →
+                <span class="badge {{ $shipment->status->value === 'delivered' ? 'bg-success' : 'bg-light text-dark' }}">
+                    Entregue
+                </span>
 
-                <strong @class([
-                    'text-success' => in_array(
-                        $shipment->status->value,
-                        ['delivered']
-                    )
-                ])>
-                    Delivered
-                </strong>
-
-                →
-
-                <strong @class([
-                    'text-warning' => $shipment->status->value === 'returned'
-                ])>
-                    Returned
-                </strong>
+                @if($shipment->status->value === 'returned')
+                    <span class="badge bg-warning text-dark">
+                        Devolvido
+                    </span>
+                @endif
 
             </div>
 
@@ -117,7 +104,7 @@
             @if($shipment->status->value === 'pending')
 
                 <form
-                    action="{{ route('admin.shipments.process', $shipment) }}"
+                    action="{{ route('admin.shipments.pick', $shipment) }}"
                     method="POST"
                 >
                     @csrf
@@ -126,13 +113,49 @@
                         type="submit"
                         class="btn btn-primary"
                     >
-                        Iniciar Processamento
+                        Iniciar Separação
                     </button>
                 </form>
 
             @endif
 
-            @if($shipment->status->value === 'processing')
+            @if($shipment->status->value === 'picking')
+
+                <form
+                    action="{{ route('admin.shipments.pack', $shipment) }}"
+                    method="POST"
+                >
+                    @csrf
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Finalizar Separação
+                    </button>
+                </form>
+
+            @endif
+
+            @if($shipment->status->value === 'packing')
+
+                <form
+                    action="{{ route('admin.shipments.dispatch', $shipment) }}"
+                    method="POST"
+                >
+                    @csrf
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Liberar para Despacho
+                    </button>
+                </form>
+
+            @endif
+
+            @if($shipment->status->value === 'dispatching')
 
                 <form
                     action="{{ route('admin.shipments.ship', $shipment) }}"
@@ -170,7 +193,7 @@
                         type="submit"
                         class="btn btn-success"
                     >
-                        Despachar
+                        Enviar Pedido
                     </button>
                 </form>
 
