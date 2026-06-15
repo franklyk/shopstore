@@ -76,13 +76,6 @@
             </ul>
 
         </li>
-    @endauth
-
-    {{-- MOBILE --}}
-    <li class="nav-item d-block d-md-none">
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
-            Menu
-        </button>
-    </li>
+    @endauth    
 
 </ul>

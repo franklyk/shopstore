@@ -1,0 +1,42 @@
+///
+///
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* Buttons */
+///
+
+
+.button{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 3px 5px;
+    border-radius: 5px;
+    margin: 5px;
+    width: max-content;
+    &.button-add{
+        color: white;
+        background:#0f7200;
+        &:hover{
+            background:#0f720097;
+
+        }
+    }
+    &.button-delete{
+
+    }
+    &.button-edit{
+
+    }
+    &.button-return{
+
+    }
+    &.button-view{
+
+    }
+}

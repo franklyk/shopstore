@@ -12,9 +12,8 @@
 
 @use "../base" as *;
 
-.sidebar{
-    background-color: var(--site-color);
-    height: calc(100vh - #{$header-height});
+.sidebar {
+    height: calc(100dvh - #{$header-height});
     left: 0;
     min-height: 100dvh;
     overflow-y: auto;
@@ -22,24 +21,31 @@
     position: fixed;
     top: $header-height;
     width: $sidebar-width;
-    .menu{
+
+    .menu {
         min-width: 200px;
-        .menu-list{
-            .menu-item{
+
+        .menu-list {
+            .menu-item {
                 display: flex;
                 justify-content: space-between;
                 padding: 10px;
                 transition: .3s;
-                .menu-link{
-                    color: white;
+
+                .menu-link {
+                    color: var(--text-light);
                     font-size: 20px;
                 }
 
-                &:hover{
-                    background-color: rgb(19, 2, 130);
+                &:hover {
+                    background-color: var(--accent-color);
+
+                    .menu-link {
+                        color: white;
+
+                    }
                 }
             }
         }
     }
 }
-

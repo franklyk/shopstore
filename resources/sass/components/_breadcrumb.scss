@@ -1,0 +1,38 @@
+///
+///
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* Breadcrumbs */
+///
+
+.breadcrumb {
+    --bs-breadcrumb-divider: '/';
+}
+
+.breadcrumb-item {
+    a {
+        color: white;
+        transition: .2s;
+        &:hover{
+            
+            color: red;
+        }
+    }
+
+    & + .breadcrumb-item::before{
+        color: var(--text-light);
+    }
+
+}
+
+.breadcrumb-item.active {
+    color: var(--text-light);
+}
+
+
+

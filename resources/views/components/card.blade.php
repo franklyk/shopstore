@@ -17,7 +17,7 @@
             <div class="ms-auto d-flex gap-2">
                 {{ $actions }}
             </div>
-        @endisset
+        @endisset   
 
     </div>
 
