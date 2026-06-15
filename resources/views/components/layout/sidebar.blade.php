@@ -5,7 +5,10 @@
             <x-menu.link href="{{ route('admin.dashboard') }}" label="Dashboard" />
         @endcan
         @can('view orders')
-            <x-menu.link href="{{ route('admin.shipments.index') }}" label="Pedidos" />
+            <x-menu.link href="{{ route('admin.orders.index') }}" label="Pedidos" />
+        @endcan
+        @can('view shipments')
+            <x-menu.link href="{{ route('admin.shipments.index') }}" label="Expedição" />
         @endcan
         @can('view products')
             <x-menu.link href="{{ route('admin.products.index') }}" label="Produtos" />
