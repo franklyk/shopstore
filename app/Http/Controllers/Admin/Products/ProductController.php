@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Products\StoreProductRequest;
 use App\Http\Requests\Admin\Products\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ProductController extends Controller
@@ -16,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
 
-        $products = Product::with('categories')->simplePaginate(15);
+        $products = Product::with('categories', 'stocks')->paginate(40);
 
         return view('admin.products.index', compact('products'));
     }

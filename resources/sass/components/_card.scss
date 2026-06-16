@@ -1,0 +1,19 @@
+///
+///
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* Cards */
+///
+
+@use '../base/variables' as *;
+
+.card-vs{
+    background: transparent;
+    // border: var(--border-light);
+    box-shadow: var(--box-shadow);
+}

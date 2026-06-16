@@ -38,7 +38,7 @@
 
     <button
         type="{{ $type }}"
-        {{ $attributes->merge(['class' => 'btn btn-sm btn-' . $color]) }}
+        {{ $attributes->merge(['class' => 'button button-' . $color]) }}
     >
 
         @if($icon)

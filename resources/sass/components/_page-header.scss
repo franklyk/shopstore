@@ -13,9 +13,16 @@
 
 .page-header {
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--bs-border-color);
+    border-bottom: var(--border-light);
+    .title-header{
+        color: var(--text-light);
+        margin: 0;
+        text-shadow: var(--text-shadow);
+
+    }
+    .description-page{
+        color: var(--text-light);
+        font-weight: bolder;
+    }
 }
 
-.page-header h1 {
-    margin: 0;
-}

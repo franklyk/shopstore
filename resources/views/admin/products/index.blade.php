@@ -2,56 +2,53 @@
 
 @section('title', 'Produtos')
 
-@section('content')
-    <x-card title="Produtos Cadastrados">
-        <x-slot:actions>
+@section('admin')
+    <div class="container-fluid">
 
-            @can('create products')
-                <x-buttons.button href="{{ route('admin.products.create') }}" color="primary" icon="plus" label="Novo" />
-            @endcan
+        <x-ui.page-header title="Produtos Cadastrados" description="Gerencie os produtos da loja">
 
-        </x-slot:actions>
-        <x-admin.table.table>
-            <x-admin.table.thead :columns="['CÓDIGO', 'Nome', 'Descrição', 'Preço', 'Estoque', 'Ações']" />
+            <x-slot:actions>
+                <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Produtos']]" />
+                <x-buttons.button href="{{ route('admin.products.create') }}" color="add" icon="plus" label="Novo" />
+            </x-slot:actions>
 
-            <x-admin.table.tbody>
+        </x-ui.page-header>
+
+        <table class="table-vs">
+            <thead class="table-header">
+                <tr>
+                    <th>CÓDIGO</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
                 @forelse ($products as $product)
                     <tr>
-                        <th scope="row" class="text-center">{{ $product->id }}</th>
-                        <x-admin.table.td value="{{ $product->name }}" />
-                        <x-admin.table.td value="{{ $product->description }}" />
-                        <x-admin.table.td value="R$ {{ $product->price }}" />
-                        <x-admin.table.td value="{{ $product->stock }}" />
-
-                        <x-admin.table.td>
-                            <x-admin.table.actions :item="$product" :view="route('products.show', $product)" :edit="route('admin.products.edit', $product)" :delete="route('admin.products.destroy', $product)"
-                                permission="products" />
-                        </x-admin.table.td>
+                        <td data-field="center">{{ $product->id }}</td>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ $product->description }}</td>
+                        <td data-field="center">R$ {{ $product->price }}</td>
+                        <td data-field="center">{{ $product->stocks->first()?->quantity }}</td>
+                        <td>
+                            <x-buttons.button href="{{ route('products.show', $product) }}" color="view" icon="eye" />
+                        </td>
                     </tr>
+
                 @empty
-
-                    <tr>
-
-                        <x-admin.table.td colspan="6" class="text-center text-muted py-4">
-                            Nenhum produto encontrado.
-                        </x-admin.table.td>
-
-                    </tr>
+                    <h1>Sem registros de Produtos</h1>
                 @endforelse
-            </x-admin.table.tbody>
+            </tbody>
 
-        </x-admin.table.table>
-        <div class="mt-5">
-
+        </table>
+        <div class="my-5">
             {{ $products->links() }}
         </div>
 
-        @can('delete products')
-            @foreach ($products as $product)
-                <x-modal.delete :action="route('admin.products.destroy', $product->id)" :id="$product->id" :name="$product->name" />
-            @endforeach
-        @endcan
-
-    </x-card>
+    </div>
+    {{-- <div style="height: 2000px"></div> --}}
 
 @endsection

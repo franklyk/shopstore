@@ -10,23 +10,44 @@
 /// /* Table */
 ///
 
-.table-dashboard{
+.table-vs {
+
     width: 100%;
-    th{
-        color: white;
-        text-align: center;
-    }
-    tbody{
-      tr{
-        transition: .3s;
-        &:hover{
-            background: var(--accent-color);
+
+    .table-header {
+        border-bottom: var(--border-light);
+
+        tr {
+            th {
+                padding-bottom: 15px;
+
+            }
+
         }
     }
-    }
 
-    td{
+    th {
         color: white;
         text-align: center;
     }
+
+    tbody {
+        tr {
+            transition: .3s;
+
+            &:hover {
+                background: var(--accent-color);
+            }
+            td {
+                color: white;
+
+                // text-align: center;
+                &[data-field="center"] {
+                    text-align: center;
+                }
+
+            }
+        }
+    }
+
 }

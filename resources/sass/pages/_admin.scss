@@ -16,14 +16,16 @@
     background: var(--site-color);
     min-height: 100dvh;
     position: fixed;
+    width: 100%;
 }
 .content-admin {
-    border: 1px solid white;
+    box-shadow: inset var(--box-shadow);
+    border-radius: 10px;
     left: #{$sidebar-width};
     height: 100dvh;
     min-height: 100dvh;
     overflow-y: scroll;
-    padding: 20px 0px;
+    padding: 30px 30px 60px 30px;
     position: fixed;
     top: #{$header-height};
     width: calc(100vw - #{$sidebar-width});
