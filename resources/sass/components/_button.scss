@@ -20,20 +20,23 @@
     border-color: inherit;
     border-radius: 5px;
     display: flex;
+    font-weight: bolder;
     justify-content: center;
     margin: 5px;
     padding: 3px 5px;
     width: max-content;
     transition: .1s;
 
+    &:hover {
+        filter: drop-shadow(0 0 8px #afafaf);
+    }
+
     &.button-add {
         color: var(--text-muted-color);
         background: #15ab1d;
-        font-weight: bolder;
 
         &:hover {
             color: white;
-            filter: drop-shadow(0 0 8px #5fbc2d);
 
         }
     }
@@ -43,32 +46,26 @@
         color: #00fbffe2;
 
         &:hover {
-            filter: drop-shadow(0 0 8px #ffa4a4e2);
             color: white;
 
         }
     }
 
     &.button-edit {
-        color: rgb(255, 9, 9);
-        background: #ffa647;
+        color: #7e6900;
+        background: #ffd500;
 
         &:hover {
-            filter: drop-shadow(0 0 8px #ffa647);
-            color: white;
-
+            color: #b49600;
         }
     }
 
     &.button-return {
         color: var(--text-muted-color);
         background: #333333;
-        border: 1px solid;
-        border-color: inherit;
 
         &:hover {
             color: white;
-            filter: drop-shadow(0 0 8px #afafaf);
 
         }
     }
@@ -76,12 +73,9 @@
     &.button-view {
         color: var(--text-muted-color);
         background: #6070ff97;
-        border: 1px solid;
 
         &:hover {
-            background: #6070ff97;
             color: white;
-            filter: drop-shadow(0 0 8px #6070ff97);
 
         }
     }

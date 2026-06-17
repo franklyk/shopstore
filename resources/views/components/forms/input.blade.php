@@ -8,7 +8,7 @@
         'id' => $name,
         'name' => $name,
         'value' => old($name),
-        'class' => 'form-control ' . ($hasError ? 'is-invalid' : ''),
+        'class' => 'form-input' . ($hasError ? 'is-invalid' : ''),
     ];
 @endphp
 

@@ -65,6 +65,7 @@ class ProductController extends Controller
             ->get();
 
         $product->load('categories');
+        $product->load('stocks');
 
         return view('admin.products.edit', compact('product', 'categories'));
     }

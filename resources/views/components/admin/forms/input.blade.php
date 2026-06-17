@@ -1,7 +1,7 @@
 @props(['label' => null, 'name', 'type'])
 
 @php
-    
+
 
     $defaults = [
         'autocomplete' => $name,
@@ -9,7 +9,7 @@
         'id' => $name,
         'name' => $name,
         'value' => old($name),
-        'class' => 'form-control ',
+        'class' => 'form-input',
     ];
 @endphp
 

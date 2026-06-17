@@ -1,9 +1,9 @@
 @props(['label' => null, 'name'])
 
-<div class="mb-3">
+<div class="form-field">
 
     @if ($label)
-        <x-admin.forms.label :for="$name" :label="$label" />
+        <x-forms.label :for="$name" :label="$label" />
     @endif
 
     {{ $slot }}

@@ -27,6 +27,7 @@
 
         .menu-list {
             .menu-item {
+                border-radius: 10px;
                 display: flex;
                 justify-content: space-between;
                 padding: 10px;
@@ -38,7 +39,8 @@
                 }
 
                 &:hover {
-                    background-color: var(--accent-color);
+                    // background-color: var(--accent-color);
+                    background-image: var(--to-right);
 
                     .menu-link {
                         color: white;

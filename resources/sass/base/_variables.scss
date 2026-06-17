@@ -1,9 +1,35 @@
+///
+///
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* Variables */
+///
+///
+
+// #000020
+// #00003C
+// Layout
+$site-color: #000018;
+// $site-color: #013f53;
+$accent-color: #ff63474b;
+$header-height: 70px;
+$sidebar-width: 260px;
+
+$border-radius: .5rem;
+
+$light-color: #a6a6a6;
+
 :root {
 
     /* Branding */
     // #013f53
-    --site-color: #013f53;
-    --accent-color: #01638445;
+    --site-color: #{$site-color};
+    --accent-color: #{$accent-color};
 
     /* Surface */
 
@@ -11,13 +37,18 @@
     --surface-color: #f8fafc;
 
     /* Text */
+
+
+    --title-color: #d3d3d3bc;
+
+
     --text-light: #d3d3d3bc;
     --text-color: #111827;
     --text-muted-color: #bffebb;
 
     /* Border */
 
-    --border-light: 1px solid #a6a6a6;
+    --border-light: 1px solid $light-color;
 
     /* Radius */
 
@@ -36,10 +67,10 @@
     /* Shadow */
     --box-shadow: 5px 5px 20px #d4d4d437;
     --text-shadow: 1px 1px 2px white;
+
+    /* elements */
+    --sidebar-width: $sidebar-width;
+    --to-right: linear-gradient(to right, var(--accent-color), transparent);
 }
 
-// Layout
-$header-height: 70px;
-$sidebar-width: 260px;
-$border-light: 1px solid var(--border-light);
-$border-radius: .5rem;
+

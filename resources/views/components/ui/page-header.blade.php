@@ -4,12 +4,12 @@
 
         <div>
 
-            <h1 class="title-header h3 mb-1">
+            <h1 class="page-title">
                 {{ $title }}
             </h1>
 
             @isset($description)
-                <p class="description-page mb-0">
+                <p class="page-description">
                     {{ $description }}
                 </p>
             @endisset
