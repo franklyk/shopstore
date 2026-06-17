@@ -1,0 +1,22 @@
+///
+///
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* List */
+///
+
+.desc-list{
+    
+    border-radius: 10px;
+    color: var(--text-light);
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 300px 1fr;
+    padding: 20px;
+
+}

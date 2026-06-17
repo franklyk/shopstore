@@ -1,4 +1,3 @@
-
 @extends('layouts.base')
 
 @section('layout')
@@ -18,6 +17,8 @@
             </main>
 
         </div>
+
+        @yield('modals')
 
     </div>
 @endsection

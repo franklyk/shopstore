@@ -2,10 +2,10 @@
 
 @section('title', 'Editar Produto')
 
-@section('content')
+@section('admin')
 
     <x-card title="Editar Produto">
-        <x-admin.forms.form method="PUT" action="{{ route('products.update', $product) }}">
+        <x-admin.forms.form method="PUT" action="{{ route('admin.products.update', $product) }}">
 
             <x-admin.forms.row>
                 <x-admin.forms.input type="text" name="name" label="Nome" value="{{ $product->name }}"/>

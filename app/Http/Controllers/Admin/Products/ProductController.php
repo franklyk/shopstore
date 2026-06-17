@@ -51,6 +51,7 @@ class ProductController extends Controller
         // $this->authorize('view', $product);
 
         $product->load('categories');
+        $product->load('stocks');
 
         return view('admin.products.show', compact('product'));
     }

@@ -34,7 +34,7 @@
                         <td data-field="center">R$ {{ $product->price }}</td>
                         <td data-field="center">{{ $product->stocks->first()?->quantity }}</td>
                         <td>
-                            <x-buttons.button href="{{ route('products.show', $product) }}" color="view" icon="eye" />
+                            <x-buttons.button href="{{ route('admin.products.show', $product) }}" color="view" icon="eye" />
                         </td>
                     </tr>
 
