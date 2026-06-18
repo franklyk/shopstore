@@ -10,10 +10,13 @@
 
             <main class="content-admin">
 
-                <x-admin.forms.flesh />
+                <x-ui.flesh />
 
                 @yield('admin')
 
+                <footer class="footer">
+                    © {{ now()->year }} Loja virtual Todos os direitos reservados.
+                </footer>
             </main>
 
         </div>

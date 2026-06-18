@@ -11,7 +11,8 @@
                 <x-ui.breadcrumbs :items="[
                     ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
                     ['label' => 'Produtos', 'url' => route('admin.products.index')],
-                    ['label' => 'Visualizar'],
+                    ['label' => 'Visualizar', 'url' => route('admin.products.show', $product )],
+                    ['label' => 'Editar'],
                 ]" />
                 <div class="container-buttons">
                     @can('view products')
