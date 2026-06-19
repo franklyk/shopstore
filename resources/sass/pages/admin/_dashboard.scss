@@ -1,0 +1,89 @@
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* Dashboard */
+///
+
+@use '../../lib/' as *;
+
+.dashboard {
+    .metrics {
+        margin-bottom: 20px;
+        @include autoGrid(300px, 20px);
+    }
+
+    .widgets {
+        @include autoGrid(300px, 20px);
+    }
+
+    .card {
+
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        min-height: 100px;
+        min-width: 280px;
+        padding: 10px;
+
+        .card-title {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        dl {
+            display: flex;
+            align-items: center;
+
+            dt {
+
+                color: var(--text-light);
+                font-size: 20px;
+                width: 70%;
+            }
+
+            dd {
+                text-align: center;
+                color: var(--text-light);
+                font-size: 30px;
+                width: 30%;
+            }
+        }
+
+        table {
+            thead {
+                tr {
+                    th {
+                        border-bottom: 1px solid var(--text-light);
+                        color: var(--text-light);
+                        text-align: center;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    transition: .3s;
+
+                    &:hover {
+                        background: var(--accent-color);
+                    }
+
+                    td {
+                        color: var(--text-light);
+
+                        &[data-field="center"] {
+                            text-align: center;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+
+}

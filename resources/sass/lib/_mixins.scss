@@ -1,15 +1,15 @@
 ///
-/// 
+///
 ///@author Franklin Klyk
-/// 
+///
 ///@email frsbatist@gmail.com
-/// 
-///https://github.com/franklyk   
-/// 
-/// 
+///
+///https://github.com/franklyk
+///
+///
 /// /* Mixins */
-/// 
-/// 
+///
+///
 
 @use "sass:map";
 @use "sass:math";
@@ -68,11 +68,10 @@
     #{$property}: clamp(rem($min_px), $prefer, rem($max_px));
 }
 
-@mixin autoGrid($minWidth: 100px) {
+@mixin autoGrid($minWidth: 100px, $gap: 10px) {
     display: grid;
-    gap: 20px;
+    gap: $gap;
     grid-template-columns: repeat(auto-fit, minmax($minWidth, auto));
-    padding: 20px 0px;
 }
 
 @mixin lineRainbow() {

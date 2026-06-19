@@ -3,7 +3,7 @@
 @section('title', 'Produtos')
 
 @section('admin')
-    <div class="container-fluid">
+    <div class="page-container">
 
         <x-ui.page-header title="Produtos Cadastrados" description="Gerencie os produtos da loja">
 

@@ -4,6 +4,7 @@
     $hasError = $errors->has($name);
 
     $defaults = [
+        'placeholder' => '',
         'type' => 'text',
         'id' => $name,
         'name' => $name,

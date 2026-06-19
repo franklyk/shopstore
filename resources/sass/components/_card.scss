@@ -12,9 +12,14 @@
 
 @use '../base/variables' as *;
 
-.card-vs{
-    background: transparent;
+.card{
+
     border-radius: 10px;
+    // border: var(--border-light);
     box-shadow: var(--box-shadow);
-    padding: 50px 10px 10px 10px;
+
+    .card-title{
+        color: var(--text-light);
+    }
+
 }

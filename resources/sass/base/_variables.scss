@@ -11,53 +11,49 @@
 ///
 ///
 
+// Tons de azul
 // #000020
 // #00003C
+// #013f53
+
 // Layout
 $site-color: #000018;
-// $site-color: #013f53;
+$site-color-light: #013e535f;
 $accent-color: #ff63474b;
-$header-height: 70px;
-$sidebar-width: 260px;
-
-$border-radius: .5rem;
 
 $light-color: #a6a6a6;
+
+$header-height: 70px;
+$sidebar-width: 260px;
+$border-radius: .5rem;
+
 
 :root {
 
     /* Branding */
-    // #013f53
     --site-color: #{$site-color};
     --accent-color: #{$accent-color};
 
     /* Surface */
-
     --background-color: #ffffff;
     --surface-color: #f8fafc;
 
     /* Text */
+    --title-color: #{$light-color};
 
-
-    --title-color: #d3d3d3bc;
-
-
-    --text-light: #d3d3d3bc;
-    --text-color: #111827;
-    --text-muted-color: #bffebb;
+    --main-text: #{$light-color};
+    --text-light: #{$light-color};
+    --text-accent: #{$accent-color};
 
     /* Border */
-
-    --border-light: 1px solid $light-color;
+    --border-light: 1px solid #{$light-color};
 
     /* Radius */
-
     --radius-sm: 4px;
     --radius-md: 8px;
     --radius-lg: 12px;
 
     /* Spacing */
-
     --space-xs: .25rem;
     --space-sm: .5rem;
     --space-md: 1rem;
@@ -65,7 +61,7 @@ $light-color: #a6a6a6;
     --space-xl: 2rem;
 
     /* Shadow */
-    --box-shadow: 5px 5px 20px #d4d4d437;
+    --box-shadow: 3px 3px 10px 2px #{$site-color-light};
     --text-shadow: 1px 1px 2px white;
 
     /* elements */

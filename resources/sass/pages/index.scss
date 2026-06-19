@@ -11,5 +11,6 @@
 ///
 ///
 
-@forward "admin";
-@forward "store";
+@forward "admin/admin-base";
+@forward "store/store";
+@forward "admin/dashboard";

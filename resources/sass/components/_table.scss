@@ -10,22 +10,8 @@
 /// /* Table */
 ///
 
-.table-vs {
-
+table {
     width: 100%;
-
-    .table-header {
-        border-bottom: var(--border-light);
-
-        tr {
-            th {
-                padding-bottom: 15px;
-
-            }
-
-        }
-    }
-
     th {
         color: white;
         text-align: center;
