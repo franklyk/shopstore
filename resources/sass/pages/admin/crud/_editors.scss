@@ -9,3 +9,12 @@
 ///
 /// /* pages/admin/crud/_editors */
 ///
+
+@use '../../../lib/mixins' as *;
+
+
+.categories-container{
+
+    @include autoGrid(200px);
+    justify-content: space-around;
+}

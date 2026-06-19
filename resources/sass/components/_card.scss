@@ -13,7 +13,7 @@
 @use '../base/variables' as *;
 
 .card{
-
+    background: transparent;
     border-radius: 10px;
     // border: var(--border-light);
     box-shadow: var(--box-shadow);

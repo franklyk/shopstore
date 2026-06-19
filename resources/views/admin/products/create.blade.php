@@ -4,7 +4,7 @@
 
 @section('admin')
 
-    <div class="container-fluid">
+    <div class="page-container">
         <x-ui.page-header title="Novo Produto" description="Edite Qualquer Detalhe do Produto.">
 
             <x-slot:actions>
@@ -19,7 +19,7 @@
                     @endcan
 
                     @can('edit products')
-                        <x-buttons.button for="edit-form" color="edit" icon="edit" label="Cadastrar" />
+                        <x-buttons.button for="create-form" color="edit" icon="edit" label="Cadastrar" />
                     @endcan
 
                 </div>
@@ -27,12 +27,12 @@
 
         </x-ui.page-header>
 
-        <div class="card-vs">
-            <x-forms.form action="{{ route('admin.products.store') }}" class="edit-form" id="edit-form"
+        <div class="card">
+            <x-forms.form action="{{ route('admin.products.store') }}" class="create-form" id="create-form"
                 enctype="multipart/form-data">
 
                 <input id="images" type="file" name="images[]" multiple accept="image/*">
-                
+
                 <x-forms.row>
                     <x-forms.input type="text" name="name" label="Nome:" value="{{ old('name') }}" required />
                 </x-forms.row>
@@ -52,22 +52,22 @@
                 </x-forms.row>
 
                 <x-forms.row>
-                    <div class="card-vs">
+                    <div class="card">
 
                         <h3 class="section-title">Categorias</h3>
 
-                        <div class="auto-grid">
+                        <div class="categories-container">
                             @forelse($categories as $parent)
                                 <div class="card-vs">
-                                    <div class="section-title text-center">
+                                    <div class="section-title">
                                         {{ $parent->name }}
                                     </div>
-                                    <div class="ms-2">
+                                    <div class="">
                                         @forelse($parent->children as $child)
                                             <x-admin.forms.checkbox :name="$child->name" :label="$child->name"
                                                 value="{{ $child->id }}" id="{{ $child->slug }}" />
                                         @empty
-                                            <small class="text-muted">Sem subcategorias</small>
+                                            <small class="">Sem subcategorias</small>
                                         @endforelse
                                     </div>
 
