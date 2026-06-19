@@ -21,6 +21,8 @@ $site-color: #000018;
 $site-color-light: #013e535f;
 $accent-color: #ff63474b;
 
+
+$light-color-high: #eaeaea;
 $light-color: #a6a6a6;
 
 $header-height: 70px;
@@ -39,7 +41,7 @@ $border-radius: .5rem;
     --surface-color: #f8fafc;
 
     /* Text */
-    --title-color: #{$light-color};
+    --title-color: #{$light-color-high};
 
     --main-text: #{$light-color};
     --text-light: #{$light-color};

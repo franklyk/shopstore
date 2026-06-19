@@ -3,7 +3,7 @@
 @section('title', 'Produtos')
 
 @section('admin')
-    <div class="page-container">
+    <div class=" page-container">
 
         <x-ui.page-header title="Produtos Cadastrados" description="Gerencie os produtos da loja">
 
@@ -14,8 +14,8 @@
 
         </x-ui.page-header>
 
-        <table class="table-vs">
-            <thead class="table-header">
+        <table>
+            <thead>
                 <tr>
                     <th>CÓDIGO</th>
                     <th>Nome</th>
@@ -44,7 +44,7 @@
             </tbody>
 
         </table>
-        <div class="my-5">
+        <div class="pagination my-5">
             {{ $products->links() }}
         </div>
 

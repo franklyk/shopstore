@@ -13,7 +13,7 @@
 table {
     width: 100%;
     th {
-        color: white;
+        color: var(--title-color);
         text-align: center;
     }
 
@@ -25,7 +25,7 @@ table {
                 background: var(--accent-color);
             }
             td {
-                color: white;
+                color: var(--main-text);
 
                 // text-align: center;
                 &[data-field="center"] {
