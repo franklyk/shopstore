@@ -2,7 +2,7 @@
     'label' => null,
     'name' => null,
     'id' => null,
-    'for'
+    'for' => null
 ])
 
 @php
@@ -13,7 +13,7 @@
 
     <textarea
         id="{{ $id }}"
-        :name="{{ $name }}"
+        name="{{ $name }}"
         class="form-input"
         {{ $attributes }}
     >{{ old($name, $slot) }}</textarea>

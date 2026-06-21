@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\Category\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Orders\OrderController;
-use App\Http\Controllers\Admin\Products\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\Products\ProductController;
 use App\Http\Controllers\Admin\Users\UserController as AdminUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,31 +28,31 @@ Route::middleware(['auth', 'verified'])
             ->name('products.')
             ->group(function () {
 
-                Route::get('/', [AdminProductController::class, 'index'])
+                Route::get('/', [ProductController::class, 'index'])
                     ->middleware('permission:view products')
                     ->name('index');
 
-                Route::get('/create', [AdminProductController::class, 'create'])
+                Route::get('/create', [ProductController::class, 'create'])
                     ->middleware('permission:create products')
                     ->name('create');
 
-                Route::post('/', [AdminProductController::class, 'store'])
+                Route::post('/store', [ProductController::class, 'store'])
                     ->middleware('permission:create products')
                     ->name('store');
 
-                Route::get('/{product}', [AdminProductController::class, 'show'])
+                Route::get('/show/{product}', [ProductController::class, 'show'])
                     ->middleware('permission:view products')
                     ->name('show');
 
-                Route::get('/{product}/edit', [AdminProductController::class, 'edit'])
+                Route::get('/{product}/edit', [ProductController::class, 'edit'])
                     ->middleware('permission:edit products')
                     ->name('edit');
 
-                Route::put('/{product}', [AdminProductController::class, 'update'])
+                Route::put('/update/{product}', [ProductController::class, 'update'])
                     ->middleware('permission:edit products')
                     ->name('update');
 
-                Route::delete('/{product}', [AdminProductController::class, 'destroy'])
+                Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])
                     ->middleware('permission:delete products')
                     ->name('destroy');
             });

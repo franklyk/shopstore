@@ -7,8 +7,8 @@ use App\Http\Requests\Admin\Products\StoreProductRequest;
 use App\Http\Requests\Admin\Products\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\Stock;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -35,15 +35,44 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        // $this->authorize('create', Product::class);
+        $data = $request->validated();
 
-        $product = Product::create($request->validated());
+        $categories = $data['categories'];
+        unset($data['categories']);
 
-        $product->categories()->attach($request->categories);
+        $stock = $data['stock'];
+        unset($data['stock']);
 
-        return redirect()
-            ->route('admin.products.index')
-            ->with('success', 'Produto cadastrado com sucesso!!');
+        $image = $data['image'];
+        unset($data['image']);
+
+        return DB::transaction(function () use ($data, $categories, $stock, $image) {
+
+            $product = Product::create($data);
+
+            $product->categories()->attach($categories);
+
+            $product->stocks()->create([
+                'quantity' => $stock,
+            ]);
+
+            if ($image) {
+
+                $path = $image->store(
+                    'products',
+                    'public'
+                );
+
+                $product->images()->create([
+                    'image' => $path,
+                    'is_primary' => true,
+                ]);
+            }
+
+            return redirect()
+                ->route('admin.products.index')
+                ->with('success', 'Produto cadastrado com sucesso!!');
+        });
     }
 
     public function show(Product $product)

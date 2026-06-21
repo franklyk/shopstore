@@ -8,32 +8,25 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('stocks', function (Blueprint $table) {
+        Schema::create('product_images', function (Blueprint $table) {
+
             $table->id();
 
             $table->foreignId('product_id')
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->foreignId('warehouse_id')
-            ->default(1)
-                ->constrained()
-                ->cascadeOnDelete();
+            $table->string('image');
 
-            $table->unsignedInteger('quantity')
-                ->default(0);
+            $table->boolean('is_primary')
+                ->default(false);
 
             $table->timestamps();
-
-            $table->unique([
-                'product_id',
-                'warehouse_id',
-            ]);
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('stocks');
+        Schema::dropIfExists('product_images');
     }
 };

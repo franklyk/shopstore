@@ -67,8 +67,21 @@ class Product extends Model
         return $this->hasMany(StockMovement::class);
     }
 
-    // public function images()
-    // {
-    //     return $this->hasMany(ProductImage::class);
-    // }
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
+    public function primaryImage(): HasOne
+    {
+        return $this->hasOne(ProductImage::class)
+            ->where('is_primary', true);
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->primaryImage
+            ? asset('storage/'.$this->primaryImage->image)
+            : null;
+    }
 }

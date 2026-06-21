@@ -4,8 +4,8 @@
 
 @section('admin')
 
-    <div class="page-container">
-        <x-ui.page-header title="Novo Produto" description="Edite Qualquer Detalhe do Produto.">
+    <div class="editors page-container">
+        <x-ui.page-header title="Novo Produto" description="Cadastre um Novo Produto.">
 
             <x-slot:actions>
                 <x-ui.breadcrumbs :items="[
@@ -18,8 +18,8 @@
                         <x-buttons.button href="{{ route('admin.products.index') }}" color="return" icon="return" label="Voltar" />
                     @endcan
 
-                    @can('edit products')
-                        <x-buttons.button for="create-form" color="edit" icon="edit" label="Cadastrar" />
+                    @can('create products')
+                        <x-buttons.button type="submit" form="create-form" color="add" icon="check" label="Cadastrar" />
                     @endcan
 
                 </div>
@@ -28,17 +28,29 @@
         </x-ui.page-header>
 
         <div class="card">
-            <x-forms.form action="{{ route('admin.products.store') }}" class="create-form" id="create-form"
+            <x-forms.form method="POST" action="{{ route('admin.products.store') }}" class="create-form" id="create-form"
                 enctype="multipart/form-data">
 
-                <input id="images" type="file" name="images[]" multiple accept="image/*">
+                <section class="product-image">
+
+                    <h2>Imagem Principal</h2>
+
+                    <div class="product-image__preview">
+
+                        <img id="image-preview" src="https://placehold.co/250x250" alt="Pré-visualização">
+
+                    </div>
+
+                    <input type="file" name="image" id="image" accept="image/*">
+
+                </section>
 
                 <x-forms.row>
                     <x-forms.input type="text" name="name" label="Nome:" value="{{ old('name') }}" required />
                 </x-forms.row>
 
                 <x-forms.row>
-                    <x-forms.input type="text" name="price" label="Preço R$:" value="{{ old('') }}" required />
+                    <x-forms.input type="text" name="price" label="Preço R$:" value="{{ old('price') }}" required />
                 </x-forms.row>
 
                 <x-forms.row>
@@ -64,7 +76,7 @@
                                     </div>
                                     <div class="">
                                         @forelse($parent->children as $child)
-                                            <x-admin.forms.checkbox :name="$child->name" :label="$child->name"
+                                            <x-admin.forms.checkbox name="categories[]" :label="$child->name"
                                                 value="{{ $child->id }}" id="{{ $child->slug }}" />
                                         @empty
                                             <small class="">Sem subcategorias</small>

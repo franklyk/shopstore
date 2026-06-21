@@ -15,7 +15,11 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'image' => ['nullable', 'image'],
+
             'name' => ['required', 'string', 'max:255'],
+            
+            'sku' => ['required', 'string', 'max:50', 'unique:products,sku'],
 
             'description' => ['nullable', 'string'],
 
@@ -29,7 +33,7 @@ class StoreProductRequest extends FormRequest
                 'integer',
                 'distinct',
                 Rule::exists('categories', 'id')
-                    ->whereNull('parent_id') // só permite categorias FILHAS (recomendado)
+                    ->whereNotNull('parent_id'), // só permite categorias FILHAS (recomendado)
             ],
         ];
     }
