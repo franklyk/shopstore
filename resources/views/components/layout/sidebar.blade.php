@@ -18,8 +18,12 @@
             <x-menu.link href="{{ route('admin.products.index') }}" label="Produtos" />
         @endcan
 
-        @can('view products')
+        @can('view suppliers')
             <x-menu.link href="{{ route('admin.suppliers.index') }}" label="Fornecedores" />
+        @endcan
+
+        @can('view collections')
+            <x-menu.link href="{{ route('admin.collections.index') }}" label="Coleções" />
         @endcan
 
         @can('view categories')

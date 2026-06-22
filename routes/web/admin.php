@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\Category\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Orders\OrderController;
 use App\Http\Controllers\Admin\Products\ProductController;
-use App\Http\Controllers\Admin\Users\UserController as AdminUserController;
+use App\Http\Controllers\Admin\Users\UserController;
+use App\Http\Controllers\Collection\CollectionController;
 use App\Http\Controllers\Supplier\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -66,31 +67,31 @@ Route::middleware(['auth', 'verified'])
             ->name('categories.')
             ->group(function () {
 
-                Route::get('/', [AdminCategoryController::class, 'index'])
+                Route::get('/', [CategoryController::class, 'index'])
                     ->middleware('permission:view categories')
                     ->name('index');
 
-                Route::get('/create', [AdminCategoryController::class, 'create'])
+                Route::get('/create', [CategoryController::class, 'create'])
                     ->middleware('permission:create categories')
                     ->name('create');
 
-                Route::post('/', [AdminCategoryController::class, 'store'])
+                Route::post('/', [CategoryController::class, 'store'])
                     ->middleware('permission:create categories')
                     ->name('store');
 
-                Route::get('/{category}', [AdminCategoryController::class, 'show'])
+                Route::get('/{category}', [CategoryController::class, 'show'])
                     ->middleware('permission:view categories')
                     ->name('show');
 
-                Route::get('/{category}/edit', [AdminCategoryController::class, 'edit'])
+                Route::get('/{category}/edit', [CategoryController::class, 'edit'])
                     ->middleware('permission:edit categories')
                     ->name('edit');
 
-                Route::put('/{category}', [AdminCategoryController::class, 'update'])
+                Route::put('/{category}', [CategoryController::class, 'update'])
                     ->middleware('permission:edit categories')
                     ->name('update');
 
-                Route::delete('/{category}', [AdminCategoryController::class, 'destroy'])
+                Route::delete('/{category}', [CategoryController::class, 'destroy'])
                     ->middleware('permission:delete categories')
                     ->name('destroy');
             });
@@ -103,31 +104,31 @@ Route::middleware(['auth', 'verified'])
             ->name('users.')
             ->group(function () {
 
-                Route::get('/', [AdminUserController::class, 'index'])
+                Route::get('/', [UserController::class, 'index'])
                     ->middleware('permission:view users')
                     ->name('index');
 
-                Route::get('/create', [AdminUserController::class, 'create'])
+                Route::get('/create', [UserController::class, 'create'])
                     ->middleware('permission:create users')
                     ->name('create');
 
-                Route::post('/', [AdminUserController::class, 'store'])
+                Route::post('/', [UserController::class, 'store'])
                     ->middleware('permission:create users')
                     ->name('store');
 
-                Route::get('/{user}', [AdminUserController::class, 'show'])
+                Route::get('/{user}', [UserController::class, 'show'])
                     ->middleware('permission:view users')
                     ->name('show');
 
-                Route::get('/{user}/edit', [AdminUserController::class, 'edit'])
+                Route::get('/{user}/edit', [UserController::class, 'edit'])
                     ->middleware('permission:edit users')
                     ->name('edit');
 
-                Route::put('/{user}', [AdminUserController::class, 'update'])
+                Route::put('/{user}', [UserController::class, 'update'])
                     ->middleware('permission:edit users')
                     ->name('update');
 
-                Route::delete('/{user}', [AdminUserController::class, 'destroy'])
+                Route::delete('/{user}', [UserController::class, 'destroy'])
                     ->middleware('permission:delete users')
                     ->name('destroy');
             });
@@ -178,6 +179,39 @@ Route::middleware(['auth', 'verified'])
 
                 Route::delete('/{supplier}', [SupplierController::class, 'destroy'])
                     ->middleware('permission:delete suppliers')
+                    ->name('destroy');
+            });
+
+        Route::prefix('collections')
+            ->name('collections.')
+            ->group(function () {
+
+                Route::get('/', [CollectionController::class, 'index'])
+                    ->middleware('permission:view collections')
+                    ->name('index');
+
+                Route::get('/create', [CollectionController::class, 'create'])
+                    ->middleware('permission:create collections')
+                    ->name('create');
+
+                Route::post('/store', [CollectionController::class, 'store'])
+                    ->middleware('permission:create collections')
+                    ->name('store');
+
+                Route::get('/show/{collection}', [CollectionController::class, 'show'])
+                    ->middleware('permission:view collections')
+                    ->name('show');
+
+                Route::get('/{collection}/edit', [CollectionController::class, 'edit'])
+                    ->middleware('permission:edit collections')
+                    ->name('edit');
+
+                Route::put('/update/{collection}', [CollectionController::class, 'update'])
+                    ->middleware('permission:edit collections')
+                    ->name('update');
+
+                Route::delete('/destroy/{collection}', [CollectionController::class, 'destroy'])
+                    ->middleware('permission:delete collections')
                     ->name('destroy');
             });
     });

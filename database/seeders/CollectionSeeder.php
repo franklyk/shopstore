@@ -2,15 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\Supplier;
+use App\Models\Collection;
 use Illuminate\Database\Seeder;
 
-class SupplierSeeder extends Seeder
+class CollectionSeeder extends Seeder
 {
     public function run(): void
     {
-        Supplier::factory()
-            ->count(10)
+        Collection::factory()
+            ->count(15)
             ->create();
     }
 }

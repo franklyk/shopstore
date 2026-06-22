@@ -6,13 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Supplier extends Model
+class Collection extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'supplier_id',
         'name',
         'slug',
+        'year',
         'active',
     ];
 
@@ -20,8 +22,8 @@ class Supplier extends Model
         'active' => 'boolean',
     ];
 
-    public function collections()
+    public function suppliers()
     {
-        return $this->belongsToMany(Collection::class);
+        return $this->belongsToMany(Supplier::class);
     }
 }

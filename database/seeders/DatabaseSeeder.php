@@ -17,22 +17,17 @@ class DatabaseSeeder extends Seeder
         $this->call([
 
             RolePermissionSeeder::class,
-
             SuperAdminSeeder::class,
-
             UserSeeder::class,
-
             AddressSeeder::class,
-
             CategorySeeder::class,
-
             ProductSeeder::class,
 
+            SupplierSeeder::class,
+            CollectionSeeder::class,
+
             WarehouseSeeder::class,
-
-            StockSeeder::class
-
+            StockSeeder::class,
         ]);
-
     }
 }

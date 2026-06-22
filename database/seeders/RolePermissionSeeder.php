@@ -76,6 +76,13 @@ class RolePermissionSeeder extends Seeder
             'create suppliers',
             'edit suppliers',
             'delete suppliers',
+
+            // Collections
+            'view collections',
+            'create collections',
+            'edit collections',
+            'delete collections',
+
         ];
 
         foreach ($permissions as $permission) {
@@ -98,7 +105,7 @@ class RolePermissionSeeder extends Seeder
             'view dashboard',
 
             'view products',
-            'view categories',
+            
             'view shipments',
 
         ]);
@@ -111,12 +118,8 @@ class RolePermissionSeeder extends Seeder
             'view dashboard',
 
             'view products',
-            'create products',
-            'edit products',
 
             'view categories',
-            'create categories',
-            'edit categories',
 
             'view users',
 
@@ -125,9 +128,8 @@ class RolePermissionSeeder extends Seeder
             'view shipments',
 
             'view suppliers',
-            'create suppliers',
-            'edit suppliers',
-            'delete suppliers',
+
+            'view collections',
 
         ]);
 
