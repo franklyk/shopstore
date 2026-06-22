@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Orders\OrderController;
 use App\Http\Controllers\Admin\Products\ProductController;
 use App\Http\Controllers\Admin\Users\UserController as AdminUserController;
+use App\Http\Controllers\Supplier\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])
@@ -145,5 +146,38 @@ Route::middleware(['auth', 'verified'])
                 Route::get('/{order}', [OrderController::class, 'show'])
                     ->middleware('permission:view orders')
                     ->name('show');
+            });
+
+        Route::prefix('suppliers')
+            ->name('suppliers.')
+            ->group(function () {
+
+                Route::get('/', [SupplierController::class, 'index'])
+                    ->middleware('permission:view suppliers')
+                    ->name('index');
+
+                Route::get('/create', [SupplierController::class, 'create'])
+                    ->middleware('permission:create suppliers')
+                    ->name('create');
+
+                Route::post('/', [SupplierController::class, 'store'])
+                    ->middleware('permission:create suppliers')
+                    ->name('store');
+
+                Route::get('/{supplier}', [SupplierController::class, 'show'])
+                    ->middleware('permission:view suppliers')
+                    ->name('show');
+
+                Route::get('/{supplier}/edit', [SupplierController::class, 'edit'])
+                    ->middleware('permission:edit suppliers')
+                    ->name('edit');
+
+                Route::put('/{supplier}', [SupplierController::class, 'update'])
+                    ->middleware('permission:edit suppliers')
+                    ->name('update');
+
+                Route::delete('/{supplier}', [SupplierController::class, 'destroy'])
+                    ->middleware('permission:delete suppliers')
+                    ->name('destroy');
             });
     });

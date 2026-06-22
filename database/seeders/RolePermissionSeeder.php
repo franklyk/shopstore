@@ -70,6 +70,12 @@ class RolePermissionSeeder extends Seeder
 
             // Shipments
             'view shipments',
+
+            // Suppliers
+            'view suppliers',
+            'create suppliers',
+            'edit suppliers',
+            'delete suppliers',
         ];
 
         foreach ($permissions as $permission) {
@@ -115,7 +121,13 @@ class RolePermissionSeeder extends Seeder
             'view users',
 
             'view orders',
+
             'view shipments',
+
+            'view suppliers',
+            'create suppliers',
+            'edit suppliers',
+            'delete suppliers',
 
         ]);
 

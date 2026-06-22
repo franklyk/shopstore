@@ -86,6 +86,11 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Address::class, AddressPolicy::class);
 
         // ================================//
+        // Supplier Policy                 //
+        // ================================//
+        Gate::policy(Supplier::class, SupplierPolicy::class);
+
+        // ================================//
         // Pagination                     //
         // ================================//
 
