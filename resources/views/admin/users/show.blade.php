@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('content')
+@section('admin')
     <div class="card">
         <div class="card-header d-flex align-items-center">
             <div class="card-title">

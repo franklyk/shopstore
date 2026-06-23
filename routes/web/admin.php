@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Orders\OrderController;
 use App\Http\Controllers\Admin\Products\ProductController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Collection\CollectionController;
+use App\Http\Controllers\Import\ImportBatchController;
 use App\Http\Controllers\Supplier\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -75,11 +76,11 @@ Route::middleware(['auth', 'verified'])
                     ->middleware('permission:create categories')
                     ->name('create');
 
-                Route::post('/', [CategoryController::class, 'store'])
+                Route::post('/store', [CategoryController::class, 'store'])
                     ->middleware('permission:create categories')
                     ->name('store');
 
-                Route::get('/{category}', [CategoryController::class, 'show'])
+                Route::get('/show/{category}', [CategoryController::class, 'show'])
                     ->middleware('permission:view categories')
                     ->name('show');
 
@@ -87,17 +88,17 @@ Route::middleware(['auth', 'verified'])
                     ->middleware('permission:edit categories')
                     ->name('edit');
 
-                Route::put('/{category}', [CategoryController::class, 'update'])
+                Route::put('/update/{category}', [CategoryController::class, 'update'])
                     ->middleware('permission:edit categories')
                     ->name('update');
 
-                Route::delete('/{category}', [CategoryController::class, 'destroy'])
+                Route::delete('/destroy/{category}', [CategoryController::class, 'destroy'])
                     ->middleware('permission:delete categories')
                     ->name('destroy');
             });
 
         // ================================//
-        //              Users              //
+        // Users
         // ================================//
 
         Route::prefix('users')
@@ -112,11 +113,11 @@ Route::middleware(['auth', 'verified'])
                     ->middleware('permission:create users')
                     ->name('create');
 
-                Route::post('/', [UserController::class, 'store'])
+                Route::post('/store', [UserController::class, 'store'])
                     ->middleware('permission:create users')
                     ->name('store');
 
-                Route::get('/{user}', [UserController::class, 'show'])
+                Route::get('/show/{user}', [UserController::class, 'show'])
                     ->middleware('permission:view users')
                     ->name('show');
 
@@ -124,18 +125,19 @@ Route::middleware(['auth', 'verified'])
                     ->middleware('permission:edit users')
                     ->name('edit');
 
-                Route::put('/{user}', [UserController::class, 'update'])
+                Route::put('/update/{user}', [UserController::class, 'update'])
                     ->middleware('permission:edit users')
                     ->name('update');
 
-                Route::delete('/{user}', [UserController::class, 'destroy'])
+                Route::delete('/destroy/{user}', [UserController::class, 'destroy'])
                     ->middleware('permission:delete users')
                     ->name('destroy');
             });
 
         // ================================//
-        //              Orders             //
+        // Orders
         // ================================//
+
         Route::prefix('orders')
             ->name('orders.')
             ->group(function () {
@@ -144,10 +146,14 @@ Route::middleware(['auth', 'verified'])
                     ->middleware('permission:view orders')
                     ->name('index');
 
-                Route::get('/{order}', [OrderController::class, 'show'])
+                Route::get('/show/{order}', [OrderController::class, 'show'])
                     ->middleware('permission:view orders')
                     ->name('show');
             });
+
+        // ================================//
+        // Suppliers
+        // ================================//
 
         Route::prefix('suppliers')
             ->name('suppliers.')
@@ -161,11 +167,11 @@ Route::middleware(['auth', 'verified'])
                     ->middleware('permission:create suppliers')
                     ->name('create');
 
-                Route::post('/', [SupplierController::class, 'store'])
+                Route::post('/store', [SupplierController::class, 'store'])
                     ->middleware('permission:create suppliers')
                     ->name('store');
 
-                Route::get('/{supplier}', [SupplierController::class, 'show'])
+                Route::get('/show/{supplier}', [SupplierController::class, 'show'])
                     ->middleware('permission:view suppliers')
                     ->name('show');
 
@@ -173,14 +179,18 @@ Route::middleware(['auth', 'verified'])
                     ->middleware('permission:edit suppliers')
                     ->name('edit');
 
-                Route::put('/{supplier}', [SupplierController::class, 'update'])
+                Route::put('/update/{supplier}', [SupplierController::class, 'update'])
                     ->middleware('permission:edit suppliers')
                     ->name('update');
 
-                Route::delete('/{supplier}', [SupplierController::class, 'destroy'])
+                Route::delete('/destroy/{supplier}', [SupplierController::class, 'destroy'])
                     ->middleware('permission:delete suppliers')
                     ->name('destroy');
             });
+
+        // ================================//
+        // Collections
+        // ================================//
 
         Route::prefix('collections')
             ->name('collections.')
@@ -214,4 +224,28 @@ Route::middleware(['auth', 'verified'])
                     ->middleware('permission:delete collections')
                     ->name('destroy');
             });
+
+        Route::prefix('imports')
+            ->name('imports.')
+            ->group(function () {
+
+                Route::get('/', [ImportBatchController::class, 'index'])
+                    ->name('index');
+
+                Route::get('/create', [ImportBatchController::class, 'create'])
+                    ->name('create');
+
+                Route::post('/store', [ImportBatchController::class, 'store'])
+                    ->name('store');
+
+                Route::get('/{importBatch}', [ImportBatchController::class, 'show'])
+                    ->name('show');
+
+                Route::get('/{importBatch}/pdf', [ImportBatchController::class, 'pdf'])
+                    ->name('pdf');
+
+                Route::post('/{importBatch}/process', [ImportBatchController::class, 'process'])
+                    ->name('process');
+            });
+
     });

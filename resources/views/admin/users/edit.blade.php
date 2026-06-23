@@ -2,7 +2,7 @@
 
 @section('title', 'Editar Usuário')
 
-@section('content')
+@section('admin')
 
     <div class="card">
         <div class="card-header d-flex align-items-center">

@@ -2,23 +2,23 @@
 
 @section('title', 'Editar Categoria')
 
-@section('content')
+@section('admin')
 
     <x-card title="Editar Categoria">
 
-        <x-admin.forms.form action="{{ route('admin.categories.update', $category->id) }}" method="PUT">
+        <x-forms.form action="{{ route('admin.categories.update', $category->id) }}" method="PUT">
 
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="name" label="Nome" value="{{ $category->name }}" />
-            </x-admin.forms.row>
+            <x-forms.row>
+                <x-forms.input type="text" name="name" label="Nome" value="{{ $category->name }}" />
+            </x-forms.row>
 
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="slug" label="Slug" value="{{ $category->slug }}" />
-            </x-admin.forms.row>
+            <x-forms.row>
+                <x-forms.input type="text" name="slug" label="Slug" value="{{ $category->slug }}" />
+            </x-forms.row>
 
-            <x-admin.forms.row>
-                <x-admin.forms.checkbox name="is_active" value="1" id="is_active" label="Categoria ativa" />
-            </x-admin.forms.row>
+            <x-forms.row>
+                <x-forms.checkbox name="is_active" value="1" id="is_active" label="Categoria ativa" />
+            </x-forms.row>
 
 
             <div class="mb-3">
@@ -50,7 +50,7 @@
 
             <x-buttons.button type="submit" color="success" icon="check" label="Cadastrar" />
 
-        </x-admin.forms.form>
+        </x-forms.form>
     </x-card>
 
 @endsection

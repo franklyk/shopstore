@@ -83,6 +83,10 @@ class RolePermissionSeeder extends Seeder
             'edit collections',
             'delete collections',
 
+            // ImportBatches
+            'view import batches',
+            "create import batches",
+
         ];
 
         foreach ($permissions as $permission) {
@@ -105,7 +109,7 @@ class RolePermissionSeeder extends Seeder
             'view dashboard',
 
             'view products',
-            
+
             'view shipments',
 
         ]);

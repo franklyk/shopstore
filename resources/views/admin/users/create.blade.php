@@ -2,7 +2,7 @@
 
 @section('title', 'Novo Usuário')
 
-@section('content')
+@section('admin')
 
     <div class="card">
         <div class="card-header d-flex align-items-center">
@@ -70,7 +70,7 @@
                     Voltar
                 </a>
             @endcan
-            
+
             <button type="submit" class="btn btn-sm btn-success" form="create-form">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
                     stroke-width="2" viewBox="0 0 24 24">

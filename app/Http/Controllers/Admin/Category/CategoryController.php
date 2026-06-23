@@ -21,7 +21,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $categories = Category::whereNull('parent_id', true, [])
+        $categories = Category::whereNull('parent_id')
             ->orderBy('name')
             ->get();
 
@@ -49,7 +49,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        $categories = Category::whereNull('parent_id', true, [])
+        $categories = Category::whereNull('parent_id')
             ->where('id', '!=', $category->id)
             ->orderBy('name')
             ->get();

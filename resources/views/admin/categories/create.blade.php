@@ -2,25 +2,25 @@
 
 @section('title', 'Nova Categoria')
 
-@section('content')
+@section('admin')
 
     <x-card title="Nova Categoria">
-        <x-admin.forms.form action="{{ route('admin.categories.store') }}" method="POST">
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="name" label="Nome" />
-            </x-admin.forms.row>
+        <x-forms.form action="{{ route('admin.categories.store') }}" method="POST">
+            <x-forms.row>
+                <x-forms.input type="text" name="name" label="Nome" />
+            </x-forms.row>
 
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="slug" label="Slug" />
-            </x-admin.forms.row>
+            <x-forms.row>
+                <x-forms.input type="text" name="slug" label="Slug" />
+            </x-forms.row>
 
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="stock" label="Estoque" />
-            </x-admin.forms.row>
+            <x-forms.row>
+                <x-forms.input type="text" name="stock" label="Estoque" />
+            </x-forms.row>
 
-            <x-admin.forms.row>
-                <x-admin.forms.checkbox name="is_active" value="1" id="is_active" label="Categoria ativa" />
-            </x-admin.forms.row>
+            <x-forms.row>
+                <x-forms.checkbox name="is_active" value="1" id="is_active" label="Categoria ativa" />
+            </x-forms.row>
 
 
             <div class="mb-3">
@@ -51,6 +51,6 @@
 
             <x-buttons.button type="submit" color="success" icon="check" label="Cadastrar" />
 
-        </x-admin.forms.form>
+        </x-forms.form>
     </x-card>
 @endsection

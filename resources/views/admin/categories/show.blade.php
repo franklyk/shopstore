@@ -2,7 +2,7 @@
 
 @section('title', 'Detalhes da Categoria')
 
-@section('content')
+@section('admin')
 
 <div class="card">
 

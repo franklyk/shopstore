@@ -2,7 +2,7 @@
 
 @section('title', 'Categorias')
 
-@section('content')
+@section('admin')
 
     <x-card title="Categorias Cadastradas">
         <x-slot:actions>

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Supplier;
+use App\Policies\SupplierPolicy;
 use App\Models\Address;
 use App\Listeners\MergeCartOnLogin;
 use App\Models\Category;
