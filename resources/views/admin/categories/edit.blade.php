@@ -4,53 +4,49 @@
 
 @section('admin')
 
-    <x-card title="Editar Categoria">
+    <div class="page-container">
+        <x-ui.page-header title="Editar Categoria" description="Edite Qualquer Detalhe da Categoria.">
 
-        <x-forms.form action="{{ route('admin.categories.update', $category->id) }}" method="PUT">
+            <x-slot:actions>
+                <x-ui.breadcrumbs :items="[
+                    ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+                    ['label' => 'Categorias', 'url' => route('admin.categories.index')],
+                    ['label' => 'Visualizar', 'url' => route('admin.categories.show', $category)],
+                    ['label' => 'Editar'],
+                ]" />
 
-            <x-forms.row>
-                <x-forms.input type="text" name="name" label="Nome" value="{{ $category->name }}" />
-            </x-forms.row>
+            </x-slot:actions>
 
-            <x-forms.row>
-                <x-forms.input type="text" name="slug" label="Slug" value="{{ $category->slug }}" />
-            </x-forms.row>
+        </x-ui.page-header>
 
-            <x-forms.row>
-                <x-forms.checkbox name="is_active" value="1" id="is_active" label="Categoria ativa" />
-            </x-forms.row>
+        <div class="card-vs">
+            <x-forms.form action="{{ route('admin.categories.update', $category) }}" method="PUT">
 
+                <x-forms.row>
+                    <x-forms.input type="text" name="name" label="Nome" required
+                        value="{{ old('name', $category->name) }}" />
+                </x-forms.row>
 
-            <div class="mb-3">
+                <x-forms.row>
+                    <x-forms.select field_label="Categoria Pai" name="parent_id" :options="$categories"
+                        placeholder="Categoria Principal" />
+                </x-forms.row>
 
-                <p for="parent_id" class="form-label">
-                    <strong>Categoria Pai</strong>
-                </p>
+                <div class="container-buttons">
+                    @can('view categories')
+                        <x-buttons.button href="{{ route('admin.categories.index') }}" color="return" icon="return"
+                            label="Voltar" />
+                    @endcan
 
-                <select name="parent_id" id="parent_id" class="form-select @error('parent_id') is-invalid @enderror">
+                    @can('edit categories')
+                        <x-buttons.button type="submit" color="edit" icon="edit" label="Salvar" />
+                    @endcan
 
-                    <option value="">
-                        Categoria Principal
-                    </option>
+                </div>
 
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" @selected(old('parent_id') == $category->id)>
+            </x-forms.form>
 
-                            {{ $category->name }}
-
-                        </option>
-                    @endforeach
-
-                </select>
-            </div>
-
-            @can('view categories')
-                <x-buttons.button href="{{ route('admin.categories.index') }}" color="secondary" icon="return" label="Voltar" />
-            @endcan
-
-            <x-buttons.button type="submit" color="success" icon="check" label="Cadastrar" />
-
-        </x-forms.form>
-    </x-card>
+        </div>
+    </div>
 
 @endsection

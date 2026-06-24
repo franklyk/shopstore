@@ -49,17 +49,19 @@ class CategoryController extends Controller
         $categories = Category::whereNull('parent_id')
             ->where('id', '!=', $category->id)
             ->orderBy('name')
-            ->get();
+            ->pluck('name','id');
+            // ->get();
 
         return view('admin.categories.edit', compact('category', 'categories'));
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+        // dd($request->validated());
         $category->update($request->validated());
 
         return redirect()
-            ->route('admin.categories.index')
+            ->route('admin.categories.show', $category)
             ->with('success', 'Categoria atualizada com sucesso!');
     }
 

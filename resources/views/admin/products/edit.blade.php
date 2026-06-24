@@ -4,7 +4,7 @@
 
 @section('admin')
 
-    <div class="container-fluid">
+    <div class="page-container">
         <x-ui.page-header title="Editar Produto" description="Edite Qualquer Detalhe do Produto.">
 
             <x-slot:actions>
