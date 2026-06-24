@@ -4,33 +4,23 @@
 
 @section('admin')
 
-<div class="container-fluid">
+<div class="page-container">
+    
+    <x-ui.page-header title="Pedidos" description="Gerencie os Pedidos">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+            <x-slot:actions>
 
-        <div>
+                <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Pedidos']]" />
 
-            <h1 class="mb-1">
-                Pedidos
-            </h1>
+            </x-slot:actions>
 
-            <p class="text-muted mb-0">
-                Gerencie os pedidos realizados na loja.
-            </p>
+        </x-ui.page-header>
 
-        </div>
 
-    </div>
 
     <div class="card">
 
-        <div class="card-header">
-            Lista de Pedidos
-        </div>
-
-        <div class="card-body p-0">
-
-            <table class="table table-hover align-middle mb-0">
+            <table>
 
                 <thead>
 
@@ -86,13 +76,7 @@
                             </td>
 
                             <td>
-
-                                <a
-                                    href="{{ route('admin.orders.show', $order) }}"
-                                    class="btn btn-sm btn-primary"
-                                >
-                                    Ver
-                                </a>
+                                <x-buttons.button href="{{ route('admin.orders.show', $order) }} " color="view" icon="eye"/>
 
                             </td>
 
@@ -102,7 +86,7 @@
 
                         <tr>
 
-                            <td colspan="6" class="text-center py-4">
+                            <td>
 
                                 Nenhum pedido encontrado.
 
@@ -116,7 +100,6 @@
 
             </table>
 
-        </div>
 
         @if($orders->hasPages())
 

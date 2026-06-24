@@ -10,6 +10,39 @@
 /// /* Images */
 ///
 
+.container-image{
+
+    align-items: center;
+    display: flex;
+    height: 200px;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 20px;
+    width: 200px;
+    .image-preview{
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.432));
+        .label-image{
+            display: block;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+
+            .image{
+                max-height: 100%;
+                max-width: 200px;
+    object-fit: cover;
+
+            }
+        }
+        .input-image{
+            display: none;
+            // height: 200px;
+            // width: 200px;
+            position: absolute;
+        }
+    }
+}
+
 .product-image {
     display: flex;
     flex-direction: column;

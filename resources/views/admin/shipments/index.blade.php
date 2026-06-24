@@ -1,106 +1,91 @@
-
 @extends('layouts.admin')
 
-@section('title', 'Shipments')
+@section('title', 'Envios')
 
 @section('admin')
 
-<div class="container">
+    <div class="page-container">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+        <x-ui.page-header title="Envios" description="Gerencie os Envios dos Produtos">
 
-        <h1>
-            Shipments
-        </h1>
+            <x-slot:actions>
+                <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Envios']]" />
+            </x-slot:actions>
 
-    </div>
+        </x-ui.page-header>
 
-    <div class="card">
+        <div class="card">
 
-        <div class="card-body p-0">
+            <table>
 
-            <table class="table table-hover mb-0">
+                    <thead>
 
-                <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Pedido</th>
+                            <th>Status</th>
+                            <th>Transportadora</th>
+                            <th>Rastreio</th>
+                            <th></th>
+                        </tr>
 
-                    <tr>
-                        <th>ID</th>
-                        <th>Pedido</th>
-                        <th>Status</th>
-                        <th>Transportadora</th>
-                        <th>Rastreio</th>
-                        <th></th>
-                    </tr>
+                    </thead>
 
-                </thead>
+                    <tbody>
 
-                <tbody>
+                        @forelse($shipments as $shipment)
+                        <tr>
 
-                    @forelse($shipments as $shipment)
+                                <td>
+                                    #{{ $shipment->id }}
+                                </td>
+
+                                <td>
+                                    #{{ $shipment->order_id }}
+                                </td>
+
+                                <td>
+                                    {{ $shipment->status->value }}
+                                </td>
+
+                                <td>
+                                    {{ $shipment->carrier ?? '-' }}
+                                </td>
+
+                                <td>
+                                    {{ $shipment->tracking_code ?? '-' }}
+                                </td>
+
+                                <td class="text-end">
+                                    <x-buttons.button href="{{ route('admin.shipments.show', $shipment) }}" color="view" icon="eye" />
+
+                                </td>
+
+                            </tr>
+
+                        @empty
 
                         <tr>
 
                             <td>
-                                #{{ $shipment->id }}
-                            </td>
-
-                            <td>
-                                #{{ $shipment->order_id }}
-                            </td>
-
-                            <td>
-                                {{ $shipment->status->value }}
-                            </td>
-
-                            <td>
-                                {{ $shipment->carrier ?? '-' }}
-                            </td>
-
-                            <td>
-                                {{ $shipment->tracking_code ?? '-' }}
-                            </td>
-
-                            <td class="text-end">
-
-                                <a
-                                    href="{{ route('admin.shipments.show', $shipment) }}"
-                                    class="btn btn-sm btn-primary"
-                                >
-                                    Abrir
-                                </a>
-
+                                Nenhum Envio Encontrado.
                             </td>
 
                         </tr>
+                        @endforelse
 
-                    @empty
+                    </tbody>
 
-                        <tr>
+                </table>
+        </div>
 
-                            <td colspan="6" class="text-center py-4">
+        <div class="mt-3">
 
-                                Nenhum shipment encontrado.
-
-                            </td>
-
-                        </tr>
-
-                    @endforelse
-
-                </tbody>
-
-            </table>
+            {{ $shipments->links() }}
 
         </div>
 
-    </div>
-
-    <div class="mt-3">
-
-        {{ $shipments->links() }}
 
     </div>
-
-</div>
 
 @endsection

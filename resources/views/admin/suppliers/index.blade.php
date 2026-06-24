@@ -3,22 +3,13 @@
 @section('title', 'Fornecedores')
 
 @section('admin')
-    <div class="page-container">
+    <div class=" page-container">
 
-        <x-ui.page-header title="Fornecedores Cadastrados" description="Gerencie os fornecedores do sistema">
+        <x-ui.page-header title="Fornecedores" description="Gerencie os Fornecedores da loja">
 
             <x-slot:actions>
-                <x-ui.breadcrumbs :items="[
-                    ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
-                    ['label' => 'Fornecedores']
-                ]" />
-
-                <x-buttons.button
-                    href="{{ route('admin.suppliers.create') }}"
-                    color="add"
-                    icon="plus"
-                    label="Novo"
-                />
+                <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Fornecedores']]" />
+                <x-buttons.button href="{{ route('admin.suppliers.create') }}" color="add" icon="plus" label="Novo" />
             </x-slot:actions>
 
         </x-ui.page-header>

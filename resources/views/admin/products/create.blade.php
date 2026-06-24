@@ -31,17 +31,16 @@
             <x-forms.form method="POST" action="{{ route('admin.products.store') }}" class="create-form" id="create-form"
                 enctype="multipart/form-data">
 
-                <section class="product-image">
+                <section class="container-image">
 
-                    <h2>Imagem Principal</h2>
+                    <div class="image-preview" id="preview-image">
 
-                    <div class="product-image__preview">
-
-                        <img id="image-preview" src="https://placehold.co/250x250" alt="Pré-visualização">
+                        <label class="label-image" for="input-image">
+                        </label>
+                        <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
 
                     </div>
 
-                    <input type="file" name="image" id="image" accept="image/*">
 
                 </section>
 
