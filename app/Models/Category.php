@@ -2,21 +2,22 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasUuid;
+use App\Models\Traits\HasSlug;
 use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Category extends Model
 {
     /** @use HasFactory<CategoryFactory> */
-    use HasFactory;
+    use HasFactory, HasUuid, HasSlug, SoftDeletes;
 
     protected $fillable = [
-        'uuid',
         'parent_id',
         'name',
-        'slug',
         'is_active',
     ];
 
@@ -39,7 +40,7 @@ class Category extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class);
-    }       
+    }
 
     public function parent()
     {
@@ -50,13 +51,13 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
-    
-    public function allProducts()
-{
-    $categoryIds = $this->children->pluck('id')->push($this->id);
 
-    return Product::whereHas('categories', function ($query) use ($categoryIds) {
-        $query->whereIn('categories.id', $categoryIds);
-    });
-}
+    public function allProducts()
+    {
+        $categoryIds = $this->children->pluck('id')->push($this->id);
+
+        return Product::whereHas('categories', function ($query) use ($categoryIds) {
+            $query->whereIn('categories.id', $categoryIds);
+        });
+    }
 }

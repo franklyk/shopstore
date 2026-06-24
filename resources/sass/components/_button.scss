@@ -12,6 +12,10 @@
 
 .container-buttons {
     display: flex;
+    a{
+        display:flex;
+        height: auto;
+    }
 }
 
 .button {
@@ -28,11 +32,11 @@
     transition: .1s;
 
     &:hover {
-        filter: drop-shadow(0 0 8px #afafaf);
+        filter: drop-shadow(0 0 8px #d8d8d871);
     }
 
     &.button-add {
-        color: var(--text-muted-color);
+        color:white;
         background: #15ab1d;
 
         &:hover {
@@ -43,12 +47,12 @@
 
     &.button-delete {
         background: #ff2323e2;
-        color: #00fbffe2;
+        color: #ffffff;
 
-        &:hover {
-            color: white;
+        // &:hover {
+        //     color: white;
 
-        }
+        // }
     }
 
     &.button-edit {
@@ -61,13 +65,10 @@
     }
 
     &.button-return {
-        color: var(--text-muted-color);
-        background: #333333;
+        color: white;
+        background: transparent;
 
-        &:hover {
-            color: white;
 
-        }
     }
 
     &.button-view {

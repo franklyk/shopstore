@@ -14,7 +14,7 @@ class CategoryController extends Controller
     {
         $categories = Category::with('parent')
             ->latest()
-            ->simplePaginate(15);
+            ->paginate(15);
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -23,11 +23,10 @@ class CategoryController extends Controller
     {
         $categories = Category::whereNull('parent_id')
             ->orderBy('name')
-            ->get();
+            ->pluck('name', 'id');
 
         return view('admin.categories.create', compact('categories'));
     }
-
 
     public function store(StoreCategoryRequest $request)
     {
@@ -38,14 +37,12 @@ class CategoryController extends Controller
             ->with('success', 'Categoria cadastrada com sucesso!');
     }
 
-
     public function show(Category $category)
     {
         $category->load('parent', 'children');
 
         return view('admin.categories.show', compact('category'));
     }
-
 
     public function edit(Category $category)
     {
@@ -56,7 +53,6 @@ class CategoryController extends Controller
 
         return view('admin.categories.edit', compact('category', 'categories'));
     }
-
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {

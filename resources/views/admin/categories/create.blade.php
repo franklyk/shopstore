@@ -3,33 +3,38 @@
 @section('title', 'Nova Categoria')
 
 @section('admin')
+    <div class="page-container">
 
-    <x-card title="Nova Categoria">
+        <x-ui.page-header title="Nova Categoria" description="Cadastrar nova Categoria">
+
+            <x-slot:actions>
+                <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Categorias']]" />
+
+            </x-slot:actions>
+
+        </x-ui.page-header>
+
         <x-forms.form action="{{ route('admin.categories.store') }}" method="POST">
             <x-forms.row>
-                <x-forms.input type="text" name="name" label="Nome" />
+                <x-forms.input type="text" name="name" label="Nome" required />
             </x-forms.row>
 
             <x-forms.row>
-                <x-forms.input type="text" name="slug" label="Slug" />
+                <x-forms.input type="text" name="slug" label="Slug" required />
             </x-forms.row>
 
             <x-forms.row>
-                <x-forms.input type="text" name="stock" label="Estoque" />
-            </x-forms.row>
-
-            <x-forms.row>
-                <x-forms.checkbox name="is_active" value="1" id="is_active" label="Categoria ativa" />
+                <x-forms.select field_label="Categoria Pai" name="parent_id" :options="$categories" placeholder="Categoria Principal"/>
             </x-forms.row>
 
 
-            <div class="mb-3">
+            {{-- <div class="card-vs">
 
-                <p for="parent_id" class="form-label">
-                    <strong>Categoria Pai</strong>
-                </p>
+                <div class="section-description">
+                    <h5>Categoria Pai</h5>
+                </div>
 
-                <select name="parent_id" id="parent_id" class="form-select @error('parent_id') is-invalid @enderror">
+                <select name="parent_id" id="parent_id" class="form-input @error('parent_id') is-invalid @enderror">
 
                     <option value="">
                         Categoria Principal
@@ -44,13 +49,22 @@
                     @endforeach
 
                 </select>
-            </div>
-            @can('view categories')
-                <x-buttons.button href="{{ route('admin.categories.index') }}" color="secondary" icon="return" label="Voltar" />
-            @endcan
+            </div> --}}
 
-            <x-buttons.button type="submit" color="success" icon="check" label="Cadastrar" />
+            <div class="container-buttons">
+
+                @can('view categories')
+                    <x-buttons.button href="{{ route('admin.categories.index') }}" color="return" icon="return"
+                        label="Voltar" />
+                @endcan
+
+                @can('create categories')
+                    <x-buttons.button type="submit" color="add" icon="check" label="Cadastrar" />
+                @endcan
+
+            </div>
 
         </x-forms.form>
-    </x-card>
+    </div>
+
 @endsection

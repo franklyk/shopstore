@@ -3,42 +3,59 @@
 @section('title', 'Detalhes da Categoria')
 
 @section('admin')
+    <div class="container-fluid">
+        <x-ui.page-header title="Detalhes do Produto" description="Visualize todos o detalhes do produto.">
 
-<div class="card">
+            <x-slot:actions>
+                <x-ui.breadcrumbs :items="[
+                    ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+                    ['label' => 'Categorias', 'url' => route('admin.categories.index')],
+                    ['label' => 'Visualizar'],
+                ]" />
+                <div class="container-buttons">
+                    @can('view products')
+                        <x-buttons.button href="{{ route('admin.categories.index') }}" color="return" icon="return" label="Voltar" />
+                    @endcan
 
-    <div class="card-header">
+                    @can('edit products')
+                        <x-buttons.button href="{{ route('admin.categories.edit', $category) }}" color="edit" icon="edit"
+                            label="Editar" />
+                    @endcan
 
-        <div class="card-title">
-            <h2>Detalhes da Categoria</h2>
-        </div>
+                    @can('delete products')
+                        <x-buttons.button color="delete" icon="trash" label="Excluir" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal{{ $category->id }} " />
+                    @endcan
 
-    </div>
+                </div>
+            </x-slot:actions>
 
-    <div class="card-body">
+        </x-ui.page-header>
 
-        <dl class="row">
+        <div class="card-vs">
 
-            <dt class="col-sm-3">
+            <dl class="desc-list">
+                <dt>
                 Nome
             </dt>
 
-            <dd class="col-sm-9">
+            <dd>
                 {{ $category->name }}
             </dd>
 
-            <dt class="col-sm-3">
+            <dt>
                 Slug
             </dt>
 
-            <dd class="col-sm-9">
+            <dd>
                 {{ $category->slug }}
             </dd>
 
-            <dt class="col-sm-3">
+            <dt>
                 Categoria Pai
             </dt>
 
-            <dd class="col-sm-9">
+            <dd>
 
                 @if($category->parent)
 
@@ -54,11 +71,11 @@
 
             </dd>
 
-            <dt class="col-sm-3">
+            <dt>
                 Status
             </dt>
 
-            <dd class="col-sm-9">
+            <dd>
 
                 @if($category->is_active)
 
@@ -76,27 +93,168 @@
 
             </dd>
 
-            <dt class="col-sm-3">
+            <dt>
                 UUID
             </dt>
 
-            <dd class="col-sm-9">
+            <dd>
                 <code>{{ $category->uuid }}</code>
             </dd>
 
-            <dt class="col-sm-3">
+            <dt>
                 Cadastrado em
             </dt>
 
-            <dd class="col-sm-9">
+            <dd>
                 {{ $category->created_at->format('d/m/Y H:i') }}
             </dd>
 
-            <dt class="col-sm-3">
+            <dt>
                 Última atualização
             </dt>
 
-            <dd class="col-sm-9">
+            <dd>
+                {{ $category->updated_at->format('d/m/Y H:i') }}
+            </dd>
+            </dl>
+            @if($category->children->count())
+
+            <hr>
+
+            <h5>
+                Subcategorias
+            </h5>
+
+            <ul>
+
+                @foreach($category->children as $child)
+
+                    <li>
+
+                        {{ $child->name }}
+
+                        <span>
+                            Subcategoria
+                        </span>
+
+                    </li>
+
+                @endforeach
+
+            </ul>
+
+        @endif
+        </div>
+    </div>
+
+    @section('modals')
+        @can('delete products')
+            <x-modal.delete :action="route('admin.products.destroy', $category)" :id="$category->id" :name="$category->name" />
+        @endcan
+    @endsection
+
+@endsection
+
+
+@extends('layouts.admin')
+
+@section('title', 'Detalhes da Categoria')
+
+@section('admin')
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div class="card-title">
+            <h2>Detalhes da Categoria</h2>
+        </div>
+
+    </div>
+
+    <div class="card-body">
+
+        <dl class="row">
+
+            <dt>
+                Nome
+            </dt>
+
+            <dd>
+                {{ $category->name }}
+            </dd>
+
+            <dt>
+                Slug
+            </dt>
+
+            <dd>
+                {{ $category->slug }}
+            </dd>
+
+            <dt>
+                Categoria Pai
+            </dt>
+
+            <dd>
+
+                @if($category->parent)
+
+                    {{ $category->parent->name }}
+
+                @else
+
+                    <span class="badge bg-secondary">
+                        Principal
+                    </span>
+
+                @endif
+
+            </dd>
+
+            <dt>
+                Status
+            </dt>
+
+            <dd>
+
+                @if($category->is_active)
+
+                    <span class="badge bg-success">
+                        Ativa
+                    </span>
+
+                @else
+
+                    <span class="badge bg-danger">
+                        Inativa
+                    </span>
+
+                @endif
+
+            </dd>
+
+            <dt>
+                UUID
+            </dt>
+
+            <dd>
+                <code>{{ $category->uuid }}</code>
+            </dd>
+
+            <dt>
+                Cadastrado em
+            </dt>
+
+            <dd>
+                {{ $category->created_at->format('d/m/Y H:i') }}
+            </dd>
+
+            <dt>
+                Última atualização
+            </dt>
+
+            <dd>
                 {{ $category->updated_at->format('d/m/Y H:i') }}
             </dd>
 
@@ -106,19 +264,19 @@
 
             <hr>
 
-            <h5 class="mb-3">
+            <h5>
                 Subcategorias
             </h5>
 
-            <ul class="list-group">
+            <ul>
 
                 @foreach($category->children as $child)
 
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <li>
 
                         {{ $child->name }}
 
-                        <span class="badge bg-primary">
+                        <span>
                             Subcategoria
                         </span>
 

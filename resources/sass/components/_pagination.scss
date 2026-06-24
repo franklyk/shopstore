@@ -1,4 +1,13 @@
 
+.pagination{
+    justify-content: space-between;
+    span{
+        flex-direction: column;
+        justify-content: space-between;
+
+    }
+}
+
 .text-muted {
     color: #fff !important;
 }

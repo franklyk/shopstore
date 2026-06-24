@@ -20,7 +20,7 @@
                     @endcan
 
                     @can('edit products')
-                        <x-buttons.button for="edit-form" color="edit" icon="edit" label="Salvar" />
+                        <x-buttons.button type="submit" form="edit-form" color="edit" icon="edit" label="Salvar" />
                     @endcan
 
                 </div>
@@ -29,7 +29,7 @@
         </x-ui.page-header>
 
         <div class="card-vs">
-            <x-forms.form action="{{ route('admin.products.update', $product) }}" class="edit-form" id="edit-form">
+            <x-forms.form action="{{ route('admin.products.update', $product) }}" method="PUT" class="edit-form" id="edit-form">
                 <x-forms.row>
                     <x-forms.input type="text" name="name" label="Nome:" value="{{ $product->name }}" />
                 </x-forms.row>
@@ -38,10 +38,10 @@
                     <x-forms.input type="text" name="price" label="Preço R$:" value="{{ $product->price }}" />
                 </x-forms.row>
 
-                <x-forms.row>
+                {{-- <x-forms.row>
                     <x-forms.input type="text" name="stock" label="Estoque:"
                         value="{{ $product->stocks->first()?->quantity ?? 0 }}" />
-                </x-forms.row>
+                </x-forms.row> --}}
 
                 <x-forms.row>
                     <x-forms.textarea label="Descrição:" name="description">

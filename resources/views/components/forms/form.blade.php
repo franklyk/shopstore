@@ -4,7 +4,12 @@
     $method = strtoupper($attributes->get('method', 'GET'));
 @endphp
 
-<form action="{{ $action }}" {{ $attributes->merge(['class' => 'form']) }}>
+
+<form
+    action="{{ $action }}"
+    method="{{ $method === 'GET' ? 'GET' : 'POST' }}"
+    {{ $attributes->except('method')->merge(['class' => 'form']) }}
+>
 
     @if ($method !== 'GET')
         @csrf

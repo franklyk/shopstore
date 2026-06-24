@@ -15,6 +15,7 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255', 'unique:categories,name,NULL,id,parent_id,' . $this->parent_id],
+            'slug' => ['required', 'string', 'max:255'],
             'parent_id' => ['nullable', 'exists:categories,id'],
         ];
     }

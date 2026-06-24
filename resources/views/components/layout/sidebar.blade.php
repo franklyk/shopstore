@@ -6,6 +6,14 @@
             <x-menu.link href="{{ route('admin.dashboard') }}" label="Dashboard" />
         @endcan
 
+        @can('view products')
+            <x-menu.link href="{{ route('admin.products.index') }}" label="Produtos" />
+        @endcan
+
+        @can('view categories')
+            <x-menu.link href="{{ route('admin.categories.index') }}" label="Categorias" />
+        @endcan
+
         @can('view orders')
             <x-menu.link href="{{ route('admin.orders.index') }}" label="Pedidos" />
         @endcan
@@ -14,8 +22,8 @@
             <x-menu.link href="{{ route('admin.shipments.index') }}" label="Envios" />
         @endcan
 
-        @can('view products')
-            <x-menu.link href="{{ route('admin.products.index') }}" label="Produtos" />
+        @can('view users')
+            <x-menu.link href="{{ route('admin.users.index') }}" label="Usuários" />
         @endcan
 
         @can('view suppliers')
@@ -28,14 +36,6 @@
 
         @can('view import batches')
             <x-menu.link href="{{ route('admin.imports.index') }}" label="PDF" />
-        @endcan
-
-        @can('view categories')
-            <x-menu.link href="{{ route('admin.categories.index') }}" label="Categorias" />
-        @endcan
-
-        @can('view users')
-            <x-menu.link href="{{ route('admin.users.index') }}" label="Usuários" />
         @endcan
 
     </x-menu.list>

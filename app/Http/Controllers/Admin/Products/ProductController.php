@@ -99,13 +99,13 @@ class ProductController extends Controller
         return view('admin.products.edit', compact('product', 'categories'));
     }
 
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product,)
     {
-        // $this->authorize('update', $product);
 
         $product->update($request->validated());
 
         $product->categories()->sync($request->categories);
+
 
         return redirect()
             ->route('admin.products.index')

@@ -43,7 +43,7 @@ Route::middleware(['auth', 'verified'])
                     ->middleware('permission:create products')
                     ->name('store');
 
-                Route::get('/show/{product}', [ProductController::class, 'show'])
+                Route::get('/{product}', [ProductController::class, 'show'])
                     ->middleware('permission:view products')
                     ->name('show');
 

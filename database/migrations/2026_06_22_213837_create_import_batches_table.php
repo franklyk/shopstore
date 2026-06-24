@@ -18,6 +18,9 @@ return new class extends Migration
             $table->enum('status', ['pending', 'processing', 'done', 'failed'])->default('pending');
             $table->json('meta')->nullable();
             $table->timestamps();
+
+            $table->softDeletes();
+
         });
     }
 

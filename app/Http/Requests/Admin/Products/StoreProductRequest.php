@@ -18,14 +18,14 @@ class StoreProductRequest extends FormRequest
             'image' => ['nullable', 'image'],
 
             'name' => ['required', 'string', 'max:255'],
-            
-            'sku' => ['required', 'string', 'max:50', 'unique:products,sku'],
+
+            // 'sku' => ['required', 'string', 'max:50', 'unique:products,sku'],
 
             'description' => ['nullable', 'string'],
 
             'price' => ['required', 'numeric', 'min:0'],
 
-            'stock' => ['required', 'integer', 'min:0'],
+            // 'stock' => ['required', 'integer', 'min:0'],
 
             'categories' => ['required', 'array', 'min:1'],
 

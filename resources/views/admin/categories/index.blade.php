@@ -3,18 +3,19 @@
 @section('title', 'Categorias')
 
 @section('admin')
+    <div class=" page-container">
 
-    <x-card title="Categorias Cadastradas">
-        <x-slot:actions>
+        <x-ui.page-header title="Categorias Cadastradas" description="Gerencie as Categorias da loja">
 
-            @can('create categories')
-                <x-buttons.button href="{{ route('admin.categories.create') }}" color="primary" icon="plus" label="Novo" />
-            @endcan
+            <x-slot:actions>
+                <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Categorias']]" />
+                <x-buttons.button href="{{ route('admin.categories.create') }}" color="add" icon="plus" label="Novo" />
+            </x-slot:actions>
 
-        </x-slot:actions>
-        <table class="table table-bordered align-middle">
+        </x-ui.page-header>
 
-            <thead class="text-center">
+        <table>
+            <thead>
                 <tr>
                     <th scope="col">COD</th>
                     <th scope="col">Nome</th>
@@ -22,12 +23,11 @@
                     <th scope="col">Status</th>
                     <th scope="col">Ações</th>
                 </tr>
+                </tr>
             </thead>
-
-            <tbody class="table-group-divider">
-
+            <tbody>
                 @forelse ($categories as $category)
-                    <tr class="text-center">
+                    <tr>
 
                         <th scope="row">
                             {{ $category->id }}
@@ -40,9 +40,11 @@
                         <td>
 
                             @if ($category->parent)
-                                {{ $category->parent->name }}
+                                <span class="badge bg-black">
+                                    {{ $category->parent->name }}
+                                </span>
                             @else
-                                <span class="badge bg-secondary">
+                                <span class="badge bg-black">
                                     Principal
                                 </span>
                             @endif
@@ -70,15 +72,6 @@
                                     icon="eye" />
                             @endcan
 
-                            @can('edit categories')
-                                <x-buttons.button href="{{ route('admin.categories.edit', $category) }}" color="warning"
-                                    icon="edit" />
-                            @endcan
-
-                            @can('delete categories')
-                                <x-buttons.button type="button" color="danger" icon="trash" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal{{ $category->id }}" />
-                            @endcan
 
                         </td>
 
@@ -109,8 +102,8 @@
                                 </p>
 
                                 @can('create categories')
-                                    <x-buttons.button href="{{ route('admin.categories.create') }}" color="primary" icon="plus"
-                                        label="Criar primeira categoria" />
+                                    <x-buttons.button href="{{ route('admin.categories.create') }}" color="primary"
+                                        icon="plus" label="Criar primeira categoria" />
                                 @endcan
 
                             </div>
@@ -119,7 +112,6 @@
 
                     </tr>
                 @endforelse
-
             </tbody>
 
         </table>
@@ -130,13 +122,10 @@
             @endforeach
 
         @endcan
-
-        <div class="mt-3">
-
+        <div class="pagination my-5">
             {{ $categories->links() }}
-
         </div>
 
-    </x-card>
+    </div>
 
 @endsection
