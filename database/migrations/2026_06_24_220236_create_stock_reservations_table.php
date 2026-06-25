@@ -6,9 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('stock_movements', function (Blueprint $table) {
+        Schema::create('stock_reservations', function (Blueprint $table) {
             $table->id();
 
             $table->ulid('uuid')->unique();
@@ -21,17 +24,13 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->string('type');
-
             $table->integer('quantity');
 
-            $table->integer('quantity_before');
+            $table->string('status')->default('active');  // ACTIVE, CONFIRMED, CANCELLED, EXPIRED
 
-            $table->integer('quantity_after');
+            $table->timestamp('expires_at')->nullable();
 
             $table->nullableMorphs('reference');
-
-            $table->text('notes')->nullable();
 
             $table->foreignId('user_id')
                 ->nullable()
@@ -40,13 +39,15 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->index(['product_id', 'warehouse_id']);
-            $table->index('type');
+            $table->index(['product_id', 'warehouse_id', 'status']);
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('stock_movements');
+        Schema::dropIfExists('stock_reservations');
     }
 };

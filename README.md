@@ -611,3 +611,16 @@ Escalabilidade
 ├── tests
 ├── vendor
 └── vite.config.js
+
+*******************************************
+
+Revisar Warehouse.
+Revisar Stock.
+Revisar StockMovement.
+Criar StockMovementTypeEnum.
+Criar StockService.
+Bloquear estoque negativo.
+Criar Transferências.
+Criar Ajustes de Inventário.
+Adicionar Reserva de Estoque.
+Expor tudo via API.

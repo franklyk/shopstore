@@ -8,28 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('stock_movements', function (Blueprint $table) {
+        Schema::create('stock_receipts', function (Blueprint $table) {
             $table->id();
 
             $table->ulid('uuid')->unique();
-
-            $table->foreignId('product_id')
-                ->constrained()
-                ->cascadeOnDelete();
 
             $table->foreignId('warehouse_id')
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->string('type');
-
-            $table->integer('quantity');
-
-            $table->integer('quantity_before');
-
-            $table->integer('quantity_after');
-
-            $table->nullableMorphs('reference');
+            $table->string('status');
+            // DRAFT, CONFIRMED, CANCELLED
 
             $table->text('notes')->nullable();
 
@@ -39,14 +28,11 @@ return new class extends Migration
                 ->nullOnDelete();
 
             $table->timestamps();
-
-            $table->index(['product_id', 'warehouse_id']);
-            $table->index('type');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('stock_movements');
+        Schema::dropIfExists('stock_receipts');
     }
 };

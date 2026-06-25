@@ -3,174 +3,297 @@
 namespace App\Services\Stock;
 
 use App\Enums\StockMovementType;
-use App\Models\Order;
-use App\Models\OrderItem;
-use App\Models\Product;
 use App\Models\Stock;
 use App\Models\StockMovement;
-use App\Models\Warehouse;
-use DomainException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class StockService
 {
+    /*
+    |--------------------------------------------------------------------------
+    | INCREASE (ENTRADA)
+    |--------------------------------------------------------------------------
+    */
     public function increase(
-        Product $product,
+        int $productId,
+        int $warehouseId,
         int $quantity,
-        ?object $reference = null,
         ?string $notes = null,
-        ?Warehouse $warehouse = null,
-    ): void {
-        DB::transaction(function () use (
-            $product,
+        ?array $reference = null,
+        ?int $userId = null
+    ): Stock {
+        return DB::transaction(function () use (
+            $productId,
+            $warehouseId,
             $quantity,
-            $reference,
             $notes,
-            $warehouse
+            $reference,
+            $userId
         ) {
+            $stock = $this->getOrCreateStock($productId, $warehouseId);
 
-            $warehouse ??= $this->defaultWarehouse();
+            $before = $stock->quantity;
+            $after = $before + $quantity;
 
-            $stock = $this->stockRecord(
-                $product,
-                $warehouse
-            );
+            $stock->update([
+                'quantity' => $after,
+            ]);
 
-            $stock->increment(
-                'quantity',
-                $quantity,
-                []
-            );
-
-            $this->movement(
-                product: $product,
-                warehouse: $warehouse,
+            $this->createMovement(
+                productId: $productId,
+                warehouseId: $warehouseId,
                 type: StockMovementType::IN,
                 quantity: $quantity,
-                reference: $reference,
+                before: $before,
+                after: $after,
                 notes: $notes,
+                reference: $reference,
+                userId: $userId
             );
+
+            return $stock;
         });
     }
 
-    public function decrease(Order $order): void
-    {
-        DB::transaction(function () use ($order) {
-
-            $warehouse = $this->defaultWarehouse();
-
-            $order->load('items');
-
-            foreach ($order->items as $item) {
-
-                $this->decreaseItem(
-                    $item,
-                    $warehouse
-                );
-            }
-        });
-    }
-
-    public function available(
-        Product $product,
-        ?Warehouse $warehouse = null,
-    ): int {
-        $warehouse ??= $this->defaultWarehouse();
-
-        return Stock::query()
-            ->where('product_id', $product->id)
-            ->where('warehouse_id', $warehouse->id)
-            ->value('quantity') ?? 0;
-    }
-
-    private function decreaseItem(
-        OrderItem $item,
-        Warehouse $warehouse,
-    ): void {
-
-        $stock = Stock::query()
-            ->where('product_id', $item->product_id)
-            ->where('warehouse_id', $warehouse->id)
-            ->lockForUpdate()
-            ->first();
-
-        if (!$stock) {
-            throw new DomainException(
-                "Stock not found for product {$item->product_id}"
-            );
-        }
-
-        if ($stock->quantity < $item->quantity) {
-            throw new DomainException(
-                "Insufficient stock for product {$item->product_id}"
-            );
-        }
-
-        $stock->decrement(
-            'quantity',
-            $item->quantity,
-            []
-        );
-
-        $this->movement(
-            product: $item->product,
-            warehouse: $warehouse,
-            type: StockMovementType::OUT,
-            quantity: $item->quantity,
-            reference: $item,
-            notes: "Order #{$item->order_id}",
-        );
-    }
-
-    private function stockRecord(
-        Product $product,
-        Warehouse $warehouse,
+    /*
+    |--------------------------------------------------------------------------
+    | DECREASE (SAÍDA)
+    |--------------------------------------------------------------------------
+    */
+    public function decrease(
+        int $productId,
+        int $warehouseId,
+        int $quantity,
+        ?string $notes = null,
+        ?array $reference = null,
+        ?int $userId = null
     ): Stock {
+        return DB::transaction(function () use (
+            $productId,
+            $warehouseId,
+            $quantity,
+            $notes,
+            $reference,
+            $userId
+        ) {
+            $stock = $this->getStockOrFail($productId, $warehouseId);
 
-        /** @var Stock $stock */
-        $stock = Stock::firstOrCreate(
-            [
-                'product_id' => $product->id,
-                'warehouse_id' => $warehouse->id,
-            ],
-            [
-                'quantity' => 0,
-            ]
-        );
+            if ($stock->quantity < $quantity) {
+                throw ValidationException::withMessages([
+                    'quantity' => 'Insufficient stock available.',
+                ]);
+            }
 
-        return $stock;
+            $before = $stock->quantity;
+            $after = $before - $quantity;
+
+            $stock->update([
+                'quantity' => $after,
+            ]);
+
+            $this->createMovement(
+                productId: $productId,
+                warehouseId: $warehouseId,
+                type: StockMovementType::OUT,
+                quantity: $quantity,
+                before: $before,
+                after: $after,
+                notes: $notes,
+                reference: $reference,
+                userId: $userId
+            );
+
+            return $stock;
+        });
     }
 
-    private function movement(
-        Product $product,
-        Warehouse $warehouse,
+    /*
+    |--------------------------------------------------------------------------
+    | ADJUSTMENT (CORREÇÃO DE INVENTÁRIO)
+    |--------------------------------------------------------------------------
+    */
+    public function adjust(
+        int $productId,
+        int $warehouseId,
+        int $newQuantity,
+        ?string $notes = null,
+        ?array $reference = null,
+        ?int $userId = null
+    ): Stock {
+        return DB::transaction(function () use (
+            $productId,
+            $warehouseId,
+            $newQuantity,
+            $notes,
+            $reference,
+            $userId
+        ) {
+            $stock = $this->getOrCreateStock($productId, $warehouseId);
+
+            $before = $stock->quantity;
+            $difference = $newQuantity - $before;
+
+            $stock->update([
+                'quantity' => $newQuantity,
+            ]);
+
+            $this->createMovement(
+                productId: $productId,
+                warehouseId: $warehouseId,
+                type: StockMovementType::ADJUSTMENT,
+                quantity: abs($difference),
+                before: $before,
+                after: $newQuantity,
+                notes: $notes,
+                reference: $reference,
+                userId: $userId
+            );
+
+            return $stock;
+        });
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | TRANSFER (ENTRE WAREHOUSES)
+    |--------------------------------------------------------------------------
+    */
+    public function transfer(
+        int $productId,
+        int $fromWarehouseId,
+        int $toWarehouseId,
+        int $quantity,
+        ?string $notes = null,
+        ?array $reference = null,
+        ?int $userId = null
+    ): void {
+        DB::transaction(function () use (
+            $productId,
+            $fromWarehouseId,
+            $toWarehouseId,
+            $quantity,
+            $notes,
+            $reference,
+            $userId
+        ) {
+            $this->decrease(
+                productId: $productId,
+                warehouseId: $fromWarehouseId,
+                quantity: $quantity,
+                notes: $notes,
+                reference: $reference,
+                userId: $userId
+            );
+
+            $this->increase(
+                productId: $productId,
+                warehouseId: $toWarehouseId,
+                quantity: $quantity,
+                notes: $notes,
+                reference: $reference,
+                userId: $userId
+            );
+        });
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | STOCK HELPERS
+    |--------------------------------------------------------------------------
+    */
+    private function getOrCreateStock(int $productId, int $warehouseId): Stock
+    {
+        return Stock::firstOrCreate([
+            'product_id' => $productId,
+            'warehouse_id' => $warehouseId,
+        ],
+            [
+                'uuid' => (string) Str::ulid(),
+                'quantity' => 0,
+            ]);
+    }
+
+    private function getStockOrFail(int $productId, int $warehouseId): Stock
+    {
+        return Stock::where('product_id', $productId)
+            ->where('warehouse_id', $warehouseId)
+            ->firstOrFail();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MOVEMENT FACTORY
+    |--------------------------------------------------------------------------
+    */
+    private function createMovement(
+        int $productId,
+        int $warehouseId,
         StockMovementType $type,
         int $quantity,
-        ?object $reference = null,
+        int $before,
+        int $after,
         ?string $notes = null,
+        ?array $reference = null,
+        ?int $userId = null
     ): StockMovement {
-
         return StockMovement::create([
-            'product_id' => $product->id,
-            'warehouse_id' => $warehouse->id,
 
+            'uuid' => (string) Str::ulid(),
+
+            'product_id' => $productId,
+            'warehouse_id' => $warehouseId,
             'type' => $type,
             'quantity' => $quantity,
-
-            'reference_type' => $reference
-                ? $reference::class
-                : null,
-
-            'reference_id' => $reference?->id,
-
+            'quantity_before' => $before,
+            'quantity_after' => $after,
             'notes' => $notes,
+            'reference_type' => $reference['type'] ?? null,
+            'reference_id' => $reference['id'] ?? null,
+            'user_id' => $userId,
         ]);
     }
 
-    private function defaultWarehouse(): Warehouse
-    {
-        return Warehouse::query()
-            ->where('code', 'MAIN')
-            ->firstOrFail();
+    public function reserve(
+        int $productId,
+        int $warehouseId,
+        int $quantity,
+        ?string $notes = null,
+        ?array $reference = null,
+        ?int $userId = null,
+        ?int $ttlMinutes = 30
+    ) {
+        return DB::transaction(function () use (
+            $productId,
+            $warehouseId,
+            $quantity,
+            $reference,
+            $userId,
+            $ttlMinutes
+        ) {
+            $stock = $this->getStockOrFail($productId, $warehouseId);
+
+            $available = $stock->quantity - $stock->reserved_quantity;
+
+            if ($available < $quantity) {
+                throw ValidationException::withMessages([
+                    'quantity' => 'Insufficient available stock.',
+                ]);
+            }
+
+            $stock->increment('reserved_quantity', $quantity);
+
+            return StockReservation::create([
+                'product_id' => $productId,
+                'warehouse_id' => $warehouseId,
+                'quantity' => $quantity,
+                'status' => StockReservationStatus::ACTIVE,
+                'expires_at' => now()->addMinutes($ttlMinutes),
+                'reference_type' => $reference['type'] ?? null,
+                'reference_id' => $reference['id'] ?? null,
+                'user_id' => $userId,
+            ]);
+        });
     }
 }

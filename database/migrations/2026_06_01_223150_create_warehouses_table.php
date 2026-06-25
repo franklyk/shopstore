@@ -9,18 +9,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('warehouses', function (Blueprint $table) {
+
             $table->id();
 
             $table->string('name');
             $table->string('code')->unique();
 
-            $table->boolean('active')
-                ->default(true);
+            $table->boolean('active')->default(true);
 
             $table->timestamps();
-
             $table->softDeletes();
-
         });
     }
 

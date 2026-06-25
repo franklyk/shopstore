@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
-use App\Http\Controllers\Admin\Orders\OrderController;
 use App\Http\Controllers\Admin\Products\ProductController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Collection\CollectionController;
@@ -98,6 +97,93 @@ Route::middleware(['auth', 'verified'])
             });
 
         // ================================//
+        // STOCK                           //
+        // ================================//
+
+        Route::prefix('stock')
+            ->name('stock.')
+            ->group(function () {
+
+                Route::post('/increase', [StockController::class, 'increase'])
+                    ->middleware('permission:manage stock')
+                    ->name('increase');
+
+                Route::post('/decrease', [StockController::class, 'decrease'])
+                    ->middleware('permission:manage stock')
+                    ->name('decrease');
+
+                Route::post('/transfer', [StockController::class, 'transfer'])
+                    ->middleware('permission:manage stock')
+                    ->name('transfer');
+
+                // ================================//
+                // RESERVATIONS
+                // ================================//
+
+                Route::post('/reserve', [StockController::class, 'reserve'])
+                    ->middleware('permission:manage stock')
+                    ->name('reserve');
+
+                Route::post('/reservation/{uuid}/confirm', [StockController::class, 'confirmReservation'])
+                    ->middleware('permission:manage stock')
+                    ->name('reservation.confirm');
+
+                Route::post('/reservation/{uuid}/cancel', [StockController::class, 'cancelReservation'])
+                    ->middleware('permission:manage stock')
+                    ->name('reservation.cancel');
+
+                // ================================//
+                // RECEIPTS (ENTRADA DE MERCADORIA)
+                // ================================//
+
+                Route::prefix('receipt')
+                    ->name('receipt.')
+                    ->group(function () {
+
+                        Route::post('/', [StockReceiptController::class, 'store'])
+                            ->middleware('permission:manage stock')
+                            ->name('store');
+
+                        Route::post('{uuid}/item', [StockReceiptController::class, 'addItem'])
+                            ->middleware('permission:manage stock')
+                            ->name('add-item');
+
+                        Route::post('{uuid}/confirm', [StockReceiptController::class, 'confirm'])
+                            ->middleware('permission:manage stock')
+                            ->name('confirm');
+
+                        Route::post('{uuid}/cancel', [StockReceiptController::class, 'cancel'])
+                            ->middleware('permission:manage stock')
+                            ->name('cancel');
+                    });
+            });
+
+        Route::prefix('orders')
+            ->name('orders.')
+            ->group(function () {
+
+                Route::get('/', [OrderController::class, 'index'])
+                    ->middleware('permission:view orders')
+                    ->name('index');
+
+                Route::get('/{order}', [OrderController::class, 'show'])
+                    ->middleware('permission:view orders')
+                    ->name('show');
+
+                Route::post('/', [OrderController::class, 'store'])
+                    ->middleware('permission:create orders')
+                    ->name('store');
+
+                Route::post('/{order}/confirm', [OrderController::class, 'confirm'])
+                    ->middleware('permission:edit orders')
+                    ->name('confirm');
+
+                Route::post('/{order}/cancel', [OrderController::class, 'cancel'])
+                    ->middleware('permission:edit orders')
+                    ->name('cancel');
+            });
+
+        // ================================//
         // Users
         // ================================//
 
@@ -132,23 +218,6 @@ Route::middleware(['auth', 'verified'])
                 Route::delete('/destroy/{user}', [UserController::class, 'destroy'])
                     ->middleware('permission:delete users')
                     ->name('destroy');
-            });
-
-        // ================================//
-        // Orders
-        // ================================//
-
-        Route::prefix('orders')
-            ->name('orders.')
-            ->group(function () {
-
-                Route::get('/', [OrderController::class, 'index'])
-                    ->middleware('permission:view orders')
-                    ->name('index');
-
-                Route::get('/show/{order}', [OrderController::class, 'show'])
-                    ->middleware('permission:view orders')
-                    ->name('show');
             });
 
         // ================================//

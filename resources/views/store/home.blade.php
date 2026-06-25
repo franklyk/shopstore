@@ -2,7 +2,7 @@
 
 @section('title', 'Home')
 
-@section('content')
+@section('store')
 
     <div class="container">
 
@@ -14,7 +14,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">
                         <img src="https://placehold.co/400x300" class="img-fluid rounded" alt="{{ $product->name }}">
-                        
+
                         {{-- <img src="https://picsum.photos/seed/{{ rand(1, 10000) }}/400/300" class="card-img-top"
                             alt="{{ $product->name }}"> --}}
 

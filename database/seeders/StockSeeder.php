@@ -8,15 +8,19 @@ use Illuminate\Database\Seeder;
 
 class StockSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        foreach (Product::all() as $product) {
+        $stockService = app(StockService::class);
 
-            app(StockService::class)
-                ->increase($product, rand(10, 100));
+        $products = Product::all();
+
+        foreach ($products as $product) {
+            $stockService->increase(
+                productId: $product->id,
+                warehouseId: 1,
+                quantity: 50,
+                notes: 'Initial stock seed'
+            );
         }
     }
 }

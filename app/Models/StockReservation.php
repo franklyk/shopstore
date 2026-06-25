@@ -2,42 +2,29 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasUuid;
-use App\Enums\StockMovementType;
+use App\Enums\StockReservationStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class StockMovement extends Model
+class StockReservation extends Model
 {
-    use HasUuid;
-    
     protected $fillable = [
         'uuid',
         'product_id',
         'warehouse_id',
-        'type',
         'quantity',
-        'quantity_before',
-        'quantity_after',
+        'status',
+        'expires_at',
         'reference_type',
         'reference_id',
-        'notes',
         'user_id',
     ];
 
     protected $casts = [
-        'type' => StockMovementType::class,
-        'quantity' => 'integer',
-        'quantity_before' => 'integer',
-        'quantity_after' => 'integer',
+        'status' => StockReservationStatus::class,
+        'expires_at' => 'datetime',
     ];
-
-    /*
-    |--------------------------------------------------------------------------
-    | Relationships
-    |--------------------------------------------------------------------------
-    */
 
     public function product(): BelongsTo
     {
@@ -58,12 +45,6 @@ class StockMovement extends Model
     {
         return $this->morphTo();
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Route Binding
-    |--------------------------------------------------------------------------
-    */
 
     public function getRouteKeyName(): string
     {
