@@ -66,7 +66,7 @@
                 </dt>
                 <dd>
 
-                    @if ($category->is_active)
+                    @if ($category->active)
                         <span class="badge bg-success">
                             Ativa
                         </span>
