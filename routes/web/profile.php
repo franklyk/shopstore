@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Profile\AddressController;
-use App\Http\Controllers\Profile\Orders\OrderController;
+use App\Http\Controllers\Orders\OrderController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Store\Payments\PaymentController;
 use Illuminate\Support\Facades\Route;

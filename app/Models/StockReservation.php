@@ -50,4 +50,15 @@ class StockReservation extends Model
     {
         return 'uuid';
     }
+
+    public function confirm(): void
+    {
+        if ($this->status !== StockReservationStatus::ACTIVE) {
+            return;
+        }
+
+        $this->update([
+            'status' => StockReservationStatus::CONFIRMED,
+        ]);
+    }
 }

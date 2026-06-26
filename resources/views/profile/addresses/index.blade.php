@@ -1,8 +1,8 @@
-@extends('layouts.store')
+@extends('layouts.profile')
 
 @section('title', 'Meus Endereços')
 
-@section('content')
+@section('profile')
 
     <div class="card">
 

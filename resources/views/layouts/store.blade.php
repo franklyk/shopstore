@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('layout')
-    <x-layout.header />
+    <x-layout.store.header />
 
     <main class="container mt-4">
 

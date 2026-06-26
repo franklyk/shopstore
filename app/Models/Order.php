@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 
 class Order extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, HasUuid, SoftDeletes;
 
     protected $fillable = [
         'uuid',

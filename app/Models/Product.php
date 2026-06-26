@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 
 class Product extends Model
 {
-    /** @use HasFactory<ProductFactory> */
+    
     use HasFactory, HasUuid, HasSlug, SoftDeletes;
 
     protected $fillable = [

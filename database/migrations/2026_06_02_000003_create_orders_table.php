@@ -15,8 +15,6 @@ return new class extends Migration
 
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
-            $table->foreignId('warehouse_id')->constrained();
-
             $table->string('status')->default('pending');
             $table->string('payment_status')->default('pending');
             $table->string('payment_method')->nullable();
@@ -39,6 +37,9 @@ return new class extends Migration
             $table->timestamp('paid_at')->nullable();
 
             $table->timestamps();
+
+            $table->softDeletes();
+
         });
     }
 

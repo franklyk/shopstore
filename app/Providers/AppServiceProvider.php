@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
-use App\Models\Supplier;
-use App\Policies\SupplierPolicy;
-use App\Models\Address;
+use Illuminate\Support\Facades\Cache;
+
 use App\Listeners\MergeCartOnLogin;
+use App\Models\Address;
 use App\Models\Category;
+use App\Models\Supplier;
 use App\Policies\AddressPolicy;
+use App\Policies\SupplierPolicy;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
@@ -55,25 +57,36 @@ class AppServiceProvider extends ServiceProvider
         // Global Categories              //
         // ================================//
 
-        View::composer('layouts.store', function ($view) {
+        View::composer([
+            'layouts.store',
+            'components.layout.store.header',
+        ], function ($view) {
 
-            $categories = Category::with('children')
-                ->whereNull('parent_id')
-                ->get();
+            $categories = Category::query()
+                    ->where('active', true)
+                    ->whereNull('parent_id')
+                    ->with('children')
+                    ->orderBy('name')
+                    ->get()
+            ;
 
-            $view->with('navCategories', $categories);
-
+            $view->with('menuCategories', $categories);
         });
 
-        View::composer('layouts.partials.headers.*', function ($view) {
+        View::composer([
+            'layouts.store',
+            'components.layout.profile.header',
+        ], function ($view) {
 
-            $menuCategories = Category::with('children')
-                ->whereNull('parent_id')
-                ->where('is_active', true)
-                ->orderBy('name')
-                ->get();
+            $categories = Category::query()
+                    ->where('active', true)
+                    ->whereNull('parent_id')
+                    ->with('children')
+                    ->orderBy('name')
+                    ->get()
+            ;
 
-            $view->with('menuCategories', $menuCategories);
+            $view->with('menuCategories', $categories);
         });
 
         // ================================//

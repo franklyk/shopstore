@@ -1,11 +1,10 @@
-<header class="container-fluid bg-black px-3">
+<header class="header store-header container-fluid">
+    <nav class="navbar navbar-expand-lg container-fluid justify-content-between">
 
-    <nav class="navbar navbar-expand-lg container-fluid">
+<nav class="navbar navbar-expand-lg container-fluid">
 
         {{-- LOGO --}}
-        <a class="navbar-brand" style="width:150px" href="{{ route('home') }}">
-            <img class="w-100" src="{{ asset('images/logo/logo.png') }}">
-        </a>
+        <x-layout.logo href="{{ route('home') }}"/>
 
         {{-- BUSCA --}}
         <form class="d-none d-md-flex ms-3 flex-grow-1" role="search">
@@ -225,5 +224,5 @@
         </ul>
 
     </nav>
-
+    </nav>
 </header>

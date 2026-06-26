@@ -17,8 +17,10 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->string('status');
+            $table->string('draft');
             // DRAFT, CONFIRMED, CANCELLED
+
+            $table->timestamp('confirmed_at')->nullable();
 
             $table->text('notes')->nullable();
 
@@ -28,6 +30,7 @@ return new class extends Migration
                 ->nullOnDelete();
 
             $table->timestamps();
+
         });
     }
 

@@ -2,7 +2,7 @@
 
 @section('title', 'Produtos')
 
-@section('content')
+@section('store')
 
     <div class="container">
 
@@ -18,7 +18,7 @@
 
                         {{-- <img src="https://picsum.photos/seed/{{ rand(1, 10000) }}/400/300" class="card-img-top"
                             alt="{{ $product->name }}"> --}}
-                            
+
                         <div class="card-body d-flex flex-column">
 
                             <h5 class="card-title">

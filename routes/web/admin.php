@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
+use App\Http\Controllers\Admin\Orders\OrderController;
 use App\Http\Controllers\Admin\Products\ProductController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Collection\CollectionController;

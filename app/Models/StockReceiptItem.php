@@ -15,6 +15,7 @@ class StockReceiptItem extends Model
 
     protected $casts = [
         'quantity' => 'integer',
+        'status' => StockReservationStatus::class,
     ];
 
     public function receipt(): BelongsTo

@@ -1,8 +1,8 @@
-@extends('layouts.store')
+@extends('layouts.profile')
 
 @section('title', 'Minha Conta')
 
-@section('content')
+@section('profile')
 
     <div class="row justify-content-center">
 

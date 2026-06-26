@@ -12,11 +12,7 @@ return new class extends Migration
 
             $table->id();
 
-            /*
-            |--------------------------------------------------------------------------
-            | Relacionamentos
-            |--------------------------------------------------------------------------
-            */
+            $table->ulid('uuid')->unique();
 
             $table->foreignId('order_id')
                 ->constrained()
@@ -27,15 +23,9 @@ return new class extends Migration
                 ->constrained()
                 ->nullOnDelete();
 
-            /*
-            |--------------------------------------------------------------------------
-            | Snapshot do produto
-            |--------------------------------------------------------------------------
-            */
-
             $table->string('name');
 
-            $table->string('slug');
+            $table->string('slug')->nullable();
 
             $table->string('sku')
                 ->nullable();

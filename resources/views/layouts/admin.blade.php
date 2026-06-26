@@ -3,7 +3,7 @@
 @section('layout')
     <div class="layout-admin">
 
-        <x-layout.header />
+        <x-layout.admin.header />
         <div class="row">
 
             <x-layout.sidebar />

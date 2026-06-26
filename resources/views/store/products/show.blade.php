@@ -4,7 +4,7 @@
 
 @section('meta_description', \Illuminate\Support\Str::limit(strip_tags($product->description), 150))
 
-@section('content')
+@section('store')
 
     <div class="container py-4">
 

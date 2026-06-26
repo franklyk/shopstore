@@ -1,8 +1,8 @@
-@extends('layouts.store')
+@extends('layouts.profile')
 
 @section('title', 'Pedido #' . $order->id)
 
-@section('content')
+@section('profile')
 
     <div class="row justify-content-center">
 

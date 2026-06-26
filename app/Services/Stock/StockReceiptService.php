@@ -7,6 +7,7 @@ use App\Models\StockReceipt;
 use App\Models\StockReceiptItem;
 use App\Services\StockService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class StockReceiptService

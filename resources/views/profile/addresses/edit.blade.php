@@ -2,7 +2,7 @@
 
 @section('title', 'Editar Endereço')
 
-@section('content')
+@section('profile')
 
     <div class="card">
 

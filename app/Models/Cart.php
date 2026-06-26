@@ -10,19 +10,16 @@ class Cart extends Model
         'user_id',
     ];
 
-    // 🔗 Relação com itens do carrinho
     public function items()
     {
         return $this->hasMany(CartItem::class);
     }
 
-    // 🔗 Relação com usuário (opcional, mas recomendado)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // 🧮 Total do carrinho
     public function total()
     {
         return $this->items()

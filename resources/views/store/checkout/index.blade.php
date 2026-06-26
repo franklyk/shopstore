@@ -1,6 +1,6 @@
 @extends('layouts.store')
 
-@section('content')
+@section('store')
     <div class="container">
 
         <h2 class="mb-4">
