@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Checkout;
+namespace App\Http\Requests\Admin\Checkout;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
