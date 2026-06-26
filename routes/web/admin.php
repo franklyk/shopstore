@@ -5,8 +5,8 @@ use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Orders\OrderController;
 use App\Http\Controllers\Admin\Products\ProductController;
 use App\Http\Controllers\Admin\Users\UserController;
-use App\Http\Controllers\Collection\CollectionController;
-use App\Http\Controllers\Import\ImportBatchController;
+use App\Http\Controllers\Admin\Collection\CollectionController;
+use App\Http\Controllers\Admin\Import\ImportBatchController;
 use App\Http\Controllers\Supplier\SupplierController;
 use Illuminate\Support\Facades\Route;
 

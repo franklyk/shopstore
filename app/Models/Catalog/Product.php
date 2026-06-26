@@ -2,6 +2,7 @@
 
 namespace App\Models\Catalog;
 
+Use App\Models\Stock\Stock;
 use App\Models\Traits\HasUuid;
 use App\Models\Traits\HasSlug;
 use Database\Factories\ProductFactory;

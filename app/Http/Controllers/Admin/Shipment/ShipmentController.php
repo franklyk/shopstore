@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Shipment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Shipment\ShipShipmentRequest;
-use App\Models\Shipment\Shipment;
+use App\Models\Order\Shipment;
 use App\Services\Admin\Order\ShipmentService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
