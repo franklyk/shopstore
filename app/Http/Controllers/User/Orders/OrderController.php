@@ -19,18 +19,18 @@ class OrderController extends Controller
     }
 
     public function show(Order $order): View
-{
-    $this->authorize('view', $order);
+    {
+        $this->authorize('view', $order);
 
-    $order->load([
-        'items',
-        'payment',
-        'shipment',
-    ]);
+        $order->load([
+            'items',
+            'payment',
+            'shipment',
+        ]);
 
-    return view(
-        'profile.orders.show',
-        compact('order')
-    );
-}
+        return view(
+            'profile.orders.show',
+            compact('order')
+        );
+    }
 }
