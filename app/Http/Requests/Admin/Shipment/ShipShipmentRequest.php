@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Shipment;
+namespace App\Http\Requests\Admin\Shipment;
 
 use Illuminate\Foundation\Http\FormRequest;
 

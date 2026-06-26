@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Stock;
+namespace App\Http\Requests\Admin\Stock;
 
 use App\Enums\StockMovementType;
 use App\Models\Stock\Stock;

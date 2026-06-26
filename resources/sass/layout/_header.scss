@@ -13,8 +13,8 @@
 @use "../base" as *;
 
 .header{
-    height: $header-height;
     display: flex;
+    height: $header-height;
     justify-content: space-between;
     padding: 10px 30px;
 

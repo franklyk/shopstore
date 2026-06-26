@@ -4,9 +4,9 @@ namespace App\Actions\Orders;
 
 use App\Enums\PaymentStatus;
 use App\Models\Address;
-use App\Models\Cart;
-use App\Models\Order;
-use App\Models\User;
+use App\Models\Cart\Cart;
+use App\Models\Order\Order;
+use App\Models\User\User;
 use Illuminate\Support\Facades\DB;
 
 class CreateOrderAction

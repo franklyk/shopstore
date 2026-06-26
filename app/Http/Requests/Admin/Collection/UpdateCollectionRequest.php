@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Collection;
+namespace App\Http\Requests\Admin\Collection;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
