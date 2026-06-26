@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Collection;
+namespace App\Http\Controllers\Admin\Collection;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCollectionRequest;
-use App\Http\Requests\UpdateCollectionRequest;
-use App\Models\Collection;
-use App\Models\Supplier;
+use App\Http\Requests\Admin\StoreCollectionRequest;
+use App\Http\Requests\Admin\UpdateCollectionRequest;
+use App\Models\Catalog\Collection;
+use App\Models\Supplier\Supplier;
 use Illuminate\Support\Str;
 
 class CollectionController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Stock;
 
 use App\Models\Traits\HasUuid;
 use App\Enums\StockMovementType;
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class StockMovement extends Model
 {
     use HasUuid;
-    
+
     protected $fillable = [
         'uuid',
         'product_id',

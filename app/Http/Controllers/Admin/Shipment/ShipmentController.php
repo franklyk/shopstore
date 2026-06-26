@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Shipment;
+namespace App\Http\Controllers\Admin\Shipment;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Shipment\ShipShipmentRequest;
-use App\Models\Shipment;
-use App\Services\Shipment\ShipmentService;
+use App\Http\Requests\Admin\Shipment\ShipShipmentRequest;
+use App\Models\Shipment\Shipment;
+use App\Services\Admin\Order\ShipmentService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Import;
+namespace App\Http\Controllers\Admin\Import;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Import\StoreImportBatchRequest;
-use App\Models\ImportBatch;
+use App\Http\Requests\Admin\Import\StoreImportBatchRequest;
+use App\Models\Import\ImportBatch;
 use Illuminate\Support\Facades\Storage;
 
 class ImportBatchController extends Controller

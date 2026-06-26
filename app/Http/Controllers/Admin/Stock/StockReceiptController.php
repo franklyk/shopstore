@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Stock;
+namespace App\Http\Controllers\Admin\Stock;
 
 use App\Http\Controllers\Controller;
-use App\Models\StockReceipt;
+use App\Models\Stock\StockReceipt;
 use App\Services\Stock\StockReceiptService;
 use Illuminate\Http\Request;
 

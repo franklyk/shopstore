@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Stock;
 
 use App\Models\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Users;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Users\StoreUserRequest;
 use App\Http\Requests\Admin\Users\UpdateUserRequest;
-use App\Models\User;
+use App\Models\User\User;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -65,7 +65,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->validated());
-        
+
         $user->syncRoles([$request->role]);
 
         return redirect()
@@ -76,7 +76,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    
+
     public function destroy(User $user)
     {
         $user->delete();

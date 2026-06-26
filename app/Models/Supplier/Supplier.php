@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Supplier;
 
 use App\Models\Traits\HasUuid;
 use App\Models\Traits\HasSlug;
-use Database\Factories\ProductFactory;
+use Database\Factories\Catalog\ProductFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

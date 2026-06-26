@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
-use App\Models\Product;
-use App\Models\Shipment;
-use App\Models\User;
+use App\Models\Order\Order;
+use App\Models\Catalog\Product;
+use App\Models\Order\Shipment;
+use App\Models\User\User;
 use Illuminate\View\View;
 
 class DashboardController extends Controller

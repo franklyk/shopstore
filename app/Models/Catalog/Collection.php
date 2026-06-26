@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Catalog;
 
-
-use App\Models\Traits\HasUuid;
+use App\Models\Supplier\Supplier;
 use App\Models\Traits\HasSlug;
-use Database\Factories\ProductFactory;
+use App\Models\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Collection extends Model
 {
-    use HasFactory, HasUuid, HasSlug, SoftDeletes;
+    use HasFactory, HasSlug, HasUuid, SoftDeletes;
 
     protected $fillable = [
         'supplier_id',

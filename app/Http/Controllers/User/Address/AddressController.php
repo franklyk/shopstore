@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Profile;
+namespace App\Http\Controllers\User\Address;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Address\StoreAddressRequest;
 use App\Http\Requests\User\Address\UpdateAddressRequest;
-use App\Models\Address;
-use App\Models\User;
+use App\Models\User\Address;
+use App\Models\User\User;
 use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller

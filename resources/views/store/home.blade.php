@@ -3,9 +3,7 @@
 @section('title', 'Home')
 
 @section('store')
-
-    <div class="container">
-
+<div class="container">
         <h1 class="mb-4">Produtos</h1>
 
         <div class="row">

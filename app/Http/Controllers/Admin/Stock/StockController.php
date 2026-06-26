@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Stock;
+namespace App\Http\Controllers\Admin\Stock;
 
 use App\Http\Controllers\Controller;
 use App\Services\Stock\StockReservationService;
-use App\Services\StockService;
+use App\Services\Stock\StockService;
 use Illuminate\Http\Request;
 
 class StockController extends Controller

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Supplier;
+namespace App\Http\Controllers\Admin\Supplier;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Supplier\StoreSupplierRequest;
-use App\Http\Requests\Supplier\UpdateSupplierRequest;
-use App\Models\Supplier;
+use App\Http\Requests\Admin\StoreSupplierRequest;
+use App\Http\Requests\Admin\UpdateSupplierRequest;
+use App\Models\Supplier\Supplier;
 use Illuminate\Support\Str;
 
 class SupplierController extends Controller

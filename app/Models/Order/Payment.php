@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Order;
 
 use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Model;

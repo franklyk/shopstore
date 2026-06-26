@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Catalog;
 
 use App\Models\Traits\HasUuid;
 use App\Models\Traits\HasSlug;

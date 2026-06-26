@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Database\Factories\UserFactory;
+use App\Models\User\User;
+use Database\Factories\User\UserFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 

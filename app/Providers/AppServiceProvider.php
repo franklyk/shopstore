@@ -5,9 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Cache;
 
 use App\Listeners\MergeCartOnLogin;
-use App\Models\Address;
-use App\Models\Category;
-use App\Models\Supplier;
+use App\Models\User\Address;
+use App\Models\Catalog\Category;
+use App\Models\Supplier\Supplier;
 use App\Policies\AddressPolicy;
 use App\Policies\SupplierPolicy;
 use Illuminate\Auth\Events\Login;

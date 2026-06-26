@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
 use Database\Factories\AddressFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

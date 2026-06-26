@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Catalog;
 
 use App\Models\Traits\HasUuid;
 use App\Models\Traits\HasSlug;
@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 
 class Product extends Model
 {
-    
+
     use HasFactory, HasUuid, HasSlug, SoftDeletes;
 
     protected $fillable = [

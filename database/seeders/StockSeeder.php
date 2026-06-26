@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Product;
+use App\Models\Catalog\Product;
 use App\Services\Stock\StockService;
 use Illuminate\Database\Seeder;
 

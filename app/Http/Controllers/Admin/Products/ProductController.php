@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin\Products;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\StoreProductRequest;
 use App\Http\Requests\Admin\Products\UpdateProductRequest;
-use App\Models\Category;
-use App\Models\Product;
+use App\Models\Catalog\Category;
+use App\Models\Catalog\Product;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 

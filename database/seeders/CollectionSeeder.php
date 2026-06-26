@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Collection;
+use App\Models\Catalog\Collection;
 use Illuminate\Database\Seeder;
 
 class CollectionSeeder extends Seeder

@@ -3,8 +3,8 @@
 namespace App\Services\Stock;
 
 use App\Enums\StockMovementType;
-use App\Models\Stock;
-use App\Models\StockMovement;
+use App\Models\Stock\Stock;
+use App\Models\Stock\StockMovement;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
