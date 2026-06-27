@@ -1,4 +1,4 @@
-<header class="header container-fluid">
+<header class="header admin-header container-fluid">
     <nav class="navbar navbar-expand-lg container-fluid justify-content-between">
 
         <x-layout.logo href="{{ route('admin.dashboard') }}"/>

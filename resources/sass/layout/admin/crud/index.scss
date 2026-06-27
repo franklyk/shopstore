@@ -7,9 +7,9 @@
 ///https://github.com/franklyk
 ///
 ///
-/// /* Index from Layout/* */
-///
+/// /* Layout/admin/crud */
 ///
 
-@use 'admin/index';
-// @forward 'store/';
+@forward 'details';
+@forward 'editors';
+@forward 'listing';

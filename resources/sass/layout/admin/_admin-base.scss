@@ -14,7 +14,7 @@
 @use '../../lib/' as *;
 
 .layout-admin {
-    background: var(--site-color);
+    // background: var(--site-color);
     min-height: 100dvh;
     width: 100%;
 }
@@ -34,8 +34,8 @@
 
 .page-container{
     border-radius: 10px;
-    background: var(--site-color);
-    box-shadow: inset var(--box-shadow);
+    // background: var(--site-color);
+    // box-shadow: inset var(--box-shadow);
     padding: 50px;
 
 }
