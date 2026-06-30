@@ -33,13 +33,12 @@
 
                 <section class="container-image">
 
-                    <div class="image-preview" id="preview-image">
-
-                        <label class="label-image" for="input-image">
-                        </label>
-                        <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
-
+                    <div class="preview-image" id="preview-image">
                     </div>
+                    <label class="label-image" for="input-image">
+                    </label>
+
+                    <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
 
 
                 </section>
@@ -75,7 +74,7 @@
                                     </div>
                                     <div class="">
                                         @forelse($parent->children as $child)
-                                            <x-admin.forms.checkbox name="categories[]" :label="$child->name"
+                                            <x-forms.checkbox name="categories[]" :label="$child->name"
                                                 value="{{ $child->id }}" id="{{ $child->slug }}" />
                                         @empty
                                             <small class="">Sem subcategorias</small>

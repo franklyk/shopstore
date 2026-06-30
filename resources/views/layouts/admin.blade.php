@@ -14,8 +14,8 @@
 
                 @yield('admin')
 
-                <footer class="footer">
-                    © {{ now()->year }} Loja virtual Todos os direitos reservados.
+                <footer class="footer fw-bold">
+                    © {{ now()->year }} Loja virtual / Todos os direitos reservados.
                 </footer>
             </main>
 

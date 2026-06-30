@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
 
-        $products = Product::with('categories', 'stocks')->paginate(40);
+        $products = Product::with('categories', 'images')->paginate(15);
 
         return view('admin.products.index', compact('products'));
     }
@@ -81,6 +81,8 @@ class ProductController extends Controller
 
         $product->load('categories');
         $product->load('stocks');
+        $product->load('images');
+        $product->load('stockMovements');
 
         return view('admin.products.show', compact('product'));
     }

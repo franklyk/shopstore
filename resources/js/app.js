@@ -2,6 +2,8 @@ import 'bootstrap';
 
 import './cart';
 
+import './custom';
+
 import './images';
 
 

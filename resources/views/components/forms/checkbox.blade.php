@@ -10,9 +10,8 @@
 
 @endphp
 
-<div class="d-flex align-items-center gap-2">
-
+<div class="form-check">
     <input {{ $attributes->merge($defaults) }}>
-    <x-forms.label :for="$name" :label="$label" />
-    
+    <label for="{{ $name }} ">{{ $label }}</label>
 </div>
+

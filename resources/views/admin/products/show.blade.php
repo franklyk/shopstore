@@ -3,7 +3,8 @@
 @section('title', 'Detalhe do Produto')
 
 @section('admin')
-    <div class="container-fluid">
+    <div class="page-container">
+
         <x-ui.page-header title="Detalhes do Produto" description="Visualize todos o detalhes do produto.">
 
             <x-slot:actions>
@@ -32,26 +33,33 @@
 
         </x-ui.page-header>
 
-        <div class="card-vs">
+        <div class="card p-5">
 
-            <dl class="desc-list">
-                <dt>Nome</dt>
-                <dd>{{ $product->name }}</dd>
+            <dl class="row">
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Nome</dt>
+                <dd class="col-md-6 fw-light text-danger">{{ $product->name }}</dd>
 
-                <dt>Descrição</dt>
-                <dd>{{ $product->description }}</dd>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Descrição</dt>
+                <dd class="col-md-6 fw-light text-danger">{{ $product->description }}</dd>
 
-                <dt>Preço</dt>
-                <dd>R$ {{ $product->price }}</dd>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Categoria</dt>
+                <dd class="col-md-6 fw-light text-danger">
+                    @foreach ($product->categories as $category)
+                        {{ $category->name }} /
+                    @endforeach
+                </dd>
 
-                <dt>Estoque</dt>
-                <dd>{{ $product->stocks->first()?->quantity ?? 0 }}</dd>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Preço</dt>
+                <dd class="col-md-6 fw-light text-danger">R$ {{ $product->price }}</dd>
 
-                <dt>Cadastrado em</dt>
-                <dd>{{ $product->created_at }}</dd>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Estoque</dt>
+                <dd class="col-md-6 fw-light text-danger">{{ $product->stocks->first()?->quantity ?? 0 }}</dd>
 
-                <dt>Última atualização em </dt>
-                <dd>{{ $product->updated_at }}</dd>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Cadastrado em</dt>
+                <dd class="col-md-6 fw-light text-danger">{{ $product->created_at }}</dd>
+
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Última atualização em </dt>
+                <dd class="col-md-6 fw-light text-danger">{{ $product->updated_at }}</dd>
             </dl>
         </div>
     </div>

@@ -12,9 +12,15 @@
 
 table {
     width: 100%;
+
     th {
+        &.table-image {
+            padding: 100px;
+            height: 100px;
+            width: 100px;
+        }
+
         color: var(--title-color);
-        text-align: center;
     }
 
     tbody {
@@ -24,16 +30,20 @@ table {
             &:hover {
                 background: var(--accent-color);
             }
+
             td {
+
                 color: var(--main-text);
-
-                // text-align: center;
-                &[data-field="center"] {
-                    text-align: center;
-                }
-
             }
         }
     }
 
+}
+
+.clickable-row {
+    cursor: pointer;
+
+    &:hover {
+        background-color: #f5f5f5;
+    }
 }

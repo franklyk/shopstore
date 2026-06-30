@@ -10,37 +10,37 @@
 /// /* Images */
 ///
 
-.container-image{
+.container-image {
 
     align-items: center;
     display: flex;
     height: 200px;
     justify-content: center;
-    margin: 20px auto;
-    padding: 20px;
+    margin: auto;
+    position: relative;
     width: 200px;
-    .image-preview{
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.432));
-        .label-image{
-            display: block;
-            height: 100%;
-            width: 100%;
-            position: absolute;
 
-            .image{
-                max-height: 100%;
-                max-width: 200px;
-    object-fit: cover;
+    .preview-image {
+        display: block;
+        filter: drop-shadow(0 0 10px rgba(16, 2, 2, 0.432));
+        padding: 10px;
+        position: absolute;
+        height: 200px;
+        width: 200px;
 
-            }
-        }
-        .input-image{
-            display: none;
-            // height: 200px;
-            // width: 200px;
-            position: absolute;
-        }
     }
+    .label-image {
+        height: 200px;
+        position: absolute;
+        width: 200px;
+    }
+    .input-image {
+        display: none;
+        height: 200px;
+        width: 200px;
+
+    }
+
 }
 
 .product-image {

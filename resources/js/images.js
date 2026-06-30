@@ -1,19 +1,19 @@
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener('DOMContentLoaded', () => {
 
-    const input = document.getElementById('image');
-    const preview = document.getElementById('image-preview');
+//     const input = document.getElementById('input-image');
+//     const preview = document.getElementById('image-preview');
 
-    input.addEventListener('change', (event) => {
+//     input.addEventListener('change', (event) => {
 
-        const file = event.target.files[0];
+//         const file = event.target.files[0];
 
-        if (!file) return;
+//         if (!file) return;
 
-        preview.src = URL.createObjectURL(file);
+//         preview.src = URL.createObjectURL(file);
 
-    });
+//     });
 
-});
+// });
 
 const inputFile = document.querySelector('#input-image');
 const previewImage = document.querySelector('#preview-image');

@@ -14,162 +14,181 @@
             </x-slot:actions>
 
         </x-ui.page-header>
-        <div class="card p-3">
+        <div class="card p-3 bg-light">
 
             <div class="metrics">
 
-                <div class=" py-5 px-3 border rounded-3 shadow">
-                    <dl>
-                        <dt>Total de Pedidos : </dt>
-                        <dd>{{ $ordersCount }}</dd>
-                    </dl>
-                </div>
-
-                <div class=" py-5 px-3 border rounded-3 shadow">
-                    <dl>
-                        <dt>Pedidos Pagos : </dt>
-                        <dd>{{ $paidOrdersCount }}</dd>
-                    </dl>
-                </div>
-
-                <div class=" py-5 px-3 border rounded-3 shadow">
-                    <dl>
-                        <dt>Pedidos Pendentes : </dt>
-                        <dd>{{ $pendingOrdersCount }}</dd>
-                    </dl>
-                </div>
-
-
-                <div class=" py-5 px-3 border rounded-3 shadow">
-                    <dl>
-                        <dt>Envios em Andamento : </dt>
-                        <dd>{{ $shipmentsCount }}</dd>
-                    </dl>
-                </div>
-
-                <div class=" py-5 px-3 border rounded-3 shadow">
-                    <dl>
-                        <dt>Produtos Cadastrados: </dt>
-                        <dd>{{ $productsCount }}</dd>
-                    </dl>
-                </div>
-
-
-                <div class=" py-5 px-3 border rounded-3 shadow">
-                    <dl>
-                        <dt>Clientes Ativos: </dt>
-                        <dd>{{ $customersCount }}</dd>
-                    </dl>
-                </div>
-
-
-            </div>
-
-            <div class="widgets">
-                <div class="p-3 border rounded-3 shadow">
-                    <div class="card-header">
-                        <div class="card-title">
-                            <h5>Últimos Pedidos</h5>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-
-                        <table class="table-vs">
-
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Cliente</th>
-                                    <th>Total</th>
-                                    <th>Pagamento</th>
-                                    <th width="100"></th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                                @forelse($latestOrders as $order)
-                                    <tr>
-
-                                        <td data-field="center">#{{ $order->id }}</td>
-
-                                        <td data-field="center">{{ $order->customer_name }}</td>
-
-                                        <td data-field="center">
-                                            R$ {{ number_format($order->total, 2, ',', '.') }}
-                                        </td>
-
-                                        <td data-field="center">{{ $order->payment_status }}</td>
-
-                                        <td>
-                                            <x-buttons.button href="{{ route('admin.orders.show', $order) }}"
-                                                color="info" icon="eye" class="text-white" />
-                                        </td>
-
-                                    </tr>
-
-                                @empty
-
-                                    <tr>
-                                        <td colspan="5" class="text-center py-5 px-3">
-                                            Nenhum pedido encontrado.
-                                        </td>
-                                    </tr>
-                                @endforelse
-
-                            </tbody>
-
-                        </table>
-
+                <div class="p-2 bg-dark rounded-3">
+                    <div class="py-5 px-3 border border-5 border-danger bg-dark rounded-3 shadow">
+                        <dl>
+                            <dt class="text-light fw-lighter fs-6">Total de Pedidos : </dt>
+                            <dd class="text-danger fw-bold">{{ $ordersCount }}</dd>
+                        </dl>
                     </div>
                 </div>
 
-                <div class="p-3 border rounded-3 shadow">
-                    <div class="card-header">
-                        <div class="card-title">
-                            <h5>Envios em Andamento</h5>
-                        </div>
+                <div class="p-2 bg-dark rounded-3">
+                    <div class="py-5 px-3 border border-5 border-danger bg-dark rounded-3 shadow">
+                        <dl>
+                            <dt class="text-light fw-lighter fs-6">Pedidos Pagos : </dt>
+                            <dd class="text-danger fw-bold">{{ $paidOrdersCount }}</dd>
+                        </dl>
                     </div>
-                    <div class="table-responsive">
+                </div>
 
-                        <table class="table-vs">
+                <div class="p-2 bg-dark rounded-3">
+                    <div class="py-5 px-3 border border-5 border-danger bg-dark rounded-3 shadow">
+                        <dl>
+                            <dt class="text-light fw-lighter fs-6">Pedidos Pendentes : </dt>
+                            <dd class="text-danger fw-bold">{{ $pendingOrdersCount }}</dd>
+                        </dl>
+                    </div>
+                </div>
 
-                            <thead>
-                                <tr>
-                                    <th>Pedido nº</th>
-                                    <th>Status</th>
-                                    <th width="100"></th>
-                                </tr>
-                            </thead>
 
-                            <tbody>
+                <div class="p-2 bg-dark rounded-3">
+                    <div class="py-5 px-3 border border-5 border-danger bg-dark rounded-3 shadow">
+                        <dl>
+                            <dt class="text-light fw-lighter fs-6">Envios em Andamento : </dt>
+                            <dd class="text-danger fw-bold">{{ $shipmentsCount }}</dd>
+                        </dl>
+                    </div>
+                </div>
 
-                                @forelse($activeShipments as $shipment)
-                                    <tr>
+                <div class="p-2 bg-dark rounded-3">
+                    <div class="py-5 px-3 border border-5 border-danger bg-dark rounded-3 shadow">
+                        <dl>
+                            <dt class="text-light fw-lighter fs-6">Produtos Cadastrados: </dt>
+                            <dd class="text-danger fw-bold">{{ $productsCount }}</dd>
+                        </dl>
+                    </div>
+                </div>
 
-                                        <td data-field="center">{{ $shipment->order_id }}</td>
 
-                                        <td data-field="center">{{ $shipment->status->value }}</td>
-
-                                        <td>
-                                            <x-buttons.button href="{{ route('admin.shipments.show', $shipment) }}"
-                                                color="info" icon="eye" class="text-white" />
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="5" class="text-center py-5 px-3">
-                                            Nenhum pedido encontrado.
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+                <div class="p-2 bg-dark rounded-3">
+                    <div class="py-5 px-3 border border-5 border-danger bg-dark rounded-3 shadow">
+                        <dl>
+                            <dt class="text-light fw-lighter fs-6">Clientes Ativos: </dt>
+                            <dd class="text-danger fw-bold">{{ $customersCount }}</dd>
+                        </dl>
                     </div>
                 </div>
             </div>
+
+            <div class="widgets col-12">
+
+                <div class="p-2 rounded-3 bg-dark">
+                    <div class="p-3 border border-5 border-danger rounded-3 shadow">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h5 class="text-light text-center fw-bold">Últimos Pedidos</h5>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+
+                            <table class="table-vs">
+
+
+                                <thead>
+                                    @if (!empty($latestOrders['']))
+                                        <tr>
+                                            <th class="text-light text-center">#</th>
+                                            <th class="text-light text-center">Cliente</th>
+                                            <th class="text-light text-center">Total</th>
+                                            <th class="text-light text-center">Pagamento</th>
+                                            <th width="100"></th>
+                                        </tr>
+                                    @endif
+                                </thead>
+
+                                <tbody>
+
+                                    @forelse($latestOrders as $order)
+                                        <tr>
+
+                                            <td data-field="center">#{{ $order->id }}</td>
+
+                                            <td data-field="center">{{ $order->customer_name }}</td>
+
+                                            <td data-field="center">
+                                                R$ {{ number_format($order->total, 2, ',', '.') }}
+                                            </td>
+
+                                            <td data-field="center">{{ $order->payment_status }}</td>
+
+                                            <td>
+                                                <x-buttons.button href="{{ route('admin.orders.show', $order) }}"
+                                                    color="info" icon="eye" class="text-white" />
+                                            </td>
+
+                                        </tr>
+
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center text-danger fw-bold py-5 px-3">
+                                                Nenhum pedido encontrado!
+                                            </td>
+                                        </tr>
+                                    @endforelse
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-2 rounded-3 bg-dark">
+                    <div class="p-3 border border-5 border-danger rounded-3 shadow">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h5 class="text-light text-center fw-bold">Envios em Andamento</h5>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+
+                            <table class="table-vs">
+
+                                <thead>
+                                    @if (!empty($activeShipments['']))
+
+                                    <tr>
+                                        <th class="text-light text-center">Pedido nº</th>
+                                        <th class="text-light text-center">Status</th>
+                                        <th width="100"></th>
+                                    </tr>
+                                    @endif
+                                </thead>
+
+                                <tbody>
+
+                                    @forelse($activeShipments as $shipment)
+                                        <tr>
+
+                                            <td data-field="center">{{ $shipment->order_id }}</td>
+
+                                            <td data-field="center">{{ $shipment->status->value }}</td>
+
+                                            <td>
+                                                <x-buttons.button href="{{ route('admin.shipments.show', $shipment) }}"
+                                                    color="info" icon="eye" class="text-white" />
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center text-danger fw-bold py-5 px-3">
+                                                Nenhum envio encontrado!
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-    </div>
-
-@endsection
+    @endsection

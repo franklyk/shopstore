@@ -2,24 +2,17 @@
     'label' => null,
     'name' => null,
     'id' => null,
-    'for' => null
+    'for' => null,
 ])
 
 @php
     $id = $id ?? $name;
 @endphp
 
-<x-forms.field>
+<div class="form-floating">
+    <textarea id="{{ $name }}" name="{{ $name }}" class="form-control" {{ $attributes }}>{{ old($name, $slot) }}</textarea>
 
-    <textarea
-        id="{{ $id }}"
-        name="{{ $name }}"
-        class="form-input"
-        {{ $attributes }}
-    >{{ old($name, $slot) }}</textarea>
-
-    @if($label)
-        <x-forms.label for="{{ :$for }}" :label="$label"/>
+    @if ($label)
+        <label for="{{ $name }}">{{ $label }}</label>
     @endif
-
-</x-forms.field>
+</div>

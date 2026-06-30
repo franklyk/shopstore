@@ -1,18 +1,19 @@
-@props(['label' => null, 'name'])
+@props(['label' => null, 'name', 'type' => null])
 
 @php
     $hasError = $errors->has($name);
 
     $defaults = [
         'placeholder' => '',
-        'type' => 'text',
+        'type' => $type,
         'id' => $name,
         'name' => $name,
         'value' => old($name),
-        'class' => 'form-input' . ($hasError ? 'is-invalid' : ''),
+        'class' => 'form-control' . ($hasError ? 'is-invalid' : ''),
     ];
 @endphp
 
-<x-forms.field :label="$label" :name="$name">
+<div class="form-floating mb-3">
     <input {{ $attributes->merge($defaults) }}>
-</x-forms.field>
+    <label for="{{ $name }}">{{ $label }} </label>
+</div>

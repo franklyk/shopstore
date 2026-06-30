@@ -3,7 +3,7 @@
 @section('title', 'Produtos')
 
 @section('admin')
-    <div class=" page-container">
+    <div class="listing page-container">
 
         <x-ui.page-header title="Produtos Cadastrados" description="Gerencie os produtos da loja">
 
@@ -14,41 +14,61 @@
 
         </x-ui.page-header>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>CÓDIGO</th>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Preço</th>
-                    <th>Estoque</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($products as $product)
-                    <tr>
-                        <td data-field="center">{{ $product->id }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->description }}</td>
-                        <td data-field="center">R$ {{ $product->price }}</td>
-                        <td data-field="center">{{ $product->stocks->first()?->quantity }}</td>
-                        <td>
+        <div class="card p-5">
+
+            @if (!empty($products))
+                <table class="table table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <th>Imagem</th>
+                            <th>CÓDIGO</th>
+                            <th>Nome</th>
+                            <th>Status</th>
+                            {{-- <th>Preço</th> --}}
+                            {{-- <th>Estoque</th> --}}
+                            {{-- <th>Ações</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($products as $product)
+                            <tr class="clickable-row" data-href="{{ route('admin.products.show', $product) }}">
+                                <td class="table-image">
+                                    @if (!empty($product->image))
+                                        <img src="{{ $product->image }}" alt="imagem">
+                                    @else
+                                        <img src="https://placehold.co/50x50" alt="imagem">
+                                    @endif
+                                </td>
+                                <td>{{ $product->sku }}</td>
+                                <td>{{ $product->name }} </td>
+
+                                <td>
+                                    @if ($product->is_active == 1)
+                                        <span class="badge text-bg-success">Ativo</span>
+                                    @else
+                                        <span class="badge text-bg-success">Inativo</span>
+                                    @endif
+
+                                </td>
+                                {{-- <td data-field="center">R$ {{ $product->price }}</td> --}}
+                                {{-- <td data-field="center">{{ $product->stocks->first()?->quantity }}</td> --}}
+                                {{-- <td>
                             <x-buttons.button href="{{ route('admin.products.show', $product) }}" color="view" icon="eye" />
-                        </td>
-                    </tr>
+                        </td> --}}
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <h1 class="text-center">Sem registros de Produtos</h1>
+            @endif
 
-                @empty
-                    <h1>Sem registros de Produtos</h1>
-                @endforelse
-            </tbody>
-
-        </table>
-        <div class="pagination my-5">
-            {{ $products->links() }}
+            <div class="my-5">
+                {{ $products->links() }}
+            </div>
         </div>
 
+
     </div>
-    {{-- <div style="height: 2000px"></div> --}}
 
 @endsection
