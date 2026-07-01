@@ -15,16 +15,16 @@
                 ]" />
                 <div class="container-buttons">
                     @can('view products')
-                        <x-buttons.button href="{{ route('admin.products.index') }}" color="return" icon="return" label="Voltar" />
+                        <x-buttons.button href="{{ route('admin.products.index') }}" color="secondary" icon="return" label="Voltar" />
                     @endcan
 
                     @can('edit products')
-                        <x-buttons.button href="{{ route('admin.products.edit', $product) }}" color="edit" icon="edit"
+                        <x-buttons.button href="{{ route('admin.products.edit', $product) }}" color="warning" icon="edit"
                             label="Editar" />
                     @endcan
 
                     @can('delete products')
-                        <x-buttons.button color="delete" icon="trash" label="Excluir" data-bs-toggle="modal"
+                        <x-buttons.button color="danger" icon="trash" label="Excluir" data-bs-toggle="modal"
                             data-bs-target="#deleteModal{{ $product->id }} " />
                     @endcan
 

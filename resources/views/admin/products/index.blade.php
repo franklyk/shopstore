@@ -5,25 +5,28 @@
 @section('admin')
     <div class="listing page-container">
 
-        <x-ui.page-header title="Produtos Cadastrados" description="Gerencie os produtos da loja">
+        <x-ui.page-header title="Produtos Cadastrados" description="Listagem dos produtos da loja">
 
             <x-slot:actions>
                 <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Produtos']]" />
-                <x-buttons.button href="{{ route('admin.products.create') }}" color="add" icon="plus" label="Novo" />
+                <div class="container-buttons">
+                    <x-buttons.button href="{{ route('admin.products.create') }}" color="success" icon="plus"
+                        label="Novo" />
+                </div>
             </x-slot:actions>
 
         </x-ui.page-header>
 
-        <div class="card p-5">
+        <div class="card p-5 bg-light shadow">
 
             @if (!empty($products))
-                <table class="table table-responsive table-hover">
+                <table class="table align-middle table-responsive table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Imagem</th>
-                            <th>CÓDIGO</th>
-                            <th>Nome</th>
-                            <th>Status</th>
+                            <th scope="col" class="text-light bg-primary">IMAGEM</th>
+                            <th scope="col" class="text-light bg-primary">CÓDIGO</th>
+                            <th scope="col" class="text-light bg-primary">NOME</th>
+                            <th scope="col" class="text-light bg-primary">STATUS</th>
                             {{-- <th>Preço</th> --}}
                             {{-- <th>Estoque</th> --}}
                             {{-- <th>Ações</th> --}}
@@ -31,7 +34,7 @@
                     </thead>
                     <tbody>
                         @foreach ($products as $product)
-                            <tr class="clickable-row" data-href="{{ route('admin.products.show', $product) }}">
+                            <tr scope="row" class="clickable-row" data-href="{{ route('admin.products.show', $product) }}">
                                 <td class="table-image">
                                     @if (!empty($product->image))
                                         <img src="{{ $product->image }}" alt="imagem">

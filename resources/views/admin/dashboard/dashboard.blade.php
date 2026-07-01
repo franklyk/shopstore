@@ -14,7 +14,8 @@
             </x-slot:actions>
 
         </x-ui.page-header>
-        <div class="card p-3 bg-light">
+
+        <div class="card p-5 bg-light shadow">
 
             <div class="metrics">
 

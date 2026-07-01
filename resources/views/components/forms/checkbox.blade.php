@@ -1,17 +1,19 @@
-@props(['name', 'label'])
+@props(['name', 'label', 'id'])
 
 @php
     $defaults = [
         'type' => 'checkbox',
         'name' => $name,
-        'id' => $name,
+        'id' => $id,
         'class' => 'form-check-input ',
     ];
 
 @endphp
 
 <div class="form-check">
-    <input {{ $attributes->merge($defaults) }}>
-    <label for="{{ $name }} ">{{ $label }}</label>
-</div>
 
+    <label class="form-check-label" for="{{ $id }}">
+        <input {{ $attributes->merge($defaults) }}>
+        {{ $label }}
+    </label>
+</div>

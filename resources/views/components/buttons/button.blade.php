@@ -9,12 +9,12 @@
     $isLink = $attributes->has('href');
 
     $icons = [
-        'edit' => 'edit',
-        'eye' => 'eye',
-        'plus' => 'plus',
-        'return' => 'return',
-        'check' => 'check',
-        'trash' => 'trash',
+        'edit',
+        'eye',
+        'plus',
+        'return',
+        'check',
+        'trash',
     ];
 
     $icon = $icons[$icon] ?? $icon;
@@ -22,7 +22,7 @@
 
 @if ($isLink)
 
-    <a {{ $attributes->merge(['class' => 'button button-' . $color]) }}>
+    <a {{ $attributes->merge(['class' => 'd-flex gap-1 btn btn-sm btn-' . $color]) }}>
 
         @if($icon)
             <x-dynamic-component
@@ -38,7 +38,7 @@
 
     <button
         type="{{ $type }}"
-        {{ $attributes->merge(['class' => 'button button-' . $color]) }}
+        {{ $attributes->merge(['class' => 'd-flex gap-1 btn btn-sm btn-' . $color]) }}
     >
 
         @if($icon)

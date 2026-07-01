@@ -32,11 +32,14 @@
 
                 <div class="card p-3 shadow">
 
-                        <h3 class="fs-3 text-center section-title">Categorias</h3>
+                    <h3 class="fs-3 text-center section-title">Categorias</h3>
 
-                        <div class="row g-2">
-                            @forelse($categories as $parent)
-                                <div class=" col-3 border-light">
+                    <div class="row g-2">
+                        @if (!empty($categories))
+
+
+                            @foreach ($categories as $parent)
+                                <div class="col-3 border-light">
 
                                     <div class="bg-light border border-2 border-danger rounded p-4 ">
                                         <div class="text-center text-danger fw-bold fs-5">
@@ -52,28 +55,30 @@
                                         </div>
                                     </div>
                                 </div>
+                            @endforeach
+                        @else
+                            <div class="col">
+                                <h1 class="text-center text-danger mb-0">
+                                    Nenhuma categoria cadastrada.
+                                </p>
+                            </div>
 
-                            @empty
-                                <div class="col">
-                                    <p class="text-muted mb-0">Nenhuma categoria cadastrada.</p>
-                                </div>
-                            @endforelse
-                        </div>
-
+                        @endif
                     </div>
+
+                </div>
 
                 <div class="container-buttons">
                     @can('view products')
-                        <x-buttons.button href="{{ route('admin.products.index') }}" color="return" icon="return"
+                        <x-buttons.button href="{{ route('admin.products.index') }}" color="secondary" icon="return"
                             label="Voltar" />
                     @endcan
 
                     @can('edit products')
-                        <x-buttons.button type="submit" form="edit-form" color="edit" icon="edit" label="Salvar" />
+                        <x-buttons.button type="submit" form="edit-form" color="warning" icon="edit" label="Salvar" />
                     @endcan
 
                 </div>
-
 
             </x-forms.form>
 
