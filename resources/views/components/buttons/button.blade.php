@@ -22,7 +22,7 @@
 
 @if ($isLink)
 
-    <a {{ $attributes->merge(['class' => 'd-flex gap-1 btn btn-sm btn-' . $color]) }}>
+    <a {{ $attributes->merge(['class' => 'text-center d-flex gap-1 btn btn-sm btn-' . $color]) }}>
 
         @if($icon)
             <x-dynamic-component
@@ -38,7 +38,7 @@
 
     <button
         type="{{ $type }}"
-        {{ $attributes->merge(['class' => 'd-flex gap-1 btn btn-sm btn-' . $color]) }}
+        {{ $attributes->merge(['class' => 'text-center d-flex gap-1 btn btn-sm btn-' . $color]) }}
     >
 
         @if($icon)

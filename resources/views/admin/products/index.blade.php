@@ -4,15 +4,35 @@
 
 @section('admin')
     <div class="listing page-container">
-
+        {{-- @dd($products) --}}
         <x-ui.page-header title="Produtos Cadastrados" description="Listagem dos produtos da loja">
 
+            {{-- <div class="d-flex flex-column"> --}}
             <x-slot:actions>
                 <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Produtos']]" />
-                <div class="container-buttons">
+                <div class=" dropdown d-flex gap-2">
+
+                    <x-forms.form method="GET" class="mb-4">
+                        <ul class="dropdown-menu">
+                            @foreach ($statuses as $status)
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <x-forms.checkbox name="status[]" label="{{ $status->name }}"
+                                            value="{{ $status->id }}" :id="'status-' . $status->id" />
+                                    </a>
+                                </li>
+                            @endforeach()
+                            <x-buttons.button type="submit" color="primary" label="Aplicar" class="justify-self-end border"/>
+                        </ul>
+                    </x-forms.form>
+
+                    <x-buttons.button href="" color="secondary" label="Filtrar" icon="filter"
+                        data-bs-toggle="dropdown" aria-expanded="false" />
+
                     <x-buttons.button href="{{ route('admin.products.create') }}" color="success" icon="plus"
                         label="Novo" />
                 </div>
+
             </x-slot:actions>
 
         </x-ui.page-header>
@@ -27,14 +47,12 @@
                             <th scope="col" class="text-light bg-primary">CÓDIGO</th>
                             <th scope="col" class="text-light bg-primary">NOME</th>
                             <th scope="col" class="text-light bg-primary">STATUS</th>
-                            {{-- <th>Preço</th> --}}
-                            {{-- <th>Estoque</th> --}}
-                            {{-- <th>Ações</th> --}}
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($products as $product)
-                            <tr scope="row" class="clickable-row" data-href="{{ route('admin.products.show', $product) }}">
+                            <tr scope="row" class="clickable-row"
+                                data-href="{{ route('admin.products.show', $product) }}">
                                 <td class="table-image">
                                     @if (!empty($product->image))
                                         <img src="{{ $product->image }}" alt="imagem">
@@ -46,11 +64,13 @@
                                 <td>{{ $product->name }} </td>
 
                                 <td>
-                                    @if ($product->is_active == 1)
+                                    <span
+                                        class="badge text-bg-{{ $product->status->color }}">{{ $product->status->name }}</span>
+                                    {{-- @if ($product->is_active == 1)
                                         <span class="badge text-bg-success">Ativo</span>
                                     @else
                                         <span class="badge text-bg-success">Inativo</span>
-                                    @endif
+                                    @endif --}}
 
                                 </td>
                                 {{-- <td data-field="center">R$ {{ $product->price }}</td> --}}

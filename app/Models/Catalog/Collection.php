@@ -28,4 +28,9 @@ class Collection extends Model
     {
         return $this->belongsToMany(Supplier::class);
     }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 }

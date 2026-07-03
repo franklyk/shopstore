@@ -12,10 +12,13 @@ class ProductImage extends Model
         'is_primary',
     ];
 
-
-
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 }

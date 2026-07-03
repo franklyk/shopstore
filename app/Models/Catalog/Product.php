@@ -2,11 +2,11 @@
 
 namespace App\Models\Catalog;
 
-Use App\Models\Stock\Stock;
-Use App\Models\Stock\StockMovement;
-use App\Models\Traits\HasUuid;
+use App\Models\Status\Status;
+use App\Models\Stock\Stock;
+use App\Models\Stock\StockMovement;
 use App\Models\Traits\HasSlug;
-use Database\Factories\ProductFactory;
+use App\Models\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,8 +15,7 @@ use Illuminate\Support\Str;
 
 class Product extends Model
 {
-
-    use HasFactory, HasUuid, HasSlug, SoftDeletes;
+    use HasFactory, HasSlug, HasUuid, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -58,6 +57,11 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 
     public function stocks(): HasMany

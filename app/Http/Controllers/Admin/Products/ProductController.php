@@ -7,20 +7,37 @@ use App\Http\Requests\Admin\Products\StoreProductRequest;
 use App\Http\Requests\Admin\Products\UpdateProductRequest;
 use App\Models\Catalog\Category;
 use App\Models\Catalog\Product;
+use App\Models\Status\Status;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
-    {
+    public function index(Request $request)
+{
+    $statuses = Status::query()
+        ->where('domain', 'product')
+        ->where('active', true)
+        ->orderBy('sort_order')
+        ->get();
 
-        $products = Product::with('categories', 'images')->paginate(15);
+    $products = Product::query()
+        ->with('categories', 'images', 'status');
 
-        return view('admin.products.index', compact('products'));
+    if ($request->filled('status')) {
+        $products->where('status_id', $request->status);
     }
+
+    $products = $products->paginate(15)->withQueryString();
+
+    return view('admin.products.index', compact(
+        'products',
+        'statuses'
+    ));
+}
 
     public function create()
     {
@@ -83,6 +100,7 @@ class ProductController extends Controller
         $product->load('stocks');
         $product->load('images');
         $product->load('stockMovements');
+        $product->load('status');
 
         return view('admin.products.show', compact('product'));
     }
@@ -101,13 +119,12 @@ class ProductController extends Controller
         return view('admin.products.edit', compact('product', 'categories'));
     }
 
-    public function update(UpdateProductRequest $request, Product $product,)
+    public function update(UpdateProductRequest $request, Product $product)
     {
 
         $product->update($request->validated());
 
         $product->categories()->sync($request->categories);
-
 
         return redirect()
             ->route('admin.products.index')

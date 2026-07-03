@@ -1,18 +1,20 @@
 <?php
 
 namespace Database\Factories\Catalog;
-
 use App\Models\Catalog\Product;
+use App\Models\Status\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-/**
- * @extends Factory<Product>
- */
 class ProductFactory extends Factory
 {
     public function definition(): array
     {
+        $defaultStatus = Status::query()
+            ->where('domain', 'product')
+            ->where('is_default', true)
+            ->first();
+
         return [
 
             'uuid' => (string) Str::ulid(),
@@ -27,8 +29,7 @@ class ProductFactory extends Factory
 
             'price' => fake()->randomFloat(2, 10, 1000),
 
-            'is_active' => true,
-
+            'status_id' => $defaultStatus?->id,
         ];
     }
 }

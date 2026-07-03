@@ -10,7 +10,7 @@
 
         <x-forms.input name="password" type="password" label="Senha" />
 
-        <x-forms.checkbox name="remember" label="Sempre Conectado" />
+        <x-forms.checkbox name="remember" label="Sempre Conectado" id="remember" />
 
         <x-buttons.button type="submit" color="primary" class="w-100" label="Entrar"/>
 

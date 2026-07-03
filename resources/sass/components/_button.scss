@@ -11,75 +11,69 @@
 ///
 
 .container-buttons {
+
     display: flex;
-    width: 100%;
-    gap: 2px;
-    a{
-        display:flex;
+    gap: 5px;
+    justify-content: end;
+    min-width: 200px;
+
+    a {
+        display: flex;
         height: auto;
     }
 }
 
-.button {
-    align-items: center;
-    border: 1px solid;
-    border-color: inherit;
-    border-radius: 5px;
-    display: flex;
-    font-weight: bolder;
-    justify-content: center;
-    margin: 5px;
-    padding: 3px 5px;
-    width: max-content;
-    transition: .1s;
+// .btn {
+//     display: flex;
+//     font-weight: bolder;
 
-    &:hover {
-        filter: drop-shadow(0 0 8px #d8d8d871);
-    }
+//     &:hover {
+//         filter: drop-shadow(0 0 8px #d8d8d871);
+//     }
 
-    &.button-add {
-        color:white;
-        background: #15ab1d;
+//     &.button-add {
+//         color: white;
+//         background: #15ab1d;
 
-        &:hover {
-            color: white;
+//         &:hover {
+//             color: white;
 
-        }
-    }
+//         }
+//     }
 
-    &.button-delete {
-        background: #ff2323e2;
-        color: #ffffff;
+//     &.button-delete {
+//         background: #ff2323e2;
+//         color: #ffffff;
 
-        // &:hover {
-        //     color: white;
+//         // &:hover {
+//         //     color: white;
 
-        // }
-    }
+//         // }
+//     }
 
-    &.button-edit {
-        color: #7e6900;
-        background: #ffd500;
+//     &.button-edit {
+//         color: #7e6900;
+//         background: #ffd500;
 
-        &:hover {
-            color: #b49600;
-        }
-    }
+//         &:hover {
+//             color: #b49600;
+//         }
+//     }
 
-    &.button-return {
-        color: white;
-        background: transparent;
+//     &.button-return {
+//         color: white;
+//         background: transparent;
 
 
-    }
+//     }
 
-    &.button-view {
-        color: var(--text-muted-color);
-        background: #6070ff97;
+//     &.button-view {
+//         color: var(--text-muted-color);
+//         background: #6070ff97;
 
-        &:hover {
-            color: white;
+//         &:hover {
+//             color: white;
 
-        }
-    }
-}
+//         }
+//     }
+// }

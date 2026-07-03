@@ -2,8 +2,8 @@
 
 namespace App\Models\Catalog;
 
-use App\Models\Traits\HasUuid;
 use App\Models\Traits\HasSlug;
+use App\Models\Traits\HasUuid;
 use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 class Category extends Model
 {
     /** @use HasFactory<CategoryFactory> */
-    use HasFactory, HasUuid, HasSlug, SoftDeletes;
+    use HasFactory, HasSlug, HasUuid, SoftDeletes;
 
     protected $fillable = [
         'parent_id',
@@ -40,6 +40,11 @@ class Category extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 
     public function parent()

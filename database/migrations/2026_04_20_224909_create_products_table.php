@@ -11,19 +11,34 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
 
             $table->id();
-            $table->ulid('uuid')->unique();
+
+            $table->ulid('uuid')
+            ->unique();
+
             $table->string('name');
-            $table->string('slug')->unique();
-            $table->string('sku')->unique()->nullable();
-            $table->text('description')->nullable();
+
+            $table->string('slug')
+            ->unique();
+
+            $table->string('sku')
+            ->unique()
+            ->nullable();
+
+            $table->text('description')
+            ->nullable();
+
             $table->decimal('price', 10, 2);
-            $table->boolean('is_active')->default(true);
+
+            $table->foreignId('status_id')
+                ->constrained()
+                ->restrictOnDelete();
+
             $table->timestamps();
-            
+
             $table->softDeletes();
 
             $table->index('name');
-            $table->index('is_active');
+            $table->index('status_id');
         });
     }
 

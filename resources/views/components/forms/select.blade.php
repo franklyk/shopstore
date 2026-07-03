@@ -22,7 +22,7 @@
 <x-forms.field :name="$name" :label="$field_label" >
 
     <select
-        {{ $attributes->merge(['class' => 'form-input']) }}
+        {{ $attributes->merge(['class' => 'form-select']) }}
         name="{{ $name }}"
         id="{{ $name }}"
     >

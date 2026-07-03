@@ -11,7 +11,6 @@
 @endphp
 
 <div class="form-check">
-
     <label class="form-check-label" for="{{ $id }}">
         <input {{ $attributes->merge($defaults) }}>
         {{ $label }}
