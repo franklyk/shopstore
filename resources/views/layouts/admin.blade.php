@@ -10,8 +10,6 @@
 
             <main class="content-admin">
 
-                <x-ui.flesh />
-
                 @yield('admin')
 
                 <footer class="footer fw-bold">
