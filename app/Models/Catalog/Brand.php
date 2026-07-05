@@ -2,34 +2,31 @@
 
 namespace App\Models\Catalog;
 
-use App\Models\Catalog\Product;
-use App\Models\Supplier\Supplier;
 use App\Models\Status\Status;
 use App\Models\Traits\HasSlug;
 use App\Models\Traits\HasUuid;
+use Database\Factories\Catalog\BrandFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Collection extends Model
+class Brand extends Model
 {
-    use HasFactory, HasSlug, HasUuid, SoftDeletes;
+    /** @use HasFactory<BrandFactory> */
+    use HasFactory;
+    use HasSlug;
+    use HasUuid;
+    use SoftDeletes;
 
     protected $fillable = [
-        'supplier_id',
+        'uuid',
         'name',
-        'year',
-        'active',
+        'slug',
+        'description',
+        'website',
+        'logo',
+        'status_id',
     ];
-
-    protected $casts = [
-        'active' => 'boolean',
-    ];
-
-    public function suppliers()
-    {
-        return $this->belongsToMany(Supplier::class);
-    }
 
     public function status()
     {
@@ -38,6 +35,6 @@ class Collection extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->hasMany(Product::class);
     }
 }

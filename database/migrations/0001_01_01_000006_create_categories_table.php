@@ -22,16 +22,17 @@ return new class extends Migration
                 ->constrained('categories')
                 ->nullOnDelete();
 
+            $table->foreignId('status_id')
+                ->constrained('statuses')
+                ->restrictOnDelete();
+
             $table->string('name')->unique();
 
             $table->string('slug')->unique();
 
-            $table->boolean('active')->default(true);
-
             $table->timestamps();
 
             $table->softDeletes();
-
 
         });
     }

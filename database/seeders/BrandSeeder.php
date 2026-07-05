@@ -2,27 +2,30 @@
 
 namespace Database\Seeders;
 
+use App\Models\Catalog\Brand;
 use App\Models\Status\Status;
-use App\Models\Supplier\Supplier;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class SupplierSeeder extends Seeder
+class BrandSeeder extends Seeder
 {
     public function run(): void
     {
         $defaultStatus = Status::query()
-            ->where('domain', 'supplier')
+            ->where('domain', 'brand')
             ->where('is_default', true)
             ->value('id');
 
         for ($i = 1; $i <= 5; $i++) {
 
-            Supplier::updateOrCreate(
-                ['slug' => "fornecedor-{$i}"],
+            Brand::updateOrCreate(
+                ['slug' => "marca-{$i}"],
                 [
                     'uuid' => (string) Str::ulid(),
-                    'name' => "Fornecedor {$i}",
+                    'name' => "Marca {$i}",
+                    'description' => "Descrição da Marca {$i}.",
+                    'website' => null,
+                    'logo' => null,
                     'status_id' => $defaultStatus,
                 ]
             );

@@ -7,12 +7,10 @@ use Illuminate\Database\Seeder;
 
 class StatusSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         Status::upsert([
+
             // Products
             [
                 'domain' => 'product',
@@ -34,10 +32,59 @@ class StatusSeeder extends Seeder
             ],
             [
                 'domain' => 'product',
-                'name' => 'Em homologação',
+                'name' => 'Em Homologação',
                 'slug' => 'homologation',
                 'color' => 'warning',
                 'sort_order' => 3,
+                'is_default' => false,
+                'active' => true,
+            ],
+
+            // Brands
+            [
+                'domain' => 'brand',
+                'name' => 'Ativa',
+                'slug' => 'active',
+                'color' => 'success',
+                'sort_order' => 1,
+                'is_default' => true,
+                'active' => true,
+            ],
+            [
+                'domain' => 'brand',
+                'name' => 'Inativa',
+                'slug' => 'inactive',
+                'color' => 'secondary',
+                'sort_order' => 2,
+                'is_default' => false,
+                'active' => true,
+            ],
+            [
+                'domain' => 'brand',
+                'name' => 'Em Homologação',
+                'slug' => 'homologation',
+                'color' => 'warning',
+                'sort_order' => 3,
+                'is_default' => false,
+                'active' => true,
+            ],
+
+            // Suppliers
+            [
+                'domain' => 'supplier',
+                'name' => 'Ativo',
+                'slug' => 'active',
+                'color' => 'success',
+                'sort_order' => 1,
+                'is_default' => true,
+                'active' => true,
+            ],
+            [
+                'domain' => 'supplier',
+                'name' => 'Inativo',
+                'slug' => 'inactive',
+                'color' => 'secondary',
+                'sort_order' => 2,
                 'is_default' => false,
                 'active' => true,
             ],

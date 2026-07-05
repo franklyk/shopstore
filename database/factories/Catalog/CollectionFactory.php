@@ -20,7 +20,6 @@ class CollectionFactory extends Factory
             'name' => $name,
             'slug' => Str::slug($name),
             'year' => now()->year,
-            'active' => true,
         ];
     }
 

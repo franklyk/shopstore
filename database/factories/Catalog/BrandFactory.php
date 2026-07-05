@@ -1,14 +1,14 @@
 <?php
 
-namespace Database\Factories\Status;
+namespace Database\Factories\Catalog;
 
-use App\Models\Status\Status;
+use App\Models\Catalog\Brand;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Status>
+ * @extends Factory<Brand>
  */
-class StatusFactory extends Factory
+class BrandFactory extends Factory
 {
     /**
      * Define the model's default state.

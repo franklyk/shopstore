@@ -18,14 +18,18 @@ class DatabaseSeeder extends Seeder
 
             RolePermissionSeeder::class,
             SuperAdminSeeder::class,
+
             StatusSeeder::class,
-            UserSeeder::class,
-            AddressSeeder::class,
+
+            BrandSeeder::class,
+            SupplierSeeder::class,
             CategorySeeder::class,
+            CollectionSeeder::class,
+
             ProductSeeder::class,
 
-            SupplierSeeder::class,
-            CollectionSeeder::class,
+            UserSeeder::class,
+            AddressSeeder::class,
 
             WarehouseSeeder::class,
             StockSeeder::class,

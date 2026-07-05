@@ -5,6 +5,7 @@ namespace App\Models\Catalog;
 use App\Models\Status\Status;
 use App\Models\Stock\Stock;
 use App\Models\Stock\StockMovement;
+use App\Models\Supplier\Supplier;
 use App\Models\Traits\HasSlug;
 use App\Models\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -64,6 +65,16 @@ class Product extends Model
         return $this->belongsTo(Status::class);
     }
 
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function suppliers()
+    {
+        return $this->belongsToMany(Supplier::class);
+    }
+
     public function stocks(): HasMany
     {
         return $this->hasMany(Stock::class);
@@ -77,6 +88,11 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function collections()
+    {
+        return $this->belongsToMany(Collection::class);
     }
 
     public function primaryImage(): HasOne

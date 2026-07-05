@@ -4,6 +4,7 @@ namespace App\Models\Catalog;
 
 use App\Models\Traits\HasSlug;
 use App\Models\Traits\HasUuid;
+use App\Models\Status\Status;
 use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

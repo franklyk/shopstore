@@ -5,39 +5,53 @@ namespace App\Http\Controllers\Admin\Products;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\StoreProductRequest;
 use App\Http\Requests\Admin\Products\UpdateProductRequest;
+use App\Models\Catalog\Brand;
 use App\Models\Catalog\Category;
 use App\Models\Catalog\Product;
 use App\Models\Status\Status;
+use App\Models\Supplier\Supplier;
+use App\Services\Products\ProductFilterService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index(Request $request)
-{
-    $statuses = Status::query()
-        ->where('domain', 'product')
-        ->where('active', true)
-        ->orderBy('sort_order')
-        ->get();
+    public function index(ProductFilterService $filters)
+    {
+        $query = Product::with([
+            'brand',
+            'status',
+            'categories',
+            'suppliers',
+            'collections',
+        ]);
 
-    $products = Product::query()
-        ->with('categories', 'images', 'status');
+        $products = $filters->apply($query, request()->all())
+            ->paginate(15)
+            ->withQueryString();
 
-    if ($request->filled('status')) {
-        $products->where('status_id', $request->status);
+        $statuses = Status::query()
+            ->where('domain', 'product')
+            ->orderBy('sort_order')
+            ->get();
+
+        $suppliers = Supplier::query()
+            ->orderBy('name')
+            ->get();
+
+        $brands = Brand::query()
+            ->orderBy('name')
+            ->get();
+
+        return view('admin.products.index', compact(
+            'products',
+            'statuses',
+            'suppliers',
+            'brands'
+        ));
     }
-
-    $products = $products->paginate(15)->withQueryString();
-
-    return view('admin.products.index', compact(
-        'products',
-        'statuses'
-    ));
-}
 
     public function create()
     {

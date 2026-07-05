@@ -13,23 +13,27 @@ return new class extends Migration
             $table->id();
 
             $table->ulid('uuid')
-            ->unique();
+                ->unique();
 
             $table->string('name');
 
             $table->string('slug')
-            ->unique();
+                ->unique();
 
             $table->string('sku')
-            ->unique()
-            ->nullable();
+                ->unique()
+                ->nullable();
 
             $table->text('description')
-            ->nullable();
+                ->nullable();
 
             $table->decimal('price', 10, 2);
 
             $table->foreignId('status_id')
+                ->constrained()
+                ->restrictOnDelete();
+
+            $table->foreignId('brand_id')
                 ->constrained()
                 ->restrictOnDelete();
 

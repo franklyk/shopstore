@@ -12,18 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('suppliers', function (Blueprint $table) {
-        $table->id();
+            $table->id();
 
-        $table->string('name');
-        $table->string('slug')->unique();
+            $table->uuid('uuid')->unique();
 
-        $table->boolean('active')
-            ->default(true);
+            $table->string('name');
 
-        $table->timestamps();
+            $table->string('slug')->unique();
 
-        $table->softDeletes();
-    });
+            $table->foreignId('status_id')
+                ->constrained('statuses')
+                ->restrictOnDelete();
+
+            $table->timestamps();
+
+            $table->softDeletes();
+        });
     }
 
     /**

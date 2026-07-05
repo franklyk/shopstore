@@ -11,12 +11,17 @@ return new class extends Migration
         Schema::create('collections', function (Blueprint $table) {
             $table->id();
 
+            $table->uuid('uuid')->unique();
+
             $table->string('name');
+            
             $table->string('slug');
 
             $table->string('year')->nullable();
 
-            $table->boolean('active')->default(true);
+            $table->foreignId('status_id')
+                ->constrained('statuses')
+                ->restrictOnDelete();
 
             $table->timestamps();
             $table->softDeletes();
