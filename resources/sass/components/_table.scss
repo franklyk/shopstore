@@ -10,40 +10,11 @@
 /// /* Table */
 ///
 
-table {
-    width: 100%;
-
-    th {
-        &.table-image {
-            padding: 100px;
-            height: 100px;
-            width: 100px;
-        }
-
-        color: var(--title-color);
-    }
-
-    tbody {
-        tr {
-            transition: .3s;
-
-            &:hover {
-                background: var(--accent-color);
-            }
-
-            td {
-
-                color: var(--main-text);
-            }
-        }
-    }
-
+.table-image {
+    height: 60px;
+    width: 60px;
 }
 
 .clickable-row {
     cursor: pointer;
-
-    &:hover {
-        background-color: #f5f5f5;
-    }
 }

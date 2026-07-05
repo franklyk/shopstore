@@ -1,0 +1,22 @@
+///
+///
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* Icon */
+///
+
+@use '../base' as *;
+
+.icon{
+    height: 100%;
+    width: 100%;
+    color: var(--main-text);
+    &.cam{
+        stroke: 2;
+    }
+}

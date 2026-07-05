@@ -105,16 +105,12 @@
                                         @if ($product->image)
                                             <img class="m-auto" src="{{ asset('storage/' . $product->image) }}" id="image">
                                         @else
-                                            <div class="preview-placeholder d-flex justify-content-center">
+                                            <div class="preview-placeholder">
                                                 <x-icons.camera />
                                             </div>
                                         @endif
                                     </div>
-                                    {{-- @if (!empty($product->image))
-                                        <img src="{{ $product->image }}" alt="imagem">
-                                    @else
-                                        <img src="https://placehold.co/50x50" alt="imagem">
-                                    @endif --}}
+                                    
                                 </td>
                                 <td>{{ $product->sku }}</td>
                                 <td>{{ $product->name }} </td>
