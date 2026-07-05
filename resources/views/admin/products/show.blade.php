@@ -4,7 +4,6 @@
 
 @section('admin')
     <div class="page-container">
-
         <x-ui.page-header title="Detalhes do Produto" description="Visualize todos o detalhes do produto.">
 
             <x-slot:actions>
@@ -15,7 +14,8 @@
                 ]" />
                 <div class="container-buttons">
                     @can('view products')
-                        <x-buttons.button href="{{ route('admin.products.index') }}" color="secondary" icon="return" label="Voltar" />
+                        <x-buttons.button href="{{ route('admin.products.index') }}" color="secondary" icon="return"
+                            label="Voltar" />
                     @endcan
 
                     @can('edit products')
@@ -35,6 +35,25 @@
 
         <div class="card p-5">
 
+            <div class="card border border-1 shadow container-image mb-5">
+
+                <div class="preview-image" id="preview-image">
+                    @if ($product->image)
+                        <img class="m-auto" src="{{ asset('storage/' . $product->image) }}" id="image">
+                    @else
+                        <div class="preview-placeholder d-flex justify-content-center">
+                            <x-icons.camera />
+                        </div>
+                    @endif
+                </div>
+                <label class="label-image" for="input-image">
+                    <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
+                </label>
+
+
+
+            </div>
+
             <dl class="row">
                 <dt class="col-md-6 fw-bolder text-secondary fs-5">Nome</dt>
                 <dd class="col-md-6 fw-light text-danger">{{ $product->name }}</dd>
@@ -47,6 +66,13 @@
                     @foreach ($product->categories as $category)
                         {{ $category->name }} /
                     @endforeach
+                </dd>
+
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Status</dt>
+                <dd class="col-md-6 fw-light text-danger">
+                    <span class="badge text-bg-{{ $product->status->color }}">
+                        {{ $product->status->name }}
+                    </span>
                 </dd>
 
                 <dt class="col-md-6 fw-bolder text-secondary fs-5">Preço</dt>
@@ -64,10 +90,10 @@
         </div>
     </div>
 
-    @section('modals')
-        @can('delete products')
-            <x-modal.delete :action="route('admin.products.destroy', $product)" :id="$product->id" :name="$product->name" />
-        @endcan
-    @endsection
+@section('modals')
+    @can('delete products')
+        <x-modal.delete :action="route('admin.products.destroy', $product)" :id="$product->id" :name="$product->name" />
+    @endcan
+@endsection
 
 @endsection

@@ -17,13 +17,16 @@
 // #013f53
 
 // Layout
-$site-color: #000018;
+$site-color: #00009f;
 $site-color-light: #013e535f;
-$accent-color: #ff63474b;
+$accent-color: #47fcff4b;
 
 
 $light-color-high: #cb4c4cbd;
 $light-color: #a6a6a6;
+
+$title-color: #423ffb;
+$sub-title-color: #423ffb;
 
 $header-height: 70px;
 $sidebar-width: 260px;
@@ -41,7 +44,8 @@ $border-radius: .5rem;
     --surface-color: #f8fafc;
 
     /* Text */
-    --title-color: #{$light-color-high};
+    --title-color: #{$title-color};
+    --sub-title-color: #{$sub-title-color};
 
     --main-text: #{$light-color};
     --text-light: #{$light-color};
@@ -64,7 +68,7 @@ $border-radius: .5rem;
 
     /* Shadow */
     --box-shadow: 3px 3px 10px 2px #{$site-color-light};
-    --text-shadow: 1px 1px 2px white;
+    --text-shadow-title: 3px 3px 1px #1d1d1d52;
 
     /* elements */
     --sidebar-width: $sidebar-width;

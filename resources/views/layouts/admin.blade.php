@@ -6,7 +6,7 @@
         <x-layout.admin.header />
         <div class="row">
 
-            <x-layout.sidebar />
+            <x-layout.admin.sidebar />
 
             <main class="content-admin">
 

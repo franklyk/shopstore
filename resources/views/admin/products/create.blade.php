@@ -22,27 +22,33 @@
             <x-forms.form method="POST" action="{{ route('admin.products.store') }}" class="create-form" id="create-form"
                 enctype="multipart/form-data">
 
-                <section class="container-image border border-4">
+                <div class="card border border-1 shadow container-image mb-5">
 
                     <div class="preview-image" id="preview-image">
+                        <div class="preview-placeholder d-flex justify-content-center">
+                            <x-icons.camera />
+                        </div>
                     </div>
                     <label class="label-image" for="input-image">
+                        <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
                     </label>
 
-                    <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
 
 
-                </section>
+                </div>
 
-                <x-forms.input type="text" name="name" label="Nome:" value="{{ old('name') }}" required />
+                <div class="card p-3 shadow">
 
-                <x-forms.input type="text" name="price" label="Preço R$:" value="{{ old('price') }}" required />
+                    <x-forms.input type="text" name="name" label="Nome:" value="{{ old('name') }}" required />
 
-                <x-forms.input type="text" name="stock" label="Estoque:" required />
+                    <x-forms.input type="text" name="price" label="Preço R$:" value="{{ old('price') }}" required />
 
-                <x-forms.textarea label="Descrição:" name="description" required>
-                    {{ old('description') }}
-                </x-forms.textarea>
+                    <x-forms.input type="text" name="stock" label="Estoque:" required />
+
+                    <x-forms.textarea label="Descrição:" name="description" required>
+                        {{ old('description') }}
+                    </x-forms.textarea>
+                </div>
 
                 <div class="card p-3 shadow">
 

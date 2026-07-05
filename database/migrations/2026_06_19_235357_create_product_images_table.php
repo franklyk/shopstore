@@ -12,14 +12,14 @@ return new class extends Migration
 
             $table->id();
 
+            $table->ulid('uuid')
+                ->unique();
+
             $table->foreignId('product_id')
                 ->constrained()
                 ->cascadeOnDelete();
 
             $table->string('image');
-
-            $table->boolean('is_primary')
-                ->default(false);
 
             $table->timestamps();
         });

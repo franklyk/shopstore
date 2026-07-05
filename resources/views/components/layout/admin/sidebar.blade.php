@@ -1,0 +1,43 @@
+<aside class="sidebar">
+
+    <x-menu.list>
+
+        @can('view dashboard')
+            <x-menu.link href="{{ route('admin.dashboard') }}" label="Dashboard" />
+        @endcan
+
+        @can('view products')
+            <x-menu.link href="{{ route('admin.products.index') }}" label="Produtos" />
+        @endcan
+
+        @can('view categories')
+            <x-menu.link href="{{ route('admin.categories.index') }}" label="Categorias" />
+        @endcan
+
+        @can('view orders')
+            <x-menu.link href="{{ route('admin.orders.index') }}" label="Pedidos" />
+        @endcan
+
+        @can('view shipments')
+            <x-menu.link href="{{ route('admin.shipments.index') }}" label="Envios" />
+        @endcan
+
+        @can('view users')
+            <x-menu.link href="{{ route('admin.users.index') }}" label="Usuários" />
+        @endcan
+
+        @can('view suppliers')
+            <x-menu.link href="{{ route('admin.suppliers.index') }}" label="Fornecedores" />
+        @endcan
+
+        @can('view collections')
+            <x-menu.link href="{{ route('admin.collections.index') }}" label="Coleções" />
+        @endcan
+
+        @can('view import batches')
+            <x-menu.link href="{{ route('admin.imports.index') }}" label="PDF" />
+        @endcan
+
+    </x-menu.list>
+
+</aside>
