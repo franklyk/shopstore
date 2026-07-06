@@ -26,4 +26,4 @@
 
 </div>
 
-<x-ui.flesh />
+<x-feedback.flesh />

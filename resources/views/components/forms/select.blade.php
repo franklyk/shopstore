@@ -1,45 +1,56 @@
 @props([
     'name',
+    'label' => null,
     'options' => [],
-    'value' => null,
-    'field_label' => null,
+    'optionValue' => 'id',
+    'optionLabel' => 'name',
+    'selected' => null,
     'placeholder' => 'Selecione',
 ])
+
 @php
-    // garante formato correto
-    if ($options instanceof \Illuminate\Support\Collection) {
-        $options = $options->toArray();
+    use Illuminate\Support\Collection;
+
+    if ($options instanceof Collection) {
+        $options = $options
+            ->pluck($optionLabel, $optionValue)
+            ->toArray();
     }
 
-    // valida estrutura (debug seguro)
-    foreach ($options as $key => $label) {
-        if (!is_scalar($key) || !is_scalar($label)) {
-            throw new \Exception("Select options inválidas para [$name]. Use pluck('label', 'id').");
-        }
-    }
+    $selected = old($name, $selected);
 @endphp
 
-<x-forms.field :name="$name" :label="$field_label" >
+@if($label)
+    <label for="{{ $name }}" class="form-label">
+        {{ $label }}
+    </label>
+@endif
 
-    <select
-        {{ $attributes->merge(['class' => 'form-select']) }}
-        name="{{ $name }}"
-        id="{{ $name }}"
-    >
+<select
+    id="{{ $name }}"
+    name="{{ $name }}"
+    {{ $attributes->merge(['class' => 'form-select mb-3']) }}
+>
 
-        <option value="">
-            {{ $placeholder }}
+    <option value="">
+        {{ $placeholder }}
+    </option>
+
+    @foreach($options as $value => $text)
+
+        <option
+            value="{{ $value }}"
+            @selected((string) $selected === (string) $value)
+        >
+            {{ $text }}
         </option>
 
-        @foreach ($options as $key => $label)
-            <option
-                value="{{ $key }}"
-                @selected(old($name, $value) == $key)
-            >
-                {{ $label }}
-            </option>
-        @endforeach
+    @endforeach
 
-    </select>
+</select>
 
-</x-forms.field>
+@error($name)
+    <div class="invalid-feedback d-block">
+        {{ $message }}
+    </div>
+@enderror

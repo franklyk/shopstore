@@ -8,7 +8,6 @@
         <x-ui.page-header title="Produtos Cadastrados" description="Listagem dos produtos da loja">
 
             <x-slot:actions>
-
                 <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Produtos']]" />
 
                 <div class="d-flex gap-2">
@@ -82,10 +81,10 @@
 
         </x-ui.page-header>
 
-        <div class="card p-5 bg-light shadow">
+        <div class="card p-5 bg-light">
 
             @if (!empty($products))
-                <table class="table align-middle table-responsive table-bordered table-hover">
+                <table class="table align-middle table-responsive table-bordered table-hover shadow">
                     <thead>
                         <tr>
                             <th scope="col" class="text-light bg-primary">IMAGEM</th>
@@ -110,7 +109,7 @@
                                             </div>
                                         @endif
                                     </div>
-                                    
+
                                 </td>
                                 <td>{{ $product->sku }}</td>
                                 <td>{{ $product->name }} </td>
@@ -127,7 +126,7 @@
                     </tbody>
                 </table>
             @else
-                <h1 class="text-center">Sem registros de Produtos</h1>
+                <h1 class="text-center text-danger">Sem registros de Produtos</h1>
             @endif
 
             <div class="my-5">

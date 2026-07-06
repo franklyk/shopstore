@@ -4,7 +4,7 @@
 
 @section('admin')
 
-    <div class="page-container">
+    <div class="editors page-container">
         <x-ui.page-header title="Editar Produto" description="Edite Qualquer Detalhe do Produto.">
 
             <x-slot:actions>
@@ -19,10 +19,10 @@
 
         </x-ui.page-header>
 
-        <div class="card p-5">
+        <div class="card p-5 bg-light">
             <x-forms.form action="{{ route('admin.products.update', $product) }}" method="PUT" class="edit-form"
                 id="edit-form" enctype="multipart/form-data">
-                <div class="card border border-1 shadow container-image mb-5">
+                <div class="card border border-1 shadow container-image mb-5 rounded-4">
                     <div class="preview-image" id="preview-image">
                         <div class="preview-placeholder d-flex justify-content-center">
                             <x-icons.camera />

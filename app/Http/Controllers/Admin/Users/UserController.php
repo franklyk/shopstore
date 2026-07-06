@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Users\StoreUserRequest;
 use App\Http\Requests\Admin\Users\UpdateUserRequest;
 use App\Models\User\User;
+use App\Models\Status\Status;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -25,8 +26,17 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
-        return view('admin.users.create', compact('roles'));
+        $roles = Role::orderBy('name')->get();
+
+        $statuses = Status::query()
+            ->where('domain', 'user')
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('admin.users.create', compact(
+            'roles',
+            'statuses'
+        ));
     }
 
     /**
@@ -38,8 +48,8 @@ class UserController extends Controller
         $user->assignRole($request->role);
 
         return redirect()
-        ->route('admin.users.index')
-        ->with('success', 'Usuario cadastrado com sucesso!');
+            ->route('admin.users.index')
+            ->with('success', 'Usuario cadastrado com sucesso!');
     }
 
     /**
@@ -56,6 +66,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
+
         return view('admin.users.edit', compact('user', 'roles'));
     }
 
@@ -69,14 +80,13 @@ class UserController extends Controller
         $user->syncRoles([$request->role]);
 
         return redirect()
-        ->route('admin.users.index')
-        ->with('success', 'Usuario atualizado com sucesso!');
+            ->route('admin.users.index')
+            ->with('success', 'Usuario atualizado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-
     public function destroy(User $user)
     {
         $user->delete();

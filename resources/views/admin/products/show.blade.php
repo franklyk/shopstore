@@ -3,7 +3,7 @@
 @section('title', 'Detalhe do Produto')
 
 @section('admin')
-    <div class="page-container">
+    <div class="details page-container">
         <x-ui.page-header title="Detalhes do Produto" description="Visualize todos o detalhes do produto.">
 
             <x-slot:actions>
@@ -33,9 +33,9 @@
 
         </x-ui.page-header>
 
-        <div class="card p-5">
+        <div class="card p-5 bg-light">
 
-            <div class="card border border-1 shadow container-image mb-5">
+            <div class="card border border-1 shadow container-image mb-5 rounded-4">
 
                 <div class="preview-image" id="preview-image">
                     @if ($product->image)
@@ -49,44 +49,46 @@
                 <label class="label-image" for="input-image">
                     <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
                 </label>
-
-
-
+                
             </div>
 
-            <dl class="row">
-                <dt class="col-md-6 fw-bolder text-secondary fs-5">Nome</dt>
-                <dd class="col-md-6 fw-light text-danger">{{ $product->name }}</dd>
+            <div class="card p-3 shadow">
 
-                <dt class="col-md-6 fw-bolder text-secondary fs-5">Descrição</dt>
-                <dd class="col-md-6 fw-light text-danger">{{ $product->description }}</dd>
 
-                <dt class="col-md-6 fw-bolder text-secondary fs-5">Categoria</dt>
-                <dd class="col-md-6 fw-light text-danger">
-                    @foreach ($product->categories as $category)
-                        {{ $category->name }} /
-                    @endforeach
-                </dd>
+                <dl class="row">
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Nome</dt>
+                    <dd class="col-md-6 fw-light text-danger">{{ $product->name }}</dd>
 
-                <dt class="col-md-6 fw-bolder text-secondary fs-5">Status</dt>
-                <dd class="col-md-6 fw-light text-danger">
-                    <span class="badge text-bg-{{ $product->status->color }}">
-                        {{ $product->status->name }}
-                    </span>
-                </dd>
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Descrição</dt>
+                    <dd class="col-md-6 fw-light text-danger">{{ $product->description }}</dd>
 
-                <dt class="col-md-6 fw-bolder text-secondary fs-5">Preço</dt>
-                <dd class="col-md-6 fw-light text-danger">R$ {{ $product->price }}</dd>
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Categoria</dt>
+                    <dd class="col-md-6 fw-light text-danger">
+                        @foreach ($product->categories as $category)
+                            {{ $category->name }} /
+                        @endforeach
+                    </dd>
 
-                <dt class="col-md-6 fw-bolder text-secondary fs-5">Estoque</dt>
-                <dd class="col-md-6 fw-light text-danger">{{ $product->stocks->first()?->quantity ?? 0 }}</dd>
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Status</dt>
+                    <dd class="col-md-6 fw-light text-danger">
+                        <span class="badge text-bg-{{ $product->status->color }}">
+                            {{ $product->status->name }}
+                        </span>
+                    </dd>
 
-                <dt class="col-md-6 fw-bolder text-secondary fs-5">Cadastrado em</dt>
-                <dd class="col-md-6 fw-light text-danger">{{ $product->created_at }}</dd>
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Preço</dt>
+                    <dd class="col-md-6 fw-light text-danger">R$ {{ $product->price }}</dd>
 
-                <dt class="col-md-6 fw-bolder text-secondary fs-5">Última atualização em </dt>
-                <dd class="col-md-6 fw-light text-danger">{{ $product->updated_at }}</dd>
-            </dl>
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Estoque</dt>
+                    <dd class="col-md-6 fw-light text-danger">{{ $product->stocks->first()?->quantity ?? 0 }}</dd>
+
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Cadastrado em</dt>
+                    <dd class="col-md-6 fw-light text-danger">{{ $product->created_at }}</dd>
+
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Última atualização em </dt>
+                    <dd class="col-md-6 fw-light text-danger">{{ $product->updated_at }}</dd>
+                </dl>
+            </div>
         </div>
     </div>
 

@@ -18,11 +18,11 @@
 
         </x-ui.page-header>
 
-        <div class="card p-5">
+        <div class="card p-5 bg-light">
             <x-forms.form method="POST" action="{{ route('admin.products.store') }}" class="create-form" id="create-form"
                 enctype="multipart/form-data">
 
-                <div class="card border border-1 shadow container-image mb-5">
+                <div class="card border border-1 shadow container-image mb-5 rounded-4">
 
                     <div class="preview-image" id="preview-image">
                         <div class="preview-placeholder d-flex justify-content-center">
@@ -32,9 +32,6 @@
                     <label class="label-image" for="input-image">
                         <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
                     </label>
-
-
-
                 </div>
 
                 <div class="card p-3 shadow">

@@ -19,27 +19,24 @@
 
         </x-ui.page-header>
 
-        <div class="card-vs">
+        <div class="card p-5 bg-light">
             <x-forms.form action="{{ route('admin.categories.update', $category) }}" method="PUT">
 
-                <x-forms.row>
-                    <x-forms.input type="text" name="name" label="Nome" required
-                        value="{{ old('name', $category->name) }}" />
-                </x-forms.row>
+                <div class="card p-3 shadow">
+                    <x-forms.input type="text" name="name" required value="{{ old('name', $category->name) }}" />
 
-                <x-forms.row>
-                    <x-forms.select field_label="Categoria Pai" name="parent_id" :options="$categories"
-                        placeholder="Categoria Principal" />
-                </x-forms.row>
+                    <x-forms.select name="parent_id" :options="$categories" placeholder="Categoria Principal" />
+                </div>
 
                 <div class="container-buttons">
+
                     @can('view categories')
-                        <x-buttons.button href="{{ route('admin.categories.index') }}" color="return" icon="return"
+                        <x-buttons.button href="{{ route('admin.categories.index') }}" color="secondary" icon="return"
                             label="Voltar" />
                     @endcan
 
                     @can('edit categories')
-                        <x-buttons.button type="submit" color="edit" icon="edit" label="Salvar" />
+                        <x-buttons.button type="submit" color="warning" icon="edit" label="Salvar" />
                     @endcan
 
                 </div>

@@ -6,17 +6,33 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Category\StoreCategoryRequest;
 use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
 use App\Models\Catalog\Category;
+use App\Models\Status\Status;
+use App\Services\Category\CategoryFilterService;
 
 class CategoryController extends Controller
 {
-
-    public function index()
+    public function index(CategoryFilterService $filters)
     {
-        $categories = Category::with('parent')
-            ->latest()
-            ->paginate(15);
+        $query = Category::query()->with([
+            'parent',
+            'status',
+        ]);
 
-        return view('admin.categories.index', compact('categories'));
+        $categories = $filters
+            ->apply($query, request()->all())
+            ->latest()
+            ->paginate(15)
+            ->withQueryString();
+
+        $statuses = Status::query()
+            ->where('domain', 'category')
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('admin.categories.index', compact(
+            'categories',
+            'statuses'
+        ));
     }
 
     public function create()
@@ -49,8 +65,8 @@ class CategoryController extends Controller
         $categories = Category::whereNull('parent_id')
             ->where('id', '!=', $category->id)
             ->orderBy('name')
-            ->pluck('name','id');
-            // ->get();
+            ->pluck('name', 'id');
+        // ->get();
 
         return view('admin.categories.edit', compact('category', 'categories'));
     }

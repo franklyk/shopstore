@@ -4,7 +4,7 @@
 
 @section('admin')
     <div class="page-container">
-        <x-ui.page-header title="Detalhes do Produto" description="Visualize todos o detalhes do produto.">
+        <x-ui.page-header title="Detalhes da Categoria" description="Visualize todos o detalhes da categoria.">
 
             <x-slot:actions>
                 <x-ui.breadcrumbs :items="[
@@ -14,17 +14,17 @@
                 ]" />
                 <div class="container-buttons">
                     @can('view products')
-                        <x-buttons.button href="{{ route('admin.categories.index') }}" color="return" icon="return"
+                        <x-buttons.button href="{{ route('admin.categories.index') }}" color="secondary" icon="return"
                             label="Voltar" />
                     @endcan
 
                     @can('edit products')
-                        <x-buttons.button href="{{ route('admin.categories.edit', $category) }}" color="edit" icon="edit"
+                        <x-buttons.button href="{{ route('admin.categories.edit', $category) }}" color="warning" icon="edit"
                             label="Editar" />
                     @endcan
 
                     @can('delete products')
-                        <x-buttons.button color="delete" icon="trash" label="Excluir" data-bs-toggle="modal"
+                        <x-buttons.button color="danger" icon="trash" label="Excluir" data-bs-toggle="modal"
                             data-bs-target="#deleteModal{{ $category->id }} " />
                     @endcan
 
@@ -33,91 +33,60 @@
 
         </x-ui.page-header>
 
-        <div class="card-vs">
+        <div class="card p-5 bg-light">
 
-            <dl class="desc-list">
-                <dt>
-                    Nome
-                </dt>
-                <dd>
-                    {{ $category->name }}
-                </dd>
-                <dt>
-                    Slug
-                </dt>
-                <dd>
-                    {{ $category->slug }}
-                </dd>
-                <dt>
-                    Categoria Pai
-                </dt>
-                <dd>
+            <div class="card p-3 shadow">
+                <dl class="row">
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Nome</dt>
+                    <dd class="col-md-6 fw-light text-danger">{{ $category->name }}</dd>
 
-                    @if ($category->parent)
-                        {{ $category->parent->name }}
-                    @else
-                        <span class="badge bg-secondary">
-                            Principal
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Slug</dt>
+                    <dd class="col-md-6 fw-light text-danger">{{ $category->slug }}</dd>
+
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Categoria Pai</dt>
+                    <dd class="col-md-6 fw-light text-danger">
+                        @if ($category->parent)
+                            {{ $category->parent->name }}
+                        @else
+                            <span class="badge bg-secondary">
+                                Principal
+                            </span>
+                        @endif
+                    </dd>
+
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Status</dt>
+                    <dd class="col-md-6 fw-light text-danger">
+                        <span class="badge text-bg-{{ $category->status->color }}">
+                            {{ $category->status->name }}
                         </span>
-                    @endif
-                </dd>
-                <dt>
-                    Status
-                </dt>
-                <dd>
+                    </dd>
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">UUID</dt>
+                    <dd class="col-md-6 fw-light text-danger"><code>{{ $category->uuid }}</code></dd>
 
-                    @if ($category->active)
-                        <span class="badge bg-success">
-                            Ativa
-                        </span>
-                    @else
-                        <span class="badge bg-danger">
-                            Inativa
-                        </span>
-                    @endif
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Cadastrado em</dt>
+                    <dd class="col-md-6 fw-light text-danger">{{ $category->created_at->format('d/m/Y H:i') }}</dd>
 
-                </dd>
-                <dt>
-                    UUID
-                </dt>
-                <dd>
-                    <code>{{ $category->uuid }}</code>
-                </dd>
-                <dt>
-                    Cadastrado em
-                </dt>
-                <dd>
-                    {{ $category->created_at->format('d/m/Y H:i') }}
-                </dd>
-                <dt>
-                    Última atualização
-                </dt>
-                <dd>
-                    {{ $category->updated_at->format('d/m/Y H:i') }}
-                </dd>
-            </dl>
+                    <dt class="col-md-6 fw-bolder text-secondary fs-5">Última atualização</dt>
+                    <dd class="col-md-6 fw-light text-danger">{{ $category->updated_at->format('d/m/Y H:i') }}</dd>
+
+                </dl>
+            </div>
+            <hr>
             @if ($category->children->count())
 
-                <hr>
+                <div class="card p-3 shadow">
+                    <h5 class="section-title text-center">Subcategorias</h5>
 
-                <h5>Subcategorias</h5>
-
-                <ul>
-
-                    @foreach ($category->children as $child)
-                        <li>
-
-                            {{ $child->name }}
-
-                            <span>
-                                Subcategoria
-                            </span>
-
-                        </li>
-                    @endforeach
-
-                </ul>
-
+                    <ul class="text-secondary">
+                        @foreach ($category->children as $child)
+                            <li>
+                                {{ $child->name }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @else
+                <h1 class="text-center ">Não existem subcategoria</h1>
             @endif
         </div>
     </div>
