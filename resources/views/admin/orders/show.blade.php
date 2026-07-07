@@ -2,236 +2,315 @@
 
 @section('title', 'Pedido #' . $order->id)
 
-@section('content')
+@section('admin')
 
-    <div class="container-fluid">
+    <div class="page-container">
 
-        <h1 class="mb-4">
-            Pedido #{{ $order->id }}
-        </h1>
+        <x-ui.page-header title="Pedido" description="Gerencie o Pedido">
 
-        {{-- Dados do Pedido --}}
-        <div class="card mb-4">
-            <div class="card-header">
-                Dados do Pedido
-            </div>
+            <x-slot:actions>
 
-            <div class="card-body">
+                <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Envios']]" />
 
-                <p>
-                    <strong>Status:</strong>
-                    {{ $order->status }}
-                </p>
+            </x-slot:actions>
 
-                <p>
-                    <strong>Status do Pagamento:</strong>
-                    {{ $order->payment_status }}
-                </p>
+        </x-ui.page-header>
 
-                <p>
-                    <strong>Método de Pagamento:</strong>
-                    {{ $order->payment_method }}
-                </p>
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
-                <p>
-                    <strong>Subtotal:</strong>
-                    R$ {{ number_format($order->subtotal, 2, ',', '.') }}
-                </p>
+            <h1 class="mb-0">
+                Pedido #{{ $order->id }}
+            </h1>
 
-                <p>
-                    <strong>Frete:</strong>
-                    R$ {{ number_format($order->shipping, 2, ',', '.') }}
-                </p>
+            @if ($order->shipment)
+                <a href="{{ route('admin.shipments.show', $order->shipment) }}" class="btn btn-primary">
+                    Abrir Expedição
+                </a>
+            @endif
 
-                <p>
-                    <strong>Desconto:</strong>
-                    R$ {{ number_format($order->discount, 2, ',', '.') }}
-                </p>
-
-                <p>
-                    <strong>Total:</strong>
-                    R$ {{ number_format($order->total, 2, ',', '.') }}
-                </p>
-
-                <p>
-                    <strong>Pago em:</strong>
-
-                    @if($order->paid_at)
-                        {{ $order->paid_at->format('d/m/Y H:i') }}
-                    @else
-                        —
-                    @endif
-                </p>
-
-            </div>
         </div>
 
-        {{-- Cliente --}}
-        <div class="card mb-4">
-            <div class="card-header">
-                Cliente
+        <div class="row">
+
+            <div class="col-lg-8">
+
+                {{-- Pedido --}}
+                <div class="card mb-4">
+
+                    <div class="card-header">
+                        Dados do Pedido
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <p>
+                                    <strong>ID:</strong>
+                                    #{{ $order->id }}
+                                </p>
+
+                                <p>
+                                    <strong>Status:</strong>
+                                    {{ $order->status }}
+                                </p>
+
+                                <p>
+                                    <strong>Pagamento:</strong>
+
+                                    @if ($order->paid_at)
+                                        <span class="badge bg-success">
+                                            Pago
+                                        </span>
+                                    @else
+                                        <span class="badge bg-warning text-dark">
+                                            Pendente
+                                        </span>
+                                    @endif
+
+                                </p>
+
+                                <p>
+                                    <strong>Método:</strong>
+                                    {{ $order->payment_method }}
+                                </p>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <p>
+                                    <strong>Criado em:</strong>
+                                    {{ $order->created_at->format('d/m/Y H:i') }}
+                                </p>
+
+                                <p>
+                                    <strong>Pago em:</strong>
+
+                                    @if ($order->paid_at)
+                                        {{ $order->paid_at->format('d/m/Y H:i') }}
+                                    @else
+                                        —
+                                    @endif
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {{-- Produtos --}}
+                <div class="card mb-4">
+
+                    <div class="card-header">
+                        Produtos do Pedido
+                    </div>
+
+                    <div class="card-body p-0">
+
+                        <table class="table table-hover mb-0">
+
+                            <thead>
+
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Qtd</th>
+                                    <th>Preço</th>
+                                    <th>Subtotal</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                @foreach ($order->items as $item)
+                                    <tr>
+
+                                        <td>
+                                            {{ $item->product?->name }}
+                                        </td>
+
+                                        <td>
+                                            {{ $item->quantity }}
+                                        </td>
+
+                                        <td>
+                                            R$ {{ number_format($item->price, 2, ',', '.') }}
+                                        </td>
+
+                                        <td>
+                                            R$ {{ number_format($item->quantity * $item->price, 2, ',', '.') }}
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                {{-- Endereço --}}
+                <div class="card mb-4">
+
+                    <div class="card-header">
+                        Endereço de Entrega
+                    </div>
+
+                    <div class="card-body">
+
+                        <p>
+                            <strong>CEP:</strong>
+                            {{ $order->zipcode }}
+                        </p>
+
+                        <p>
+                            <strong>Rua:</strong>
+                            {{ $order->street }}
+                        </p>
+
+                        <p>
+                            <strong>Número:</strong>
+                            {{ $order->number }}
+                        </p>
+
+                        <p>
+                            <strong>Complemento:</strong>
+                            {{ $order->complement ?: '-' }}
+                        </p>
+
+                        <p>
+                            <strong>Bairro:</strong>
+                            {{ $order->district }}
+                        </p>
+
+                        <p>
+                            <strong>Cidade:</strong>
+                            {{ $order->city }}
+                        </p>
+
+                        <p>
+                            <strong>Estado:</strong>
+                            {{ $order->state }}
+                        </p>
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="card-body">
+            <div class="col-lg-4">
 
-                <p>
-                    <strong>Nome:</strong>
-                    {{ $order->customer_name }}
-                </p>
+                {{-- Cliente --}}
+                <div class="card mb-4">
 
-                @if($order->user)
-                    <p>
-                        <strong>Usuário:</strong>
-                        {{ $order->user->name }}
-                    </p>
+                    <div class="card-header">
+                        Cliente
+                    </div>
 
-                    <p>
-                        <strong>Email:</strong>
-                        {{ $order->user->email }}
-                    </p>
-                @endif
+                    <div class="card-body">
 
-            </div>
-        </div>
+                        <p>
+                            <strong>Nome:</strong>
+                            {{ $order->customer_name }}
+                        </p>
 
-        {{-- Endereço --}}
-        <div class="card mb-4">
-            <div class="card-header">
-                Endereço de Entrega
-            </div>
+                        @if ($order->user)
+                            <p>
+                                <strong>Usuário:</strong>
+                                {{ $order->user->name }}
+                            </p>
 
-            <div class="card-body">
+                            <p>
+                                <strong>Email:</strong>
+                                {{ $order->user->email }}
+                            </p>
+                        @endif
 
-                <p>
-                    <strong>CEP:</strong>
-                    {{ $order->zipcode }}
-                </p>
+                    </div>
 
-                <p>
-                    <strong>Rua:</strong>
-                    {{ $order->street }}
-                </p>
+                </div>
 
-                <p>
-                    <strong>Número:</strong>
-                    {{ $order->number }}
-                </p>
+                {{-- Resumo Financeiro --}}
+                <div class="card mb-4">
 
-                <p>
-                    <strong>Complemento:</strong>
-                    {{ $order->complement ?: '-' }}
-                </p>
+                    <div class="card-header">
+                        Financeiro
+                    </div>
 
-                <p>
-                    <strong>Bairro:</strong>
-                    {{ $order->district }}
-                </p>
+                    <div class="card-body">
 
-                <p>
-                    <strong>Cidade:</strong>
-                    {{ $order->city }}
-                </p>
+                        <p>
+                            <strong>Subtotal:</strong><br>
+                            R$ {{ number_format($order->subtotal, 2, ',', '.') }}
+                        </p>
 
-                <p>
-                    <strong>Estado:</strong>
-                    {{ $order->state }}
-                </p>
+                        <p>
+                            <strong>Frete:</strong><br>
+                            R$ {{ number_format($order->shipping, 2, ',', '.') }}
+                        </p>
 
-            </div>
-        </div>
+                        <p>
+                            <strong>Desconto:</strong><br>
+                            R$ {{ number_format($order->discount, 2, ',', '.') }}
+                        </p>
 
-        {{-- Itens --}}
-        <div class="card mb-4">
-            <div class="card-header">
-                Itens do Pedido
-            </div>
+                        <hr>
 
-            <div class="card-body">
+                        <h4>
+                            R$ {{ number_format($order->total, 2, ',', '.') }}
+                        </h4>
 
-                <table class="table">
+                    </div>
 
-                    <thead>
-                        <tr>
-                            <th>Produto</th>
-                            <th>Quantidade</th>
-                            <th>Preço</th>
-                            <th>Subtotal</th>
-                        </tr>
-                    </thead>
+                </div>
 
-                    <tbody>
+                {{-- Operação --}}
+                <div class="card mb-4">
 
-                        @foreach($order->items as $item)
+                    <div class="card-header">
+                        Operação
+                    </div>
 
-                            <tr>
+                    <div class="card-body">
 
-                                <td>
-                                    {{ $item->product?->name }}
-                                </td>
+                        @if ($order->shipment)
+                            <p>
+                                <strong>Status Logístico:</strong>
+                            </p>
 
-                                <td>
-                                    {{ $item->quantity }}
-                                </td>
+                            <span class="badge bg-primary">
+                                {{ strtoupper($order->shipment->status->value) }}
+                            </span>
 
-                                <td>
-                                    R$ {{ number_format($item->price, 2, ',', '.') }}
-                                </td>
+                            <hr>
 
-                                <td>
-                                    R$ {{ number_format($item->price * $item->quantity, 2, ',', '.') }}
-                                </td>
+                            <a href="{{ route('admin.shipments.show', $order->shipment) }}"
+                                class="btn btn-outline-primary w-100">
+                                Gerenciar Shipment
+                            </a>
+                        @else
+                            <p class="mb-0">
+                                Nenhum shipment encontrado.
+                            </p>
+                        @endif
 
-                            </tr>
+                    </div>
 
-                        @endforeach
-
-                    </tbody>
-
-                </table>
+                </div>
 
             </div>
-        </div>
 
-        {{-- Pagamento --}}
-        <div class="card mb-4">
-            <div class="card-header">
-                Pagamento
-            </div>
-
-            <div class="card-body">
-
-                @if($order->payment)
-
-                    <pre>{{ json_encode($order->payment->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-
-                @else
-
-                    <p>Nenhum pagamento encontrado.</p>
-
-                @endif
-
-            </div>
-        </div>
-
-        {{-- Shipment --}}
-        <div class="card mb-4">
-            <div class="card-header">
-                Shipment
-            </div>
-
-            <div class="card-body">
-
-                @if($order->shipment)
-
-                    <pre>{{ json_encode($order->shipment->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-
-                @else
-
-                    <p>Nenhum shipment encontrado.</p>
-
-                @endif
-
-            </div>
         </div>
 
     </div>

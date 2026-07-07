@@ -1,18 +1,19 @@
-@props(['name', 'label'])
+@props(['name', 'label', 'id', 'checked' => false, 'disabled' => false,])
 
 @php
     $defaults = [
         'type' => 'checkbox',
         'name' => $name,
-        'id' => $name,
+        'id' => $id,
         'class' => 'form-check-input ',
+
     ];
 
 @endphp
 
-<div class="d-flex align-items-center gap-2">
-
-    <input {{ $attributes->merge($defaults) }}>
-    <x-forms.label :for="$name" :label="$label" />
-    
+<div class="form-check">
+    <label class="form-check-label" for="{{ $id }}">
+        <input {{ $attributes->merge($defaults) }} @checked($checked) @disabled($disabled)>
+        {{ $label }}
+    </label>
 </div>

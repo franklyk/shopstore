@@ -6,7 +6,11 @@ enum ShipmentStatus: string
 {
     case PENDING = 'pending';
 
-    case PROCESSING = 'processing';
+    case PICKING = 'picking';
+
+    case PACKING = 'packing';
+
+    case DISPATCHING = 'dispatching';
 
     case SHIPPED = 'shipped';
 

@@ -58,7 +58,21 @@ class PaymentService
                 'paid_at' => now(),
             ]);
 
-            $this->stockService->decrease($order);
+            foreach ($order->stockReservations as $reservation) {
+                $reservation->confirm();
+
+                $this->stockService->decrease(
+                    productId: $reservation->product_id,
+                    warehouseId: $reservation->warehouse_id,
+                    quantity: $reservation->quantity,
+                    notes: 'Reservation confirmed',
+                    reference: [
+                        'type' => $reservation->reference_type,
+                        'id' => $reservation->reference_id,
+                    ]
+                );
+            }
+            // $this->stockService->decrease($order);
 
             $this->shipmentService->create($order);
         });

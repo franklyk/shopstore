@@ -11,6 +11,8 @@ return new class extends Migration
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
 
+            $table->ulid('uuid')->unique();
+
             $table->foreignId('product_id')
                 ->constrained()
                 ->cascadeOnDelete();
@@ -19,7 +21,10 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->unsignedInteger('quantity')
+            $table->integer('quantity')
+                ->default(0);
+
+            $table->integer('reserved_quantity')
                 ->default(0);
 
             $table->timestamps();

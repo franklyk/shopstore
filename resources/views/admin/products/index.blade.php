@@ -2,56 +2,139 @@
 
 @section('title', 'Produtos')
 
-@section('content')
-    <x-card title="Produtos Cadastrados">
-        <x-slot:actions>
+@section('admin')
+    <div class="listing page-container">
 
-            @can('create products')
-                <x-buttons.button href="{{ route('admin.products.create') }}" color="primary" icon="plus" label="Novo" />
-            @endcan
+        <x-ui.page-header title="Produtos Cadastrados" description="Listagem dos produtos da loja">
 
-        </x-slot:actions>
-        <x-admin.table.table>
-            <x-admin.table.thead :columns="['CÓDIGO', 'Nome', 'Descrição', 'Preço', 'Estoque', 'Ações']" />
+            <x-slot:actions>
+                <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Produtos']]" />
 
-            <x-admin.table.tbody>
-                @forelse ($products as $product)
-                    <tr>
-                        <th scope="row" class="text-center">{{ $product->id }}</th>
-                        <x-admin.table.td value="{{ $product->name }}" />
-                        <x-admin.table.td value="{{ $product->description }}" />
-                        <x-admin.table.td value="R$ {{ $product->price }}" />
-                        <x-admin.table.td value="{{ $product->stock }}" />
+                <div class="d-flex gap-2">
 
-                        <x-admin.table.td>
-                            <x-admin.table.actions :item="$product" :view="route('products.show', $product)" :edit="route('admin.products.edit', $product)" :delete="route('admin.products.destroy', $product)"
-                                permission="products" />
-                        </x-admin.table.td>
-                    </tr>
-                @empty
+                    <div class="dropdown">
 
-                    <tr>
+                        <x-forms.form method="GET">
 
-                        <x-admin.table.td colspan="6" class="text-center text-muted py-4">
-                            Nenhum produto encontrado.
-                        </x-admin.table.td>
+                            <ul class="dropdown-menu p-2">
 
-                    </tr>
-                @endforelse
-            </x-admin.table.tbody>
+                                {{-- BRANDS --}}
+                                <li class="px-2 fw-bold">Marcas</li>
 
-        </x-admin.table.table>
-        <div class="mt-5">
+                                @foreach ($brands as $brand)
+                                    <li class="px-2">
+                                        <x-forms.checkbox name="brand[]" label="{{ $brand->name }}"
+                                            value="{{ $brand->id }}" :id="'brand-' . $brand->id" :checked="in_array($brand->id, request('brand', []))" />
+                                    </li>
+                                @endforeach
 
-            {{ $products->links() }}
+                                <hr>
+
+                                {{-- SUPPLIERS --}}
+                                <li class="px-2 fw-bold">Fornecedores</li>
+
+                                @foreach ($suppliers as $supplier)
+                                    <li class="px-2">
+                                        <x-forms.checkbox name="supplier[]" label="{{ $supplier->name }}"
+                                            value="{{ $supplier->id }}" :id="'supplier-' . $supplier->id" :checked="in_array($supplier->id, request('supplier', []))" />
+                                    </li>
+                                @endforeach
+
+                                <hr>
+
+                                {{-- STATUS --}}
+                                <li class="px-2 fw-bold">Status</li>
+
+                                @foreach ($statuses as $status)
+                                    <li class="px-2">
+                                        <x-forms.checkbox name="status[]" label="{{ $status->name }}"
+                                            value="{{ $status->id }}" :id="'status-' . $status->id" :checked="in_array($status->id, request('status', []))" />
+                                    </li>
+                                @endforeach
+
+                                <hr>
+
+                                <li class="d-flex justify-content-between px-2">
+
+                                    <a href="{{ url()->current() }}" class="btn btn-sm btn-light">
+                                        Limpar
+                                    </a>
+
+                                    <x-buttons.button type="submit" color="primary" label="Aplicar" class="btn-sm" />
+
+                                </li>
+
+                            </ul>
+
+                        </x-forms.form>
+
+                    </div>
+
+                    <x-buttons.button color="secondary" label="Filtros" icon="filter" data-bs-toggle="dropdown" />
+
+                    <x-buttons.button href="{{ route('admin.products.create') }}" color="success" icon="plus"
+                        label="Novo" />
+
+                </div>
+
+            </x-slot:actions>
+
+        </x-ui.page-header>
+
+        <div class="card p-5 bg-light">
+
+            @if (!empty($products))
+                <table class="table align-middle table-responsive table-bordered table-hover shadow">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-light bg-primary">IMAGEM</th>
+                            <th scope="col" class="text-light bg-primary">CÓDIGO</th>
+                            <th scope="col" class="text-light bg-primary">NOME</th>
+                            <th scope="col" class="text-light bg-primary">MARCA</th>
+                            <th scope="col" class="text-light bg-primary">FORNECEDOR</th>
+                            <th scope="col" class="text-light bg-primary">STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($products as $product)
+                            <tr scope="row" class="clickable-row"
+                                data-href="{{ route('admin.products.show', $product) }}">
+                                <td class="table-image">
+                                    <div class="preview-image" id="preview-image">
+                                        @if ($product->image)
+                                            <img class="m-auto" src="{{ asset('storage/' . $product->image) }}" id="image">
+                                        @else
+                                            <div class="preview-placeholder">
+                                                <x-icons.camera />
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                </td>
+                                <td>{{ $product->sku }}</td>
+                                <td>{{ $product->name }} </td>
+                                <td>{{ $product->brand?->name }}</td>
+                                <td>{{ $product->suppliers->pluck('name')->join(', ') }}</td>
+
+                                <td>
+                                    <span class="badge text-bg-{{ $product->status->color }}">{{ $product->status->name }}
+                                    </span>
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <h1 class="text-center text-danger">Sem registros de Produtos</h1>
+            @endif
+
+            <div class="my-5">
+                {{ $products->links() }}
+            </div>
         </div>
 
-        @can('delete products')
-            @foreach ($products as $product)
-                <x-modal.delete :action="route('admin.products.destroy', $product->id)" :id="$product->id" :name="$product->name" />
-            @endforeach
-        @endcan
 
-    </x-card>
+    </div>
 
 @endsection

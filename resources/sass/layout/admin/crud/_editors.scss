@@ -1,0 +1,20 @@
+///
+///
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* pages/admin/crud/_editors */
+///
+
+@use '../../../lib/mixins' as *;
+
+
+.categories-container{
+
+    @include autoGrid(200px);
+    justify-content: space-around;
+}

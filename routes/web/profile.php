@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Profile\AddressController;
-use App\Http\Controllers\Profile\Orders\OrderController;
-use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\User\Address\AddressController;
+use App\Http\Controllers\User\Orders\OrderController;
+use App\Http\Controllers\User\Profile\ProfileController;
 use App\Http\Controllers\Store\Payments\PaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +17,8 @@ Route::middleware('auth')->prefix('profile')->name('profile.')->group(function (
     Route::put('/', [ProfileController::class, 'update'])
         ->name('update');
 
-    Route::resource('addresses', AddressController::class);
+    Route::resource('addresses', AddressController::class)
+        ->except('show');
 
     Route::patch('/addresses/{address}/default', [AddressController::class, 'setDefault'])->name('addresses.default');
 

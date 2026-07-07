@@ -14,9 +14,9 @@
 
 
 @use "base" as *;
-@use "lib" as *;
-
-@use "layout" as *;
 @use "components" as *;
-@use "pages" as *;
+@use "layout" as *;
+@use "lib" as *;
+@use "utilities" as *;
+@use "fonts" as *;
 

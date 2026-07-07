@@ -21,16 +21,46 @@ class ShipmentService
         );
     }
 
-    public function process(Shipment $shipment): Shipment
+    public function startPicking(Shipment $shipment): Shipment
     {
         if ($shipment->status !== ShipmentStatus::PENDING) {
             throw new DomainException(
-                'O envio deve estar pendente antes do processamento.'
+                'O pedido deve estar pendente.'
             );
         }
 
         $shipment->update([
-            'status' => ShipmentStatus::PROCESSING,
+            'status' => ShipmentStatus::PICKING,
+        ]);
+
+        return $shipment->fresh();
+    }
+
+    public function startPacking(Shipment $shipment): Shipment
+    {
+        if ($shipment->status !== ShipmentStatus::PICKING) {
+            throw new DomainException(
+                'O pedido deve estar em separação.'
+            );
+        }
+
+        $shipment->update([
+            'status' => ShipmentStatus::PACKING,
+        ]);
+
+        return $shipment->fresh();
+    }
+
+    public function startDispatching(Shipment $shipment): Shipment
+    {
+        if ($shipment->status !== ShipmentStatus::PACKING) {
+            throw new DomainException(
+                'O pedido deve estar empacotado.'
+            );
+        }
+
+        $shipment->update([
+            'status' => ShipmentStatus::DISPATCHING,
         ]);
 
         return $shipment->fresh();
@@ -42,9 +72,10 @@ class ShipmentService
         string $trackingCode,
         array $payload = []
     ): Shipment {
-        if ($shipment->status !== ShipmentStatus::PROCESSING) {
+
+        if ($shipment->status !== ShipmentStatus::DISPATCHING) {
             throw new DomainException(
-                'O processamento do pedido deve ser concluído antes do envio.'
+                'O pedido deve estar em despacho.'
             );
         }
 
@@ -63,7 +94,7 @@ class ShipmentService
     {
         if ($shipment->status !== ShipmentStatus::SHIPPED) {
             throw new DomainException(
-                'Shipment must be shipped before delivery.'
+                'O pedido deve estar enviado.'
             );
         }
 
@@ -88,7 +119,7 @@ class ShipmentService
             )
         ) {
             throw new DomainException(
-                'A encomenda não pode ser devolvida..'
+                'A encomenda não pode ser devolvida.'
             );
         }
 

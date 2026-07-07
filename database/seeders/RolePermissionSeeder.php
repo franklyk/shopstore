@@ -66,7 +66,26 @@ class RolePermissionSeeder extends Seeder
             'delete users',
 
             // Orders
-            'view orders'
+            'view orders',
+
+            // Shipments
+            'view shipments',
+
+            // Suppliers
+            'view suppliers',
+            'create suppliers',
+            'edit suppliers',
+            'delete suppliers',
+
+            // Collections
+            'view collections',
+            'create collections',
+            'edit collections',
+            'delete collections',
+
+            // ImportBatches
+            'view import batches',
+            "create import batches",
 
         ];
 
@@ -90,7 +109,8 @@ class RolePermissionSeeder extends Seeder
             'view dashboard',
 
             'view products',
-            'view categories',
+
+            'view shipments',
 
         ]);
 
@@ -102,16 +122,18 @@ class RolePermissionSeeder extends Seeder
             'view dashboard',
 
             'view products',
-            'create products',
-            'edit products',
 
             'view categories',
-            'create categories',
-            'edit categories',
 
             'view users',
 
-            'view orders'
+            'view orders',
+
+            'view shipments',
+
+            'view suppliers',
+
+            'view collections',
 
         ]);
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Store\Cart;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cart;
-use App\Models\Product;
+use App\Models\Cart\Cart;
+use App\Models\Catalog\Product;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller

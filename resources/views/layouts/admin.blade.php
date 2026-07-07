@@ -1,23 +1,25 @@
 @extends('layouts.base')
 
 @section('layout')
+    <div class="layout-admin">
 
-<div class="container-fluid">
+        <x-layout.admin.header />
+        <div class="row">
 
-    <div class="row">
+            <x-layout.admin.sidebar />
 
-        @include('layouts.partials.headers.header')
-        <aside class="col-2 min-vh-100 p-0 bg-primary">
-            @include('layouts.partials.sidebars.admin')
-        </aside>
+            <main class="content-admin">
 
-        <main class="col p-4">
-            <x-admin.forms.flesh />
-            @yield('content')
-        </main>
+                @yield('admin')
+
+                <footer class="footer fw-bold">
+                    © {{ now()->year }} Loja virtual / Todos os direitos reservados.
+                </footer>
+            </main>
+
+        </div>
+
+        @yield('modals')
 
     </div>
-
-</div>
-
 @endsection

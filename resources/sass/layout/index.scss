@@ -11,7 +11,5 @@
 ///
 ///
 
-@forward "header";
-@forward "sidebar";
-@forward "nav";
-@forward "footer";
+@use 'admin/index';
+// @forward 'store/';

@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Database\Factories\UserFactory;
+use App\Models\User\User;
+use Database\Factories\User\UserFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -14,11 +15,12 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-
+        
         // ==================//
         // Administrador    //
         // ==================//
         $admin = User::create([
+            'uuid' => (string) Str::ulid(),
             'name' => 'Administrador',
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
@@ -30,6 +32,7 @@ class UserSeeder extends Seeder
         // Gerente           //
         // ==================//
         $manager = User::create([
+            'uuid' => (string) Str::ulid(),
             'name' => 'Gerente',
             'email' => 'manager@admin.com',
             'email_verified_at' => now(),
@@ -41,6 +44,7 @@ class UserSeeder extends Seeder
         // Funcionário      //
         // ==================//
         $employee = User::create([
+            'uuid' => (string) Str::ulid(),
             'name' => 'Funcionário',
             'email' => 'employee@admin.com',
             'email_verified_at' => now(),
@@ -52,6 +56,7 @@ class UserSeeder extends Seeder
         // Cliente          //
         // ==================//
         $customer = User::create([
+            'uuid' => (string) Str::ulid(),
             'name' => 'Cliente',
             'email' => 'customer@admin.com',
             'email_verified_at' => now(),

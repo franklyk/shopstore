@@ -1,44 +1,16 @@
-<header class="header">
+<header class="header container-fluid">
+    <nav class="navbar navbar-expand-lg container-fluid justify-content-between">
+        
+        <x-layout.logo />
 
-    <x-layout.logo />
-    
-    <nav class="nav">
+        <div class="d-flex align-items-center gap-2">
 
-        {{-- LOGO --}}
+            <small class="fw-semibold text-light">
+                {{ auth()->user()->email }}
+            </small>
 
-        {{-- LEFT MENU --}}
-        <div class="menu menu--left">
-
-            {{-- Produtos (placeholder por enquanto) --}}
-            <x-store.products-menu />
-
-        </div>
-
-        {{-- RIGHT MENU --}}
-        <div class="menu menu--right">
-
-            {{-- Carrinho --}}
-            <a href="{{ route('cart.index') }}" class="menu__link">
-                Carrinho
-            </a>
-
-            {{-- Guest --}}
-            @guest
-                <x-layout.guest-menu />
-            @endguest
-
-            {{-- Auth --}}
-            @auth
-                <x-layout.user-menu />
-            @endauth
+            <x-ui.avatar :src="auth()->user()->avatar ?? null" :alt="auth()->user()->email" />
 
         </div>
-
-        {{-- MOBILE --}}
-        <button class="menu-toggle" type="button">
-            Menu
-        </button>
-
     </nav>
-
 </header>

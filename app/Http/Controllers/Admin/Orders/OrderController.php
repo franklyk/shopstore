@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Orders;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
+use App\Models\Order\Order;
 use Illuminate\View\View;
 
 class OrderController extends Controller

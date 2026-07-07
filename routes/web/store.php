@@ -63,10 +63,10 @@ Route::prefix('cart')->name('cart.')->group(function () {
 // ================================//
 // checkout                        //
 // ================================//
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/checkout', [CheckoutController::class, 'create'])
-    ->name('checkout.index');
+        ->name('checkout.index');
 
     Route::post('/checkout', [CheckoutController::class, 'store'])
         ->name('checkout.store');

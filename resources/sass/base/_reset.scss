@@ -10,10 +10,36 @@
 /// /* base/_reset.scss */
 ///
 ///
+
+/* ==================================================
+   Scrool Bars
+   ================================================== */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--site-color) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--site-color);
+    border-radius: 999px;
+
+    &:hover {
+        filter: brightness(.9);
+    }
+}
+
 /* ==================================================
    Box Model
    ================================================== */
-
 *,
 *::before,
 *::after {
@@ -68,6 +94,7 @@ video {
    Forms
    ================================================== */
 
+
 input,
 button,
 textarea,
@@ -89,7 +116,6 @@ textarea {
    ================================================== */
 
 a {
-    color: inherit;
     text-decoration: none;
 }
 
@@ -118,7 +144,4 @@ fieldset {
 
 legend {
     padding: 0;
-}
-body{
-    background-color: black;
 }

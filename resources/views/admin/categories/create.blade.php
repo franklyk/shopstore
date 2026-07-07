@@ -2,55 +2,49 @@
 
 @section('title', 'Nova Categoria')
 
-@section('content')
+@section('admin')
+    <div class="editors page-container">
 
-    <x-card title="Nova Categoria">
-        <x-admin.forms.form action="{{ route('admin.categories.store') }}" method="POST">
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="name" label="Nome" />
-            </x-admin.forms.row>
+        <x-ui.page-header title="Nova Categoria" description="Cadastrar nova Categoria">
 
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="slug" label="Slug" />
-            </x-admin.forms.row>
+            <x-slot:actions>
+                <x-ui.breadcrumbs :items="[
+                    ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+                    ['label' => 'Categorias', 'url' => route('admin.categories.index')],
+                    ['label' => 'Cadastrar'],
+                ]" />
 
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="stock" label="Estoque" />
-            </x-admin.forms.row>
+            </x-slot:actions>
 
-            <x-admin.forms.row>
-                <x-admin.forms.checkbox name="is_active" value="1" id="is_active" label="Categoria ativa" />
-            </x-admin.forms.row>
+        </x-ui.page-header>
 
+        <div class="card p-5 bg-light">
 
-            <div class="mb-3">
+            <x-forms.form action="{{ route('admin.categories.store') }}" method="POST">
 
-                <p for="parent_id" class="form-label">
-                    <strong>Categoria Pai</strong>
-                </p>
+                <div class="card p-3 shadow">
+                    <x-forms.input type="text" name="name" label="Nome" required />
+                    <x-forms.select name="parent_id" label="Categoria Pai" :options="$categories" :selected="$category->parent_id"
+                        placeholder="Principal" />
 
-                <select name="parent_id" id="parent_id" class="form-select @error('parent_id') is-invalid @enderror">
+                </div>
 
-                    <option value="">
-                        Categoria Principal
-                    </option>
+                <div class="container-buttons">
 
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" @selected(old('parent_id') == $category->id)>
+                    @can('view categories')
+                        <x-buttons.button href="{{ route('admin.categories.index') }}" color="secondary" icon="return"
+                            label="Voltar" />
+                    @endcan
 
-                            {{ $category->name }}
+                    @can('create categories')
+                        <x-buttons.button type="submit" color="success" icon="check" label="Cadastrar" />
+                    @endcan
 
-                        </option>
-                    @endforeach
+                </div>
 
-                </select>
-            </div>
-            @can('view categories')
-                <x-buttons.button href="{{ route('admin.categories.index') }}" color="secondary" icon="return" label="Voltar" />
-            @endcan
+            </x-forms.form>
 
-            <x-buttons.button type="submit" color="success" icon="check" label="Cadastrar" />
+        </div>
+    </div>
 
-        </x-admin.forms.form>
-    </x-card>
 @endsection

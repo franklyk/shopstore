@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
-use App\Models\Address;
 use App\Listeners\MergeCartOnLogin;
-use App\Models\Category;
+use App\Models\Catalog\Category;
+use App\Models\Supplier\Supplier;
+use App\Models\User\Address;
 use App\Policies\AddressPolicy;
+use App\Policies\SupplierPolicy;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
@@ -53,25 +55,40 @@ class AppServiceProvider extends ServiceProvider
         // Global Categories              //
         // ================================//
 
-        View::composer('layouts.store', function ($view) {
+        View::composer([
+            'layouts.store',
+            'components.layout.store.header',
+        ], function ($view) {
 
-            $categories = Category::with('children')
+            $categories = Category::query()
+                ->whereHas('status', function ($query) {
+                    $query->where('domain', 'category')
+                        ->where('slug', 'active');
+                })
                 ->whereNull('parent_id')
-                ->get();
-
-            $view->with('navCategories', $categories);
-
-        });
-
-        View::composer('layouts.partials.headers.*', function ($view) {
-
-            $menuCategories = Category::with('children')
-                ->whereNull('parent_id')
-                ->where('is_active', true)
+                ->with('children')
                 ->orderBy('name')
                 ->get();
 
-            $view->with('menuCategories', $menuCategories);
+            $view->with('menuCategories', $categories);
+        });
+
+        View::composer([
+            'layouts.store',
+            'components.layout.profile.header',
+        ], function ($view) {
+
+            $categories = Category::query()
+                ->whereHas('status', function ($query) {
+                    $query->where('domain', 'category')
+                        ->where('slug', 'active');
+                })
+                ->whereNull('parent_id')
+                ->with('children')
+                ->orderBy('name')
+                ->get();
+
+            $view->with('menuCategories', $categories);
         });
 
         // ================================//
@@ -84,6 +101,11 @@ class AppServiceProvider extends ServiceProvider
         // Address Policy                  //
         // ================================//
         Gate::policy(Address::class, AddressPolicy::class);
+
+        // ================================//
+        // Supplier Policy                 //
+        // ================================//
+        Gate::policy(Supplier::class, SupplierPolicy::class);
 
         // ================================//
         // Pagination                     //

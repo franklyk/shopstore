@@ -1,249 +1,219 @@
 🌳 ÁRVORE DE IMPLEMENTAÇÃO DA APLICAÇÃO
-Status do Projeto
-
-Legenda:
-✅ Concluído
-🟡 Parcial
-⬜ Não iniciado
-❓ A confirmar
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 1 — Fundação do Sistema
 ━━━━━━━━━━━━━━━━━━━
 
 Sistema
-├── ✅ Configuração do Laravel
-├── ✅ Banco de dados
-├── ✅ Migrations
-├── ✅ Models principais
-├── ✅ Layout base
-├── ✅ Autenticação
-├── ✅ Controle de acesso (Roles/Permissions)
-└── ✅ Estrutura básica de rotas
+├──  Configuração do Laravel
+├──  Banco de dados
+├──  Migrations
+├──  Models principais
+├──  Layout base
+├──  Autenticação
+├──  Controle de acesso (Roles/Permissions)
+└──  Estrutura básica de rotas
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 2 — Usuários e Segurança
 ━━━━━━━━━━━━━━━━━━━
 
 Autenticação
-├── ✅ Login
-├── ✅ Logout
-├── ✅ Registro
-├── ✅ Recuperação senha
-├── ✅ Middleware auth
-├── ✅ Roles
-└── ✅ Permissions
+├──  Login
+├──  Logout
+├──  Registro
+├──  Recuperação senha
+├──  Middleware auth
+├──  Roles
+└──  Permissions
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 3 — Catálogo
 ━━━━━━━━━━━━━━━━━━━
 
 Catálogo
-├── ✅ Categorias
-├── ✅ Produtos
-│   ├── ✅ CRUD
-│   ├── 🟡 Imagens
-│   ├── ✅ Preço
-│   ├── ✅ SKU
-│   ├── ✅ Estoque inicial
-│   └── ✅ Status ativo/inativo
-├── ⬜ Marcas (opcional)
-└── ⬜ Busca/Filtros
+├──  Categorias
+├──  Produtos
+│   ├──  CRUD
+│   ├──  Imagens
+│   ├──  Preço
+│   ├──  SKU
+│   ├──  Estoque inicial
+│   └──  Status ativo/inativo
+├── Marcas (opcional)
+└── Busca/Filtros
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 4 — Estrutura da Loja
 ━━━━━━━━━━━━━━━━━━━
 
 Loja
-├── ✅ Página inicial
-├── ✅ Listagem produtos
-├── ✅ Página produto
-├── ✅ Carrinho
-│   ├── ✅ Adicionar item
-│   ├── ✅ Atualizar quantidade
-│   └── ✅ Remover item
-└── ✅ Sessão carrinho
+├──  Página inicial
+├──  Listagem produtos
+├──  Página produto
+├──  Carrinho
+│   ├──  Adicionar item
+│   ├──  Atualizar quantidade
+│   └──  Remover item
+└──  Sessão carrinho
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 5 — Entrega e Endereços
 ━━━━━━━━━━━━━━━━━━━
 
 Entrega
-├── 🟡 Endereços
-│   ├── 🟡 CRUD endereço
-│   ├── ⬜ Ownership
-│   ├── ⬜ Endereço padrão
-│   └── ⬜ CEP automático
-├── ⬜ Métodos entrega
-│   ├── ⬜ Retirada
-│   ├── ⬜ Entrega local
-│   └── ⬜ Transportadora
-├── ⬜ Valor frete
-└── ⬜ Status entrega
+├── Endereços
+│   ├── CRUD endereço
+│   ├── Ownership
+│   ├── Endereço padrão
+│   └── CEP automático
+├── Métodos entrega
+│   ├── Retirada
+│   ├── Entrega local
+│   └── Transportadora
+├── Valor frete
+└── Status entrega
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 6 — Checkout
 ━━━━━━━━━━━━━━━━━━━
 
 Checkout
-├── ⬜ Resumo pedido
-├── ⬜ Seleção endereço
-├── ⬜ Seleção entrega
-├── ⬜ Método pagamento
-├── ⬜ Confirmação pedido
-└── ⬜ Criação pedido
+├── Resumo pedido
+├── Seleção endereço
+├── Seleção entrega
+├── Método pagamento
+├── Confirmação pedido
+└── Criação pedido
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 7 — Pedidos
 ━━━━━━━━━━━━━━━━━━━
 
 Pedidos
-├── ⬜ Order
-├── ⬜ OrderItems
-├── ⬜ Histórico status
-├── ⬜ Status pedido
-│   ├── ⬜ pending
-│   ├── ⬜ paid
-│   ├── ⬜ shipped
-│   ├── ⬜ delivered
-│   └── ⬜ cancelled
-├── ⬜ Área cliente
-└── ⬜ Área administrativa
+├── Order
+├── OrderItems
+├── Histórico status
+├── Status pedido
+│   ├── pending
+│   ├── paid
+│   ├── shipped
+│   ├── delivered
+│   └── cancelled
+├── Área cliente
+└── Área administrativa
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 8 — Pagamentos
 ━━━━━━━━━━━━━━━━━━━
 
 Pagamentos
-├── ⬜ Pagamento manual
-├── ⬜ PIX
-├── ⬜ Cartão
-├── ⬜ Gateway pagamento
-├── ⬜ Webhook
-├── ⬜ Confirmação pagamento
-└── ⬜ Estorno
+├── Pagamento manual
+├── PIX
+├── Cartão
+├── Gateway pagamento
+├── Webhook
+├── Confirmação pagamento
+└── Estorno
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 9 — Estoque
 ━━━━━━━━━━━━━━━━━━━
 
 Estoque
-├── ⬜ Movimentações
-│   ├── ⬜ Entrada
-│   ├── ⬜ Venda
-│   ├── ⬜ Ajuste
-│   └── ⬜ Cancelamento
-├── ⬜ Saldo produto
-├── ⬜ Histórico
-├── ⬜ Reserva estoque
-└── ⬜ Estoque mínimo
+├── Movimentações
+│   ├── Entrada
+│   ├── Venda
+│   ├── Ajuste
+│   └── Cancelamento
+├── Saldo produto
+├── Histórico
+├── Reserva estoque
+└── Estoque mínimo
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 10 — Caixa / Financeiro
 ━━━━━━━━━━━━━━━━━━━
 
 Financeiro
-├── ⬜ Caixa
-├── ⬜ Abertura caixa
-├── ⬜ Fechamento caixa
-├── ⬜ Movimentações
-├── ⬜ Recebimentos
-├── ⬜ Despesas
-├── ⬜ Relatórios
-└── ⬜ Fluxo caixa
+├── Caixa
+├── Abertura caixa
+├── Fechamento caixa
+├── Movimentações
+├── Recebimentos
+├── Despesas
+├── Relatórios
+└── Fluxo caixa
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 11 — Expedição
 ━━━━━━━━━━━━━━━━━━━
 
 Expedição
-├── ⬜ Separação pedido
-├── ⬜ Embalagem
-├── ⬜ Envio
-├── ⬜ Código rastreio
-├── ⬜ Transportadora
-└── ⬜ Atualização entrega
+├── Separação pedido
+├── Embalagem
+├── Envio
+├── Código rastreio
+├── Transportadora
+└── Atualização entrega
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 12 — Administração
 ━━━━━━━━━━━━━━━━━━━
 
 Administração
-├── 🟡 Dashboard
-├── ⬜ Relatórios
-├── ✅ Gestão usuários
-├── ⬜ Logs
-├── ⬜ Configurações
-└── ⬜ Auditoria
+├── Dashboard
+├── Relatórios
+├── Gestão usuários
+├── Logs
+├── Configurações
+└── Auditoria
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 13 — Refinamento UI/UX
 ━━━━━━━━━━━━━━━━━━━
 
 Otimizações
-├── 🟡 Components
-├── ⬜ Design System
-├── ⬜ Blade abstractions avançadas
-├── 🟡 Modais
-├── ⬜ AJAX
-├── ⬜ Live updates
-├── ⬜ Reutilização avançada
-├── ⬜ UX refinada
-└── ⬜ Performance frontend
+├── Components
+├── Design System
+├── Blade abstractions avançadas
+├── Modais
+├── AJAX
+├── Live updates
+├── Reutilização avançada
+├── UX refinada
+└── Performance frontend
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 14 — Automação e Integrações
 ━━━━━━━━━━━━━━━━━━━
 
 Integrações
-├── ⬜ Correios
-├── ⬜ Melhor Envio
-├── ⬜ Gateway pagamento
-├── ⬜ Email transacional
-├── ⬜ WhatsApp
-├── ⬜ Webhooks
-├── ⬜ Nota fiscal
-└── ⬜ APIs externas
+├── Correios
+├── Melhor Envio
+├── Gateway pagamento
+├── Email transacional
+├── WhatsApp
+├── Webhooks
+├── Nota fiscal
+└── APIs externas
 
 ━━━━━━━━━━━━━━━━━━━
 FASE 15 — Escalabilidade
 ━━━━━━━━━━━━━━━━━━━
 
 Escalabilidade
-├── ⬜ Cache
-├── ⬜ Queues
-├── 🟡 Eventos
-├── ⬜ Jobs
-├── ⬜ Observers
-├── ⬜ Otimização queries
-├── ⬜ CDN
-└── ⬜ Monitoramento
+├── Cache
+├── Queues
+├── Eventos
+├── Jobs
+├── Observers
+├── Otimização queries
+├── CDN
+└── Monitoramento
 
-━━━━━━━━━━━━━━━━━━━
-PRÓXIMA MISSÃO RECOMENDADA
-━━━━━━━━━━━━━━━━━━━
+***************************************************************
 
-🎯 Concluir FASE 5 — Endereços
-
-1. ✅ Endereços aparecendo no perfil
-2. ⬜ CRUD completo de endereços
-3. ⬜ Ownership (usuário só manipula seus endereços)
-4. ⬜ Endereço padrão
-5. ⬜ Integração ViaCEP
-6. ⬜ Seleção de endereço para Checkout
-
-Após isso:
-
-➡️ FASE 6 — Checkout
-➡️ FASE 7 — Pedidos
-
-Essas duas fases formam o primeiro fluxo de negócio completo da loja:
-Produto → Carrinho → Endereço → Pedido
-
-
-
-franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
-.
 ├── app
 │   ├── Actions
 │   │   └── Orders
@@ -256,7 +226,8 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │   │   ├── Controllers
 │   │   │   ├── Admin
 │   │   │   │   ├── Category
-│   │   │   │   ├── DashboardController.php
+│   │   │   │   ├── Dashboard
+│   │   │   │   ├── Orders
 │   │   │   │   ├── Products
 │   │   │   │   └── Users
 │   │   │   ├── Auth
@@ -293,6 +264,8 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │   │       │   └── StoreCheckoutRequest.php
 │   │       ├── Orders
 │   │       │   └── StoreOrderRequest.php
+│   │       ├── Shipment
+│   │       │   └── ShipShipmentRequest.php
 │   │       └── User
 │   │           ├── Address
 │   │           └── Profile
@@ -306,6 +279,7 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │   │   ├── OrderItem.php
 │   │   ├── Order.php
 │   │   ├── Payment.php
+│   │   ├── ProductImage.php
 │   │   ├── Product.php
 │   │   ├── Shipment.php
 │   │   ├── StockMovement.php
@@ -340,12 +314,21 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 ├── composer.json
 ├── composer.lock
 ├── config
+│   ├── app.php
+│   ├── auth.php
+│   ├── cache.php
+│   ├── database.php
+│   ├── filesystems.php
+│   ├── logging.php
+│   ├── mail.php
+│   ├── permission.php
+│   ├── queue.php
+│   ├── services.php
+│   └── session.php
 ├── database
 │   ├── factories
 │   │   ├── AddressFactory.php
 │   │   ├── CategoryFactory.php
-│   │   ├── OrderFactory.php
-│   │   ├── OrderItemFactory.php
 │   │   ├── ProductFactory.php
 │   │   └── UserFactory.php
 │   ├── migrations
@@ -365,7 +348,8 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │   │   ├── 2026_05_30_215253_create_shipments_table.php
 │   │   ├── 2026_06_01_223150_create_warehouses_table.php
 │   │   ├── 2026_06_01_223221_create_stocks_table.php
-│   │   └── 2026_06_01_223351_create_stock_movements_table.php
+│   │   ├── 2026_06_01_223351_create_stock_movements_table.php
+│   │   └── 2026_06_19_235357_create_product_images_table.php
 │   └── seeders
 │       ├── AddressSeeder.php
 │       ├── CategorySeeder.php
@@ -379,19 +363,47 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │       ├── UserSeeder.php
 │       └── WarehouseSeeder.php
 ├── lang
+│   ├── pt_BR
+│   │   ├── auth.php
+│   │   ├── pagination.php
+│   │   ├── passwords.php
+│   │   └── validation.php
+│   └── pt_BR.json
 ├── LICENSE
 ├── node_modules
 ├── package.json
 ├── package-lock.json
 ├── phpunit.xml
 ├── public
-│   ├── build
-│   │   ├── assets
-│   │   │   ├── app-0BmDVrxS.css
-│   │   │   └── app-BhycOtH4.js
-│   │   └── manifest.json
 │   ├── favicon.ico
+│   ├── hot
 │   ├── images
+│   │   ├── banner-medium.png
+│   │   ├── banner-small2.png
+│   │   ├── Franklin.jpg
+│   │   ├── IMAGE (38).png
+│   │   ├── IMAGE (5).png
+│   │   ├── IMAGE (6).png
+│   │   ├── IMAGE (7).png
+│   │   ├── logo
+│   │   │   └── logo.png
+│   │   ├── logoblue.png
+│   │   ├── logo-paisagem.jpg
+│   │   ├── maos.jpg
+│   │   ├── p1.jpg
+│   │   ├── p2.jpg
+│   │   ├── p3.jpg
+│   │   ├── p4.jpg
+│   │   ├── p5.jpg
+│   │   ├── p6.jpg
+│   │   ├── p7.jpg
+│   │   ├── p8.jpg
+│   │   ├── product-detail2.png
+│   │   ├── product-detail5.png
+│   │   ├── product.png
+│   │   ├── s-p1.jpg
+│   │   └── users
+│   │       └── user.png
 │   ├── index.php
 │   ├── robots.txt
 │   └── storage -> /var/www/lojavirtual/storage/app/public
@@ -402,17 +414,56 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │   ├── js
 │   │   ├── app.js
 │   │   ├── cart.js
+│   │   ├── images.js
 │   │   └── modal
 │   │       ├── create_delete.js
 │   │       └── delete.js
 │   ├── sass
 │   │   ├── app.scss
+│   │   ├── base
+│   │   │   ├── _fonts.scss
+│   │   │   ├── index.scss
+│   │   │   ├── _reset.scss
+│   │   │   ├── _typography.scss
+│   │   │   └── _variables.scss
+│   │   ├── bootstrap.scss
+│   │   ├── components
+│   │   │   ├── _avatar.scss
+│   │   │   ├── _badge.scss
+│   │   │   ├── _breadcrumb.scss
+│   │   │   ├── _button.scss
+│   │   │   ├── _card.scss
+│   │   │   ├── _dropdown.scss
+│   │   │   ├── _form.scss
+│   │   │   ├── _images.scss
+│   │   │   ├── index.scss
+│   │   │   ├── _links.scss
+│   │   │   ├── _list.scss
+│   │   │   ├── _logo.scss
+│   │   │   ├── _page-header.scss
+│   │   │   ├── _pagination.scss
+│   │   │   └── _table.scss
 │   │   ├── fonts
-│   │   │   └── _fonts.scss
-│   │   └── lib
-│   │       ├── _breakpoints.scss
-│   │       ├── index.scss
-│   │       └── _mixins.scss
+│   │   ├── layout
+│   │   │   ├── _footer.scss
+│   │   │   ├── _header.scss
+│   │   │   ├── index.scss
+│   │   │   └── _sidebar.scss
+│   │   ├── lib
+│   │   │   ├── _breakpoints.scss
+│   │   │   ├── index.scss
+│   │   │   └── _mixins.scss
+│   │   ├── pages
+│   │   │   ├── admin
+│   │   │   │   ├── _admin-base.scss
+│   │   │   │   ├── crud
+│   │   │   │   └── _dashboard.scss
+│   │   │   ├── index.scss
+│   │   │   └── store
+│   │   │       └── _store.scss
+│   │   └── utilities
+│   │       ├── _grid.scss
+│   │       └── index.scss
 │   └── views
 │       ├── admin
 │       │   ├── categories
@@ -420,10 +471,17 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │       │   │   ├── edit.blade.php
 │       │   │   ├── index.blade.php
 │       │   │   └── show.blade.php
-│       │   ├── dashboard.blade.php
+│       │   ├── dashboard
+│       │   │   └── dashboard.blade.php
+│       │   ├── orders
+│       │   │   ├── index.blade.php
+│       │   │   └── show.blade.php
 │       │   ├── products
 │       │   │   ├── create.blade.php
 │       │   │   ├── edit.blade.php
+│       │   │   ├── index.blade.php
+│       │   │   └── show.blade.php
+│       │   ├── shipments
 │       │   │   ├── index.blade.php
 │       │   │   └── show.blade.php
 │       │   └── users
@@ -444,7 +502,10 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │       │   ├── buttons
 │       │   │   └── button.blade.php
 │       │   ├── card.blade.php
+│       │   ├── cards
+│       │   │   └── card.blade.php
 │       │   ├── detail-item.blade.php
+│       │   ├── feedback
 │       │   ├── forms
 │       │   │   ├── card.blade.php
 │       │   │   ├── checkbox.blade.php
@@ -454,6 +515,7 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │       │   │   ├── form.blade.php
 │       │   │   ├── input.blade.php
 │       │   │   ├── label.blade.php
+│       │   │   ├── row.blade.php
 │       │   │   ├── select.blade.php
 │       │   │   └── textarea.blade.php
 │       │   ├── icons
@@ -463,17 +525,41 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │       │   │   ├── plus.blade.php
 │       │   │   ├── return.blade.php
 │       │   │   └── trash.blade.php
-│       │   └── modal
-│       │       └── delete.blade.php
+│       │   ├── layout
+│       │   │   ├── header.blade.php
+│       │   │   ├── logo.blade.php
+│       │   │   └── sidebar.blade.php
+│       │   ├── menu
+│       │   │   ├── item.blade.php
+│       │   │   ├── link.blade.php
+│       │   │   ├── list.blade.php
+│       │   │   └── nav.blade.php
+│       │   ├── modal
+│       │   │   └── delete.blade.php
+│       │   ├── theme
+│       │   │   └── variables.blade.php
+│       │   └── ui
+│       │       ├── avatar.blade.php
+│       │       ├── badge.blade.php
+│       │       ├── breadcrumbs.blade.php
+│       │       ├── button.blade.php
+│       │       ├── card.blade.php
+│       │       ├── flesh.blade.php
+│       │       ├── page-header.blade.php
+│       │       └── table.blade.php
 │       ├── layouts
 │       │   ├── admin.blade.php
 │       │   ├── auth.blade.php
 │       │   ├── base.blade.php
-│       │   ├── partials
-│       │   │   ├── headers
-│       │   │   └── sidebars
 │       │   ├── profile.blade.php
 │       │   └── store.blade.php
+│       ├── partials
+│       │   ├── headers
+│       │   │   ├── categories.blade.php
+│       │   │   └── header.blade.php
+│       │   └── sidebars
+│       │       ├── admin.blade.php
+│       │       └── profile.blade.php
 │       ├── profile
 │       │   ├── addresses
 │       │   │   ├── create.blade.php
@@ -505,6 +591,34 @@ franklin@dev-machine:/var/www/lojavirtual$ tree -L 5
 │   │   └── store.php
 │   └── web.php
 ├── storage
+│   ├── app
+│   │   ├── private
+│   │   └── public
+│   │       ├── avatars
+│   │       │   ├── Franklin.jpg
+│   │       │   └── user.png
+│   │       └── products
+│   ├── framework
+│   │   ├── cache
+│   │   │   └── data
+│   │   ├── sessions
+│   │   ├── testing
+│   │   │   └── disks
+│   │   │       └── local
+│   │   └── views
+│   └── logs
+│       └── laravel.log
 ├── tests
 ├── vendor
 └── vite.config.js
+
+✅ Etapa 1 — VirtualBox
+⏳ Etapa 2 — Ubuntu Server
+⏳ Etapa 3 — SSH
+⏳ Etapa 4 — Git
+⏳ Etapa 5 — VS Code + Remote SSH
+⏳ Etapa 6 — Estrutura do projeto (store e erp)
+⏳ Etapa 7 — Laravel
+⏳ Etapa 8 — Django
+⏳ Etapa 9 — Banco de dados
+⏳ Etapa 10 — Docker

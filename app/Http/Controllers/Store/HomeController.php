@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use App\Models\Catalog\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

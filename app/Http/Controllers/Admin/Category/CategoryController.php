@@ -5,29 +5,49 @@ namespace App\Http\Controllers\Admin\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Category\StoreCategoryRequest;
 use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
-use App\Models\Category;
+use App\Models\Catalog\Category;
+use App\Models\Status\Status;
+use App\Services\Category\CategoryFilterService;
 
 class CategoryController extends Controller
 {
-
-    public function index()
+    public function index(CategoryFilterService $filters)
     {
-        $categories = Category::with('parent')
-            ->latest()
-            ->simplePaginate(15);
+        $query = Category::query()->with([
+            'parent',
+            'status',
+        ]);
 
-        return view('admin.categories.index', compact('categories'));
+        $categories = $filters
+            ->apply($query, request()->all())
+            ->latest()
+            ->paginate(15)
+            ->withQueryString();
+
+        $statuses = Status::query()
+            ->where('domain', 'category')
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('admin.categories.index', compact(
+            'categories',
+            'statuses'
+        ));
     }
 
     public function create()
     {
-        $categories = Category::whereNull('parent_id', true, [])
+        $categories = Category::whereNull('parent_id')
             ->orderBy('name')
-            ->get();
+            ->pluck('name', 'id');
 
-        return view('admin.categories.create', compact('categories'));
+        $category = new Category;
+
+        return view('admin.categories.create', compact(
+            'categories',
+            'category'
+        ));
     }
-
 
     public function store(StoreCategoryRequest $request)
     {
@@ -38,7 +58,6 @@ class CategoryController extends Controller
             ->with('success', 'Categoria cadastrada com sucesso!');
     }
 
-
     public function show(Category $category)
     {
         $category->load('parent', 'children');
@@ -46,24 +65,26 @@ class CategoryController extends Controller
         return view('admin.categories.show', compact('category'));
     }
 
-
     public function edit(Category $category)
     {
-        $categories = Category::whereNull('parent_id', true, [])
+        $categories = Category::query()
             ->where('id', '!=', $category->id)
             ->orderBy('name')
-            ->get();
+            ->pluck('name', 'id');
 
-        return view('admin.categories.edit', compact('category', 'categories'));
+        return view('admin.categories.edit', compact(
+            'categories',
+            'category'
+        ));
     }
-
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+        // dd($request->validated());
         $category->update($request->validated());
 
         return redirect()
-            ->route('admin.categories.index')
+            ->route('admin.categories.show', $category)
             ->with('success', 'Categoria atualizada com sucesso!');
     }
 

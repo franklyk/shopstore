@@ -1,0 +1,78 @@
+///
+///
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* Variables */
+///
+///
+
+// Tons de azul
+// #000020
+// #00003C
+// #013f53
+
+// Layout
+$site-color: #00009f;
+$site-color-light: #013e535f;
+$accent-color: #47fcff4b;
+
+
+$light-color-high: #cb4c4cbd;
+$light-color: #a6a6a6;
+
+$title-color: #423ffb;
+$sub-title-color: #423ffb;
+
+$header-height: 70px;
+$sidebar-width: 260px;
+$border-radius: .5rem;
+
+
+:root {
+
+    /* Branding */
+    --site-color: #{$site-color};
+    --accent-color: #{$accent-color};
+
+    /* Surface */
+    --background-color: #ffffff;
+    --surface-color: #f8fafc;
+
+    /* Text */
+    --title-color: #{$title-color};
+    --sub-title-color: #{$sub-title-color};
+
+    --main-text: #{$light-color};
+    --text-light: #{$light-color};
+    --text-accent: #{$accent-color};
+
+    /* Border */
+    --border-light: 1px solid #{$light-color};
+
+    /* Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* Spacing */
+    --space-xs: .25rem;
+    --space-sm: .5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+
+    /* Shadow */
+    --box-shadow: 3px 3px 10px 2px #{$site-color-light};
+    --text-shadow-title: 3px 3px 1px #1d1d1d52;
+
+    /* elements */
+    --sidebar-width: $sidebar-width;
+    --to-right: linear-gradient(to right, var(--accent-color), transparent);
+}
+
+

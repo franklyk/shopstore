@@ -11,6 +11,8 @@ return new class extends Migration
         Schema::create('stock_movements', function (Blueprint $table) {
             $table->id();
 
+            $table->ulid('uuid')->unique();
+
             $table->foreignId('product_id')
                 ->constrained()
                 ->cascadeOnDelete();
@@ -21,20 +23,24 @@ return new class extends Migration
 
             $table->string('type');
 
-            $table->unsignedInteger('quantity');
+            $table->integer('quantity');
+
+            $table->integer('quantity_before');
+
+            $table->integer('quantity_after');
 
             $table->nullableMorphs('reference');
 
-            $table->text('notes')
-                ->nullable();
+            $table->text('notes')->nullable();
+
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
 
             $table->timestamps();
 
-            $table->index([
-                'product_id',
-                'warehouse_id',
-            ]);
-
+            $table->index(['product_id', 'warehouse_id']);
             $table->index('type');
         });
     }

@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use Illuminate\Auth\Events\Login;
-use App\Services\CartService;
+use App\Services\Cart\CartService;
 
 class MergeCartOnLogin
 {

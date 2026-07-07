@@ -1,18 +1,23 @@
-@props(['title'])
+@props(['title', 'bg_card' => null, 'bg_header' => null])
+
+@php
+    $defaults =[]
+@endphp
+
 
 <div class="card">
 
     <div class="card-header d-flex align-items-center">
 
         <div class="card-title">
-            <h2>{{ $title }}</h2>
+            <h3>{{ $title }}</h3>
         </div>
 
         @isset($actions)
             <div class="ms-auto d-flex gap-2">
                 {{ $actions }}
             </div>
-        @endisset
+        @endisset   
 
     </div>
 

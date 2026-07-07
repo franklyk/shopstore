@@ -2,69 +2,101 @@
 
 @section('title', 'Novo Produto')
 
-@section('content')
+@section('admin')
 
-    <x-card title="Novo Produto">
-        <x-admin.forms.form action="{{ route('products.store') }}" method="POST">
+    <div class="editors page-container">
+        <x-ui.page-header title="Novo Produto" description="Cadastre um Novo Produto.">
 
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="name" label="Nome" />
-            </x-admin.forms.row>
+            <x-slot:actions>
+                <x-ui.breadcrumbs :items="[
+                    ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+                    ['label' => 'Produtos', 'url' => route('admin.products.index')],
+                    ['label' => 'Cadastrar'],
+                ]" />
 
-            <x-admin.forms.row>
-                <x-admin.forms.textarea label="Descrição" name="description"></x-admin.forms.textarea>
-            </x-admin.forms.row>
+            </x-slot:actions>
 
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="price" label="Preço" />
-            </x-admin.forms.row>
+        </x-ui.page-header>
 
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="stock" label="Estoque" />
-            </x-admin.forms.row>
+        <div class="card p-5 bg-light">
+            <x-forms.form method="POST" action="{{ route('admin.products.store') }}" class="create-form" id="create-form"
+                enctype="multipart/form-data">
 
-            <x-admin.forms.row>
-                <div class="mb-3">
-                    <p class="form-label">
-                        <strong>Categorias</strong>
-                    </p>
+                <div class="card border border-1 shadow container-image mb-5 rounded-4">
 
-                    <div class="border rounded p-3">
-                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-                            @forelse($categories as $parent)
-                                <div class="col">
-                                    <div class="p-2 border rounded h-100">
-                                        <div class="fw-bold text-primary mb-2">
+                    <div class="preview-image" id="preview-image">
+                        <div class="preview-placeholder d-flex justify-content-center">
+                            <x-icons.camera />
+                        </div>
+                    </div>
+                    <label class="label-image" for="input-image">
+                        <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
+                    </label>
+                </div>
+
+                <div class="card p-3 shadow">
+
+                    <x-forms.input type="text" name="name" label="Nome:" value="{{ old('name') }}" required />
+
+                    <x-forms.input type="text" name="price" label="Preço R$:" value="{{ old('price') }}" required />
+
+                    <x-forms.input type="text" name="stock" label="Estoque:" required />
+
+                    <x-forms.textarea label="Descrição:" name="description" required>
+                        {{ old('description') }}
+                    </x-forms.textarea>
+                </div>
+
+                <div class="card p-3 shadow">
+
+                    <h3 class="fs-3 text-center section-title">Categorias</h3>
+
+                    <div class="row g-2">
+                        @if (!empty($categories))
+
+                            @foreach ($categories as $parent)
+                                <div class="col-3 border-light">
+                                    <div class="bg-light border border-2 border-danger rounded p-4 ">
+                                        <div class="text-center text-danger fw-bold fs-5">
                                             {{ $parent->name }}
                                         </div>
-                                        <div class="ms-2">
+                                        <div class="">
                                             @forelse($parent->children as $child)
-                                                <x-admin.forms.checkbox :name="$child->name" :label="$child->name"
-                                                    value="{{ $child->id }}" id="{{ $child->slug }}" />
+                                                <x-forms.checkbox name="categories[]" label="{{ $child->name }}"
+                                                    value="{{ $child->id }}" :id="'category-' . $child->id" />
                                             @empty
-                                                <small class="text-muted">Sem subcategorias</small>
+                                                <small class="">Sem subcategorias</small>
                                             @endforelse
                                         </div>
 
                                     </div>
                                 </div>
-                            @empty
-                                <div class="col">
-                                    <p class="text-muted mb-0">Nenhuma categoria cadastrada.</p>
-                                </div>
-                            @endforelse
-                        </div>
+                            @endforeach
+                        @else
+                            <div class="col">
+                                <h1 class="text-center text-danger mb-0">
+                                    Nenhuma categoria cadastrada.
+                                </h1>
+                            </div>
+                        @endif
                     </div>
+
                 </div>
-            </x-admin.forms.row>
+                <div class="container-buttons">
+                    @can('view products')
+                        <x-buttons.button href="{{ route('admin.products.index') }}" color="secondary" icon="return"
+                            label="Voltar" />
+                    @endcan
 
-            @can('view products')
-                <x-buttons.button href="{{ route('products.index') }}" color="secondary" icon="return" label="Voltar" />
-            @endcan
+                    @can('create products')
+                        <x-buttons.button type="submit" form="create-form" color="success" icon="check" label="Cadastrar" />
+                    @endcan
 
-            <x-buttons.button type="submit" color="success" label="Cadastrar" icon="check" />
+                </div>
 
-        </x-admin.forms.form>
-    </x-card>
-    
+            </x-forms.form>
+
+        </div>
+    </div>
+
 @endsection

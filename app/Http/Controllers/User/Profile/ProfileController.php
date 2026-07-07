@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    
-    public function show(string $id)
+
+    public function show()
     {
         $user = Auth::user();
 
@@ -21,8 +21,8 @@ class ProfileController extends Controller
         return view('profile.show', compact('user'));
     }
 
-    
-    public function edit(string $id)
+
+    public function edit()
     {
         $user = Auth::user();
 
@@ -42,8 +42,8 @@ class ProfileController extends Controller
             ->with('success', 'Perfil atualizado com sucesso.');
     }
 
-    
-    public function destroy(string $id)
+
+    public function destroy()
     {
         //
     }

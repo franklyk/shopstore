@@ -2,80 +2,68 @@
 
 @section('title', 'Editar Usuário')
 
-@section('content')
+@section('admin')
 
-    <div class="card">
-        <div class="card-header d-flex align-items-center">
-            <div class="card-title">
-                <h2>Editar Usuário</h2>
-            </div>
-        </div>
-        <div class="card-body">
-            <form action="{{ route('admin.users.store') }}" method="POST">
+    <div class="editors page-container">
+        <x-ui.page-header title="Editar Usuário" description="Edite Qualquer Detalhe do Usuário.">
 
-                @csrf
-                @method('PUT')
+            <x-slot:actions>
+                <x-ui.breadcrumbs :items="[
+                    ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+                    ['label' => 'Usuários', 'url' => route('admin.users.index')],
+                    ['label' => 'Visualizar', 'url' => route('admin.users.show', $user)],
+                    ['label' => 'Editar'],
+                ]" />
 
-                <input type="hidden" value="{{ $user->id }}">
+            </x-slot:actions>
 
-                <div class="mb-3">
-                    <label for="name" class="form-label"> <strong>Nome</strong></label>
-                    <input type="text" class="form-control" id="name" name="name"
-                        value="{{ old('name', $user->name) }}">
-                </div>
+        </x-ui.page-header>
 
-                <div class="mb-3">
-                    <label for="email" class="form-label"><strong>Email</strong></label>
-                    <input class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}">
-                </div>
-                <div class="mb-3">
+        <div class="card p-5 bg-light">
 
-                    <label class="form-label">
-                        Cargo
+            <x-forms.form action="{{ route('admin.users.update', $user) }}" method="PUT" class="edit-form" id="edit-form"
+                enctype="multipart/form-data">
+
+                <div class="card border border-1 shadow container-image mb-5 rounded-4">
+                    <div class="preview-image" id="preview-image">
+                        <div class="preview-placeholder d-flex justify-content-center">
+                            <x-icons.camera />
+                        </div>
+                    </div>
+                    <label class="label-image" for="input-image">
+                        <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
                     </label>
 
-                    <select name="role" class="form-select">
-
-                        @foreach ($roles as $role)
-                            <option value="{{ $role->name }}"
-                                {{ $user->roles->first()?->name == $role->name ? 'selected' : '' }}>
-                                {{ $role->name }}
-                            </option>
-                        @endforeach
-
-                    </select>
 
                 </div>
 
-            </form>
+                <div class="card p-3 shadow">
+
+                    <x-forms.input type="text" name="name" label="Nome:" value="{{ old('name', $user->name) }}" />
+
+
+                    <x-forms.input type="text" name="email" label="E-mail:" value="{{ old('name', $user->email) }}" />
+
+
+                    <x-forms.input type="text" name="phone" label="Contato:" value="{{ old('name', $user->phone) }}" />
+
+                </div>
+
+                <div class="container-buttons">
+                    @can('view users')
+                        <x-buttons.button href="{{ route('admin.users.show', $user) }}" color="secondary" icon="return"
+                            label="Voltar" />
+                    @endcan
+
+                    @can('edit users')
+                        <x-buttons.button type="submit" form="edit-form" color="warning" icon="edit" label="Salvar" />
+                    @endcan
+
+                </div>
+
+            </x-forms.form>
         </div>
-        <div class="card-footer">
-            @can('view users')
-                <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-secondary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                        stroke-width="2" viewBox="0 0 24 24">
 
-                        <path d="M9 14L4 9l5-5" />
-
-                        <path d="M20 20v-7a4 4 0 0 0-4-4H4" />
-
-                    </svg>
-                    Voltar
-                </a>
-            @endcan
-
-            <button type="submit" class="btn btn-sm btn-warning">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                    stroke-width="2" viewBox="0 0 24 24">
-
-                    <path d="M20 6L9 17l-5-5" />
-
-                </svg>
-                <strong>
-                    Salvar
-                </strong>
-            </button>
-        </div>
     </div>
 
 @endsection

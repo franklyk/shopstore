@@ -1,0 +1,81 @@
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* Dashboard */
+///
+
+@use '../../lib/' as *;
+
+.dashboard {
+    .metrics {
+
+        @include autoGrid(300px, 20px);
+
+        color: var(--title-color);
+        display: grid;
+        margin-bottom: 20px;
+    }
+
+    .widgets {
+
+        @include autoGrid(300px, 20px);
+
+        margin-top: 10px;
+    }
+
+    dl {
+        display: flex;
+        align-items: center;
+
+        dt {
+
+            color: var(--text-light);
+            font-size: 20px;
+            width: 70%;
+        }
+
+        dd {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 30px;
+            width: 30%;
+        }
+    }
+
+    table {
+        thead {
+            tr {
+                th {
+                    border-bottom: 1px solid var(--text-light);
+                    color: var(--text-light);
+                    text-align: center;
+                }
+            }
+        }
+
+        tbody {
+            tr {
+                transition: .3s;
+
+                &:hover {
+                    background: var(--accent-color);
+                }
+
+                td {
+                    color: var(--text-light);
+
+                    &[data-field="center"] {
+                        text-align: center;
+                    }
+
+                }
+            }
+        }
+    }
+
+
+}

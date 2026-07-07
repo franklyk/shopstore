@@ -1,12 +1,12 @@
-@props(['label' => null, 'name'])
+@props(['label' => null, 'name' => null])
 
-<div class="mb-3">
+<div class="form-field">
+
+    {{ $slot }}
 
     @if ($label)
         <x-forms.label :for="$name" :label="$label" />
     @endif
-
-    {{ $slot }}
 
     <x-forms.error :name="$name" />
 

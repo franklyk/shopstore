@@ -2,71 +2,99 @@
 
 @section('title', 'Editar Produto')
 
-@section('content')
+@section('admin')
 
-    <x-card title="Editar Produto">
-        <x-admin.forms.form method="PUT" action="{{ route('products.update', $product) }}">
+    <div class="editors page-container">
+        <x-ui.page-header title="Editar Produto" description="Edite Qualquer Detalhe do Produto.">
 
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="name" label="Nome" value="{{ $product->name }}"/>
-            </x-admin.forms.row>
+            <x-slot:actions>
+                <x-ui.breadcrumbs :items="[
+                    ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+                    ['label' => 'Produtos', 'url' => route('admin.products.index')],
+                    ['label' => 'Visualizar', 'url' => route('admin.products.show', $product)],
+                    ['label' => 'Editar'],
+                ]" />
 
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="price" label="Preço"  value="{{ $product->price }}"/>
-            </x-admin.forms.row>
+            </x-slot:actions>
 
-            <x-admin.forms.row>
-                <x-admin.forms.input type="text" name="stock" label="Estoque" value="{{ $product->price }}"/>
-            </x-admin.forms.row>
+        </x-ui.page-header>
 
-            <x-admin.forms.row>
-                <x-admin.forms.textarea label="Descrição" name="description">
-                    {{ $product->description }}
-                </x-admin.forms.textarea>
-            </x-admin.forms.row>
+        <div class="card p-5 bg-light">
+            <x-forms.form action="{{ route('admin.products.update', $product) }}" method="PUT" class="edit-form"
+                id="edit-form" enctype="multipart/form-data">
+                <div class="card border border-1 shadow container-image mb-5 rounded-4">
+                    <div class="preview-image" id="preview-image">
+                        <div class="preview-placeholder d-flex justify-content-center">
+                            <x-icons.camera />
+                        </div>
+                    </div>
+                    <label class="label-image" for="input-image">
+                        <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
+                    </label>
 
-            <x-admin.forms.row>
-                <div class="mb-3">
-                    <p class="form-label">
-                        <strong>Categorias</strong>
-                    </p>
 
-                    <div class="border rounded p-3">
-                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-                            @forelse($categories as $parent)
-                                <div class="col">
-                                    <div class="p-2 border rounded h-100">
-                                        <div class="fw-bold text-primary mb-2">
+                </div>
+                <div class="card p-3 shadow">
+
+                    <x-forms.input type="text" name="name" label="Nome:" value="{{ $product->name }}" />
+                    <x-forms.input type="text" name="price" label="Preço R$:" value="{{ $product->price }}" />
+                    <x-forms.textarea label="Descrição:" name="description">
+                        {{ $product->description }}
+                    </x-forms.textarea>
+                </div>
+
+                <div class="card p-3 shadow">
+
+                    <h3 class="fs-3 text-center section-title">Categorias</h3>
+
+                    <div class="row g-2">
+                        @if (!empty($categories))
+                            @foreach ($categories as $parent)
+                                <div class="col-3">
+
+                                    <div class="bg-light border border-1 border-danger rounded p-4 ">
+                                        <div class="text-center text-danger fw-bold fs-5">
                                             {{ $parent->name }}
                                         </div>
-                                        <div class="ms-2">
+                                        <div class=" p-1 ms-2">
                                             @forelse($parent->children as $child)
-                                                <x-admin.forms.checkbox :name="$child->name" :label="$child->name"
+                                                <x-forms.checkbox :name="$child->name" :label="$child->name"
                                                     value="{{ $child->id }}" id="{{ $child->slug }}" />
                                             @empty
                                                 <small class="text-muted">Sem subcategorias</small>
                                             @endforelse
                                         </div>
-
                                     </div>
                                 </div>
-                            @empty
-                                <div class="col">
-                                    <p class="text-muted mb-0">Nenhuma categoria cadastrada.</p>
-                                </div>
-                            @endforelse
-                        </div>
+                            @endforeach
+                        @else
+                            <div class="col">
+                                <h1 class="text-center text-danger mb-0">
+                                    Nenhuma categoria cadastrada.
+                                    </p>
+                            </div>
+
+                        @endif
                     </div>
+
                 </div>
-            </x-admin.forms.row>
 
-            @can('view products')
-                <x-buttons.button href="{{ route('products.index') }}" color="secondary" icon="return" label="Voltar" />
-            @endcan
+                <div class="container-buttons">
+                    @can('view products')
+                        <x-buttons.button href="{{ route('admin.products.index') }}" color="secondary" icon="return"
+                            label="Voltar" />
+                    @endcan
 
-            <x-buttons.button type="submit" color="warning" icon="check" label="Salvar" />
+                    @can('edit products')
+                        <x-buttons.button type="submit" form="edit-form" color="warning" icon="edit" label="Salvar" />
+                    @endcan
 
-        </x-admin.forms.form>
-    </x-card>
+                </div>
+
+            </x-forms.form>
+
+
+        </div>
+    </div>
 
 @endsection

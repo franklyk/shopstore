@@ -1,235 +1,203 @@
 @extends('layouts.admin')
 
-@section('title', 'Shipment #'.$shipment->id)
+@section('title', 'Envio')
 
-@section('content')
+@section('admin')
 
-<div class="container">
+    <div class="page-container">
+        <x-ui.page-header title="Envio" description="Gerencie o Envio do Produto">
 
-    <h1 class="mb-4">
-        Shipment #{{ $shipment->id }}
-    </h1>
+            <x-slot:actions>
 
-    <div class="card mb-4">
-        <div class="card-body">
+                <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Produtos']]" />
 
-            <h3>Informações Gerais</h3>
+            </x-slot:actions>
 
-            <hr>
+        </x-ui.page-header>
+        
+        <div class="card">
+            <div class="card-body">
 
-            <p>
-                <strong>Pedido:</strong>
-                #{{ $shipment->order_id }}
-            </p>
+                <h3>Informações Gerais</h3>
 
-            <p>
-                <strong>Status:</strong>
-                {{ $shipment->status->value }}
-            </p>
+                <hr>
 
-            <p>
-                <strong>Transportadora:</strong>
-                {{ $shipment->carrier ?? 'Não informado' }}
-            </p>
+                <p>
+                    <strong>Pedido:</strong>
+                    #{{ $shipment->order_id }}
+                </p>
 
-            <p>
-                <strong>Código de rastreio:</strong>
-                {{ $shipment->tracking_code ?? 'Não informado' }}
-            </p>
+                <p>
+                    <strong>Status:</strong>
+                    {{ $shipment->status->value }}
+                </p>
 
-            <p>
-                <strong>Enviado em:</strong>
-                {{ $shipment->shipped_at?->format('d/m/Y H:i') ?? '-' }}
-            </p>
+                <p>
+                    <strong>Transportadora:</strong>
+                    {{ $shipment->carrier ?? 'Não informado' }}
+                </p>
 
-            <p>
-                <strong>Entregue em:</strong>
-                {{ $shipment->delivered_at?->format('d/m/Y H:i') ?? '-' }}
-            </p>
+                <p>
+                    <strong>Código de rastreio:</strong>
+                    {{ $shipment->tracking_code ?? 'Não informado' }}
+                </p>
 
-        </div>
-    </div>
+                <p>
+                    <strong>Enviado em:</strong>
+                    {{ $shipment->shipped_at?->format('d/m/Y H:i') ?? '-' }}
+                </p>
 
-    <div class="card mb-4">
-        <div class="card-body">
-
-            <h3>Fluxo Logístico</h3>
-
-            <hr>
-
-            <div style="font-size:18px">
-
-                Pedido Pago
-
-                →
-
-                <strong @class([
-                    'text-success' => in_array(
-                        $shipment->status->value,
-                        ['processing','shipped','delivered','returned']
-                    )
-                ])>
-                    Processing
-                </strong>
-
-                →
-
-                <strong @class([
-                    'text-success' => in_array(
-                        $shipment->status->value,
-                        ['shipped','delivered','returned']
-                    )
-                ])>
-                    Shipped
-                </strong>
-
-                →
-
-                <strong @class([
-                    'text-success' => in_array(
-                        $shipment->status->value,
-                        ['delivered']
-                    )
-                ])>
-                    Delivered
-                </strong>
-
-                →
-
-                <strong @class([
-                    'text-warning' => $shipment->status->value === 'returned'
-                ])>
-                    Returned
-                </strong>
+                <p>
+                    <strong>Entregue em:</strong>
+                    {{ $shipment->delivered_at?->format('d/m/Y H:i') ?? '-' }}
+                </p>
 
             </div>
-
         </div>
-    </div>
 
-    <div class="card mb-4">
-        <div class="card-body">
+        <div class="card mb-4">
+            <div class="card-body">
 
-            <h3>Ações</h3>
+                <h3>Fluxo Operacional</h3>
 
-            <hr>
+                <hr>
 
-            @if($shipment->status->value === 'pending')
+                <div class="d-flex flex-wrap gap-2">
 
-                <form
-                    action="{{ route('admin.shipments.process', $shipment) }}"
-                    method="POST"
-                >
-                    @csrf
+                    <span class="badge bg-secondary">
+                        Pedido Pago
+                    </span>
 
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                    >
-                        Iniciar Processamento
-                    </button>
-                </form>
+                    <span
+                        class="badge {{ in_array($shipment->status->value, ['picking', 'packing', 'dispatching', 'shipped', 'delivered', 'returned']) ? 'bg-success' : 'bg-light text-dark' }}">
+                        Separação
+                    </span>
 
-            @endif
+                    <span
+                        class="badge {{ in_array($shipment->status->value, ['packing', 'dispatching', 'shipped', 'delivered', 'returned']) ? 'bg-success' : 'bg-light text-dark' }}">
+                        Empacotamento
+                    </span>
 
-            @if($shipment->status->value === 'processing')
+                    <span
+                        class="badge {{ in_array($shipment->status->value, ['dispatching', 'shipped', 'delivered', 'returned']) ? 'bg-success' : 'bg-light text-dark' }}">
+                        Despacho
+                    </span>
 
-                <form
-                    action="{{ route('admin.shipments.ship', $shipment) }}"
-                    method="POST"
-                >
-                    @csrf
+                    <span
+                        class="badge {{ in_array($shipment->status->value, ['shipped', 'delivered', 'returned']) ? 'bg-success' : 'bg-light text-dark' }}">
+                        Enviado
+                    </span>
 
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Transportadora
-                        </label>
+                    <span
+                        class="badge {{ $shipment->status->value === 'delivered' ? 'bg-success' : 'bg-light text-dark' }}">
+                        Entregue
+                    </span>
 
-                        <input
-                            type="text"
-                            name="carrier"
-                            class="form-control"
-                            required
-                        >
-                    </div>
+                    @if ($shipment->status->value === 'returned')
+                        <span class="badge bg-warning text-dark">
+                            Devolvido
+                        </span>
+                    @endif
 
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Código de Rastreio
-                        </label>
+                </div>
 
-                        <input
-                            type="text"
-                            name="tracking_code"
-                            class="form-control"
-                            required
-                        >
-                    </div>
-
-                    <button
-                        type="submit"
-                        class="btn btn-success"
-                    >
-                        Despachar
-                    </button>
-                </form>
-
-            @endif
-
-            @if($shipment->status->value === 'shipped')
-
-                <form
-                    action="{{ route('admin.shipments.deliver', $shipment) }}"
-                    method="POST"
-                    class="mb-2"
-                >
-                    @csrf
-
-                    <button
-                        type="submit"
-                        class="btn btn-success"
-                    >
-                        Marcar como Entregue
-                    </button>
-                </form>
-
-                <form
-                    action="{{ route('admin.shipments.return', $shipment) }}"
-                    method="POST"
-                >
-                    @csrf
-
-                    <button
-                        type="submit"
-                        class="btn btn-warning"
-                    >
-                        Marcar como Devolvido
-                    </button>
-                </form>
-
-            @endif
-
-            @if($shipment->status->value === 'delivered')
-
-                <form
-                    action="{{ route('admin.shipments.return', $shipment) }}"
-                    method="POST"
-                >
-                    @csrf
-
-                    <button
-                        type="submit"
-                        class="btn btn-warning"
-                    >
-                        Registrar Devolução
-                    </button>
-                </form>
-
-            @endif
-
+            </div>
         </div>
-    </div>
 
-</div>
+        <div class="card mb-4">
+            <div class="card-body">
+
+                <h3>Ações</h3>
+
+                <hr>
+
+                @if ($shipment->status->value === 'pending')
+                    <form action="{{ route('admin.shipments.pick', $shipment) }}" method="POST">
+                        @csrf
+
+                        <button type="submit" class="btn btn-primary">
+                            Iniciar Separação
+                        </button>
+                    </form>
+                @endif
+
+                @if ($shipment->status->value === 'picking')
+                    <form action="{{ route('admin.shipments.pack', $shipment) }}" method="POST">
+                        @csrf
+
+                        <button type="submit" class="btn btn-primary">
+                            Finalizar Separação
+                        </button>
+                    </form>
+                @endif
+
+                @if ($shipment->status->value === 'packing')
+                    <form action="{{ route('admin.shipments.dispatch', $shipment) }}" method="POST">
+                        @csrf
+
+                        <button type="submit" class="btn btn-primary">
+                            Liberar para Despacho
+                        </button>
+                    </form>
+                @endif
+
+                @if ($shipment->status->value === 'dispatching')
+                    <form action="{{ route('admin.shipments.ship', $shipment) }}" method="POST">
+                        @csrf
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Transportadora
+                            </label>
+
+                            <input type="text" name="carrier" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Código de Rastreio
+                            </label>
+
+                            <input type="text" name="tracking_code" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">
+                            Enviar Pedido
+                        </button>
+                    </form>
+                @endif
+
+                @if ($shipment->status->value === 'shipped')
+                    <form action="{{ route('admin.shipments.deliver', $shipment) }}" method="POST" class="mb-2">
+                        @csrf
+
+                        <button type="submit" class="btn btn-success">
+                            Marcar como Entregue
+                        </button>
+                    </form>
+
+                    <form action="{{ route('admin.shipments.return', $shipment) }}" method="POST">
+                        @csrf
+
+                        <button type="submit" class="btn btn-warning">
+                            Marcar como Devolvido
+                        </button>
+                    </form>
+                @endif
+
+                @if ($shipment->status->value === 'delivered')
+                    <form action="{{ route('admin.shipments.return', $shipment) }}" method="POST">
+                        @csrf
+
+                        <button type="submit" class="btn btn-warning">
+                            Registrar Devolução
+                        </button>
+                    </form>
+                @endif
+
+            </div>
+        </div>
+
+    </div>
 
 @endsection

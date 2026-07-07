@@ -1,0 +1,35 @@
+///
+///
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* Avatar */
+///
+
+.page-header {
+    padding-bottom: 1rem;
+    border-bottom: var(--border-light);
+    .page-title{
+        color: var(--title-color);
+        filter: drop-shadow(0 0 1px var(--title-color));
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 0;
+        text-shadow: var(--text-shadow-title);
+
+    }
+    .page-description{
+        color: var(--title-color);
+        font-size: .95rem;
+        font-weight: bold;
+        margin: .5rem 0 0;
+        opacity: .8;
+        
+    }
+}
+
