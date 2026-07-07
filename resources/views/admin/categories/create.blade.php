@@ -24,9 +24,8 @@
 
                 <div class="card p-3 shadow">
                     <x-forms.input type="text" name="name" label="Nome" required />
-
                     <x-forms.select name="parent_id" label="Categoria Pai" :options="$categories" :selected="$category->parent_id"
-                        placeholder="Categoria Raiz" />
+                        placeholder="Principal" />
 
                 </div>
 

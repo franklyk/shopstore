@@ -41,7 +41,12 @@ class CategoryController extends Controller
             ->orderBy('name')
             ->pluck('name', 'id');
 
-        return view('admin.categories.create', compact('categories'));
+        $category = new Category;
+
+        return view('admin.categories.create', compact(
+            'categories',
+            'category'
+        ));
     }
 
     public function store(StoreCategoryRequest $request)
@@ -62,13 +67,15 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        $categories = Category::whereNull('parent_id')
+        $categories = Category::query()
             ->where('id', '!=', $category->id)
             ->orderBy('name')
             ->pluck('name', 'id');
-        // ->get();
 
-        return view('admin.categories.edit', compact('category', 'categories'));
+        return view('admin.categories.edit', compact(
+            'categories',
+            'category'
+        ));
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)

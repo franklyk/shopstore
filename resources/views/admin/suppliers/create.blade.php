@@ -16,11 +16,12 @@
                 ]" />
                 <div class="container-buttons">
                     @can('view products')
-                        <x-buttons.button href="{{ route('admin.suppliers.index') }}" color="return" icon="return" label="Voltar" />
+                        <x-buttons.button href="{{ route('admin.suppliers.index') }}" color="secondary" icon="return"
+                            label="Voltar" />
                     @endcan
 
                     @can('create products')
-                        <x-buttons.button type="submit" form="create-form" color="add" icon="check" label="Cadastrar" />
+                        <x-buttons.button type="submit" form="create-form" color="success   " icon="check" label="Cadastrar" />
                     @endcan
 
                 </div>
@@ -28,15 +29,16 @@
 
         </x-ui.page-header>
 
-        <div class="card">
-            <x-forms.form method="POST" action="{{ route('admin.suppliers.store') }}" class="create-form" id="create-form">
+        <div class="card p-5 bg-light">
 
-                <x-forms.row>
+            <div class="card p-3 shadow">
+                <x-forms.form method="POST" action="{{ route('admin.suppliers.store') }}" class="create-form"
+                    id="create-form">
+
                     <x-forms.input type="text" name="name" label="Nome:" value="{{ old('name') }}" required />
-                </x-forms.row>
 
-            </x-forms.form>
-
+                </x-forms.form>
+            </div>
         </div>
 
     </div>

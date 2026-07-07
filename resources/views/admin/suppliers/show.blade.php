@@ -19,7 +19,7 @@
                     @can('view suppliers')
                         <x-buttons.button
                             href="{{ route('admin.suppliers.index') }}"
-                            color="return"
+                            color="secondary"
                             icon="return"
                             label="Voltar"
                         />
@@ -36,7 +36,7 @@
 
                     @can('delete suppliers')
                         <x-buttons.button
-                            color="delete"
+                            color="danger"
                             icon="trash"
                             label="Excluir"
                             data-bs-toggle="modal"
@@ -49,24 +49,24 @@
 
         </x-ui.page-header>
 
-        <div class="card-vs">
+        <div class="card p-3 shadow">
 
             <dl class="desc-list">
 
-                <dt>Nome</dt>
-                <dd>{{ $supplier->name }}</dd>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Nome</dt>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">{{ $supplier->name }}</dd>
 
-                <dt>Slug</dt>
-                <dd>{{ $supplier->slug }}</dd>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Slug</dt>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">{{ $supplier->slug }}</dd>
 
-                <dt>Status</dt>
-                <dd>{{ $supplier->active ? 'Ativo' : 'Inativo' }}</dd>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Status</dt>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">{{ $supplier->active ? 'Ativo' : 'Inativo' }}</dd>
 
-                <dt>Cadastrado em</dt>
-                <dd>{{ $supplier->created_at }}</dd>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Cadastrado em</dt>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">{{ $supplier->created_at }}</dd>
 
-                <dt>Última atualização</dt>
-                <dd>{{ $supplier->updated_at }}</dd>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">Última atualização</dt>
+                <dt class="col-md-6 fw-bolder text-secondary fs-5">{{ $supplier->updated_at }}</dd>
 
             </dl>
 

@@ -2,21 +2,11 @@
     'name',
     'label' => null,
     'options' => [],
-    'optionValue' => 'id',
-    'optionLabel' => 'name',
     'selected' => null,
     'placeholder' => 'Selecione',
 ])
 
 @php
-    use Illuminate\Support\Collection;
-
-    if ($options instanceof Collection) {
-        $options = $options
-            ->pluck($optionLabel, $optionValue)
-            ->toArray();
-    }
-
     $selected = old($name, $selected);
 @endphp
 
@@ -48,9 +38,3 @@
     @endforeach
 
 </select>
-
-@error($name)
-    <div class="invalid-feedback d-block">
-        {{ $message }}
-    </div>
-@enderror

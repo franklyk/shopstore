@@ -612,15 +612,13 @@ Escalabilidade
 ├── vendor
 └── vite.config.js
 
-*******************************************
-
-Revisar Warehouse.
-Revisar Stock.
-Revisar StockMovement.
-Criar StockMovementTypeEnum.
-Criar StockService.
-Bloquear estoque negativo.
-Criar Transferências.
-Criar Ajustes de Inventário.
-Adicionar Reserva de Estoque.
-Expor tudo via API.
+✅ Etapa 1 — VirtualBox
+⏳ Etapa 2 — Ubuntu Server
+⏳ Etapa 3 — SSH
+⏳ Etapa 4 — Git
+⏳ Etapa 5 — VS Code + Remote SSH
+⏳ Etapa 6 — Estrutura do projeto (store e erp)
+⏳ Etapa 7 — Laravel
+⏳ Etapa 8 — Django
+⏳ Etapa 9 — Banco de dados
+⏳ Etapa 10 — Docker
