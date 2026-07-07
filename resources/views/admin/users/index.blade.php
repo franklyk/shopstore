@@ -13,37 +13,14 @@
 
                 <div class="d-flex gap-2">
 
-                    <x-buttons.button href="{{ route('admin.users.create') }}" color="success" icon="plus"
-                        label="Novo" />
-
-                    {{-- <div class="dropdown">
+                    <div class="dropdown">
 
                         <x-forms.form method="GET">
 
                             <ul class="dropdown-menu p-2">
 
-                                <li class="px-2 fw-bold">Marcas</li>
 
-                                @foreach ($brands as $brand)
-                                    <li class="px-2">
-                                        <x-forms.checkbox name="brand[]" label="{{ $brand->name }}"
-                                            value="{{ $brand->id }}" :id="'brand-' . $brand->id" :checked="in_array($brand->id, request('brand', []))" />
-                                    </li>
-                                @endforeach
-
-                                <hr>
-
-                                <li class="px-2 fw-bold">Fornecedores</li>
-
-                                @foreach ($suppliers as $supplier)
-                                    <li class="px-2">
-                                        <x-forms.checkbox name="supplier[]" label="{{ $supplier->name }}"
-                                            value="{{ $supplier->id }}" :id="'supplier-' . $supplier->id" :checked="in_array($supplier->id, request('supplier', []))" />
-                                    </li>
-                                @endforeach
-
-                                <hr>
-
+                                {{-- STATUS --}}
                                 <li class="px-2 fw-bold">Status</li>
 
                                 @foreach ($statuses as $status)
@@ -69,9 +46,12 @@
 
                         </x-forms.form>
 
-                    </div> --}}
+                    </div>
 
-                    {{-- <x-buttons.button color="secondary" label="Filtros" icon="filter" data-bs-toggle="dropdown" /> --}}
+                    <x-buttons.button color="secondary" label="Filtros" icon="filter" data-bs-toggle="dropdown" />
+
+                    <x-buttons.button href="{{ route('admin.products.create') }}" color="success" icon="plus"
+                        label="Novo" />
 
                 </div>
 
@@ -81,31 +61,32 @@
 
         <div class="card p-5 bg-light">
 
-            @if (!empty($users))
-            <table class="table align-middle table-responsive table-bordered table-hover shadow">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text-light bg-primary">ID</th>
+            @if ($users)
 
-                        <th scope="col" class="text-light bg-primary">Nome</th>
-                        <th scope="col" class="text-light bg-primary">Email</th>
-                        <th scope="col" class="text-light bg-primary">Cargo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($users as $user)
-                        <tr scope="row" class="clickable-row"
-                                data-href="{{ route('admin.users.show', $user) }}">
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->roles->first()?->name }}</td>
+                <table class="table align-middle table-responsive table-bordered table-hover shadow">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-light bg-primary">ID</th>
 
-
+                            <th scope="col" class="text-light bg-primary">Nome</th>
+                            <th scope="col" class="text-light bg-primary">Email</th>
+                            <th scope="col" class="text-light bg-primary">Cargo</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($users as $user)
+                            <tr scope="row" class="clickable-row" data-href="{{ route('admin.users.show', $user->id) }}">
+
+                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->roles->first()?->name }}</td>
+
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             @else
                 <h1 class="text-center text-danger">Sem registros de Usuários</h1>
             @endif

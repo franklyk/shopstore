@@ -5,20 +5,39 @@ namespace App\Http\Controllers\Admin\Users;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Users\StoreUserRequest;
 use App\Http\Requests\Admin\Users\UpdateUserRequest;
-use App\Models\User\User;
 use App\Models\Status\Status;
+use App\Models\User\User;
+use App\Services\User\UserFilterService;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(UserFilterService $filters)
     {
-        $users = User::query()->paginate(15);
+        $query = User::query()->with([
+            'roles',
+            'status',
+        ]);
 
-        return view('admin.users.index', compact('users'));
+        $users = $filters
+            ->apply($query, request()->all())
+            ->paginate(15)
+            ->withQueryString();
+
+        $roles = Role::query()
+            ->orderBy('name')
+            ->get();
+
+        $statuses = Status::query()
+            ->where('domain', 'user')
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('admin.users.index', compact(
+            'users',
+            'roles',
+            'statuses',
+        ));
     }
 
     /**

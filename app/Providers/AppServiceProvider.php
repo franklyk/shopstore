@@ -2,12 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Cache;
-
 use App\Listeners\MergeCartOnLogin;
-use App\Models\User\Address;
 use App\Models\Catalog\Category;
 use App\Models\Supplier\Supplier;
+use App\Models\User\Address;
 use App\Policies\AddressPolicy;
 use App\Policies\SupplierPolicy;
 use Illuminate\Auth\Events\Login;
@@ -63,12 +61,14 @@ class AppServiceProvider extends ServiceProvider
         ], function ($view) {
 
             $categories = Category::query()
-                    ->where('active', true)
-                    ->whereNull('parent_id')
-                    ->with('children')
-                    ->orderBy('name')
-                    ->get()
-            ;
+                ->whereHas('status', function ($query) {
+                    $query->where('domain', 'category')
+                        ->where('slug', 'active');
+                })
+                ->whereNull('parent_id')
+                ->with('children')
+                ->orderBy('name')
+                ->get();
 
             $view->with('menuCategories', $categories);
         });
@@ -79,12 +79,14 @@ class AppServiceProvider extends ServiceProvider
         ], function ($view) {
 
             $categories = Category::query()
-                    ->where('active', true)
-                    ->whereNull('parent_id')
-                    ->with('children')
-                    ->orderBy('name')
-                    ->get()
-            ;
+                ->whereHas('status', function ($query) {
+                    $query->where('domain', 'category')
+                        ->where('slug', 'active');
+                })
+                ->whereNull('parent_id')
+                ->with('children')
+                ->orderBy('name')
+                ->get();
 
             $view->with('menuCategories', $categories);
         });

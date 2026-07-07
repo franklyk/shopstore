@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Status;
+namespace App\Http\Controllers\Admin\Status;
 
 use App\Http\Requests\StoreStatusRequest;
 use App\Http\Requests\UpdateStatusRequest;

@@ -2,7 +2,9 @@
 
 namespace App\Models\User;
 
-use Database\Factories\UserFactory;
+use App\Models\Status\Status;
+use App\Models\Traits\HasUuid;
+use Database\Factories\User\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -11,12 +13,29 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'phone', 'password'])]
-#[Hidden(['password', 'remember_token'])]
+// #[Fillable(['uuid', 'name', 'email', 'phone', 'password'])]
+// #[Hidden(['password', 'remember_token'])]
+
 class User extends Authenticatable implements MustVerifyEmail
 {
+    protected $fillable = [
+        'uuid',
+        'avatar',
+        'name',
+        'email',
+        'phone',
+        'status_id',
+        'email_verified_at',
+        'password',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasRoles, Notifiable;
+    use HasFactory, HasRoles, HasUuid, Notifiable;
 
     /**
      * Get the attributes that should be cast.
@@ -31,6 +50,11 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
     public function addresses()
     {
         return $this->hasMany(Address::class);
@@ -40,4 +64,16 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Cart::class);
     }
+
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
+    // protected static function booted(): void
+    // {
+    //     static::creating(function ($user) {
+    //         dd('creating User');
+    //     });
+    // }
 }

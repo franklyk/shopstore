@@ -4,7 +4,7 @@
 
 @section('admin')
     <div class="listing page-container">
-
+        {{-- @dd($categories) --}}
         <x-ui.page-header title="Categorias Cadastradas" description="Listagem as categorias da loja">
 
             <x-slot:actions>
@@ -16,8 +16,6 @@
                         <x-forms.form method="GET">
 
                             <ul class="dropdown-menu p-2">
-
-
 
                                 {{-- STATUS --}}
                                 <li class="px-2 fw-bold">Status</li>
