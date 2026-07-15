@@ -31,7 +31,7 @@
                 <div class="container-buttons">
 
                     @can('view categories')
-                        <x-buttons.button href="{{ route('admin.categories.index') }}" color="secondary" icon="return"
+                        <x-buttons.button href="{{ route('admin.categories.show', $category) }}" color="secondary" icon="return"
                             label="Voltar" />
                     @endcan
 

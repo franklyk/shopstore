@@ -3,8 +3,8 @@
 @section('title', 'Produtos')
 
 @section('admin')
-    <div class="listing page-container">
 
+    <x-layout.admin.crud.listing :links=$products>
         <x-ui.page-header title="Produtos Cadastrados" description="Listagem dos produtos da loja">
 
             <x-slot:actions>
@@ -81,60 +81,49 @@
 
         </x-ui.page-header>
 
-        <div class="card p-5 bg-light">
+        @if (!empty($products))
+            <x-slot:table>
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-light bg-primary">IMAGEM</th>
+                        <th scope="col" class="text-light bg-primary">CÓDIGO</th>
+                        <th scope="col" class="text-light bg-primary">NOME</th>
+                        <th scope="col" class="text-light bg-primary">MARCA</th>
+                        <th scope="col" class="text-light bg-primary">FORNECEDOR</th>
+                        <th scope="col" class="text-light bg-primary">STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($products as $product)
+                        <tr scope="row" class="clickable-row" data-href="{{ route('admin.products.show', $product) }}">
+                            <td class="table-image">
+                                <div class="preview-image" id="preview-image">
+                                    @if ($product->image)
+                                        <img class="m-auto" src="{{ asset('storage/' . $product->image) }}" id="image">
+                                    @else
+                                        <div class="preview-placeholder">
+                                            <x-icons.camera />
+                                        </div>
+                                    @endif
+                                </div>
+                            </td>
+                            <td>{{ $product->sku }}</td>
+                            <td>{{ $product->name }} </td>
+                            <td>{{ $product->brand?->name }}</td>
+                            <td>{{ $product->suppliers->pluck('name')->join(', ') }}</td>
 
-            @if (!empty($products))
-                <table class="table align-middle table-responsive table-bordered table-hover shadow">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-light bg-primary">IMAGEM</th>
-                            <th scope="col" class="text-light bg-primary">CÓDIGO</th>
-                            <th scope="col" class="text-light bg-primary">NOME</th>
-                            <th scope="col" class="text-light bg-primary">MARCA</th>
-                            <th scope="col" class="text-light bg-primary">FORNECEDOR</th>
-                            <th scope="col" class="text-light bg-primary">STATUS</th>
+                            <td>
+                                <span class="badge text-bg-{{ $product->status->color }}">{{ $product->status->name }}
+                                </span>
+                            </td>
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($products as $product)
-                            <tr scope="row" class="clickable-row"
-                                data-href="{{ route('admin.products.show', $product) }}">
-                                <td class="table-image">
-                                    <div class="preview-image" id="preview-image">
-                                        @if ($product->image)
-                                            <img class="m-auto" src="{{ asset('storage/' . $product->image) }}" id="image">
-                                        @else
-                                            <div class="preview-placeholder">
-                                                <x-icons.camera />
-                                            </div>
-                                        @endif
-                                    </div>
-
-                                </td>
-                                <td>{{ $product->sku }}</td>
-                                <td>{{ $product->name }} </td>
-                                <td>{{ $product->brand?->name }}</td>
-                                <td>{{ $product->suppliers->pluck('name')->join(', ') }}</td>
-
-                                <td>
-                                    <span class="badge text-bg-{{ $product->status->color }}">{{ $product->status->name }}
-                                    </span>
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            @else
-                <h1 class="text-center text-danger">Sem registros de Produtos</h1>
-            @endif
-
-            <div class="my-5">
-                {{ $products->links() }}
-            </div>
-        </div>
-
-
-    </div>
+                    @endforeach
+                </tbody>
+            </x-slot:table>
+        @else
+            <h1 class="text-center text-danger">Sem registros de Produtos</h1>
+        @endif
+    </x-layout.admin.crud.listing>
 
 @endsection

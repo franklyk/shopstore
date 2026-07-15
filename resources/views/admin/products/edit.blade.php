@@ -4,9 +4,9 @@
 
 @section('admin')
 
-    <div class="editors page-container">
-        <x-ui.page-header title="Editar Produto" description="Edite Qualquer Detalhe do Produto.">
+    <x-layout.admin.crud.editors>
 
+        <x-ui.page-header title="Editar Produto" description="Edite Qualquer Detalhe do Produto.">
             <x-slot:actions>
                 <x-ui.breadcrumbs :items="[
                     ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
@@ -14,12 +14,10 @@
                     ['label' => 'Visualizar', 'url' => route('admin.products.show', $product)],
                     ['label' => 'Editar'],
                 ]" />
-
             </x-slot:actions>
-
         </x-ui.page-header>
 
-        <div class="card p-5 bg-light">
+        <x-slot:body>
             <x-forms.form action="{{ route('admin.products.update', $product) }}" method="PUT" class="edit-form"
                 id="edit-form" enctype="multipart/form-data">
                 <div class="card border border-1 shadow container-image mb-5 rounded-4">
@@ -71,30 +69,29 @@
                             <div class="col">
                                 <h1 class="text-center text-danger mb-0">
                                     Nenhuma categoria cadastrada.
-                                    </p>
+                                </h1>
                             </div>
 
                         @endif
                     </div>
-
                 </div>
-
-                <div class="container-buttons">
-                    @can('view products')
-                        <x-buttons.button href="{{ route('admin.products.index') }}" color="secondary" icon="return"
-                            label="Voltar" />
-                    @endcan
-
-                    @can('edit products')
-                        <x-buttons.button type="submit" form="edit-form" color="warning" icon="edit" label="Salvar" />
-                    @endcan
-
-                </div>
-
             </x-forms.form>
 
+            <x-slot:button>
 
-        </div>
-    </div>
+                @can('view products')
+                    <x-buttons.button href="{{ route('admin.products.show', $product) }}" color="secondary" icon="return"
+                        label="Voltar" />
+                @endcan
+
+                @can('edit products')
+                    <x-buttons.button type="submit" form="edit-form" color="warning" icon="edit" label="Salvar" />
+                @endcan
+
+            </x-slot:button>
+            
+        </x-slot:body>
+
+    </x-layout.admin.crud.editors>
 
 @endsection

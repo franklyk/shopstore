@@ -1,10 +1,8 @@
 <header class="header store-header container-fluid">
     <nav class="navbar navbar-expand-lg container-fluid justify-content-between">
 
-<nav class="navbar navbar-expand-lg container-fluid">
-
         {{-- LOGO --}}
-        <x-layout.logo href="{{ route('home') }}"/>
+        <x-layout.logo href="{{ route('home') }}" />
 
         {{-- BUSCA --}}
         <form class="d-none d-md-flex ms-3 flex-grow-1" role="search">
@@ -124,13 +122,7 @@
             @guest
 
                 <li class="nav-item dropdown">
-
-                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
-
-                        <img src="{{ asset('images/users/user.png') }}" class="rounded-circle" width="40"
-                            height="40" style="object-fit: cover;">
-
-                    </a>
+                    <x-ui.avatar/>
 
                     <ul class="dropdown-menu dropdown-menu-end">
 
@@ -153,15 +145,10 @@
 
                 <li class="nav-item dropdown">
 
-                    <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-2" href="#"
-                        role="button" data-bs-toggle="dropdown">
+                    <x-ui.avatar />
+                    {{-- <x-menu.dropdown.user /> --}}
 
-                        <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('images/users/user.png') }}"
-                            class="rounded-circle" width="40" height="40" style="object-fit: cover;">
-
-                    </a>
-
-                    <ul class="dropdown-menu dropdown-menu-end">
+                    {{-- <ul class="dropdown-menu dropdown-menu-end">
 
                         @can('view dashboard')
                             <li>
@@ -183,11 +170,13 @@
                             </a>
                         </li>
 
-                        <li>
-                            <a class="dropdown-item" href="{{ route("profile.orders.index") }}">
-                                Meus Pedidos
-                            </a>
-                        </li>
+                        @can('view orders')
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profile.orders.index') }}">
+                                    Meus Pedidos
+                                </a>
+                            </li>
+                        @endcan
 
                         <li>
                             <hr class="dropdown-divider">
@@ -203,7 +192,7 @@
                             </form>
                         </li>
 
-                    </ul>
+                    </ul> --}}
 
                 </li>
 
@@ -222,7 +211,5 @@
             </li>
 
         </ul>
-
-    </nav>
     </nav>
 </header>

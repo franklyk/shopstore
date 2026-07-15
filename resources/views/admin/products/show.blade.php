@@ -3,7 +3,8 @@
 @section('title', 'Detalhe do Produto')
 
 @section('admin')
-    <div class="details page-container">
+
+    <x-layout.admin.crud.details>
         <x-ui.page-header title="Detalhes do Produto" description="Visualize todos o detalhes do produto.">
 
             <x-slot:actions>
@@ -32,9 +33,7 @@
             </x-slot:actions>
 
         </x-ui.page-header>
-
-        <div class="card p-5 bg-light">
-
+        <x-slot:body>
             <div class="card border border-1 shadow container-image mb-5 rounded-4">
 
                 <div class="preview-image" id="preview-image">
@@ -49,9 +48,8 @@
                 <label class="label-image" for="input-image">
                     <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
                 </label>
-                
-            </div>
 
+            </div>
             <div class="card p-3 shadow">
 
 
@@ -89,8 +87,10 @@
                     <dd class="col-md-6 fw-light text-danger">{{ $product->updated_at }}</dd>
                 </dl>
             </div>
-        </div>
-    </div>
+
+        </x-slot:body>
+
+    </x-layout.admin.crud.details>
 
 @section('modals')
     @can('delete products')

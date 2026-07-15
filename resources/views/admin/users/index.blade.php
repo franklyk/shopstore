@@ -3,7 +3,7 @@
 @section('title', 'Usuários')
 
 @section('admin')
-
+    {{-- @dd( auth()->user()->avatar) --}}
     <div class="listing page-container">
 
         <x-ui.page-header title="Usuários Cadastrados" description="Listagem dos usuários da loja">
@@ -75,7 +75,7 @@
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
-                            <tr scope="row" class="clickable-row" data-href="{{ route('admin.users.show', $user->id) }}">
+                            <tr scope="row" class="clickable-row" data-href="{{ route('admin.users.show', $user) }}">
 
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>

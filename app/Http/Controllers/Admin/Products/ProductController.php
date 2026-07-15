@@ -141,7 +141,7 @@ class ProductController extends Controller
         $product->categories()->sync($request->categories);
 
         return redirect()
-            ->route('admin.products.index')
+            ->route('admin.products.show', $product)
             ->with('success', 'Produto atualizado com sucesso!');
     }
 
