@@ -5,7 +5,7 @@
 @section('admin')
 
     <x-layout.admin.crud.listing :links=$products>
-        <x-ui.page-header title="Produtos Cadastrados" description="Listagem dos produtos da loja">
+        <x-ui.page-header title="Produtos Cadastrados">
 
             <x-slot:actions>
                 <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Produtos']]" />

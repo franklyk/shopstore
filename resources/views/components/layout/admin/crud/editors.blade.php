@@ -2,7 +2,7 @@
 
     {{ $slot }}
 
-    <div class="card p-5 bg-light">
+    <div class="card p-5 shadow">
         {{ $body }}
 
         <div class="mt-5 d-flex gap-1 justify-content-end w-100" style="width: min-content">

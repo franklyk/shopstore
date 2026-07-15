@@ -17,16 +17,16 @@
 // #013f53
 
 // Layout
-$site-color: #00009f;
-$site-color-light: #013e535f;
-$accent-color: #47fcff4b;
+$site-color: #2e27b1;
+$site-color-light: #8b8b8b3b;
+$accent-color: #0000007c;
 
 
-$light-color-high: #cb4c4cbd;
+$light-color-high: #000059;
 $light-color: #a6a6a6;
 
-$title-color: #423ffb;
-$sub-title-color: #423ffb;
+$title-color: $accent-color;
+$sub-title-color: $accent-color;
 
 $header-height: 70px;
 $sidebar-width: 260px;
@@ -44,7 +44,7 @@ $border-radius: .5rem;
     --surface-color: #f8fafc;
 
     /* Text */
-    --title-color: #{$title-color};
+    --title-color: #{$site-color};
     --sub-title-color: #{$sub-title-color};
 
     --main-text: #{$light-color};
@@ -67,12 +67,12 @@ $border-radius: .5rem;
     --space-xl: 2rem;
 
     /* Shadow */
-    --box-shadow: 3px 3px 10px 2px #{$site-color-light};
+    --box-shadow: .3px .3px .1px .1px #{$site-color-light};
     --text-shadow-title: 3px 3px 1px #1d1d1d52;
 
     /* elements */
     --sidebar-width: $sidebar-width;
-    --to-right: linear-gradient(to right, var(--accent-color), transparent);
+    --to-right: linear-gradient(to right, var(#{$light-color}), transparent);
 }
 
 

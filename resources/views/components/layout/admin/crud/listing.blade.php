@@ -5,7 +5,7 @@
 
     {{ $slot }}
 
-    <div class="card p-5 bg-light">
+    <div class="card p-5 shadow">
         @if ($table)
             <x-ui.table>
                 <x-slot:table>

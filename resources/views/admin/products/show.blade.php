@@ -5,7 +5,7 @@
 @section('admin')
 
     <x-layout.admin.crud.details>
-        <x-ui.page-header title="Detalhes do Produto" description="Visualize todos o detalhes do produto.">
+        <x-ui.page-header title="Detalhes do Produto">
 
             <x-slot:actions>
                 <x-ui.breadcrumbs :items="[
@@ -34,7 +34,7 @@
 
         </x-ui.page-header>
         <x-slot:body>
-            <div class="card border border-1 shadow container-image mb-5 rounded-4">
+            <div class="container-image mb-5 rounded-4">
 
                 <div class="preview-image" id="preview-image">
                     @if ($product->image)
@@ -50,7 +50,7 @@
                 </label>
 
             </div>
-            <div class="card p-3 shadow">
+            <div class="p-3">
 
 
                 <dl class="row">

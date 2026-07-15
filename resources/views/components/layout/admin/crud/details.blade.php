@@ -1,7 +1,7 @@
 <x-layout.admin.page-container>
 
     {{ $slot }}
-    <div class="card p-5 bg-light">
+    <div class="card p-5 shadow">
         {{ $body }}
     </div>
 
