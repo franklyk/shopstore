@@ -1,4 +1,5 @@
-<div class="editors page-container">
+<x-layout.admin.page-container>
+
     {{ $slot }}
 
     <div class="card p-5 bg-light">
@@ -8,4 +9,5 @@
             {{ $button }}
         </div>
     </div>
-</div>
+
+</x-layout.admin.page-container>

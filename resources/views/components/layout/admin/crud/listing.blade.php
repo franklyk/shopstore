@@ -1,6 +1,7 @@
 @props(['table' => null, 'links' => null])
 
-<div class="page-container">
+
+<x-layout.admin.page-container>
 
     {{ $slot }}
 
@@ -8,7 +9,7 @@
         @if ($table)
             <x-ui.table>
                 <x-slot:table>
-                    {{ $table}}
+                    {{ $table }}
                 </x-slot:table>
             </x-ui.table>
         @endif
@@ -16,4 +17,6 @@
             {{ $links->links() }}
         </div>
     </div>
-</div>
+
+
+</x-layout.admin.page-container>

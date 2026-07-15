@@ -9,7 +9,7 @@
                 {{ auth()->user()->email }}
             </small>
 
-            <x-ui.avatar :src="auth()->user()->avatar ?? null" :alt="auth()->user()->email" />
+            <x-ui.avatar/>
 
         </div>
     </nav>
