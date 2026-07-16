@@ -3,12 +3,13 @@
 @section('title', 'Categorias')
 
 @section('admin')
-    <div class="listing page-container">
-        {{-- @dd($categories) --}}
-        <x-ui.page-header title="Categorias Cadastradas" description="Listagem as categorias da loja">
+
+    <x-layout.admin.crud.listing :links=$categories>
+        <x-ui.page-header title="Categorias Cadastradas">
 
             <x-slot:actions>
                 <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Categorias']]" />
+
                 <div class="d-flex gap-2">
 
                     <div class="dropdown">
@@ -17,7 +18,7 @@
 
                             <ul class="dropdown-menu p-2">
 
-                                {{-- STATUS --}}
+
                                 <li class="px-2 fw-bold">Status</li>
 
                                 @foreach ($statuses as $status)
@@ -44,82 +45,67 @@
                         </x-forms.form>
 
                     </div>
-
                     <x-buttons.button color="secondary" label="Filtros" icon="filter" data-bs-toggle="dropdown" />
 
-                    <x-buttons.button href="{{ route('admin.categories.create') }}" color="success" icon="plus"
+                    <x-buttons.button href="{{ route('admin.products.create') }}" color="success" icon="plus"
                         label="Novo" />
 
                 </div>
+
             </x-slot:actions>
 
         </x-ui.page-header>
 
-        <div class="card p-5 bg-light">
+        @if (!empty($categories))
+            <x-slot:table>
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-light bg-primary">COD</th>
+                        <th scope="col" class="text-light bg-primary">Nome</th>
+                        <th scope="col" class="text-light bg-primary">Categoria Pai</th>
+                        <th scope="col" class="text-light bg-primary">Status</th>
+                    </tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($categories as $category)
+                        <tr scope="row" class="clickable-row"
+                            data-href="{{ route('admin.categories.show', $category) }}">
 
-            @if (!empty($categories))
-                <table class="table align-middle table-responsive table-bordered table-hover shadow">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-light bg-primary">COD</th>
-                            <th scope="col" class="text-light bg-primary">Nome</th>
-                            <th scope="col" class="text-light bg-primary">Categoria Pai</th>
-                            <th scope="col" class="text-light bg-primary">Status</th>
-                        </tr>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($categories as $category)
-                            <tr scope="row" class="clickable-row"
-                                data-href="{{ route('admin.categories.show', $category) }}">
+                            <th scope="row">
+                                {{ $category->id }}
+                            </th>
 
-                                <th scope="row">
-                                    {{ $category->id }}
-                                </th>
+                            <td>
+                                {{ $category->name }}
+                            </td>
 
-                                <td>
-                                    {{ $category->name }}
-                                </td>
+                            <td>
 
-                                <td>
-
-                                    @if ($category->parent)
-                                        <span class="text-secondary">
-                                            {{ $category->parent->name }}
-                                        </span>
-                                    @else
-                                        <span class="text-secondary">
-                                            Principal
-                                        </span>
-                                    @endif
-
-                                </td>
-
-                                <td>
-                                    <span class="badge text-bg-{{ $category->status->color }}">{{ $category->status->name }}
+                                @if ($category->parent)
+                                    <span class="text-secondary">
+                                        {{ $category->parent->name }}
                                     </span>
-                                </td>
+                                @else
+                                    <span class="text-secondary">
+                                        Principal
+                                    </span>
+                                @endif
 
-                            </tr>
+                            </td>
 
-                        @endforeach
-                    </tbody>
-                </table>
-            @else
-                <h1 class="text-center">Sem registros de Categorias</h1>
-            @endif
-            @can('delete categories')
+                            <td>
+                                <span class="badge text-bg-{{ $category->status->color }}">{{ $category->status->name }}
+                                </span>
+                            </td>
 
-                @foreach ($categories as $category)
-                    <x-modal.delete :action="route('admin.categories.destroy', $category)" :id="$category->id" :name="$category->name" />
-                @endforeach
-
-            @endcan
-            <div class="my-5">
-                {{ $categories->links() }}
-            </div>
-
-        </div>
-    </div>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </x-slot:table>
+        @else
+            <h1 class="text-center text-danger">Sem registros de Categorias</h1>
+        @endif
+    </x-layout.admin.crud.listing>
 
 @endsection
