@@ -3,8 +3,8 @@
     @guest
 
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
-                <img src="{{ asset('storage/avatars/user.png') }}" class="rounded-circle" width="40" height="40"
+            <a class="nav-link text-white" href="#" role="button" data-bs-toggle="dropdown">
+                <img src="{{ asset('images/users/user.png') }}" class="rounded-circle" width="40" height="40"
                     style="object-fit: cover;">
             </a>
 
@@ -24,11 +24,11 @@
 
         <li class="nav-item dropdown">
 
-            <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-2" href="#" role="button"
+            <a class="nav-link" href="#" role="button"
                 data-bs-toggle="dropdown">
 
-                <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('storage/avatars/user.png') }}"
-                    class="rounded-circle" width="40" height="40" style="object-fit: cover;">
+                <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('images/users/user.png') }}" class="rounded-circle" width="40"
+                            height="40" style="object-fit: cover;">
 
             </a>
 
@@ -76,6 +76,6 @@
             </ul>
 
         </li>
-    @endauth    
+    @endauth
 
 </ul>

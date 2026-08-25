@@ -4,9 +4,9 @@
 
 @section('admin')
 
-    <div class="editors page-container">
-        <x-ui.page-header title="Editar Produto" description="Edite Qualquer Detalhe do Produto.">
+    <x-layout.admin.crud.editors>
 
+        <x-ui.page-header title="Editar Produto">
             <x-slot:actions>
                 <x-ui.breadcrumbs :items="[
                     ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
@@ -14,15 +14,13 @@
                     ['label' => 'Visualizar', 'url' => route('admin.products.show', $product)],
                     ['label' => 'Editar'],
                 ]" />
-
             </x-slot:actions>
-
         </x-ui.page-header>
 
-        <div class="card p-5 bg-light">
+        <x-slot:body>
             <x-forms.form action="{{ route('admin.products.update', $product) }}" method="PUT" class="edit-form"
                 id="edit-form" enctype="multipart/form-data">
-                <div class="card border border-1 shadow container-image mb-5 rounded-4">
+                <div class="container-image mb-5 rounded-4">
                     <div class="preview-image" id="preview-image">
                         <div class="preview-placeholder d-flex justify-content-center">
                             <x-icons.camera />
@@ -34,67 +32,67 @@
 
 
                 </div>
-                <div class="card p-3 shadow">
+                <div class="card p-3">
 
                     <x-forms.input type="text" name="name" label="Nome:" value="{{ $product->name }}" />
                     <x-forms.input type="text" name="price" label="Preço R$:" value="{{ $product->price }}" />
                     <x-forms.textarea label="Descrição:" name="description">
                         {{ $product->description }}
                     </x-forms.textarea>
-                </div>
 
-                <div class="card p-3 shadow">
 
-                    <h3 class="fs-3 text-center section-title">Categorias</h3>
+                    <div class="p-3">
 
-                    <div class="row g-2">
-                        @if (!empty($categories))
-                            @foreach ($categories as $parent)
-                                <div class="col-3">
+                        <h3 class="fs-3 text-center section-title">Categorias</h3>
 
-                                    <div class="bg-light border border-1 border-danger rounded p-4 ">
-                                        <div class="text-center text-danger fw-bold fs-5">
-                                            {{ $parent->name }}
-                                        </div>
-                                        <div class=" p-1 ms-2">
-                                            @forelse($parent->children as $child)
-                                                <x-forms.checkbox :name="$child->name" :label="$child->name"
-                                                    value="{{ $child->id }}" id="{{ $child->slug }}" />
-                                            @empty
-                                                <small class="text-muted">Sem subcategorias</small>
-                                            @endforelse
+                        <div class="row g-2">
+                            @if (!empty($categories))
+                                @foreach ($categories as $parent)
+                                    <div class="col-3">
+
+                                        <div class="rounded p-4 ">
+                                            <div class="text-center text-danger fw-bold fs-5">
+                                                {{ $parent->name }}
+                                            </div>
+                                            <div class=" p-1 ms-2">
+                                                @forelse($parent->children as $child)
+                                                    <x-forms.checkbox :name="$child->name" :label="$child->name"
+                                                        value="{{ $child->id }}" id="{{ $child->slug }}" />
+                                                @empty
+                                                    <small class="text-muted">Sem subcategorias</small>
+                                                @endforelse
+                                            </div>
                                         </div>
                                     </div>
+                                @endforeach
+                            @else
+                                <div class="col">
+                                    <h1 class="text-center text-danger mb-0">
+                                        Nenhuma categoria cadastrada.
+                                    </h1>
                                 </div>
-                            @endforeach
-                        @else
-                            <div class="col">
-                                <h1 class="text-center text-danger mb-0">
-                                    Nenhuma categoria cadastrada.
-                                    </p>
-                            </div>
 
-                        @endif
+                            @endif
+                        </div>
                     </div>
-
                 </div>
-
-                <div class="container-buttons">
-                    @can('view products')
-                        <x-buttons.button href="{{ route('admin.products.index') }}" color="secondary" icon="return"
-                            label="Voltar" />
-                    @endcan
-
-                    @can('edit products')
-                        <x-buttons.button type="submit" form="edit-form" color="warning" icon="edit" label="Salvar" />
-                    @endcan
-
-                </div>
-
             </x-forms.form>
 
+            <x-slot:button>
 
-        </div>
-    </div>
+                @can('view products')
+                    <x-buttons.button href="{{ route('admin.products.show', $product) }}" color="secondary" icon="return"
+                        label="Voltar" />
+                @endcan
+
+                @can('edit products')
+                    <x-buttons.button type="submit" form="edit-form" color="warning" icon="edit" label="Salvar" />
+                @endcan
+
+            </x-slot:button>
+
+        </x-slot:body>
+
+    </x-layout.admin.crud.editors>
 
 @endsection

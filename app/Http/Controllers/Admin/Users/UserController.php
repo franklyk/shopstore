@@ -32,7 +32,6 @@ class UserController extends Controller
             ->where('domain', 'user')
             ->orderBy('sort_order')
             ->get();
-
         return view('admin.users.index', compact(
             'users',
             'roles',

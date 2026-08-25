@@ -19,7 +19,7 @@
 
         </x-ui.page-header>
 
-        <div class="card p-5 bg-light">
+        <div class="card p-5">
             <x-forms.form action="{{ route('admin.categories.update', $category) }}" method="PUT">
 
                 <div class="card p-3 shadow">
@@ -31,7 +31,7 @@
                 <div class="container-buttons">
 
                     @can('view categories')
-                        <x-buttons.button href="{{ route('admin.categories.index') }}" color="secondary" icon="return"
+                        <x-buttons.button href="{{ route('admin.categories.show', $category) }}" color="secondary" icon="return"
                             label="Voltar" />
                     @endcan
 

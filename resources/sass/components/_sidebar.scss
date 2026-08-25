@@ -14,6 +14,7 @@
 
 .sidebar {
     background: var(--site-color);
+    box-shadow: var(--box-shadow);
     height: calc(100dvh - #{$header-height});
     left: 0;
     min-height: 100dvh;
@@ -35,16 +36,30 @@
                 transition: .3s;
 
                 .menu-link {
-                    color: var(--text-light);
-                    font-size: 20px;
+                    // color: var(--text-light);
+                    color: white;
+                    font-family: 'ArchivoBlack', sans-serif;
+                    font-size: 25px;
+                    transition: .3s;
+
+                    text-shadow:
+                        1px 1px 0 #999,
+                        2px 2px 0 #999,
+                        3px 3px 0 #999,
+                        4px 4px 0 #999,
+                        5px 5px 0 #999,
+                        6px 6px 8px #0000001f;
+
                 }
 
-                &:hover {
-                    // background-color: var(--accent-color);
-                    background-image: var(--to-right);
 
+
+
+                &:hover {
                     .menu-link {
-                        color: white;
+                        // color: #c9c9c9;
+                        margin-left: 15px;
+
 
                     }
                 }

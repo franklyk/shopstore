@@ -18,7 +18,7 @@
 
         </x-ui.page-header>
 
-        <div class="card p-5 bg-light">
+        <div class="card p-5">
 
             <x-forms.form action="{{ route('admin.categories.store') }}" method="POST">
 

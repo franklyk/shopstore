@@ -86,7 +86,7 @@
                     </ul>
                 </div>
             @else
-                <h1 class="text-center ">Não existem subcategoria</h1>
+                <h1 class="text-center ">Não existem subcategorias</h1>
             @endif
         </div>
     </div>
