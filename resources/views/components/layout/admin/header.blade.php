@@ -11,11 +11,9 @@
                 </small>
             @endif
 
-<<<<<<< HEAD
-            <x-ui.avatar/>
-=======
+
             <x-ui.avatar />
->>>>>>> b96408a (Continua otimização)
+            
 
         </div>
     </nav>
