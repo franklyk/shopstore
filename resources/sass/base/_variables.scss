@@ -39,6 +39,8 @@ $border-radius: .5rem;
     --site-color: #{$site-color};
     --accent-color: #{$accent-color};
 
+    --light-color: #{$light-color};
+
     /* Surface */
     --background-color: #ffffff;
     --surface-color: #f8fafc;
@@ -72,7 +74,7 @@ $border-radius: .5rem;
 
     /* elements */
     --sidebar-width: $sidebar-width;
-    --to-right: linear-gradient(to right, var(#{$light-color}), transparent);
+    --to-right: linear-gradient(to right, var(--light-color), transparent);
 }
 
 
