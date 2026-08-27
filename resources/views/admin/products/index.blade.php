@@ -3,9 +3,7 @@
 @section('title', 'Produtos')
 
 @section('admin')
-
-    <x-layout.admin.crud.listing :links=$products>
-        <x-ui.page-header title="Produtos Cadastrados">
+<x-ui.page-header title="Produtos Cadastrados">
 
             <x-slot:actions>
                 <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Produtos']]" />
@@ -81,41 +79,35 @@
 
         </x-ui.page-header>
 
+    <x-layout.admin.crud.listing :links=$products>
+
+
         @if (!empty($products))
             <x-slot:table>
                 <thead>
                     <tr>
-                        <th scope="col" class="text-light bg-primary">IMAGEM</th>
-                        <th scope="col" class="text-light bg-primary">CÓDIGO</th>
-                        <th scope="col" class="text-light bg-primary">NOME</th>
-                        <th scope="col" class="text-light bg-primary">MARCA</th>
-                        <th scope="col" class="text-light bg-primary">FORNECEDOR</th>
-                        <th scope="col" class="text-light bg-primary">STATUS</th>
+                        {{-- <th scope="col" class="text-light bg-primary">IMAGEM</th> --}}
+                        <th scope="col" >CÓDIGO</th>
+                        <th scope="col" >NOME</th>
+                        <th scope="col" >STATUS</th>
+                        <th scope="col" >MARCA</th>
+                        <th scope="col" >FORNECEDOR</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($products as $product)
                         <tr scope="row" class="clickable-row" data-href="{{ route('admin.products.show', $product) }}">
-                            <td class="table-image">
-                                <div class="preview-image" id="preview-image">
-                                    @if ($product->image)
-                                        <img class="m-auto" src="{{ asset('storage/' . $product->image) }}" id="image">
-                                    @else
-                                        <div class="preview-placeholder">
-                                            <x-icons.camera />
-                                        </div>
-                                    @endif
-                                </div>
-                            </td>
                             <td>{{ $product->sku }}</td>
                             <td>{{ $product->name }} </td>
-                            <td>{{ $product->brand?->name }}</td>
-                            <td>{{ $product->suppliers->pluck('name')->join(', ') }}</td>
-
                             <td>
                                 <span class="badge text-bg-{{ $product->status->color }}">{{ $product->status->name }}
                                 </span>
                             </td>
+                            <td>{{ $product->brand?->name }}</td>
+                            <td>{{ $product->suppliers->pluck('name')->join(', ') }}</td>
+
+
 
                         </tr>
                     @endforeach

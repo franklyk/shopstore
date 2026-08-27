@@ -1,3 +1,3 @@
-<table class="table align-middle table-responsive table-bordered table-hover">
+<table class="table table-hover">
     {{ $table }}
 </table>

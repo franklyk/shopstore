@@ -10,11 +10,20 @@
 /// /* pages/admin */
 ///
 
+@use '../base/variables' as *;
+
 .footer{
-    // background: var(--site-color);
-    align-items: center;
-    color: var(--title-color);
     display: flex;
-    height: 100px;
+    flex-direction: column;
+    height: #{$footer-height};
     justify-content: center;
+    position: relative;
+    .footer-bottom{
+        // position: absolute;
+        align-items: center;
+        color: var(--title-color);
+        display: flex;
+
+        justify-content: center;
+    }
 }

@@ -5,18 +5,26 @@
 
     {{ $slot }}
 
-    <div class="card p-5 shadow">
+
+    <div class="">
+
         @if ($table)
-            <x-ui.table>
-                <x-slot:table>
-                    {{ $table }}
-                </x-slot:table>
-            </x-ui.table>
+            <div class="table-container overflow-auto">
+                <x-ui.table>
+                    <x-slot:table>
+                        {{ $table }}
+                    </x-slot:table>
+                </x-ui.table>
+            </div>
         @endif
-        <div class="my-5">
+
+    </div>
+    <x-ui.footer>
+
+        <div class="my-1">
             {{ $links->links() }}
         </div>
-    </div>
+    </x-ui.footer>
 
 
 </x-layout.admin.page-container>

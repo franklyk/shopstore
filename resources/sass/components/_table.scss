@@ -15,6 +15,20 @@
     width: 60px;
 }
 
+.table-container {
+    max-height: 60vh;
+
+    thead {
+        th {
+            color: red;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+    }
+
+}
+
 .clickable-row {
     cursor: pointer;
 }

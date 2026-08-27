@@ -1,6 +1,6 @@
 @props(['page' => null, 'items'])
 
-<nav aria-label="breadcrumb">
+<nav aria-label="breadcrumb" class="mt-2">
     <ol class="breadcrumb">
 
         @foreach ($items as $item)

@@ -1,4 +1,4 @@
 
-<div class="p-md-5 bg-light">
+<div class="page-container">
     {{ $slot }}
 </div>

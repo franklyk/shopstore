@@ -4,6 +4,7 @@
     <div class="layout-admin">
 
         <x-layout.admin.header />
+        
         <div class="row">
 
             <x-layout.admin.sidebar />
@@ -12,9 +13,6 @@
 
                 @yield('admin')
 
-                <footer class="footer fw-bold">
-                    © {{ now()->year }} Loja virtual / Todos os direitos reservados.
-                </footer>
             </main>
 
         </div>
