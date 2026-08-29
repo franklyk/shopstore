@@ -23,13 +23,14 @@ $accent-color: #0000007c;
 
 
 $light-color-high: #000059;
-$light-color: #a6a6a6;
+$bg-color: #fdfdfd;
+$light-color: #fdfdfd;
 
 $title-color: $accent-color;
 $sub-title-color: $accent-color;
 
-$header-height: 70px;
-$sidebar-width: 260px;
+$header-height: 20px;
+$sidebar-width: 200px;
 $footer-height: 100px;
 
 $border-radius: .5rem;
@@ -44,7 +45,7 @@ $border-radius: .5rem;
     --light-color: #{$light-color};
 
     /* Surface */
-    --background-color: #ffffff;
+    --bg-color: #{$bg-color};
     --surface-color: #f8fafc;
 
     /* Text */
@@ -56,7 +57,7 @@ $border-radius: .5rem;
     --text-accent: #{$accent-color};
 
     /* Border */
-    --border-light: 1px solid #{$light-color};
+    --border-light: .25px solid #dbdbdbf8;;
 
     /* Radius */
     --radius-sm: 4px;
@@ -76,7 +77,7 @@ $border-radius: .5rem;
 
     /* elements */
     --sidebar-width: $sidebar-width;
-    --to-right: linear-gradient(to right, var(--light-color), transparent);
+    --to-right: linear-gradient(to right, var(--site-color), transparent);
 }
 
 

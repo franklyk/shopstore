@@ -4,8 +4,7 @@
 
         <li class="nav-item dropdown">
             <a class="nav-link text-white" href="#" role="button" data-bs-toggle="dropdown">
-                <img src="{{ asset('images/users/user.png') }}" class="rounded-circle" width="40" height="40"
-                    style="object-fit: cover;">
+                <img src="{{ asset('images/users/user.png') }}" class="avatar">
             </a>
 
             <ul class="dropdown-menu dropdown-menu-end">
@@ -27,8 +26,7 @@
             <a class="nav-link" href="#" role="button"
                 data-bs-toggle="dropdown">
 
-                <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('images/users/user.png') }}" class="rounded-circle" width="40"
-                            height="40" style="object-fit: cover;">
+                <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('images/users/user.png') }}" class="avatar">
 
             </a>
 

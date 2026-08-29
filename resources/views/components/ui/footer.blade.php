@@ -1,8 +1,8 @@
 
-<footer class="footer mt-auto">
+<footer class="footer">
     {{ $slot }}
 
-    <div  class="footer-bottom fw-bold">
+    <div  class="footer-bottom">
         © {{ now()->year }} Loja virtual / Todos os direitos reservados.
 
     </div>

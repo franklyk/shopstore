@@ -14,7 +14,7 @@
 
 <body>
 
-    @yield('layout')
+    @yield('view-port')
 
 </body>
 </html>

@@ -1,0 +1,44 @@
+///
+///
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* pages/admin/admin-base */
+///
+
+@use '../../base' as *;
+@use '../../lib/' as *;
+
+.layout-admin {
+    background-color: #{$bg-color};
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+
+    .container-admin {
+
+        height: 100%;
+        display: flex;
+
+        .content-admin {
+            height: 92%;
+            padding: 20px;
+            width: 100%;
+
+            .page-container {
+                height: 97%;
+
+                .content-page {
+                    height: calc(100% - 30px);
+                    overflow-y: auto;
+                }
+            }
+        }
+    }
+
+}

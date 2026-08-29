@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('layout')
+@section('view-port')
 
 <body class="bg-primary d-flex justify-content-center align-items-center"
       style="min-height: 100dvh;">

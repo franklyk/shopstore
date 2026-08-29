@@ -1,4 +1,4 @@
-<div class="page-header mb-4 align-items-center">
+<div class="page-header align-items-center">
 
     <div class="d-flex justify-content-between align-items-center ">
 

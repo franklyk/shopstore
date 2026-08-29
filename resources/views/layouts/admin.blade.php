@@ -1,21 +1,23 @@
 @extends('layouts.base')
 
-@section('layout')
-    <div class="layout-admin">
-
+@section('view-port')
+<div class="layout-admin">
         <x-layout.admin.header />
-        
-        <div class="row">
+
+
+        <div class="container-admin">
 
             <x-layout.admin.sidebar />
 
             <main class="content-admin">
 
-                @yield('admin')
+                @yield('layout-admin')
+
 
             </main>
 
         </div>
+        <x-ui.footer />
 
         @yield('modals')
 

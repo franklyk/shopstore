@@ -11,17 +11,13 @@
 ///
 ///
 
+
+@use "./variables" as *;
 /* ==================================================
    Scrool Bars
    ================================================== */
 * {
     scrollbar-width: thin;
-    scrollbar-color: var(--site-color) transparent;
-}
-
-::-webkit-scrollbar {
-    width: 3px;
-    height: 3px;
 }
 
 ::-webkit-scrollbar-track {
@@ -29,12 +25,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--site-color);
-    border-radius: 999px;
+    background-color: var(--light-color);
+    
 
-    &:hover {
-        filter: brightness(.9);
-    }
+
 }
 
 /* ==================================================
@@ -49,7 +43,15 @@
 /* ==================================================
    Margins
    ================================================== */
-
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body{
+    height: 100dvh;
+    width: 100vw;
+}
 body,
 h1,
 h2,

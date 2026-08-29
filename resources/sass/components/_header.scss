@@ -13,11 +13,9 @@
 @use "../base" as *;
 
 .header {
-    // background-color: var(--site-color);
     display: flex;
-    height: $header-height;
     justify-content: space-between;
-    padding: 10px 30px;
+    padding: 0px 30px;
 
     &.store-header {
         background-color: var(--site-color);
@@ -25,12 +23,6 @@
 
     &.admin-header {
         background-color: var(--site-color);
-        box-shadow: var(--box-shadow);
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 0;
-        z-index: 1000;
 
     }
 }
