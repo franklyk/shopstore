@@ -31,11 +31,18 @@
             width: 100%;
 
             .page-container {
-                height: 97%;
+                height: 90%;
 
                 .content-page {
-                    height: calc(100% - 30px);
+                    height: calc(100% - 100px);
                     overflow-y: auto;
+
+                    .listing-pagination {
+                        position: sticky;
+                        bottom: 0;
+                        padding: 8px 0;
+                        background-color: var(--light-color);
+                    }
                 }
             }
         }

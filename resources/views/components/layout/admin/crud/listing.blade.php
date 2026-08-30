@@ -1,30 +1,17 @@
-@props(['table' => null, 'links' => null])
+@props(['links' => null])
 
+<div class="listing">
 
-<x-layout.admin.page-container>
-
-    {{ $slot }}
-
-
-    <div class="">
-
-        @if ($table)
-            <div class="table-container overflow-auto">
-                <x-ui.table>
-                    <x-slot:table>
-                        {{ $table }}
-                    </x-slot:table>
-                </x-ui.table>
-            </div>
-        @endif
-
+    <div class="table-container">
+        <x-ui.table>
+            <x-slot:table>
+                {{ $table }}
+            </x-slot:table>
+        </x-ui.table>
     </div>
-    <x-ui.footer>
 
-        <div class="my-1">
-            {{ $links->links() }}
-        </div>
-    </x-ui.footer>
+    <div class="listing-pagination">
+        {{ $links->links() }}
+    </div>
 
-
-</x-layout.admin.page-container>
+</div>

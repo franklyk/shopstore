@@ -1,4 +1,4 @@
-@props(['title', 'bg_card' => null, 'bg_header' => null])
+@props(['title'])
 
 @php
     $defaults =[]
@@ -17,7 +17,7 @@
             <div class="ms-auto d-flex gap-2">
                 {{ $actions }}
             </div>
-        @endisset   
+        @endisset
 
     </div>
 

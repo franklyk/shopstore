@@ -2,120 +2,125 @@
 
 @section('title', 'Produtos')
 
-@section('admin')
-<x-ui.page-header title="Produtos Cadastrados">
+@section('layout-admin')
 
-            <x-slot:actions>
-                <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Produtos']]" />
+    <x-layout.admin.page>
+        <x-slot:header>
+            <x-ui.page-header title="Produtos Cadastrados">
 
-                <div class="d-flex gap-2">
+                <x-slot:actions>
+                    <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Produtos']]" />
 
-                    <div class="dropdown">
+                    <div class="d-flex gap-2">
 
-                        <x-forms.form method="GET">
+                        <div class="dropdown">
 
-                            <ul class="dropdown-menu p-2">
+                            <x-forms.form method="GET">
 
-                                {{-- BRANDS --}}
-                                <li class="px-2 fw-bold">Marcas</li>
+                                <ul class="dropdown-menu p-2">
 
-                                @foreach ($brands as $brand)
-                                    <li class="px-2">
-                                        <x-forms.checkbox name="brand[]" label="{{ $brand->name }}"
-                                            value="{{ $brand->id }}" :id="'brand-' . $brand->id" :checked="in_array($brand->id, request('brand', []))" />
+                                    {{-- BRANDS --}}
+                                    <li class="px-2 fw-bold">Marcas</li>
+
+                                    @foreach ($brands as $brand)
+                                        <li class="px-2">
+                                            <x-forms.checkbox name="brand[]" label="{{ $brand->name }}"
+                                                value="{{ $brand->id }}" :id="'brand-' . $brand->id" :checked="in_array($brand->id, request('brand', []))" />
+                                        </li>
+                                    @endforeach
+
+                                    <hr>
+
+                                    {{-- SUPPLIERS --}}
+                                    <li class="px-2 fw-bold">Fornecedores</li>
+
+                                    @foreach ($suppliers as $supplier)
+                                        <li class="px-2">
+                                            <x-forms.checkbox name="supplier[]" label="{{ $supplier->name }}"
+                                                value="{{ $supplier->id }}" :id="'supplier-' . $supplier->id" :checked="in_array($supplier->id, request('supplier', []))" />
+                                        </li>
+                                    @endforeach
+
+                                    <hr>
+
+                                    {{-- STATUS --}}
+                                    <li class="px-2 fw-bold">Status</li>
+
+                                    @foreach ($statuses as $status)
+                                        <li class="px-2">
+                                            <x-forms.checkbox name="status[]" label="{{ $status->name }}"
+                                                value="{{ $status->id }}" :id="'status-' . $status->id" :checked="in_array($status->id, request('status', []))" />
+                                        </li>
+                                    @endforeach
+
+                                    <hr>
+
+                                    <li class="d-flex justify-content-between px-2">
+
+                                        <a href="{{ url()->current() }}" class="btn btn-sm btn-light">
+                                            Limpar
+                                        </a>
+
+                                        <x-buttons.button type="submit" color="primary" label="Aplicar" class="btn-sm" />
+
                                     </li>
-                                @endforeach
 
-                                <hr>
+                                </ul>
 
-                                {{-- SUPPLIERS --}}
-                                <li class="px-2 fw-bold">Fornecedores</li>
+                            </x-forms.form>
 
-                                @foreach ($suppliers as $supplier)
-                                    <li class="px-2">
-                                        <x-forms.checkbox name="supplier[]" label="{{ $supplier->name }}"
-                                            value="{{ $supplier->id }}" :id="'supplier-' . $supplier->id" :checked="in_array($supplier->id, request('supplier', []))" />
-                                    </li>
-                                @endforeach
+                        </div>
 
-                                <hr>
+                        <x-buttons.button color="secondary" label="Filtros" icon="filter" data-bs-toggle="dropdown" />
 
-                                {{-- STATUS --}}
-                                <li class="px-2 fw-bold">Status</li>
-
-                                @foreach ($statuses as $status)
-                                    <li class="px-2">
-                                        <x-forms.checkbox name="status[]" label="{{ $status->name }}"
-                                            value="{{ $status->id }}" :id="'status-' . $status->id" :checked="in_array($status->id, request('status', []))" />
-                                    </li>
-                                @endforeach
-
-                                <hr>
-
-                                <li class="d-flex justify-content-between px-2">
-
-                                    <a href="{{ url()->current() }}" class="btn btn-sm btn-light">
-                                        Limpar
-                                    </a>
-
-                                    <x-buttons.button type="submit" color="primary" label="Aplicar" class="btn-sm" />
-
-                                </li>
-
-                            </ul>
-
-                        </x-forms.form>
+                        <x-buttons.button href="{{ route('admin.products.create') }}" color="success" icon="plus"
+                            label="Novo" />
 
                     </div>
 
-                    <x-buttons.button color="secondary" label="Filtros" icon="filter" data-bs-toggle="dropdown" />
+                </x-slot:actions>
 
-                    <x-buttons.button href="{{ route('admin.products.create') }}" color="success" icon="plus"
-                        label="Novo" />
+            </x-ui.page-header>
 
-                </div>
-
-            </x-slot:actions>
-
-        </x-ui.page-header>
-
-    <x-layout.admin.crud.listing :links=$products>
-
+        </x-slot:header>
 
         @if (!empty($products))
-            <x-slot:table>
-                <thead>
-                    <tr>
-                        {{-- <th scope="col" class="text-light bg-primary">IMAGEM</th> --}}
-                        <th scope="col" >CÓDIGO</th>
-                        <th scope="col" >NOME</th>
-                        <th scope="col" >STATUS</th>
-                        <th scope="col" >MARCA</th>
-                        <th scope="col" >FORNECEDOR</th>
+            <x-layout.admin.crud.listing :links=$products>
+                <x-slot:table>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($products as $product)
-                        <tr scope="row" class="clickable-row" data-href="{{ route('admin.products.show', $product) }}">
-                            <td>{{ $product->sku }}</td>
-                            <td>{{ $product->name }} </td>
-                            <td>
-                                <span class="badge text-bg-{{ $product->status->color }}">{{ $product->status->name }}
-                                </span>
-                            </td>
-                            <td>{{ $product->brand?->name }}</td>
-                            <td>{{ $product->suppliers->pluck('name')->join(', ') }}</td>
-
-
+                    <thead>
+                        <tr>
+                            <th scope="col">CÓDIGO</th>
+                            <th scope="col">NOME</th>
+                            <th scope="col">STATUS</th>
+                            <th scope="col">MARCA</th>
+                            <th scope="col">FORNECEDOR</th>
 
                         </tr>
-                    @endforeach
-                </tbody>
-            </x-slot:table>
+                    </thead>
+                    <tbody>
+                        @foreach ($products as $product)
+                            <tr scope="row" class="clickable-row"
+                                data-href="{{ route('admin.products.show', $product) }}">
+                                <td>{{ $product->sku }}</td>
+                                <td>{{ $product->name }} </td>
+                                <td>
+                                    <span class="badge text-bg-{{ $product->status->color }}">{{ $product->status->name }}
+                                    </span>
+                                </td>
+                                <td>{{ $product->brand?->name }}</td>
+                                <td>{{ $product->suppliers->pluck('name')->join(', ') }}</td>
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+
+                </x-slot:table>
+            </x-layout.admin.crud.listing>
         @else
             <h1 class="text-center text-danger">Sem registros de Produtos</h1>
         @endif
-    </x-layout.admin.crud.listing>
+
+    </x-layout.admin.page>
 
 @endsection

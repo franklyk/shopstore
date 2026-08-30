@@ -13,7 +13,6 @@
 
                 @yield('layout-admin')
 
-
             </main>
 
         </div>

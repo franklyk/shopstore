@@ -69,7 +69,7 @@
 
 
                 <div class="p-1 bg-light rounded-3">
-                    <div class="py-1 px-3 border border-5 border-white rounded-3">
+                    <div class="py-1y px-3 border border-5 border-white rounded-3">
                         <dl>
                             <dt class="text-dark fw-lighter fs-6">Clientes Ativos: </dt>
                             <dd class="text-danger">{{ $customersCount }}</dd>
