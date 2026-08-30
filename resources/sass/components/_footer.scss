@@ -13,7 +13,7 @@
 @use '../base/variables' as *;
 
 .footer{
-    background-color: var(--light-color);
+    background-color: var(--bg-color);
     bottom: 0;
     display: flex;
     flex-shrink: 0;

@@ -10,8 +10,12 @@
 /// /* Table */
 ///
 
+@use '../base/variables' as *;
+
 .table-container {
-    // padding-bottom: 60px;
+    .table {
+        --bs-table-hover-bg: #{$bg-color};
+    }
 
     thead {
         th {

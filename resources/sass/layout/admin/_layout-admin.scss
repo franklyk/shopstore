@@ -1,10 +1,10 @@
 ///
 ///
-///@author Franklin Klyk
+/// @author Franklin Klyk
 ///
-///@email frsbatist@gmail.com
+/// @email frsbatist@gmail.com
 ///
-///https://github.com/franklyk
+/// https://github.com/franklyk
 ///
 ///
 /// /* pages/admin/admin-base */
@@ -14,38 +14,50 @@
 @use '../../lib/' as *;
 
 .layout-admin {
+
     background-color: #{$bg-color};
-    height: 100%;
-    position: relative;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
     overflow: hidden;
-    width: 100vw;
+    width: 100%;
 
     .container-admin {
 
-        height: 100%;
         display: flex;
+        flex: 1 1 auto;
+        min-height: 0;
 
         .content-admin {
-            height: 92%;
+            display: flex;
+            flex: 1 1 auto;
+            flex-direction: column;
+            min-width: 0;
+            min-height: 0;
             padding: 20px;
-            width: 100%;
 
             .page-container {
-                height: 90%;
+
+                display: flex;
+                flex-direction: column;
+                flex: 1 1 auto;
+                min-height: 0;
 
                 .content-page {
-                    height: calc(100% - 100px);
+
+                    flex: 1 1 auto;
+                    min-height: 0;
                     overflow-y: auto;
 
                     .listing-pagination {
-                        position: sticky;
+                        background-color: var(--bg-color);
                         bottom: 0;
                         padding: 8px 0;
-                        background-color: var(--light-color);
+                        position: sticky;
+
                     }
                 }
             }
         }
     }
-
 }
