@@ -14,8 +14,8 @@
 
                     <div class="d-flex gap-2">
 
-                        <x-buttons.button href="{{ route('admin.products.create') }}" color="success" icon="plus"
-                            label="Novo" />
+                        <x-buttons.button type="button" color="success" icon="plus" label="Novo" data-bs-toggle="modal"
+                            data-bs-target="#createProductModal" />
 
                     </div>
 
@@ -192,6 +192,163 @@
         @else
             <h1 class="text-center text-danger">Sem registros de Produtos</h1>
         @endif
+
+
+
+
+        {{-- Modal: Novo Produto --}}
+        <div class="modal fade product-create-modal" id="createProductModal" tabindex="-1"
+            aria-labelledby="createProductModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h2 class="modal-title" id="createProductModalLabel">
+                            Novo Produto
+                        </h2>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+
+                    </div>
+                    <div class="modal-body">
+                        <x-forms.form action="{{ route('admin.products.store') }}" enctype="multipart/form-data"
+                            id="create-product-form">
+
+
+
+                            {{-- IMAGEM / INFORMAÇÕES PRINCIPAIS --}}
+
+                            <div class="product-create-main">
+
+                                <div class="product-create-fields">
+
+                                    <x-forms.input type="text" name="name" label="Nome:" :value="old('name')" />
+
+                                    <x-forms.input type="number" name="price" label="Preço de custo:" :value="old('price')"
+                                        step="0.01" min="0" />
+
+                                    <x-forms.select name="brand_id" label="Marca:" :options="$brands->pluck('name', 'id')->toArray()"
+                                        :selected="old('brand_id')" />
+
+                                </div>
+
+                                <div class="product-create-image">
+
+                                    <label class="product-create-image-label" for="create-input-image">
+                                        <div class="product-create-image-preview">
+                                            <x-icons.camera />
+                                        </div>
+                                    </label>
+
+                                    <input class="product-create-image-input" type="file" name="image"
+                                        id="create-input-image" accept="image/*">
+
+                                </div>
+
+                            </div>
+
+
+                            {{-- STATUS --}}
+
+                            <div class="product-create-section">
+
+                                <h3>Status</h3>
+
+                                <div class="product-status-options">
+
+                                    @foreach ($statuses as $status)
+                                        <label class="product-status-option">
+
+                                            <input type="radio" name="status_id" value="{{ $status->id }}"
+                                                @checked(old('status_id') == $status->id || (old('status_id') === null && $status->is_default))>
+
+                                            <span>
+                                                {{ $status->name }}
+                                            </span>
+
+                                        </label>
+                                    @endforeach
+
+                                </div>
+
+                            </div>
+
+
+                            {{-- CATEGORIAS --}}
+
+                            <div class="product-create-section">
+
+                                <h3 class="section-title">
+                                    Categorias
+                                </h3>
+
+                                <div class="product-create-categories">
+
+                                    @foreach ($categories as $parent)
+                                        <div class="product-create-category">
+
+                                            <div class="product-create-category-parent">
+                                                {{ $parent->name }}
+                                            </div>
+
+                                            @forelse ($parent->children as $child)
+                                                <x-forms.checkbox :name="'categories[]'" :label="$child->name" :value="$child->id"
+                                                    :id="'category-' . $child->id" />
+
+                                            @empty
+
+                                                <small class="text-muted">
+                                                    Sem subcategorias
+                                                </small>
+                                            @endforelse
+
+                                        </div>
+                                    @endforeach
+
+                                </div>
+
+                            </div>
+
+
+                            {{-- COLEÇÕES --}}
+
+                            <div class="product-create-section">
+
+                                <h3 class="section-title">
+                                    Coleções
+                                </h3>
+
+                                <div class="product-create-collections">
+
+                                    @foreach ($collections as $collection)
+                                        <x-forms.checkbox name="collections[]" :label="$collection->name" :value="$collection->id"
+                                            :id="'collection-' . $collection->id" />
+                                    @endforeach
+
+                                </div>
+
+                            </div>
+                        </x-forms.form>
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+
+                        <x-buttons.button type="submit" color="success" icon="check" label="Salvar" />
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
 
     </x-layout.admin.page>
 

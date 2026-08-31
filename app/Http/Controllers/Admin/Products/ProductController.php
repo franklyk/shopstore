@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Products\StoreProductRequest;
 use App\Http\Requests\Admin\Products\UpdateProductRequest;
 use App\Models\Catalog\Brand;
 use App\Models\Catalog\Category;
+use App\Models\Catalog\Collection;
 use App\Models\Catalog\Product;
 use App\Models\Status\Status;
 use App\Models\Supplier\Supplier;
@@ -45,11 +46,23 @@ class ProductController extends Controller
             ->orderBy('name')
             ->get();
 
+        $categories = Category::with('children')
+            ->whereNull('parent_id')
+            ->get();
+
+        $collections = Collection::query()
+            // ->where('active', true)
+            ->orderByDesc('year')
+            ->orderBy('name')
+            ->get();
+
         return view('admin.products.index', compact(
             'products',
             'statuses',
             'suppliers',
-            'brands'
+            'brands',
+            'categories',
+            'collections'
         ));
     }
 
@@ -71,21 +84,24 @@ class ProductController extends Controller
         $categories = $data['categories'];
         unset($data['categories']);
 
-        $stock = $data['stock'];
-        unset($data['stock']);
+        $collections = $data['collections'];
+        unset($data['collections']);
 
-        $image = $data['image'];
+        $image = $data['image'] ?? null;
         unset($data['image']);
 
-        return DB::transaction(function () use ($data, $categories, $stock, $image) {
+        return DB::transaction(function () use (
+            $data,
+            $categories,
+            $collections,
+            $image
+        ) {
 
             $product = Product::create($data);
 
             $product->categories()->attach($categories);
 
-            $product->stocks()->create([
-                'quantity' => $stock,
-            ]);
+            $product->collections()->attach($collections);
 
             if ($image) {
 

@@ -16,6 +16,7 @@
             </x-slot:actions>
         </x-ui.page-header>
 
+        
         <x-slot:body>
             <x-forms.form action="{{ route('admin.products.create') }}" method="PUT" class="edit-form" id="edit-form"
                 enctype="multipart/form-data">

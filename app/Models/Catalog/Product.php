@@ -11,6 +11,7 @@ use App\Models\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -20,10 +21,11 @@ class Product extends Model
 
     protected $fillable = [
         'name',
+        'sku',
         'description',
         'price',
-        'stock',
-        'is_active',
+        'status_id',
+        'brand_id',
     ];
 
     protected $casts = [
@@ -43,7 +45,11 @@ class Product extends Model
 
             $product->slug = Str::slug($product->name);
 
+            if (empty($product->sku)) {
+                $product->sku = 'SKU-' . strtoupper(Str::random(8));
+            }
         });
+
         static::updating(function ($product) {
 
             $product->slug = Str::slug($product->name);
@@ -104,7 +110,7 @@ class Product extends Model
     public function getImageUrlAttribute(): ?string
     {
         return $this->primaryImage
-            ? asset('storage/'.$this->primaryImage->image)
+            ? asset('storage/' . $this->primaryImage->image)
             : null;
     }
 }
