@@ -194,7 +194,11 @@
         @endif
 
 
+        {{-- ///////////////////////////////////////////////////////////////////////////////////////////////// --}}
 
+        {{-- Modal: Novo Produto --}}
+
+        {{-- ///////////////////////////////////////////////////////////////////////////////////////////////// --}}
 
         {{-- Modal: Novo Produto --}}
         <div class="modal fade product-create-modal" id="createProductModal" tabindex="-1"
@@ -213,7 +217,7 @@
 
                     </div>
                     <div class="modal-body">
-                        <x-forms.form action="{{ route('admin.products.store') }}" enctype="multipart/form-data"
+                        <x-forms.form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data"
                             id="create-product-form">
 
 
@@ -231,6 +235,9 @@
 
                                     <x-forms.select name="brand_id" label="Marca:" :options="$brands->pluck('name', 'id')->toArray()"
                                         :selected="old('brand_id')" />
+
+                                    <x-forms.select name="collection_id" label="Coleção:" :options="$collections->pluck('name', 'id')->toArray()"
+                                        :selected="old('collection_id')" />
 
                                 </div>
 
@@ -311,25 +318,6 @@
 
                             </div>
 
-
-                            {{-- COLEÇÕES --}}
-
-                            <div class="product-create-section">
-
-                                <h3 class="section-title">
-                                    Coleções
-                                </h3>
-
-                                <div class="product-create-collections">
-
-                                    @foreach ($collections as $collection)
-                                        <x-forms.checkbox name="collections[]" :label="$collection->name" :value="$collection->id"
-                                            :id="'collection-' . $collection->id" />
-                                    @endforeach
-
-                                </div>
-
-                            </div>
                         </x-forms.form>
                     </div>
 
@@ -339,7 +327,8 @@
                             Cancelar
                         </button>
 
-                        <x-buttons.button type="submit" color="success" icon="check" label="Salvar" />
+                        <x-buttons.button type="submit" color="success" icon="check" label="Salvar"
+                            form="create-product-form" />
 
                     </div>
 

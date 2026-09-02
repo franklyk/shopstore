@@ -64,41 +64,35 @@ class StoreProductRequest extends FormRequest
                     ->whereNotNull('parent_id'),
             ],
 
-            'collections' => [
+            'collection_id' => [
                 'required',
-                'array',
-                'min:1',
-            ],
-
-            'collections.*' => [
                 'integer',
-                'distinct',
                 Rule::exists('collections', 'id'),
             ],
         ];
     }
 
     public function messages(): array
-{
-    return [
+    {
+        return [
 
-        'categories.required' =>
+            'categories.required' =>
             'Selecione pelo menos uma categoria.',
 
-        'categories.min' =>
+            'categories.min' =>
             'Selecione pelo menos uma categoria.',
 
-        'categories.*.exists' =>
+            'categories.*.exists' =>
             'Uma das categorias selecionadas é inválida.',
 
-        'collections.required' =>
+            'collections.required' =>
             'Selecione pelo menos uma coleção.',
 
-        'collections.min' =>
+            'collections.min' =>
             'Selecione pelo menos uma coleção.',
 
-        'collections.*.exists' =>
+            'collections.*.exists' =>
             'Uma das coleções selecionadas é inválida.',
-    ];
-}
+        ];
+    }
 }

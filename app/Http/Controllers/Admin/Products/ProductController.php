@@ -84,8 +84,8 @@ class ProductController extends Controller
         $categories = $data['categories'];
         unset($data['categories']);
 
-        $collections = $data['collections'];
-        unset($data['collections']);
+        $collection = $data['collection_id'];
+        unset($data['collection_id']);
 
         $image = $data['image'] ?? null;
         unset($data['image']);
@@ -93,7 +93,7 @@ class ProductController extends Controller
         return DB::transaction(function () use (
             $data,
             $categories,
-            $collections,
+            $collection,
             $image
         ) {
 
@@ -101,7 +101,7 @@ class ProductController extends Controller
 
             $product->categories()->attach($categories);
 
-            $product->collections()->attach($collections);
+            $product->collections()->attach($collection);
 
             if ($image) {
 

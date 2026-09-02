@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\Products\ProductController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\Collection\CollectionController;
 use App\Http\Controllers\Admin\Import\ImportBatchController;
+use App\Http\Controllers\Admin\Stock\StockController;
+use App\Http\Controllers\Admin\Stock\StockReceiptController;
 use App\Http\Controllers\Admin\Supplier\SupplierController;
 use Illuminate\Support\Facades\Route;
 
