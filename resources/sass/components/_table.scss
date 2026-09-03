@@ -13,13 +13,20 @@
 @use '../base/variables' as *;
 
 .table-container {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow: auto;
+
     .table {
         --bs-table-hover-bg: #{$bg-color};
     }
 
     thead {
         th {
-            color: red;
+            background: var(--site-color);
+            color: var(--light-color);
             position: sticky;
             top: 0;
             z-index: 2;

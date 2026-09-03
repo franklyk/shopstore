@@ -34,7 +34,7 @@ if (inputFile) {
             });
             var oldImage = document.getElementById("image");
             if(oldImage){
-                oldImage.remove(this);
+                oldImage.remove();
             }
             reader.readAsDataURL(file);
         } else {

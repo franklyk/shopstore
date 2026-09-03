@@ -51,6 +51,12 @@ class StoreProductRequest extends FormRequest
                     ->where('domain', 'product'),
             ],
 
+            'supplier_id' => [
+                'required',
+                'integer',
+                Rule::exists('suppliers', 'id'),
+            ],
+
             'categories' => [
                 'required',
                 'array',
@@ -69,6 +75,7 @@ class StoreProductRequest extends FormRequest
                 'integer',
                 Rule::exists('collections', 'id'),
             ],
+
         ];
     }
 
@@ -76,23 +83,53 @@ class StoreProductRequest extends FormRequest
     {
         return [
 
+            'name.required' =>
+                'Informe o nome do produto.',
+
+            'name.max' =>
+                'O nome do produto não pode ter mais de 255 caracteres.',
+
+            'price.required' =>
+                'Informe o preço do produto.',
+
+            'price.numeric' =>
+                'O preço deve ser um valor numérico.',
+
+            'price.min' =>
+                'O preço não pode ser negativo.',
+
+            'brand_id.required' =>
+                'Selecione uma marca.',
+
+            'brand_id.exists' =>
+                'A marca selecionada é inválida.',
+
+            'status_id.required' =>
+                'Selecione um status.',
+
+            'status_id.exists' =>
+                'O status selecionado é inválido.',
+
+            'supplier_id.required' =>
+                'Selecione um fornecedor.',
+
+            'supplier_id.exists' =>
+                'O fornecedor selecionado é inválido.',
+
             'categories.required' =>
-            'Selecione pelo menos uma categoria.',
+                'Selecione pelo menos uma categoria.',
 
             'categories.min' =>
-            'Selecione pelo menos uma categoria.',
+                'Selecione pelo menos uma categoria.',
 
             'categories.*.exists' =>
-            'Uma das categorias selecionadas é inválida.',
+                'Uma das categorias selecionadas é inválida.',
 
-            'collections.required' =>
-            'Selecione pelo menos uma coleção.',
+            'collection_id.required' =>
+                'Selecione uma coleção.',
 
-            'collections.min' =>
-            'Selecione pelo menos uma coleção.',
-
-            'collections.*.exists' =>
-            'Uma das coleções selecionadas é inválida.',
+            'collection_id.exists' =>
+                'A coleção selecionada é inválida.',
         ];
     }
 }

@@ -27,7 +27,8 @@ class ProductController extends Controller
             'categories',
             'suppliers',
             'collections',
-        ]);
+        ])
+            ->orderByDesc('created_at');
 
         $products = $filters->apply($query, request()->all())
             ->paginate(15)
@@ -51,10 +52,10 @@ class ProductController extends Controller
             ->get();
 
         $collections = Collection::query()
-            // ->where('active', true)
             ->orderByDesc('year')
             ->orderBy('name')
             ->get();
+
 
         return view('admin.products.index', compact(
             'products',
@@ -90,11 +91,15 @@ class ProductController extends Controller
         $image = $data['image'] ?? null;
         unset($data['image']);
 
+        $supplier = $data['supplier_id'];
+        unset($data['supplier_id']);
+
         return DB::transaction(function () use (
             $data,
             $categories,
             $collection,
-            $image
+            $image,
+            $supplier
         ) {
 
             $product = Product::create($data);
@@ -102,6 +107,8 @@ class ProductController extends Controller
             $product->categories()->attach($categories);
 
             $product->collections()->attach($collection);
+
+            $product->suppliers()->attach($supplier);
 
             if ($image) {
 

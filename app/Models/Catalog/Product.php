@@ -46,7 +46,7 @@ class Product extends Model
             $product->slug = Str::slug($product->name);
 
             if (empty($product->sku)) {
-                $product->sku = 'SKU-' . strtoupper(Str::random(8));
+                $product->sku = strtoupper(Str::random(8));
             }
         });
 

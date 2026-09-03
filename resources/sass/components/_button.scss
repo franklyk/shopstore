@@ -10,6 +10,9 @@
 /// /* Buttons */
 ///
 
+@use "../lib/" as *;
+
+
 .container-buttons {
 
     display: flex;
@@ -20,5 +23,73 @@
     a {
         display: flex;
         height: auto;
+    }
+}
+
+.status-button-wrapper {
+    margin-top: 30px;
+
+    .status-button {
+
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        border: 0;
+        background: transparent;
+        padding: 0;
+
+        cursor: pointer;
+
+        .status-button-track {
+
+            position: relative;
+
+            width: 38px;
+            height: 20px;
+
+            border-radius: 20px;
+
+            background-color: #adb5bd;
+
+            transition: background-color .2s ease;
+
+        }
+
+
+        .status-button-thumb {
+
+            position: absolute;
+
+            top: 2px;
+            left: 2px;
+
+            width: 16px;
+            height: 16px;
+
+            border-radius: 50%;
+
+            background-color: #fff;
+
+            transition: transform .2s ease;
+
+        }
+
+        &.active {
+
+            .status-button-track {
+                background-color: #198754;
+            }
+
+            .status-button-thumb {
+                transform: translateX(18px);
+            }
+
+        }
+
+        .status-button-label {
+            font-size: .85rem;
+        }
+
     }
 }

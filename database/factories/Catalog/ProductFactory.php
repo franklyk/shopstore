@@ -30,7 +30,7 @@ class ProductFactory extends Factory
 
             'slug' => fake()->unique()->slug(),
 
-            'sku' => strtoupper(fake()->bothify('SKU-#####')),
+            'sku' => strtoupper(fake()->bothify(Str::random(8))),
 
             'description' => fake('pt_BR')->sentence(),
 
@@ -50,24 +50,20 @@ class ProductFactory extends Factory
             $product->collections()->attach(
                 Collection::query()
                     ->inRandomOrder()
-                    ->take(rand(1, 3))
-                    ->pluck('id')
+                    ->value('id')
             );
 
             $product->categories()->attach(
                 Category::query()
                     ->inRandomOrder()
-                    ->take(rand(1, 4))
-                    ->pluck('id')
+                    ->value('id')
             );
 
             $product->suppliers()->attach(
                 Supplier::query()
                     ->inRandomOrder()
-                    ->take(rand(1, 3))
-                    ->pluck('id')
+                    ->value('id')
             );
-
         });
     }
 }
