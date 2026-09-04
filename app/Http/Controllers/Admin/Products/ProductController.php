@@ -123,9 +123,10 @@ class ProductController extends Controller
                 ]);
             }
 
-            return redirect()
-                ->route('admin.products.index')
-                ->with('success', 'Produto cadastrado com sucesso!!');
+            return response()->json([
+                'success' => true,
+                'message' => 'Produto cadastrado com sucesso!!',
+            ]); 
         });
     }
 
