@@ -2,6 +2,7 @@
     'label' => 'Cadastrar',
     'color' => 'success',
     'icon' => 'plus',
+    'type' => 'button',
     'modal' => 'modal-create',
 ])
 
@@ -9,5 +10,7 @@
     :color="$color"
     :icon="$icon"
     :label="$label"
+    :type="$type"
+    form="form-create"
     {{ $attributes }}
 />

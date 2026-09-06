@@ -57,6 +57,13 @@ class ProductController extends Controller
             ->get();
 
 
+        if (request()->ajax()) {
+
+            return view('admin.products.partials.listing', compact(
+                'products'
+            ));
+        }
+
         return view('admin.products.index', compact(
             'products',
             'statuses',
@@ -126,7 +133,7 @@ class ProductController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Produto cadastrado com sucesso!!',
-            ]); 
+            ]);
         });
     }
 

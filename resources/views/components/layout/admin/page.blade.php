@@ -1,5 +1,3 @@
-@props(['links' => null])
-
 @extends('layouts.admin')
 
 @section('layout-admin')

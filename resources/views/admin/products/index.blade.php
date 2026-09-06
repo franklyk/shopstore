@@ -14,7 +14,7 @@
 
                     <div class="d-flex gap-2">
 
-                        <x-buttons.create label="Novo" data-bs-toggle="modal" data-bs-target="#modal-create"/>
+                        <x-buttons.create label="Novo" data-bs-toggle="modal" data-bs-target="#modal-create" />
 
                     </div>
 
@@ -26,8 +26,8 @@
 
         @if (!empty($products))
 
-            <x-layout.admin.crud.listing :links="$products">
-                <x-slot:table>
+            <x-layout.admin.crud.listing>
+                {{-- <x-slot:table>
 
                     <thead>
 
@@ -73,7 +73,11 @@
 
                     </tbody>
 
-                </x-slot:table>
+                </x-slot:table> --}}
+
+                @include('admin.products.partials.listing', [
+                    'products' => $products,
+                ])
 
                 <x-slot:sidebar>
 

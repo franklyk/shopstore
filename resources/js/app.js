@@ -1,5 +1,7 @@
 import 'bootstrap';
 
+import './form';
+
 import './cart';
 
 import './custom';

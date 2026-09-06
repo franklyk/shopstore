@@ -32,10 +32,6 @@
 
                 <x-buttons.create type="submit" icon="check"/>
 
-                {{-- <x-buttons.button color="success" label="Salvar" form="form-create" /> --}}
-
-                {{-- }}" --}}
-
             </div>
 
         </div>
