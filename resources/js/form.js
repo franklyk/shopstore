@@ -4,6 +4,8 @@ const previewImageDefault = previewImage?.innerHTML;
 
 const formCreate = document.querySelector('#form-create');
 
+const modalCreateFeedback = document.querySelector('#modal-create-feedback');
+
 if (formCreate) {
 
     formCreate.addEventListener('submit', async function (event) {
@@ -39,6 +41,21 @@ if (formCreate) {
                 form.querySelectorAll('.invalid-feedback').forEach(feedback => {
                     feedback.remove();
                 });
+
+            };
+            const showCreateFeedback = (message) => {
+
+                if (!modalCreateFeedback) {
+                    return;
+                }
+
+                modalCreateFeedback.textContent = message;
+
+                setTimeout(() => {
+
+                    modalCreateFeedback.textContent = '';
+
+                }, 3000);
 
             };
 
@@ -152,6 +169,8 @@ if (formCreate) {
                 document.querySelector(
                     '.listing-content'
                 ).innerHTML = listing;
+
+                showCreateFeedback(data.message);
 
                 return;
 

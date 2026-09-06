@@ -22,7 +22,7 @@
 
 @endphp
 
-<div class="form-field mb-3">
+<div class="form-field">
 
     @if($label)
         <label for="{{ $name }}" class="form-label">

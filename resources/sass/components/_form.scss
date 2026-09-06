@@ -24,11 +24,17 @@
 .form-field {
 
     font-size: 20px;
+
     display: flex;
+
     flex-direction: column;
-    height: 60px;
+
+    min-height: 60px;
+
     margin-bottom: 20px;
+
     position: relative;
+
     width: 100%;
 
 }
@@ -68,4 +74,14 @@
 .form-label{
     font-size: .85rem;
     padding-left: 15px;
+}
+
+.modal-create-feedback {
+
+    color: var(--site-color);
+    font-size: .8rem;
+    font-weight: bolder;
+    margin-top: 4px;
+    text-indent: 20px;
+
 }

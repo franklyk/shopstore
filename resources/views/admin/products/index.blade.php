@@ -25,61 +25,16 @@
         </x-slot:header>
 
         @if (!empty($products))
+            <div class="listing">
+                <div class="listing-content">
 
-            <x-layout.admin.crud.listing>
-                {{-- <x-slot:table>
 
-                    <thead>
+                    @include('admin.products.partials.listing', [
+                        'products' => $products,
+                    ])
+                </div>
 
-                        <tr>
-
-                            <th scope="col">CÓDIGO</th>
-                            <th scope="col">NOME</th>
-                            <th scope="col">COLEÇÃO</th>
-                            <th scope="col">MARCA</th>
-                            <th scope="col">FORNECEDOR</th>
-                            <th scope="col">STATUS</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        @foreach ($products as $product)
-
-                            <tr scope="row" class="clickable-row" data-href="{{ route('admin.products.show', $product) }}">
-
-                                <td>{{ $product->sku }}</td>
-
-                                <td>{{ $product->name }}</td>
-
-                                <td>{{ $product->collections->first()?->name }}</td>
-
-                                <td>{{ $product->brand?->name }}</td>
-
-                                <td>
-                                    {{ $product->suppliers->pluck('name')->join(', ') }}
-                                </td>
-
-                                <td>
-                                    <span class="badge text-bg-{{ $product->status->color }}">
-                                        {{ $product->status->name }}
-                                    </span>
-                                </td>
-
-                            </tr>
-                        @endforeach
-
-                    </tbody>
-
-                </x-slot:table> --}}
-
-                @include('admin.products.partials.listing', [
-                    'products' => $products,
-                ])
-
-                <x-slot:sidebar>
+                <aside class="listing-sidebar">
 
                     <x-forms.form method="GET">
 
@@ -189,11 +144,11 @@
 
                         </div>
 
+
                     </x-forms.form>
 
-                </x-slot:sidebar>
-
-            </x-layout.admin.crud.listing>
+                </div>
+            </div>
         @else
             <h1 class="text-center text-danger">Sem registros de Produtos</h1>
         @endif

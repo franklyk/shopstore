@@ -9,9 +9,13 @@
 
             <div class="modal-header">
 
-                <h5 class="modal-title" id="modal-create-label">
-                    {{ $title }}
-                </h5>
+                <div>
+                    <h5 class="modal-title" id="modal-create-label">
+                        {{ $title }}
+                    </h5>
+
+
+                </div>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
 
@@ -19,6 +23,9 @@
 
 
             <div class="modal-body">
+                
+                <div id="modal-create-feedback" class="modal-create-feedback"></div>
+
                 <x-forms.form action="{{ $action }}" method="POST" enctype="multipart/form-data"
                     id="form-create">
 
@@ -28,9 +35,9 @@
             </div>
 
             <div class="modal-footer">
-                <x-buttons.return label="Cancelar" data-bs-dismiss="modal"  />
+                <x-buttons.return label="Cancelar" data-bs-dismiss="modal" />
 
-                <x-buttons.create type="submit" icon="check"/>
+                <x-buttons.create type="submit" icon="check" />
 
             </div>
 
