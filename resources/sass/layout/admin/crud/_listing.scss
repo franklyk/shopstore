@@ -60,6 +60,16 @@
         background: var(--site-color);
         padding: 12px 16px;
 
+        .btn-close {
+            filter: invert(1);
+            opacity: 1;
+            transition: .1s;
+
+            &:hover {
+                filter: invert(17%) sepia(95%) saturate(7490%) hue-rotate(359deg) brightness(96%) contrast(118%);
+            }
+        }
+
     }
 
     .modal-title {
@@ -106,7 +116,7 @@
 
                         .modal-image-preview {
                             align-items: center;
-                            background-color: #f8f9fa;
+                            background-color: var(--bg-color);
                             border-radius: 6px;
                             // color: #212529;
                             display: flex;
@@ -166,6 +176,7 @@
 
 
         }
+
         .invalid-feedback {
             display: block;
             margin: 4px;
@@ -176,6 +187,7 @@
 
     .modal-footer {
 
+        background: var(--bg-color);
         padding: 10px 16px;
 
     }
@@ -211,6 +223,23 @@
 
         grid-template-columns: repeat(2, 1fr);
 
+    }
+
+}
+
+.listing-per-page {
+
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+
+    label {
+        white-space: nowrap;
+    }
+
+    .form-select {
+        width: 80px;
     }
 
 }

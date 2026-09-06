@@ -30,8 +30,15 @@ class ProductController extends Controller
         ])
             ->orderByDesc('created_at');
 
+        $perPage = (int) request('per_page', 15);
+
+        if (!in_array($perPage, [10, 15, 25, 50, 100])) {
+
+            $perPage = 15;
+        }
+
         $products = $filters->apply($query, request()->all())
-            ->paginate(15)
+            ->paginate($perPage)
             ->withQueryString();
 
         $statuses = Status::query()
@@ -56,12 +63,12 @@ class ProductController extends Controller
             ->orderBy('name')
             ->get();
 
-
         if (request()->ajax()) {
 
-            return view('admin.products.partials.listing', compact(
-                'products'
-            ));
+            return view(
+                'admin.products.partials.listing',
+                compact('products')
+            );
         }
 
         return view('admin.products.index', compact(

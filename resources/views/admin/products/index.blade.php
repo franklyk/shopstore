@@ -17,6 +17,23 @@
                         <x-buttons.create label="Novo" data-bs-toggle="modal" data-bs-target="#modal-create" />
 
                     </div>
+                    <div class="listing-per-page">
+
+                        <label for="per-page">
+                            Itens por página
+                        </label>
+
+                        <select name="per_page" id="per-page" class="form-select">
+
+                            @foreach ([10, 15, 25, 50, 100] as $option)
+                                <option value="{{ $option }}" @selected(request('per_page', 15) == $option)>
+                                    {{ $option }}
+                                </option>
+                            @endforeach
+
+                        </select>
+
+                    </div>
 
                 </x-slot:actions>
 
@@ -147,7 +164,7 @@
 
                     </x-forms.form>
 
-                </div>
+            </div>
             </div>
         @else
             <h1 class="text-center text-danger">Sem registros de Produtos</h1>
