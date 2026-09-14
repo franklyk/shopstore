@@ -6,6 +6,7 @@ namespace App\Models\Catalog;
 use App\Models\Catalog\Product;
 use App\Models\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProductImage extends Model
 {

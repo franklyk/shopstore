@@ -22,6 +22,7 @@ class ProductController extends Controller
     public function index(ProductFilterService $filters)
     {
         $query = Product::with([
+            'images',
             'brand',
             'status',
             'categories',
@@ -145,13 +146,16 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        // $this->authorize('view', $product);
-
-        $product->load('categories');
-        $product->load('stocks');
-        $product->load('images');
-        $product->load('stockMovements');
-        $product->load('status');
+        $product->load([
+            'categories',
+            'stocks',
+            'images',
+            'stockMovements',
+            'status',
+            'brand',
+            'collections',
+            'suppliers',
+        ]);
 
         return view('admin.products.show', compact('product'));
     }

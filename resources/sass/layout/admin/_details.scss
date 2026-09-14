@@ -1,0 +1,122 @@
+///
+///
+///@author Franklin Klyk
+///
+///@email frsbatist@gmail.com
+///
+///https://github.com/franklyk
+///
+///
+/// /* pages/admin/crud/_details */
+///
+
+@use '../../lib/' as *;
+@use '../../base/' as *;
+
+.card {
+    height: 100%;
+    overflow: hidden;
+
+    .details {
+
+        align-items: flex-start;
+        display: flex;
+        gap: 2rem;
+        height: 100%;
+        overflow: hidden;
+        padding: 1rem;
+
+        .container-image {
+
+            align-items: center;
+            display: flex;
+            flex-shrink: 0;
+            height: 100%;
+            justify-content: center;
+            margin: 0;
+            order: 2;
+            width: 50%;
+
+            .preview-image {
+
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                height: 250px;
+                width: 250px;
+
+                .image {
+                    height: 250px;
+                    object-fit: contain;
+                    width: 250px;
+                }
+            }
+
+            .preview-placeholder {
+
+                @include config;
+
+                width: 250px;
+                height: 250px;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .cam {
+                    width: auto;
+                }
+            }
+
+            .label-image {
+                display: block;
+            }
+        }
+
+        .input-image {
+            display: none;
+        }
+
+        .details-list {
+            order: 1;
+            width: 50%;
+            height: 100%;
+            margin: 0;
+            padding: 10px;
+
+            overflow-y: auto;
+        }
+
+        .details-label {
+
+            color: var(--title-color);
+            font-weight: 700;
+            margin: 0;
+            padding: .5rem 0;
+            text-indent: 10px
+        }
+
+        .details-value {
+            @include config;
+
+
+            color: var(--text-color);
+            border: var(--border-light);
+            border-radius: 10px;
+            font-size: .875rem;
+            font-weight: 600;
+            margin: 0;
+            padding: .5rem .75rem .25rem;
+
+        }
+
+        .badge-status {
+
+            display: inline-block;
+            padding: .35rem .65rem;
+            border-radius: .375rem;
+            font-size: .875rem;
+            font-weight: 600;
+        }
+    }
+}

@@ -13,4 +13,6 @@
 
 @forward 'layout-admin';
 @forward 'dashboard';
-@forward 'crud/index';
+@forward 'details';
+@forward 'listing';
+// @forward 'crud/index';

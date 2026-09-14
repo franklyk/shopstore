@@ -28,6 +28,7 @@ $light-color: #fdfdfd;
 
 $title-color: $accent-color;
 $sub-title-color: $accent-color;
+$text-color: #5b5b5b;
 
 $header-height: 20px;
 $sidebar-width: 200px;
@@ -51,6 +52,7 @@ $border-radius: .5rem;
     /* Text */
     --title-color: #{$site-color};
     --sub-title-color: #{$sub-title-color};
+    --text-color: #{$text-color};
 
     --main-text: #{$light-color};
     --text-light: #{$light-color};

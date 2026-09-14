@@ -10,7 +10,7 @@
 /// /* pages/admin/crud/_listing */
 ///
 
-@use "../../../lib" as *;
+@use "../../lib" as *;
 
 .listing {
 
@@ -242,4 +242,17 @@
         width: 80px;
     }
 
+}
+
+.product-image-cell {
+    width: 50px;
+    padding: 5px !important;
+}
+
+.product-image-thumb {
+    display: block;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
 }

@@ -5,6 +5,7 @@
 
             <thead>
                 <tr>
+                    <th scope="col"></th>
                     <th scope="col">CÓDIGO</th>
                     <th scope="col">NOME</th>
                     <th scope="col">COLEÇÃO</th>
@@ -17,12 +18,17 @@
             <tbody>
 
                 @foreach ($products as $product)
+                    <tr scope="row" class="clickable-row" data-href="{{ route('admin.products.show', $product) }}">
 
-                    <tr
-                        scope="row"
-                        class="clickable-row"
-                        data-href="{{ route('admin.products.show', $product) }}"
-                    >
+                        <td class="product-image-cell">
+                            
+
+                            <img src="{{ $product->images->first()
+                                ? asset('storage/' . $product->images->first()->image)
+                                : asset('images/default.png') }}"
+                                class="product-image-thumb" alt="{{ $product->name }}">
+
+                        </td>
 
                         <td>{{ $product->sku }}</td>
 
@@ -47,7 +53,6 @@
                         </td>
 
                     </tr>
-
                 @endforeach
 
             </tbody>
@@ -58,9 +63,7 @@
 </div>
 
 @if ($products->hasPages())
-
     <div class="listing-pagination">
         {{ $products->links() }}
     </div>
-
 @endif

@@ -283,11 +283,10 @@
         @else
             <h1 class="text-center text-danger">Sem registros de Produtos</h1>
         @endif
+        
         {{-- ///////////////////////////////////////////////////////////////////////////////////////////////// --}}
 
         {{-- Modal: Novo Produto --}}
-
-
         <x-modal.create action="{{ route('admin.products.store') }}">
 
             <div class="modal-container">
