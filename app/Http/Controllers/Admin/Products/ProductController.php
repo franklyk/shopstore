@@ -146,6 +146,8 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        // $this->authorize('view', $product);
+
         $product->load([
             'categories',
             'stocks',
@@ -157,7 +159,26 @@ class ProductController extends Controller
             'suppliers',
         ]);
 
-        return view('admin.products.show', compact('product'));
+        $brands = Brand::all();
+
+        $collections = Collection::all();
+
+        $suppliers = Supplier::all();
+
+        $categories = Category::with('children')
+            ->whereNull('parent_id')
+            ->get();
+
+        $statuses = Status::where('domain', 'product')->get();
+
+        return view('admin.products.show', compact(
+            'product',
+            'brands',
+            'collections',
+            'suppliers',
+            'categories',
+            'statuses',
+        ));
     }
 
     public function edit(Product $product)
@@ -176,10 +197,46 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, Product $product)
     {
+        $data = $request->validated();
 
-        $product->update($request->validated());
+        $product->update([
+            'name' => $data['name'],
+            'description' => $data['description'] ?? null,
+            'price' => $data['price'],
+            'brand_id' => $data['brand_id'],
+            'status_id' => $data['status_id'],
+        ]);
 
-        $product->categories()->sync($request->categories);
+        if ($request->hasFile('image')) {
+
+            $image = $request->file('image');
+
+            $path = $image->store('products', 'public');
+
+            $productImage = $product->images->first();
+
+            if ($productImage) {
+
+                $productImage->update([
+                    'image' => $path,
+                ]);
+            } else {
+
+                $product->images()->create([
+                    'image' => $path,
+                ]);
+            }
+        }
+
+        $product->categories()->sync($data['categories']);
+
+        $product->collections()->sync([
+            $data['collection_id'],
+        ]);
+
+        $product->suppliers()->sync([
+            $data['supplier_id'],
+        ]);
 
         return redirect()
             ->route('admin.products.show', $product)

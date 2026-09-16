@@ -78,12 +78,11 @@
         }
 
         .details-list {
+            height: 100%;
             order: 1;
             width: 50%;
-            height: 100%;
             margin: 0;
             padding: 10px;
-
             overflow-y: auto;
         }
 
@@ -92,20 +91,16 @@
             color: var(--title-color);
             font-weight: 700;
             margin: 0;
-            padding: .5rem 0;
             text-indent: 10px
         }
 
         .details-value {
-            @include config;
-
 
             color: var(--text-color);
-            border: var(--border-light);
-            border-radius: 10px;
+            border-bottom: var(--border-light);
             font-size: .875rem;
             font-weight: 600;
-            margin: 0;
+            margin-bottom: 20px;
             padding: .5rem .75rem .25rem;
 
         }

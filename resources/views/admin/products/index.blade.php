@@ -154,8 +154,8 @@
                                                 Nome
                                             </div>
 
-                                            <x-forms.radio name="sort_name" value="asc" label="A → Z"
-                                                id="sort-name-asc" :checked="request('sort_name', 'asc') === 'asc'" />
+                                            <x-forms.radio name="sort_name" value="asc" label="A → Z" id="sort-name-asc"
+                                                :checked="request('sort_name', 'asc') === 'asc'" />
 
                                             <x-forms.radio name="sort_name" value="desc" label="Z → A"
                                                 id="sort-name-desc" :checked="request('sort_name') === 'desc'" />
@@ -283,7 +283,7 @@
         @else
             <h1 class="text-center text-danger">Sem registros de Produtos</h1>
         @endif
-        
+
         {{-- ///////////////////////////////////////////////////////////////////////////////////////////////// --}}
 
         {{-- Modal: Novo Produto --}}
@@ -291,7 +291,7 @@
 
             <div class="modal-container">
 
-                <div class="modal-create-main">
+                <div class="modal-main">
 
                     <div class="modal-fields">
 
@@ -313,27 +313,31 @@
                     </div>
 
                     <div class="div">
+
                         <div class="modal-image">
 
-                            <label class="product-create-image-label modal-image-label" for="input-image">
+                            <label class="modal-image-label" for="input-image">
+
                                 <div class="modal-image-preview" id="preview-image">
+
                                     <x-icons.camera />
+
                                 </div>
+
                             </label>
 
-                            <input class="input-image" type="file" name="image" id="input-image" accept="image/*">
+                            <input class="input-image" type="file" name="image" id="input-image" accept="image/*"
+                                data-preview="#preview-image">
 
                         </div>
 
                         <x-buttons.status :statuses="$statuses" :status-id="old('status_id', $statuses->firstWhere('is_default', true)->id)" />
-
 
                     </div>
 
                 </div>
 
                 {{-- CATEGORIAS --}}
-
                 <div class="modal-section">
 
                     <h3 class="section-title">

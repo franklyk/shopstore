@@ -1,28 +1,31 @@
-const inputFile = document.querySelector('#input-image');
-const previewImage = document.querySelector('#preview-image');
+document.querySelectorAll('.input-image').forEach(input => {
 
-if (inputFile && previewImage) {
-
-    inputFile.addEventListener('change', function (e) {
+    input.addEventListener('change', function (e) {
 
         const file = e.target.files[0];
 
-        if (!file) {
-            return;
-        }
+        if (!file) return;
+
+        const previewSelector = input.dataset.preview;
+
+        if (!previewSelector) return;
+
+        const preview = document.querySelector(previewSelector);
+
+        if (!preview) return;
 
         const reader = new FileReader();
 
         reader.addEventListener('load', function (e) {
 
-            previewImage.innerHTML = '';
+            preview.innerHTML = '';
 
             const img = document.createElement('img');
 
             img.src = e.target.result;
-            img.setAttribute('id', 'image');
+            img.alt = 'Pré-visualização da imagem';
 
-            previewImage.appendChild(img);
+            preview.appendChild(img);
 
         });
 
@@ -30,4 +33,4 @@ if (inputFile && previewImage) {
 
     });
 
-}
+});

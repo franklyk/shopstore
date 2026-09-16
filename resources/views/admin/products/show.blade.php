@@ -21,13 +21,11 @@
                         @endcan
 
                         @can('edit products')
-                            <x-buttons.button href="{{ route('admin.products.edit', $product) }}" color="warning" icon="edit"
-                                label="Editar" />
+                            <x-buttons.edit label="Editar" data-bs-toggle="modal" data-bs-target="#modal-edit" />
                         @endcan
 
                         @can('delete products')
-                            <x-buttons.button color="danger" icon="trash" label="Excluir" data-bs-toggle="modal"
-                                data-bs-target="#deleteModal{{ $product->id }} " />
+                            <x-buttons.delete data-bs-toggle="modal" data-bs-target="#deleteModal{{ $product->id }}" />
                         @endcan
 
                     </div>
@@ -40,68 +38,107 @@
             'product' => $product,
         ])
 
-        {{-- <div class="details">
+        <x-modal.edit action="{{ route('admin.products.update', $product) }}">
 
-            <div class="container-image">
+            <div class="modal-container">
 
-                @if ($product->images->isNotEmpty())
-                    <div class="preview-image" id="preview-image">
-                        <img src="{{ asset('storage/' . $product->images->first()->image) }}" class="image"
-                            alt="{{ $product->name }}">
+                <div class="modal-main">
+
+                    <div class="modal-fields">
+
+                        <x-forms.input type="text" name="name" label="Produto:" :value="old('name', $product->name)" />
+
+                        <div class="auto-grid">
+
+                            <x-forms.input type="number" name="price" label="Preço:" :value="old('price', $product->price)" step="0.01"
+                                min="0" />
+
+                            <x-forms.select name="brand_id" label="Marca:" :options="$brands->pluck('name', 'id')->toArray()" :selected="old('brand_id', $product->brand_id)" />
+
+                            <x-forms.select name="collection_id" label="Coleção:" :options="$collections->pluck('name', 'id')->toArray()" :selected="old('collection_id', $product->collections->first()?->id)" />
+
+                            <x-forms.select name="supplier_id" label="Fornecedor:" :options="$suppliers->pluck('name', 'id')->toArray()" :selected="old('supplier_id', $product->suppliers->first()?->id)" />
+
+                        </div>
+
                     </div>
-                @else
-                    <div class="preview-placeholder">
-                        <x-icons.camera />
+
+                    <div class="div">
+
+                        <div class="modal-image">
+
+                            <label class="modal-image-label" for="input-image">
+
+                                <div class="modal-image-preview" id="preview-image">
+
+                                    {{-- <x-icons.camera /> --}}
+
+                                    @if ($product->images->isNotEmpty())
+                                        <img src="{{ asset('storage/' . $product->images->first()->image) }}"
+                                            alt="{{ $product->name }}">
+                                    @else
+                                        <x-icons.camera />
+                                    @endif
+
+                                </div>
+
+                            </label>
+
+                            <input class="input-image" type="file" name="image" id="input-image" accept="image/*"
+                                data-preview="#preview-image">
+
+                        </div>
+
+                        <x-buttons.status :statuses="$statuses" :status-id="$product->status_id" />
+
                     </div>
-                @endif
 
-                <label class="label-image" for="input-image">
+                </div>
 
-                    <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
+                {{-- CATEGORIAS --}}
 
-                </label>
+                <div class="modal-section">
+
+                    <h3 class="section-title">
+                        Categorias
+                    </h3>
+
+                    <div class="product-edit-categories checkbox-groups">
+
+                        @foreach ($categories as $parent)
+                            <div class="product-edit-category checkbox-options">
+
+                                <div class="product-edit-category-parent checkbox-options-parent">
+                                    {{ $parent->name }}
+                                </div>
+
+                                @forelse ($parent->children as $child)
+                                    <x-forms.checkbox :name="'categories[]'" :label="$child->name" :value="$child->id"
+                                        :id="'edit-category-' . $child->id" :checked="$product->categories->contains($child->id)" />
+
+                                @empty
+
+                                    <small class="text-muted">
+                                        Sem subcategorias
+                                    </small>
+                                @endforelse
+
+                            </div>
+                        @endforeach
+
+                    </div>
+
+                </div>
 
             </div>
 
-            <dl class="details-list">
+        </x-modal.edit>
 
-                <dt class="details-label">Nome</dt>
-                <dd class="details-value">{{ $product->name }}</dd>
+        @section('modals')
 
-                <dt class="details-label">Descrição</dt>
-                <dd class="details-value">{{ $product->description }}</dd>
+            <x-modal.delete :id="$product->id" :action="route('admin.products.destroy', $product)" :name="$product->name" />
 
-                <dt class="details-label">Categoria</dt>
-                <dd class="details-value">
-                    @foreach ($product->categories as $category)
-                        {{ $category->name }} /
-                    @endforeach
-                </dd>
-
-                <dt class="details-label">Status</dt>
-                <dd class="details-value">
-                    <span class="badge-status badge-status-{{ $product->status->color }}">
-                        {{ $product->status->name }}
-                    </span>
-                </dd>
-
-                <dt class="details-label">Preço</dt>
-                <dd class="details-value">R$ {{ $product->price }}</dd>
-
-                <dt class="details-label">Estoque</dt>
-                <dd class="details-value">
-                    {{ $product->stocks->first()?->quantity ?? 0 }}
-                </dd>
-
-                <dt class="details-label">Cadastrado em</dt>
-                <dd class="details-value">{{ $product->created_at }}</dd>
-
-                <dt class="details-label">Última atualização em</dt>
-                <dd class="details-value">{{ $product->updated_at }}</dd>
-
-            </dl>
-
-        </div> --}}
+        @endsection
 
     </x-layout.admin.page>
 

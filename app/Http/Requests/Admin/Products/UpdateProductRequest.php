@@ -23,9 +23,66 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'price' => ['required', 'numeric', 'min:0'],
+
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'description' => [
+                'nullable',
+                'string',
+            ],
+
+            'price' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
+
+            'brand_id' => [
+                'required',
+                'integer',
+                'exists:brands,id',
+            ],
+
+            'status_id' => [
+                'required',
+                'integer',
+                'exists:statuses,id',
+            ],
+
+            'collection_id' => [
+                'required',
+                'integer',
+                'exists:collections,id',
+            ],
+
+            'supplier_id' => [
+                'required',
+                'integer',
+                'exists:suppliers,id',
+            ],
+
+            'categories' => [
+                'required',
+                'array',
+            ],
+
+            'categories.*' => [
+                'integer',
+                'distinct',
+                'exists:categories,id',
+            ],
+
+            'image' => [
+                'nullable',
+                'image',
+                'mimes:jpeg,png,jpg,webp',
+                'max:2048',
+            ],
+
             // 'stock' => ['required', 'integer', 'min:0'],
         ];
     }

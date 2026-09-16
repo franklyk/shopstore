@@ -5,7 +5,7 @@
         <div class="container-image">
 
             @if ($product->images->isNotEmpty())
-                <div class="preview-image" id="preview-image">
+                <div class="preview-image">
 
                     <img src="{{ asset('storage/' . $product->images->first()->image) }}" class="image"
                         alt="{{ $product->name }}">
@@ -18,12 +18,6 @@
 
                 </div>
             @endif
-
-            <label class="label-image" for="input-image">
-
-                <input class="input-image" type="file" name="input-image" id="input-image" accept="image/*">
-
-            </label>
 
         </div>
 

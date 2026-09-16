@@ -4,8 +4,10 @@
 ])
 
 <x-buttons.button
-    :color="$color"
+    color="{{ $color }}"
     icon="trash"
-    :label="$label"
+    label="{{ $label }}"
+    type="button"
     {{ $attributes }}
 />
+
