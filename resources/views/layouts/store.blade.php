@@ -1,9 +1,10 @@
 @extends('layouts.base')
 
-@section('layout')
+@section('view-port')
     <x-layout.store.header />
 
     <main class="container mt-4">
+        <x-feedback.flesh/>
 
         @yield('store')
 

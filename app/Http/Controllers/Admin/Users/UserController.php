@@ -19,9 +19,15 @@ class UserController extends Controller
             'status',
         ]);
 
+        $perPage = (int) request('per_page', 15);
+
+        if (!in_array($perPage, [10, 15, 25, 50, 100])) {
+            $perPage = 15;
+        }
+
         $users = $filters
             ->apply($query, request()->all())
-            ->paginate(15)
+            ->paginate($perPage)
             ->withQueryString();
 
         $roles = Role::query()
@@ -32,6 +38,14 @@ class UserController extends Controller
             ->where('domain', 'user')
             ->orderBy('sort_order')
             ->get();
+
+        if (request()->ajax()) {
+            return view(
+                'admin.users.partials.listing',
+                compact('users')
+            );
+        }
+
         return view('admin.users.index', compact(
             'users',
             'roles',

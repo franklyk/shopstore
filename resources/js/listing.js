@@ -1,6 +1,9 @@
 const listingContent = document.querySelector('.listing-content');
+
 const listingFilters = document.querySelector('.listing-filters');
+
 const perPage = document.querySelector('#per-page');
+
 
 
 const updateUrl = (params) => {
@@ -8,14 +11,19 @@ const updateUrl = (params) => {
     const queryString = params.toString();
 
     window.history.replaceState(
+
         {},
+
         '',
+
         queryString
             ? `${window.location.pathname}?${queryString}`
             : window.location.pathname
+
     );
 
 };
+
 
 
 const loadListing = async (params) => {
@@ -25,9 +33,13 @@ const loadListing = async (params) => {
         `${window.location.pathname}?${params.toString()}`,
 
         {
+
             headers: {
+
                 'X-Requested-With': 'XMLHttpRequest',
+
             },
+
         }
 
     );
@@ -35,7 +47,9 @@ const loadListing = async (params) => {
     if (!response.ok) {
 
         throw new Error(
+
             `Erro ao carregar a listagem: ${response.status}`
+
         );
 
     }
@@ -49,6 +63,7 @@ const loadListing = async (params) => {
 };
 
 
+
 /**
  * ////////////////////////////////////////////////////////////////////
  * Itens por página
@@ -60,7 +75,9 @@ if (perPage && listingContent) {
     perPage.addEventListener('change', async function () {
 
         const params = new URLSearchParams(
+
             window.location.search
+
         );
 
         params.set('per_page', this.value);
@@ -80,6 +97,7 @@ if (perPage && listingContent) {
     });
 
 }
+
 
 
 /**
@@ -118,9 +136,14 @@ if (listingFilters && listingContent) {
 
 }
 
+
+
 const search = listingFilters?.querySelector(
+
     'input[type="search"]'
+
 );
+
 
 
 if (search && listingContent) {
@@ -150,6 +173,46 @@ if (search && listingContent) {
             }
 
         }, 400);
+
+    });
+
+}
+
+
+
+/**
+ * ////////////////////////////////////////////////////////////////////
+ * Paginação
+ * ////////////////////////////////////////////////////////////////////
+ */
+
+if (listingContent) {
+
+    listingContent.addEventListener('click', async function (event) {
+
+        const link = event.target.closest('.pagination a');
+
+        if (!link) {
+
+            return;
+
+        }
+
+        event.preventDefault();
+
+        const url = new URL(link.href);
+
+        const params = url.searchParams;
+
+        try {
+
+            await loadListing(params);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
 
     });
 

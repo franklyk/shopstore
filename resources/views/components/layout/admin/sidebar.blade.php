@@ -8,6 +8,14 @@
                 Dashboard
             </x-menu.link>
         @endcan
+
+        @can('view users')
+            <x-menu.link href="{{ route('admin.users.index') }}" label="">
+                <x-icons.user />
+                Usuários
+            </x-menu.link>
+        @endcan
+        
         @can('view products')
             <x-menu.link href="{{ route('admin.products.index') }}" label="">
                 <x-icons.package />
@@ -36,12 +44,7 @@
             </x-menu.link>
         @endcan
 
-        @can('view users')
-            <x-menu.link href="{{ route('admin.products.index') }}" label="">
-                <x-icons.user />
-                Usuários
-            </x-menu.link>
-        @endcan
+
 
         @can('view suppliers')
             <x-menu.link href="{{ route('admin.products.index') }}" label="">

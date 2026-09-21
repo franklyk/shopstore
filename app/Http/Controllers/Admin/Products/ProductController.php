@@ -81,17 +81,6 @@ class ProductController extends Controller
         ));
     }
 
-    public function create()
-    {
-        // $this->authorize('create', Product::class);
-
-        $categories = Category::with('children')
-            ->whereNull('parent_id')
-            ->get();
-
-        return view('admin.products.create', compact('categories'));
-    }
-
     public function store(StoreProductRequest $request)
     {
         $data = $request->validated();
@@ -179,20 +168,6 @@ class ProductController extends Controller
             'categories',
             'statuses',
         ));
-    }
-
-    public function edit(Product $product)
-    {
-        // $this->authorize('update', $product);
-
-        $categories = Category::with('children')
-            ->whereNull('parent_id')
-            ->get();
-
-        $product->load('categories');
-        $product->load('stocks');
-
-        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     public function update(UpdateProductRequest $request, Product $product)

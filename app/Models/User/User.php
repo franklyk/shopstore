@@ -2,6 +2,7 @@
 
 namespace App\Models\User;
 
+use App\Models\Cart\Cart;
 use App\Models\Status\Status;
 use App\Models\Traits\HasUuid;
 use Database\Factories\User\UserFactory;
@@ -70,10 +71,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'uuid';
     }
 
-    // protected static function booted(): void
-    // {
-    //     static::creating(function ($user) {
-    //         dd('creating User');
-    //     });
-    // }
+    public function maskedEmail(): string
+    {
+        [$name, $domain] = explode('@', $this->email, 2);
+
+        if (strlen($name) <= 2) {
+            return substr($name, 0, 1) . '***@' . $domain;
+        }
+
+        return substr($name, 0, 1)
+            . str_repeat('*', strlen($name) - 2)
+            . substr($name, -1)
+            . '@' . $domain;
+    }
 }

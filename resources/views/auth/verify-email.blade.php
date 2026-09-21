@@ -4,22 +4,40 @@
 
 @section('auth')
 
-    <x-forms.card>
+    <div class="form">
 
-        
-        <h4 class="text-center">Verifique seu email</h4>
+        <div class="form-header">
 
-        <p class="text-center">
-            Enviamos um link de verificação para seu email.
-            Clique nele para ativar sua conta.
+            <div class="form-logo">
+
+                <a href="{{ route('home') }}">
+
+                    <img src="{{ asset('images/logo/logo.png') }}" alt="{{ config('app.name') }}">
+
+                </a>
+
+            </div>
+
+            <h4 class="form-title">
+                Verificação de email
+            </h4>
+
+        </div>
+
+        <p class="form-description">
+            Enviamos um link de verificação para {{ $user->maskedEmail() }}.
         </p>
 
-        <form method="POST" action="{{ route('verification.send') }}">
-            @csrf
+        <x-forms.form method="POST" action="{{ route('verification.send') }}">
 
-        <x-buttons.button class="w-100" type="submit" color="info" label="Enviar novo link"/>
-        </form>
+            <div class="form-action">
 
-    </x-forms.card>
+                <x-buttons.auth type="submit" label="Enviar novo link" />
+
+            </div>
+
+        </x-forms.form>
+
+    </div>
 
 @endsection

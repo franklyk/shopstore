@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\SessionRequest;
+use App\Services\Auth\AuthRedirectService;
 use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
@@ -19,31 +20,28 @@ class SessionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SessionRequest $request)
-    {
-        $credentials = $request->validated();
+    public function store(
+    SessionRequest $request,
+    AuthRedirectService $authRedirect
+) {
+    $credentials = $request->validated();
 
-        if (! Auth::attempt($credentials)) {
+    $remember = $request->boolean('remember');
 
-            return back()->withErrors([
-                'email' => 'Credenciais inválidas.',
-            ])->onlyInput('email');
-        }
-        $request->session()->regenerate();
+    unset($credentials['remember']);
 
-        $user = Auth::user();
-
-        if ($user->hasAnyRole([
-            'super-admin',
-            'admin',
-            'manager',
-            'employee',
-        ])) {
-            return redirect()->route('admin.dashboard');
-        }
-
-        return redirect()->route('home');
+    if (!Auth::attempt($credentials, $remember)) {
+        return back()->withErrors([
+            'email' => 'Credenciais inválidas.',
+        ])->onlyInput('email');
     }
+
+    $request->session()->regenerate();
+
+    return redirect()->to(
+        $authRedirect->redirectFor(Auth::user())
+    );
+}
 
     /**
      * Remove the specified resource from storage.

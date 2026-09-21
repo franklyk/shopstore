@@ -29,10 +29,10 @@
             <div class="listing">
                 <div class="listing-content">
 
-
                     @include('admin.products.partials.listing', [
                         'products' => $products,
                     ])
+
                 </div>
 
 

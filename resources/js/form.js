@@ -10,7 +10,6 @@ const modalCreateFeedback = document.querySelector(
     '#modal-create-feedback'
 );
 
-
 const clearFormErrors = (form) => {
 
     form.querySelectorAll('.is-invalid').forEach(input => {

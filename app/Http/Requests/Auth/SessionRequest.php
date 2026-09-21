@@ -25,6 +25,7 @@ class SessionRequest extends FormRequest
         return [
             'email' => ['required', 'email'],
             'password' => ['required'],
+            'remember' => ['nullable', 'boolean'],
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\Users;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -24,8 +25,20 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', "unique:users,email,{$this->user->id}"],
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                "unique:users,email,{$this->user->id}",
+            ],
             'password' => ['nullable', 'string', 'min:6', 'confirmed'],
+
+            'status_id' => [
+                'required',
+                'integer',
+                Rule::exists('statuses', 'id')
+                    ->where(fn($query) => $query->where('domain', 'user')),
+            ],
         ];
     }
 }

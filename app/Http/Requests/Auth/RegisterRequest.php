@@ -18,7 +18,7 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
 
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            
+
             'phone' => [
                 'nullable',
                 'string',
@@ -35,29 +35,29 @@ class RegisterRequest extends FormRequest
                     ->numbers()
                     ->symbols(),
             ],
-            
+
         ];
     }
 
     public function messages(): array
-    {
-        return [
-            'name.required' => 'O nome é obrigatório.',
+{
+    return [
 
-            'email.required' => 'O email é obrigatório.',
-            'email.email' => 'Informe um email válido.',
-            'email.unique' => 'Este email já está em uso.',
+        'name.required' => 'O nome é obrigatório.',
 
-            'password.required' => 'A senha é obrigatória.',
-            'password.confirmed' => 'As senhas não coincidem.',
-            'password' => [
-                'mixed' => 'A senha deve conter letras maiúsculas e minúsculas.',
-                'letters' => 'A senha deve conter pelo menos uma letra.',
-                'numbers' => 'A senha deve conter pelo menos um número.',
-                'symbols' => 'A senha deve conter pelo menos um símbolo.',
-            ],
-        ];
-    }
+        'email.required' => 'O email é obrigatório.',
+        'email.email' => 'Informe um email válido.',
+        'email.unique' => 'Este email já está em uso.',
+
+        'password.required' => 'A senha é obrigatória.',
+        'password.confirmed' => 'As senhas não coincidem.',
+        'password.mixed' => 'A senha deve conter letras maiúsculas e minúsculas.',
+        'password.letters' => 'A senha deve conter pelo menos uma letra.',
+        'password.numbers' => 'A senha deve conter pelo menos um número.',
+        'password.symbols' => 'A senha deve conter pelo menos um símbolo.',
+
+    ];
+}
 
     protected function prepareForValidation(): void
     {

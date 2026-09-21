@@ -4,20 +4,58 @@
 
 @section('auth')
 
-    <x-forms.form method="POST" action="{{ route('login.store') }}" title="Login">
+    <div class="form">
 
-        <x-forms.input name="email" type="email" label="Email" />
+        <div class="form-header">
 
-        <x-forms.input name="password" type="password" label="Senha" />
+            <div class="form-logo">
 
-        <x-forms.checkbox name="remember" label="Sempre Conectado" id="remember" />
+                <a href="{{ route('home') }}">
 
-        <x-buttons.button type="submit" color="primary" class="w-100" label="Entrar"/>
+                    <img src="{{ asset('images/logo/logo.png') }}" alt="{{ config('app.name') }}">
 
-    </x-forms.form>
-    <div class="d-flex justify-content-between m-3 small">
-        <a href="{{ route('password.request') }}">Esqueceu a senha?</a>
-        <a href="{{ route('register') }}">Criar conta</a>
+                </a>
+
+            </div>
+
+            <h4 class="form-title">
+                Login
+            </h4>
+        </div>
+
+        <x-forms.form method="POST" action="{{ route('login.store') }}" title="Login">
+
+            <x-forms.input name="email" type="email" label="Email" />
+
+            <x-forms.input name="password" type="password" label="Senha" />
+
+
+            <div class="form-options">
+                <x-forms.checkbox name="show_password" label="Mostrar senha" id="show-password" />
+
+                <x-forms.checkbox name="remember" label="Manter conectado" id="remember" value="1" />
+            </div>
+
+            <div class="form-action">
+
+                <x-buttons.auth label="Entrar" />
+
+            </div>
+
+        </x-forms.form>
+
+        <div class="form-links">
+
+            <a href="{{ route('password.request') }}">
+                Esqueceu a senha?
+            </a>
+
+            <a href="{{ route('register') }}">
+                Criar conta
+            </a>
+
+        </div>
+
     </div>
 
 @endsection

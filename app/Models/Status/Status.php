@@ -6,6 +6,7 @@ use App\Models\Catalog\Category;
 use App\Models\Catalog\Collection;
 use App\Models\Catalog\Product;
 use App\Models\Traits\HasUuid;
+use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,5 +27,10 @@ class Status extends Model
     public function collections()
     {
         return $this->hasMany(Collection::class);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
     }
 }

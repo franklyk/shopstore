@@ -10,6 +10,8 @@ import './images';
 
 import './listing';
 
+import './password';
+
 
 
 

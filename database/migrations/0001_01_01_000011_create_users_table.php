@@ -36,6 +36,10 @@ return new class extends Migration
                 ->constrained('statuses')
                 ->restrictOnDelete();
 
+            $table->boolean('is_employee')
+                ->default(false)
+                ->index();
+
             $table->string('password');
 
             $table->rememberToken();

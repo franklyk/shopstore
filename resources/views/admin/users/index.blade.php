@@ -2,104 +2,246 @@
 
 @section('title', 'Usuários')
 
-@section('admin')
-    {{-- @dd( auth()->user()->avatar) --}}
-    <div class="listing page-container">
+@section('layout-admin')
 
-        <x-ui.page-header title="Usuários Cadastrados" description="Listagem dos usuários da loja">
+    <x-layout.admin.page>
 
-            <x-slot:actions>
-                <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Usuários']]" />
+        <x-slot:header>
 
-                <div class="d-flex gap-2">
+            <x-ui.page-header title="Usuários Cadastrados">
 
-                    <div class="dropdown">
+                <x-slot:actions>
 
-                        <x-forms.form method="GET">
+                    <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Usuários']]" />
 
-                            <ul class="dropdown-menu p-2">
+                    <div class="d-flex gap-2">
 
-
-                                {{-- STATUS --}}
-                                <li class="px-2 fw-bold">Status</li>
-
-                                @foreach ($statuses as $status)
-                                    <li class="px-2">
-                                        <x-forms.checkbox name="status[]" label="{{ $status->name }}"
-                                            value="{{ $status->id }}" :id="'status-' . $status->id" :checked="in_array($status->id, request('status', []))" />
-                                    </li>
-                                @endforeach
-
-                                <hr>
-
-                                <li class="d-flex justify-content-between px-2">
-
-                                    <a href="{{ url()->current() }}" class="btn btn-sm btn-light">
-                                        Limpar
-                                    </a>
-
-                                    <x-buttons.button type="submit" color="primary" label="Aplicar" class="btn-sm" />
-
-                                </li>
-
-                            </ul>
-
-                        </x-forms.form>
+                        <x-buttons.create label="Novo" data-bs-toggle="modal" data-bs-target="#modal-create" />
 
                     </div>
 
-                    <x-buttons.button color="secondary" label="Filtros" icon="filter" data-bs-toggle="dropdown" />
+                </x-slot:actions>
 
-                    <x-buttons.button href="{{ route('admin.products.create') }}" color="success" icon="plus"
-                        label="Novo" />
+            </x-ui.page-header>
+
+        </x-slot:header>
+
+        @if (!empty($users))
+
+            <div class="listing">
+
+                <div class="listing-content">
+
+                    @include('admin.users.partials.listing', [
+                        'users' => $users,
+                    ])
 
                 </div>
 
-            </x-slot:actions>
+                <aside class="listing-sidebar">
 
-        </x-ui.page-header>
+                    <div class="listing-per-page">
 
-        <div class="card p-5 bg-light">
+                        <select name="per_page" id="per-page" class="form-select">
 
-            @if ($users)
+                            @foreach ([10, 15, 25, 50, 100] as $option)
+                                <option value="{{ $option }}" @selected(request('per_page', 15) == $option)>
+                                    {{ $option }}
+                                </option>
+                            @endforeach
 
-                <table class="table align-middle table-responsive table-bordered table-hover shadow">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-light bg-primary">ID</th>
+                        </select>
 
-                            <th scope="col" class="text-light bg-primary">Nome</th>
-                            <th scope="col" class="text-light bg-primary">Email</th>
-                            <th scope="col" class="text-light bg-primary">Cargo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
-                            <tr scope="row" class="clickable-row" data-href="{{ route('admin.users.show', $user) }}">
+                        <label for="per-page">
+                            Por página
+                        </label>
 
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->roles->first()?->name }}</td>
+                    </div>
+
+                    <x-forms.form class="listing-filters">
+
+                        <div class="listing-search">
+
+                            <x-forms.search name="search" id="search" placeholder="Pesquisar" />
+
+                        </div>
 
 
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            @else
-                <h1 class="text-center text-danger">Sem registros de Usuários</h1>
-            @endif
-            <div class="my-5">
-                {{ $users->links() }}
+                        <div class="accordion" data-filter="filtered">
+                            <div class="accordion-item">
+
+                                <h2 class="accordion-header" id="headingStatus">
+
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseStatus" aria-expanded="false"
+                                        aria-controls="collapseStatus">
+                                        Status
+                                    </button>
+
+                                </h2>
+
+                                <div id="collapseStatus" class="accordion-collapse collapse"
+                                    aria-labelledby="headingStatus">
+
+                                    <div class="accordion-body">
+
+                                        @foreach ($statuses as $status)
+                                            <x-forms.radio name="status" label="{{ $status->name }}"
+                                                value="{{ $status->id }}" :id="'status-' . $status->id" :checked="(string) request('status') === (string) $status->id" />
+                                        @endforeach
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="accordion" data-filter="filtered">
+                            <div class="accordion-item">
+
+                                <h2 class="accordion-header" id="headingCreatedAt">
+
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseCreatedAt" aria-expanded="false"
+                                        aria-controls="collapseCreatedAt">
+                                        Data de cadastro
+                                    </button>
+
+                                </h2>
+
+                                <div id="collapseCreatedAt" class="accordion-collapse collapse"
+                                    aria-labelledby="headingCreatedAt">
+
+                                    <div class="accordion-body">
+
+                                        <div class="listing-date-field">
+
+                                            <label for="created-from" class="form-label">
+                                                De
+                                            </label>
+
+                                            <input type="date" name="created_from" id="created-from"
+                                                value="{{ request('created_from') }}" class="form-control">
+
+                                        </div>
+
+                                        <div class="listing-date-field">
+
+                                            <label for="created-to" class="form-label">
+                                                Até
+                                            </label>
+
+                                            <input type="date" name="created_to" id="created-to"
+                                                value="{{ request('created_to') }}" class="form-control">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {{-- ORDENAR POR --}}
+                        <div class="accordion" data-filter="filtered">
+
+                            <div class="accordion-item">
+
+                                <h2 class="accordion-header" id="headingSort">
+
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseSort" aria-expanded="false" aria-controls="collapseSort">
+                                        Ordenar por
+                                    </button>
+
+                                </h2>
+
+                                <div id="collapseSort" class="accordion-collapse collapse" aria-labelledby="headingSort">
+
+                                    <div class="accordion-body">
+
+                                        <div class="sort-group">
+
+                                            <div class="sort-group-title">
+                                                Data
+                                            </div>
+
+                                            <x-forms.radio name="sort_date" value="newest" label="Mais recentes"
+                                                id="sort-date-newest" :checked="request('sort_date', 'newest') === 'newest'" />
+
+                                            <x-forms.radio name="sort_date" value="oldest" label="Mais antigos"
+                                                id="sort-date-oldest" :checked="request('sort_date') === 'oldest'" />
+
+                                        </div>
+
+                                        <div class="sort-group">
+
+                                            <div class="sort-group-title">
+                                                Nome
+                                            </div>
+
+                                            <x-forms.radio name="sort_name" value="asc" label="A → Z"
+                                                id="sort-name-asc" :checked="request('sort_name', 'asc') === 'asc'" />
+
+                                            <x-forms.radio name="sort_name" value="desc" label="Z → A"
+                                                id="sort-name-desc" :checked="request('sort_name') === 'desc'" />
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="accordion" data-filter="filtered">
+
+                            <div class="accordion-item">
+
+                                <h2 class="accordion-header" id="headingRoles">
+
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseRoles" aria-expanded="false"
+                                        aria-controls="collapseRoles">
+                                        Cargos
+                                    </button>
+
+                                </h2>
+
+                                <div id="collapseRoles" class="accordion-collapse collapse"
+                                    aria-labelledby="headingRoles">
+
+                                    <div class="accordion-body">
+
+                                        @foreach ($roles as $role)
+                                            <x-forms.radio name="role" label="{{ $role->name }}"
+                                                value="{{ $role->id }}" :id="'status-' . $role->id" :checked="(string) request('role') === (string) $role->id" />
+                                        @endforeach
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </x-forms.form>
+
+                </aside>
+
             </div>
-        </div>
-    </div>
-    @can('delete users')
-        @foreach ($users as $user)
-            <x-modal.delete :action="route('admin.users.destroy', $user->id)" :id="$user->id" :name="$user->name" />
-        @endforeach
-    @endcan
+        @else
+            <h1 class="text-center text-danger">
+                Sem registros de Usuários
+            </h1>
 
+        @endif
+
+    </x-layout.admin.page>
 
 @endsection
