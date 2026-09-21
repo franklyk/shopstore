@@ -9,13 +9,35 @@
             </x-menu.link>
         @endcan
 
+        {{-- @can('view users')
+            <x-menu.accordion label="Usuários" id="menu-users">
+
+                <x-menu.link href="{{ route('admin.users.employees.index') }}">
+
+                    <x-icons.user />
+
+                    Funcionários
+
+                </x-menu.link>
+
+                <x-menu.link href="{{ route('admin.users.customers.index') }}">
+
+                    <x-icons.user />
+
+                    Clientes
+
+                </x-menu.link>
+
+            </x-menu.accordion>
+        @endcan --}}
+
         @can('view users')
             <x-menu.link href="{{ route('admin.users.index') }}" label="">
                 <x-icons.user />
                 Usuários
             </x-menu.link>
         @endcan
-        
+
         @can('view products')
             <x-menu.link href="{{ route('admin.products.index') }}" label="">
                 <x-icons.package />
