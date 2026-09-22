@@ -84,6 +84,31 @@ class UserController extends Controller
             ->with('success', 'Usuario cadastrado com sucesso!');
     }
 
+    public function employees()
+    {
+        $users = User::query()
+            ->where('is_employee', true)
+            ->with([
+                'roles',
+                'status',
+            ])
+            ->paginate(15);
+
+        return view('admin.users.employees.index', compact('users'));
+    }
+
+    public function customers()
+    {
+        $users = User::query()
+            ->where('is_employee', false)
+            ->with([
+                'status',
+            ])
+            ->paginate(15);
+
+        return view('admin.users.customers.index', compact('users'));
+    }
+
     /**
      * Display the specified resource.
      */

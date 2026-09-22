@@ -208,6 +208,14 @@ Route::middleware(['auth', 'verified', 'employee'])
                     ->middleware('permission:create users')
                     ->name('store');
 
+                // Route::get('/employees', [UserController::class, 'employees'])
+                //     ->middleware('permission:view users')
+                //     ->name('employees.index');
+
+                // Route::get('/customers', [UserController::class, 'customers'])
+                //     ->middleware('permission:view users')
+                //     ->name('customers.index');
+
                 Route::get('/show/{user}', [UserController::class, 'show'])
                     ->middleware('permission:view users')
                     ->name('show');
@@ -321,5 +329,4 @@ Route::middleware(['auth', 'verified', 'employee'])
                 Route::post('/{importBatch}/process', [ImportBatchController::class, 'process'])
                     ->name('process');
             });
-
     });

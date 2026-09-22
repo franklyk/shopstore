@@ -1,30 +1,37 @@
 @props([
     'label',
     'id',
+    'active' => false,
 ])
 
 <x-menu.item>
 
-    <button
-        type="button"
-        class="menu-link"
-        data-bs-toggle="collapse"
-        data-bs-target="#{{ $id }}"
-        aria-expanded="false"
-        aria-controls="{{ $id }}"
-    >
-        {{ $label }}
-    </button>
+    <div class="menu-accordion">
 
-    <div
-        id="{{ $id }}"
-        class="collapse"
-    >
-        <ul class="menu-list">
+        <button
+            type="button"
+            class="menu-link {{ $active ? 'active' : '' }}"
+            data-bs-toggle="collapse"
+            data-bs-target="#{{ $id }}"
+            aria-expanded="{{ $active ? 'true' : 'false' }}"
+            aria-controls="{{ $id }}"
+        >
+            {{ $icon ?? '' }}
 
-            {{ $slot }}
+            {{ $label }}
+        </button>
 
-        </ul>
+        <div
+            id="{{ $id }}"
+            class="collapse {{ $active ? 'show' : '' }}"
+        >
+            <ul class="menu-list">
+
+                {{ $slot }}
+
+            </ul>
+        </div>
+
     </div>
 
 </x-menu.item>
