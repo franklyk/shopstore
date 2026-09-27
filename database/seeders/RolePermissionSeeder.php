@@ -15,31 +15,30 @@ class RolePermissionSeeder extends Seeder
             ->forgetCachedPermissions();
 
         // ================================//
-        // Roles                          //
+        // Roles                            //
         // ================================//
 
-        $customer = Role::firstOrCreate([
-            'name' => 'customer',
-        ]);
+        $roles = [
+            'rh',
+            'comercial',
+            'compras',
+            'estoque',
+            'operacoes',
+            'atendimento',
+            'financeiro',
+            'marketing',
+            'administracao',
+            'super-admin',
+        ];
 
-        $employee = Role::firstOrCreate([
-            'name' => 'employee',
-        ]);
-
-        $manager = Role::firstOrCreate([
-            'name' => 'manager',
-        ]);
-
-        $admin = Role::firstOrCreate([
-            'name' => 'admin',
-        ]);
-
-        Role::firstOrCreate([
-            'name' => 'super-admin',
-        ]);
+        foreach ($roles as $role) {
+            Role::firstOrCreate([
+                'name' => $role,
+            ]);
+        }
 
         // ================================//
-        // Permissions                    //
+        // Permissions                      //
         // ================================//
 
         $permissions = [
@@ -65,6 +64,24 @@ class RolePermissionSeeder extends Seeder
             'edit users',
             'delete users',
 
+            // Employees
+            'view employees',
+            'create employees',
+            'edit employees',
+            'delete employees',
+
+            // Departments
+            'view departments',
+            'create departments',
+            'edit departments',
+            'delete departments',
+
+            // Positions
+            'view positions',
+            'create positions',
+            'edit positions',
+            'delete positions',
+
             // Orders
             'view orders',
 
@@ -83,64 +100,149 @@ class RolePermissionSeeder extends Seeder
             'edit collections',
             'delete collections',
 
-            // ImportBatches
+            // Import Batches
             'view import batches',
-            "create import batches",
-
+            'create import batches',
         ];
 
         foreach ($permissions as $permission) {
-
             Permission::firstOrCreate([
                 'name' => $permission,
             ]);
         }
 
         // ================================//
-        // Customer Permissions           //
+        // RH                               //
         // ================================//
-        $customer->givePermissionTo([]);
 
-        // ================================//
-        // Employee Permissions           //
-        // ================================//
-        $employee->givePermissionTo([
-
+        Role::findByName('rh')->syncPermissions([
             'view dashboard',
 
-            'view products',
+            'view employees',
+            'create employees',
+            'edit employees',
+            'delete employees',
 
-            'view shipments',
+            'view departments',
+            'create departments',
+            'edit departments',
+            'delete departments',
 
+            'view positions',
+            'create positions',
+            'edit positions',
+            'delete positions',
         ]);
 
         // ================================//
-        // Manager Permissions            //
+        // Comercial                        //
         // ================================//
-        $manager->givePermissionTo([
 
+        Role::findByName('comercial')->syncPermissions([
             'view dashboard',
 
             'view products',
-
             'view categories',
-
-            'view users',
-
-            'view orders',
-
-            'view shipments',
-
-            'view suppliers',
-
             'view collections',
 
+            'view orders',
+            'view shipments',
         ]);
 
         // ================================//
-        // Admin Permissions              //
+        // Compras                          //
         // ================================//
-        $admin->givePermissionTo(
+
+        Role::findByName('compras')->syncPermissions([
+            'view dashboard',
+
+            'view products',
+
+            'view suppliers',
+            'create suppliers',
+            'edit suppliers',
+            'delete suppliers',
+        ]);
+
+        // ================================//
+        // Estoque                          //
+        // ================================//
+
+        Role::findByName('estoque')->syncPermissions([
+            'view dashboard',
+
+            'view products',
+            'view categories',
+
+            'view shipments',
+        ]);
+
+        // ================================//
+        // Operações                        //
+        // ================================//
+
+        Role::findByName('operacoes')->syncPermissions([
+            'view dashboard',
+
+            'view products',
+            'view categories',
+
+            'view orders',
+            'view shipments',
+        ]);
+
+        // ================================//
+        // Atendimento                      //
+        // ================================//
+
+        Role::findByName('atendimento')->syncPermissions([
+            'view dashboard',
+
+            'view products',
+            'view categories',
+            'view collections',
+
+            'view orders',
+            'view shipments',
+        ]);
+
+        // ================================//
+        // Financeiro                       //
+        // ================================//
+
+        Role::findByName('financeiro')->syncPermissions([
+            'view dashboard',
+
+            'view orders',
+        ]);
+
+        // ================================//
+        // Marketing                        //
+        // ================================//
+
+        Role::findByName('marketing')->syncPermissions([
+            'view dashboard',
+
+            'view products',
+            'view categories',
+            'view collections',
+
+            'view import batches',
+        ]);
+
+        // ================================//
+        // Administração                    //
+        // ================================//
+
+        Role::findByName('administracao')->syncPermissions(
+            Permission::all()
+        );
+
+        // ================================//
+        // Super Admin                      //
+        // ================================//
+
+        Role::findByName('super-admin')->syncPermissions(
             Permission::all()
         );
     }

@@ -24,4 +24,3 @@
     </ol>
 </nav>
 
-{{-- <x-ui.breadcrumbs :items="[['label' => 'Dashboard', 'url' => route('admin.dashboard')], ['label' => 'Produtos']]" /> --}}

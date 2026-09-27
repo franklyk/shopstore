@@ -86,15 +86,34 @@ class UserController extends Controller
 
     public function employees()
     {
-        $users = User::query()
+        $query = User::query()
             ->where('is_employee', true)
             ->with([
                 'roles',
                 'status',
-            ])
-            ->paginate(15);
+            ]);
 
-        return view('admin.users.employees.index', compact('users'));
+        $perPage = (int) request('per_page', 15);
+
+        if (!in_array($perPage, [10, 15, 25, 50, 100])) {
+            $perPage = 15;
+        }
+
+        $users = $query
+            ->paginate($perPage)
+            ->withQueryString();
+
+        if (request()->ajax()) {
+            return view(
+                'admin.employees.partials.listing',
+                compact('users')
+            );
+        }
+
+        return view(
+            'admin.employees.index',
+            compact('users')
+        );
     }
 
     public function customers()

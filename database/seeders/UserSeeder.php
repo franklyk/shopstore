@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Position\Position;
 use App\Models\Status\Status;
 use App\Models\User\User;
 use Illuminate\Database\Seeder;
@@ -20,84 +21,167 @@ class UserSeeder extends Seeder
             ->where('slug', 'active')
             ->value('id');
 
-        $pendingStatus = Status::query()
-            ->where('domain', 'user')
-            ->where('slug', 'pending')
-            ->value('id');
+        // ================================//
+        // Posições                         //
+        // ================================//
 
-        // ==================//
-        // Administrador     //
-        // ==================//
+        $positions = Position::query()
+            ->whereIn('slug', [
+                'administrador',
+                'gerente-de-rh',
+                'gerente-comercial',
+                'gerente-de-estoque',
+                'analista-de-rh',
+                'vendedor',
+                'estoquista',
+            ])
+            ->get()
+            ->keyBy('slug');
+
+        // ================================//
+        // Administrador                    //
+        // ================================//
 
         $admin = User::create([
             'uuid' => (string) Str::ulid(),
             'name' => 'Administrador',
-            'email' => 'admin@admin.com',
+            'email' => 'admin@shopstore.com',
             'status_id' => $activeStatus,
             'is_employee' => true,
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);
 
-        $admin->assignRole('admin');
+        $admin->assignRole('super-admin');
 
-        // ==================//
-        // Gerente           //
-        // ==================//
+        $admin->positions()->attach(
+            $positions['administrador']->id
+        );
 
-        $manager = User::create([
+        // ================================//
+        // Gerente de RH                    //
+        // ================================//
+
+        $hrManager = User::create([
             'uuid' => (string) Str::ulid(),
-            'name' => 'Gerente',
-            'email' => 'manager@admin.com',
+            'name' => 'Gerente de RH',
+            'email' => 'rh.manager@shopstore.com',
             'status_id' => $activeStatus,
             'is_employee' => true,
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);
 
-        $manager->assignRole('manager');
+        $hrManager->assignRole('rh');
 
-        // ==================//
-        // Funcionário       //
-        // ==================//
+        $hrManager->positions()->attach(
+            $positions['gerente-de-rh']->id
+        );
 
-        $employee = User::create([
+        // ================================//
+        // Gerente Comercial                //
+        // ================================//
+
+        $commercialManager = User::create([
             'uuid' => (string) Str::ulid(),
-            'name' => 'Funcionário',
-            'email' => 'employee@admin.com',
+            'name' => 'Gerente Comercial',
+            'email' => 'comercial.manager@shopstore.com',
             'status_id' => $activeStatus,
             'is_employee' => true,
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);
 
-        $employee->assignRole('employee');
+        $commercialManager->assignRole('comercial');
 
-        // ==================//
-        // Cliente           //
-        // ==================//
+        $commercialManager->positions()->attach(
+            $positions['gerente-comercial']->id
+        );
 
-        $customer = User::create([
+        // ================================//
+        // Gerente de Estoque               //
+        // ================================//
+
+        $stockManager = User::create([
             'uuid' => (string) Str::ulid(),
-            'name' => 'Cliente',
-            'email' => 'customer@admin.com',
-            'status_id' => $pendingStatus,
+            'name' => 'Gerente de Estoque',
+            'email' => 'estoque.manager@shopstore.com',
+            'status_id' => $activeStatus,
             'is_employee' => true,
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);
 
-        $customer->assignRole('customer');
+        $stockManager->assignRole('estoque');
 
-        // ==================//
-        // UserFactory       //
-        // ==================//
+        $stockManager->positions()->attach(
+            $positions['gerente-de-estoque']->id
+        );
 
-        User::factory(100)
-            ->create()
-            ->each(function ($user) {
-                $user->assignRole('customer');
-            });
+        // ================================//
+        // Analista de RH                   //
+        // ================================//
+
+        $hrAnalyst = User::create([
+            'uuid' => (string) Str::ulid(),
+            'name' => 'Analista de RH',
+            'email' => 'rh.analyst@shopstore.com',
+            'status_id' => $activeStatus,
+            'is_employee' => true,
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+        ]);
+
+        $hrAnalyst->assignRole('rh');
+
+        $hrAnalyst->positions()->attach(
+            $positions['analista-de-rh']->id
+        );
+
+        // ================================//
+        // Vendedor                         //
+        // ================================//
+
+        $seller = User::create([
+            'uuid' => (string) Str::ulid(),
+            'name' => 'Vendedor',
+            'email' => 'vendedor@shopstore.com',
+            'status_id' => $activeStatus,
+            'is_employee' => true,
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+        ]);
+
+        $seller->assignRole('comercial');
+
+        $seller->positions()->attach(
+            $positions['vendedor']->id
+        );
+
+        // ================================//
+        // Estoquista                       //
+        // ================================//
+
+        $stockEmployee = User::create([
+            'uuid' => (string) Str::ulid(),
+            'name' => 'Estoquista',
+            'email' => 'estoquista@shopstore.com',
+            'status_id' => $activeStatus,
+            'is_employee' => true,
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+        ]);
+
+        $stockEmployee->assignRole('estoque');
+
+        $stockEmployee->positions()->attach(
+            $positions['estoquista']->id
+        );
+
+        // ================================//
+        // Clientes                         //
+        // ================================//
+
+        User::factory(100)->create();
     }
 }
-

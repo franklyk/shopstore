@@ -3,12 +3,11 @@
 namespace App\Models\User;
 
 use App\Models\Cart\Cart;
+use App\Models\Position\Position;
 use App\Models\Status\Status;
 use App\Models\Traits\HasUuid;
 use Database\Factories\User\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -59,6 +58,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function addresses()
     {
         return $this->hasMany(Address::class);
+    }
+
+    public function positions()
+    {
+        return $this->belongsToMany(Position::class);
     }
 
     public function cart()

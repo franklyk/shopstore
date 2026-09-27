@@ -10,7 +10,6 @@ class StatusSeeder extends Seeder
     public function run(): void
     {
         Status::upsert([
-
             // Products
             [
                 'domain' => 'product',
@@ -140,6 +139,45 @@ class StatusSeeder extends Seeder
                 'active' => true,
             ],
 
+            // Departments
+            [
+                'domain' => 'department',
+                'name' => 'Ativo',
+                'slug' => 'active',
+                'color' => 'success',
+                'sort_order' => 1,
+                'is_default' => true,
+                'active' => true,
+            ],
+            [
+                'domain' => 'department',
+                'name' => 'Inativo',
+                'slug' => 'inactive',
+                'color' => 'secondary',
+                'sort_order' => 2,
+                'is_default' => false,
+                'active' => true,
+            ],
+
+            // Positions
+            [
+                'domain' => 'position',
+                'name' => 'Ativo',
+                'slug' => 'active',
+                'color' => 'success',
+                'sort_order' => 1,
+                'is_default' => true,
+                'active' => true,
+            ],
+            [
+                'domain' => 'position',
+                'name' => 'Inativo',
+                'slug' => 'inactive',
+                'color' => 'secondary',
+                'sort_order' => 2,
+                'is_default' => false,
+                'active' => true,
+            ],
         ], ['domain', 'slug']);
     }
 }

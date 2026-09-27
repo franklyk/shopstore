@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             CollectionSeeder::class,
             ProductSeeder::class,
+            DepartmentSeeder::class,
+            PositionSeeder::class,
             UserSeeder::class,
             AddressSeeder::class,
             WarehouseSeeder::class,
