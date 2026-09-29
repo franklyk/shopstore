@@ -17,126 +17,148 @@ class PositionSeeder extends Seeder
             ->firstOrFail();
 
         $positions = [
+
             // Recursos Humanos
+
             [
                 'department' => 'recursos-humanos',
                 'name' => 'Gerente de RH',
-                'description' => 'Responsável pela gestão estratégica do departamento de Recursos Humanos.',
+                'description' => 'Responsável pela gestão do departamento de Recursos Humanos, planejamento das atividades da área, acompanhamento da equipe e definição das políticas e processos relacionados aos funcionários.',
             ],
+
             [
                 'department' => 'recursos-humanos',
                 'name' => 'Analista de RH',
-                'description' => 'Atua nas atividades de análise e gestão de Recursos Humanos.',
+                'description' => 'Atua nos processos de Recursos Humanos, incluindo recrutamento, seleção, acompanhamento de funcionários, organização de documentos e apoio às rotinas de gestão de pessoas.',
             ],
+
             [
                 'department' => 'recursos-humanos',
                 'name' => 'Assistente de RH',
-                'description' => 'Presta suporte às atividades administrativas e operacionais de Recursos Humanos.',
+                'description' => 'Presta suporte às rotinas administrativas de Recursos Humanos, auxiliando na organização de documentos, cadastro de funcionários, controle de informações e atendimento às demandas internas.',
             ],
 
             // Comercial
+
             [
                 'department' => 'comercial',
                 'name' => 'Gerente Comercial',
-                'description' => 'Responsável pela gestão comercial, vendas e resultados do departamento.',
+                'description' => 'Responsável pela gestão da equipe comercial, definição de estratégias de vendas, acompanhamento dos resultados e desenvolvimento das ações para aumentar as vendas e a carteira de clientes.',
             ],
+
             [
                 'department' => 'comercial',
                 'name' => 'Vendedor',
-                'description' => 'Atua nas vendas, prospecção e relacionamento com clientes.',
+                'description' => 'Realiza atendimento comercial, apresenta produtos, identifica as necessidades dos clientes, negocia condições de venda, registra pedidos e acompanha oportunidades comerciais.',
             ],
 
             // Compras
+
             [
                 'department' => 'compras',
                 'name' => 'Gerente de Compras',
-                'description' => 'Responsável pela gestão das compras e relacionamento com fornecedores.',
+                'description' => 'Responsável pelo planejamento e gestão das compras, negociação com fornecedores, acompanhamento das necessidades de reposição e controle das condições comerciais de aquisição dos produtos.',
             ],
+
             [
                 'department' => 'compras',
                 'name' => 'Assistente de Compras',
-                'description' => 'Presta suporte aos processos de compras e relacionamento com fornecedores.',
+                'description' => 'Presta suporte aos processos de compras, realizando cotações, organização de pedidos, atualização de informações de fornecedores e acompanhamento das solicitações de aquisição.',
             ],
 
             // Estoque
+
             [
                 'department' => 'estoque',
                 'name' => 'Gerente de Estoque',
-                'description' => 'Responsável pela gestão do estoque, inventário e movimentação de produtos.',
+                'description' => 'Responsável pela gestão do estoque, organização dos produtos, controle de inventário, acompanhamento das movimentações e definição de procedimentos para garantir a disponibilidade e integridade dos produtos.',
             ],
+
             [
                 'department' => 'estoque',
                 'name' => 'Estoquista',
-                'description' => 'Atua no armazenamento, organização e movimentação de produtos.',
+                'description' => 'Realiza o recebimento, conferência, armazenamento, organização, separação e movimentação de produtos, mantendo o estoque identificado e organizado.',
             ],
 
             // Operações
+
             [
                 'department' => 'operacoes',
                 'name' => 'Gerente de Operações',
-                'description' => 'Responsável pela gestão dos processos operacionais da organização.',
+                'description' => 'Responsável pelo acompanhamento e gestão dos processos operacionais da empresa, coordenando o fluxo de trabalho entre os departamentos e buscando garantir eficiência, organização e cumprimento dos procedimentos internos.',
             ],
+
             [
                 'department' => 'operacoes',
                 'name' => 'Assistente de Operações',
-                'description' => 'Presta suporte às atividades e processos operacionais.',
+                'description' => 'Auxilia no acompanhamento dos processos operacionais, organiza informações e documentos, acompanha o fluxo de pedidos e presta suporte às equipes envolvidas nas atividades diárias da empresa.',
             ],
 
             // Atendimento
+
             [
                 'department' => 'atendimento',
                 'name' => 'Gerente de Atendimento',
-                'description' => 'Responsável pela gestão do atendimento e relacionamento com clientes.',
+                'description' => 'Responsável pela gestão da equipe de atendimento, definição dos procedimentos de atendimento, acompanhamento da qualidade do serviço e tratamento das demandas e reclamações dos clientes.',
             ],
+
             [
                 'department' => 'atendimento',
                 'name' => 'Atendente',
-                'description' => 'Atua no atendimento e suporte aos clientes.',
+                'description' => 'Realiza o atendimento aos clientes, esclarece dúvidas, fornece informações sobre produtos e pedidos, registra solicitações e encaminha demandas para os departamentos responsáveis.',
             ],
 
             // Financeiro
+
             [
                 'department' => 'financeiro',
                 'name' => 'Gerente Financeiro',
-                'description' => 'Responsável pela gestão financeira da organização.',
+                'description' => 'Responsável pela gestão financeira da empresa, acompanhamento do fluxo de caixa, planejamento financeiro, controle das receitas e despesas e supervisão das atividades do departamento.',
             ],
+
             [
                 'department' => 'financeiro',
                 'name' => 'Analista Financeiro',
-                'description' => 'Atua na análise e controle das atividades financeiras.',
+                'description' => 'Atua no controle e análise das movimentações financeiras, acompanhamento de contas a pagar e receber, conciliação de informações e elaboração de relatórios financeiros.',
             ],
+
             [
                 'department' => 'financeiro',
                 'name' => 'Assistente Financeiro',
-                'description' => 'Presta suporte às atividades administrativas e financeiras.',
+                'description' => 'Presta suporte às rotinas financeiras, auxiliando no lançamento e organização de documentos, controle de pagamentos e recebimentos e atualização das informações financeiras.',
             ],
 
             // Marketing
+
             [
                 'department' => 'marketing',
                 'name' => 'Gerente de Marketing',
-                'description' => 'Responsável pela gestão das estratégias e ações de marketing.',
+                'description' => 'Responsável pelo planejamento e gestão das estratégias de marketing, definição de campanhas, acompanhamento dos resultados e posicionamento da empresa e de seus produtos.',
             ],
+
             [
                 'department' => 'marketing',
                 'name' => 'Analista de Marketing',
-                'description' => 'Atua no planejamento, análise e execução de ações de marketing.',
+                'description' => 'Atua no planejamento, execução e análise de campanhas de marketing, produção de informações para as ações comerciais e acompanhamento dos resultados das estratégias de divulgação.',
             ],
+
             [
                 'department' => 'marketing',
                 'name' => 'Assistente de Marketing',
-                'description' => 'Presta suporte às atividades e campanhas de marketing.',
+                'description' => 'Presta suporte na execução de campanhas e ações de marketing, organização de materiais, atualização de conteúdos e acompanhamento das atividades de divulgação.',
             ],
 
             // Administração
+
             [
                 'department' => 'administracao',
                 'name' => 'Administrador',
-                'description' => 'Responsável pela administração geral e gestão estratégica da organização.',
+                'description' => 'Responsável pela administração geral da empresa, acompanhamento dos processos administrativos, integração entre os departamentos e apoio à gestão estratégica e operacional da organização.',
             ],
         ];
 
         foreach ($positions as $position) {
+
             $department = Department::where(
                 'slug',
                 $position['department']
