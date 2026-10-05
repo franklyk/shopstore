@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Catalog\Product;
-use App\Services\Stock\StockService;
+use App\Models\Product;
+use App\Services\StockService;
 use Illuminate\Database\Seeder;
 
 class StockSeeder extends Seeder

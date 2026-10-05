@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Department;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Department\StoreDepartmentRequest;
 use App\Http\Requests\Department\UpdateDepartmentRequest;
-use App\Models\Department\Department;
-use App\Models\Status\Status;
+use App\Models\Department;
+use App\Models\Status;
 use Illuminate\Support\Facades\DB;
 
 class DepartmentController extends Controller

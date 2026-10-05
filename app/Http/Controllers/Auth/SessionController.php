@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\SessionRequest;
-use App\Services\Auth\AuthRedirectService;
+use App\Services\AuthRedirectService;
 use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller

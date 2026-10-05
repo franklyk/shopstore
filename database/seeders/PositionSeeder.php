@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Department\Department;
-use App\Models\Position\Position;
-use App\Models\Status\Status;
+use App\Models\Department;
+use App\Models\Position;
+use App\Models\Status;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 

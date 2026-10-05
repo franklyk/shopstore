@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Brand\Brand;
-use App\Models\User\User;
+use App\Models\Brand;
+use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
 class BrandPolicy

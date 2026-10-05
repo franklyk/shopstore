@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\Category\CategoryController;
-use App\Http\Controllers\Admin\Dashboard\DashboardController;
-use App\Http\Controllers\Admin\Orders\OrderController;
-use App\Http\Controllers\Admin\Products\ProductController;
-use App\Http\Controllers\Admin\Users\UserController;
-use App\Http\Controllers\Admin\Collection\CollectionController;
-use App\Http\Controllers\Admin\Import\ImportBatchController;
-use App\Http\Controllers\Admin\Stock\StockController;
-use App\Http\Controllers\Admin\Stock\StockReceiptController;
-use App\Http\Controllers\Admin\Supplier\SupplierController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CollectionController;
+use App\Http\Controllers\Admin\ImportBatchController;
+use App\Http\Controllers\Admin\StockController;
+use App\Http\Controllers\Admin\StockReceiptController;
+use App\Http\Controllers\Admin\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 

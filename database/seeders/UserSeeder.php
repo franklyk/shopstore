@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Position\Position;
-use App\Models\Status\Status;
-use App\Models\User\User;
+use App\Models\Position;
+use App\Models\Status;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;

@@ -1,0 +1,115 @@
+<?php
+
+namespace App\Models;
+
+use App\Models\Status;
+use App\Models\Stock;
+use App\Models\StockMovement;
+use App\Models\Supplier;
+use App\Traits\HasSlug;
+use App\Traits\HasUuid;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
+
+class Product extends Model
+{
+    use HasFactory, HasSlug, HasUuid, SoftDeletes;
+
+    protected $fillable = [
+        'name',
+        'sku',
+        'description',
+        'price',
+        'status_id',
+        'brand_id',
+    ];
+
+    protected $casts = [
+        'price' => 'decimal:2',
+        'stock' => 'integer',
+    ];
+
+    protected static function booted(): void
+    {
+        parent::boot();
+
+        static::creating(function ($product) {
+
+            if (empty($product->uuid)) {
+                $product->uuid = (string) Str::ulid();
+            }
+
+            $product->slug = Str::slug($product->name);
+
+            if (empty($product->sku)) {
+                $product->sku = strtoupper(Str::random(8));
+            }
+        });
+
+        static::updating(function ($product) {
+
+            $product->slug = Str::slug($product->name);
+        });
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function suppliers()
+    {
+        return $this->belongsToMany(Supplier::class);
+    }
+
+    public function stocks(): HasMany
+    {
+        return $this->hasMany(Stock::class);
+    }
+
+    public function stockMovements(): HasMany
+    {
+        return $this->hasMany(StockMovement::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
+    public function collections()
+    {
+        return $this->belongsToMany(Collection::class);
+    }
+
+    // public function primaryImage(): HasOne
+    // {
+    //     return $this->hasOne(ProductImage::class)
+    //         ->where('is_primary', true);
+    // }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->primaryImage
+            ? asset('storage/' . $this->primaryImage->image)
+            : null;
+    }
+}

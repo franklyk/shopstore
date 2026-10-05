@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Brand;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
-use App\Models\Catalog\Brand;
+use App\Models\Brand;
 
 class BrandController extends Controller
 {

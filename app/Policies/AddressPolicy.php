@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\User\Address;
-use App\Models\User\User;
+use App\Models\Address;
+use App\Models\User;
 
 class AddressPolicy
 {

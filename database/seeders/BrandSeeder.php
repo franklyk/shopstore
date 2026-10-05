@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Catalog\Brand;
-use App\Models\Status\Status;
+use App\Models\Brand;
+use App\Models\Status;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
