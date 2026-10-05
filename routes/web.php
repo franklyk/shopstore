@@ -3,7 +3,8 @@
 // require __DIR__.'/web/admin.php';
 
 require __DIR__.'/web/admin.php';
-require __DIR__.'/web/rh.php';
+require __DIR__.'/web/admin/hr.php';
+require __DIR__.'/web/admin/commercial.php';
 require __DIR__.'/web/auth.php';
 require __DIR__.'/web/profile.php';
 require __DIR__.'/web/store.php';
