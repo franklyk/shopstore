@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Users\StoreUserRequest;
-use App\Http\Requests\Admin\Users\UpdateUserRequest;
+use App\Http\Requests\Admin\User\StoreUserRequest;
+use App\Http\Requests\Admin\User\UpdateUserRequest;
 use App\Models\Status;
 use App\Models\User;
 use App\Services\UserFilterService;

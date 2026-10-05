@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\Shipment\ShipmentController;
+use App\Http\Controllers\Admin\ShipmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware([
