@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CollectionController;
-use App\Http\Controllers\Admin\ImportBatchController;
 use App\Http\Controllers\Admin\StockController;
 use App\Http\Controllers\Admin\StockReceiptController;
 use App\Http\Controllers\Admin\SupplierController;
@@ -305,28 +304,5 @@ Route::middleware(['auth', 'verified', 'employee'])
                 Route::delete('/destroy/{collection}', [CollectionController::class, 'destroy'])
                     ->middleware('permission:delete collections')
                     ->name('destroy');
-            });
-
-        Route::prefix('imports')
-            ->name('imports.')
-            ->group(function () {
-
-                Route::get('/', [ImportBatchController::class, 'index'])
-                    ->name('index');
-
-                Route::get('/create', [ImportBatchController::class, 'create'])
-                    ->name('create');
-
-                Route::post('/store', [ImportBatchController::class, 'store'])
-                    ->name('store');
-
-                Route::get('/{importBatch}', [ImportBatchController::class, 'show'])
-                    ->name('show');
-
-                Route::get('/{importBatch}/pdf', [ImportBatchController::class, 'pdf'])
-                    ->name('pdf');
-
-                Route::post('/{importBatch}/process', [ImportBatchController::class, 'process'])
-                    ->name('process');
             });
     });

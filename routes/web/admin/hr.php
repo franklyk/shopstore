@@ -11,6 +11,10 @@ Route::middleware(['auth', 'verified', 'employee'])
         Route::get('/employees', [EmployeeController::class, 'index'])
             ->middleware('permission:view users')
             ->name('employees.index');
+            
+        Route::get('/employees/{employee}', [EmployeeController::class, 'show'])
+            ->middleware('permission:view users')
+            ->name('employees.show');
 
         Route::get('/departments', [DepartmentController::class, 'index'])
             ->middleware('permission:view departments')

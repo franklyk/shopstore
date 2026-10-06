@@ -37,14 +37,14 @@
 
         </x-slot:header>
 
-        @if (!empty($users))
+        @if (!empty($employees))
 
             <div class="listing">
 
                 <div class="listing-content">
 
                     @include('admin.employees.partials.listing', [
-                        'users' => $users,
+                        'employees' => $employees,
                     ])
 
                 </div>

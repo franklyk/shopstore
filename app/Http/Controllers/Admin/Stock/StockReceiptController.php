@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Stock;
 
 use App\Http\Controllers\Controller;
 use App\Models\StockReceipt;
@@ -18,6 +18,7 @@ class StockReceiptController extends Controller
     | CREATE DRAFT RECEIPT
     |--------------------------------------------------------------------------
     */
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -39,6 +40,7 @@ class StockReceiptController extends Controller
     | ADD ITEM
     |--------------------------------------------------------------------------
     */
+
     public function addItem(Request $request, string $uuid)
     {
         $receipt = StockReceipt::where('uuid', $uuid)->firstOrFail();
@@ -62,6 +64,7 @@ class StockReceiptController extends Controller
     | CONFIRM RECEIPT (ENTRADA ESTOQUE)
     |--------------------------------------------------------------------------
     */
+
     public function confirm(string $uuid)
     {
         $receipt = StockReceipt::where('uuid', $uuid)->firstOrFail();
@@ -76,6 +79,7 @@ class StockReceiptController extends Controller
     | CANCEL RECEIPT
     |--------------------------------------------------------------------------
     */
+
     public function cancel(string $uuid)
     {
         $receipt = StockReceipt::where('uuid', $uuid)->firstOrFail();

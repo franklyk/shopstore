@@ -380,7 +380,7 @@
 
                 </x-slot:icon>
 
-                <x-menu.link href="{{ route('admin.users.index') }}">
+                <x-menu.link href="{{ route('admin.system.users.index') }}">
 
                     Usuários
 

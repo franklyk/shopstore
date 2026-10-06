@@ -32,4 +32,9 @@ class EmployeeController extends Controller
 
         return view('admin.employees.index', compact('employees'));
     }
+
+    public function show(User $employee)
+    {
+        // Code...
+    }
 }

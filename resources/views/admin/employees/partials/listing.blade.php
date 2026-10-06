@@ -26,32 +26,32 @@
 
             <tbody>
 
-                @foreach ($users as $user)
-                    <tr scope="row" class="clickable-row" data-href="{{ route('admin.users.show', $user) }}">
+                @foreach ($employees as $employee)
+                    <tr scope="row" class="clickable-row" data-href="{{ route('admin.hr.employees.show', $employee) }}">
 
                         <td>
                             "imagem"
                         </td>
 
                         <td>
-                            {{ $user->id }}
+                            {{ $employee->id }}
                         </td>
 
                         <td>
-                            {{ $user->name }}
+                            {{ $employee->name }}
                         </td>
 
                         <td>
-                            {{ $user->email }}
+                            {{ $employee->email }}
                         </td>
 
                         <td>
-                            {{ $user->roles->first()?->name }}
+                            {{ $employee->roles->first()?->name }}
                         </td>
 
                         <td>
-                            <span class="badge text-bg-{{ $user->status->color }}">
-                                {{ $user->status->name }}
+                            <span class="badge text-bg-{{ $employee->status->color }}">
+                                {{ $employee->status->name }}
                             </span>
                         </td>
 
@@ -67,10 +67,10 @@
 
 </div>
 
-@if ($users->hasPages())
+@if ($employees->hasPages())
     <div class="listing-pagination">
 
-        {{ $users->links() }}
+        {{ $employees->links() }}
 
     </div>
 @endif
