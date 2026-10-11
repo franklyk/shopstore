@@ -17,18 +17,19 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolePermissionSeeder::class,
             StatusSeeder::class,
-            SuperAdminSeeder::class,
-            BrandSeeder::class,
-            SupplierSeeder::class,
-            CategorySeeder::class,
-            CollectionSeeder::class,
-            ProductSeeder::class,
-            DepartmentSeeder::class,
-            PositionSeeder::class,
-            UserSeeder::class,
-            AddressSeeder::class,
-            WarehouseSeeder::class,
-            StockSeeder::class,
+            
+            // SuperAdminSeeder::class,
+            // BrandSeeder::class,
+            // SupplierSeeder::class,
+            // CategorySeeder::class,
+            // CollectionSeeder::class,
+            // ProductSeeder::class,
+            // DepartmentSeeder::class,
+            // PositionSeeder::class,
+            // UserSeeder::class,
+            // AddressSeeder::class,
+            // WarehouseSeeder::class,
+            // StockSeeder::class,
         ]);
     }
 }

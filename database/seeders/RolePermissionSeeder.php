@@ -14,20 +14,19 @@ class RolePermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]
             ->forgetCachedPermissions();
 
-        // ================================//
-        // Roles                            //
-        // ================================//
+        // Roles
 
         $roles = [
-            'rh',
-            'comercial',
-            'compras',
-            'estoque',
-            'operacoes',
-            'atendimento',
-            'financeiro',
+            'hr',
+            'commercial',
+            'purchasing',
+            'stock',
+            'operations',
+            'support',
+            'finance',
             'marketing',
-            'administracao',
+            'administration',
+            'owner',
             'super-admin',
         ];
 
@@ -37,12 +36,9 @@ class RolePermissionSeeder extends Seeder
             ]);
         }
 
-        // ================================//
-        // Permissions                      //
-        // ================================//
+        // Permissions
 
         $permissions = [
-
             // Dashboard
             'view dashboard',
 
@@ -99,10 +95,6 @@ class RolePermissionSeeder extends Seeder
             'create collections',
             'edit collections',
             'delete collections',
-
-            // Import Batches
-            'view import batches',
-            'create import batches',
         ];
 
         foreach ($permissions as $permission) {
@@ -111,139 +103,111 @@ class RolePermissionSeeder extends Seeder
             ]);
         }
 
-        // ================================//
-        // RH                               //
-        // ================================//
+        // HR
 
-        Role::findByName('rh')->syncPermissions([
+        Role::findByName('hr')->syncPermissions([
             'view dashboard',
-
             'view employees',
             'create employees',
             'edit employees',
             'delete employees',
-
             'view departments',
             'create departments',
             'edit departments',
             'delete departments',
-
             'view positions',
             'create positions',
             'edit positions',
             'delete positions',
         ]);
 
-        // ================================//
-        // Comercial                        //
-        // ================================//
+        // Commercial
 
-        Role::findByName('comercial')->syncPermissions([
+        Role::findByName('commercial')->syncPermissions([
             'view dashboard',
-
             'view products',
             'view categories',
             'view collections',
-
             'view orders',
             'view shipments',
         ]);
 
-        // ================================//
-        // Compras                          //
-        // ================================//
+        // Purchasing
 
-        Role::findByName('compras')->syncPermissions([
+        Role::findByName('purchasing')->syncPermissions([
             'view dashboard',
-
             'view products',
-
             'view suppliers',
             'create suppliers',
             'edit suppliers',
             'delete suppliers',
         ]);
 
-        // ================================//
-        // Estoque                          //
-        // ================================//
+        // Stock
 
-        Role::findByName('estoque')->syncPermissions([
+        Role::findByName('stock')->syncPermissions([
             'view dashboard',
-
             'view products',
             'view categories',
-
             'view shipments',
         ]);
 
-        // ================================//
-        // Operações                        //
-        // ================================//
+        // Operations
 
-        Role::findByName('operacoes')->syncPermissions([
+        Role::findByName('operations')->syncPermissions([
             'view dashboard',
-
             'view products',
             'view categories',
-
             'view orders',
             'view shipments',
         ]);
 
-        // ================================//
-        // Atendimento                      //
-        // ================================//
+        // Support
 
-        Role::findByName('atendimento')->syncPermissions([
+        Role::findByName('support')->syncPermissions([
             'view dashboard',
-
             'view products',
             'view categories',
             'view collections',
-
             'view orders',
             'view shipments',
         ]);
 
-        // ================================//
-        // Financeiro                       //
-        // ================================//
+        // Finance
 
-        Role::findByName('financeiro')->syncPermissions([
+        Role::findByName('finance')->syncPermissions([
             'view dashboard',
-
             'view orders',
         ]);
 
-        // ================================//
-        // Marketing                        //
-        // ================================//
+        // Marketing
 
         Role::findByName('marketing')->syncPermissions([
             'view dashboard',
-
             'view products',
             'view categories',
             'view collections',
-
-            'view import batches',
         ]);
 
-        // ================================//
-        // Administração                    //
-        // ================================//
+        // Administration
 
-        Role::findByName('administracao')->syncPermissions(
+        Role::findByName('administration')->syncPermissions(
             Permission::all()
         );
 
-        // ================================//
-        // Super Admin                      //
-        // ================================//
+        // Owner
+
+        Role::findByName('owner')->syncPermissions(
+            Permission::all()
+        );
+
+        // Super Admin
 
         Role::findByName('super-admin')->syncPermissions(
             Permission::all()
         );
+
+        app()[PermissionRegistrar::class]
+            ->forgetCachedPermissions();
     }
 }

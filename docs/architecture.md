@@ -230,3 +230,27 @@ Super Admin
 **O Bootstrap Code existe exclusivamente para iniciar uma instalação. Ele não é uma credencial permanente, não substitui o Owner e não deve ser utilizado como mecanismo de recuperação de propriedade após a instalação ter sido concluída.**
 
 A recuperação de um Bootstrap Code durante uma inicialização interrompida e a recuperação ou transferência de propriedade após uma instalação concluída são processos distintos e devem permanecer separados na arquitetura.
+
+
+
+### Autorização
+
+As permissões representam **ações/capacidades do sistema**, e não páginas ou classes. Roles são atribuídas principalmente a líderes/gestores, enquanto permissões diretas podem ser concedidas individualmente a funcionários conforme sua necessidade.
+
+
+### Provisionamento e licenciamento
+
+O ShopStore poderá operar com dois bancos independentes: um banco central, administrado pela empresa de tecnologia, responsável pelo cadastro de clientes, instalações, tokens de inicialização e licenças; e um banco local por instalação, responsável pelos usuários, permissões e dados operacionais.
+
+O token de inicialização será utilizado uma única vez para configurar a instalação. O licenciamento mensal será um mecanismo separado, responsável por controlar a continuidade do acesso à aplicação.
+
+
+### Separação entre plataforma central e instalações
+
+A plataforma da empresa de tecnologia será responsável pelo cadastro de clientes, provisionamento de instalações e gerenciamento de tokens de inicialização. Cada instalação ShopStore manterá seu próprio banco operacional. O licenciamento e as assinaturas serão incorporados posteriormente à plataforma central.
+
+
+
+### Plataforma central VERSITE
+
+VERSITE é a plataforma central da empresa de tecnologia, responsável pelo provisionamento e gerenciamento das instalações ShopStore. Será desenvolvida como uma aplicação Laravel independente, inicialmente hospedada no mesmo servidor local do ShopStore, com banco de dados próprio e possibilidade de hospedagem separada futuramente.
