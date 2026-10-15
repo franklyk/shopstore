@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\System\UserController;
+use App\Http\Controllers\Admin\System\BootstrappingController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified', 'employee'])

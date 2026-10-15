@@ -40,15 +40,13 @@ class AppServiceProvider extends ServiceProvider
         }
 
         // ================================//
-        // Super Admin Bypass             //
+        // Owner Bypass                    //
         // ================================//
 
         Gate::before(function ($user, $ability) {
-
-            return $user->hasRole('super-admin')
+            return $user->hasRole('owner')
                 ? true
                 : null;
-
         });
 
         // ================================//

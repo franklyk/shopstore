@@ -34,10 +34,6 @@
             <x-menu.link href="{{ route('admin.collections.index') }}" label="Coleções" />
         @endcan
 
-        @can('view import batches')
-            <x-menu.link href="{{ route('admin.imports.index') }}" label="PDF" />
-        @endcan
-
     </x-menu.list>
 
 </aside>

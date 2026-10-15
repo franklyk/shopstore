@@ -372,7 +372,7 @@
         {{-- Administração --}}
 
         @can('view dashboard')
-            <x-menu.accordion label="Administração" id="menu-administration" :active="request()->routeIs('admin.administration.*')">
+            <x-menu.accordion label="Sistema" id="menu-administration" :active="request()->routeIs('admin.administration.*')">
 
                 <x-slot:icon>
 

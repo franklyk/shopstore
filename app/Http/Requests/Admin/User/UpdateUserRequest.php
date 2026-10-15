@@ -8,36 +8,47 @@ use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
+        $user = $this->route('user');
+        $userId = is_object($user) ? $user->getKey() : $user;
+
         return [
             'name' => ['required', 'string', 'max:255'],
+
             'email' => [
                 'required',
                 'email',
                 'max:255',
-                "unique:users,email,{$this->user->id}",
+                Rule::unique('users', 'email')->ignore($userId),
             ],
-            'password' => ['nullable', 'string', 'min:6', 'confirmed'],
+
+            'password' => [
+                'nullable',
+                'string',
+                'min:6',
+                'confirmed',
+            ],
+
+            'role' => [
+                'required',
+                'string',
+                Rule::exists('roles', 'name'),
+            ],
 
             'status_id' => [
                 'required',
                 'integer',
                 Rule::exists('statuses', 'id')
-                    ->where(fn($query) => $query->where('domain', 'user')),
+                    ->where(fn ($query) => $query->where('domain', 'user')),
             ],
         ];
     }

@@ -8,12 +8,13 @@ use Illuminate\Http\Request;
 
 class EmailVerificationController extends Controller
 {
-    /**
-     * Tela de aviso de verificação.
-     */
-    public function notice()
+
+
+    public function notice(Request $request)
     {
-        return view('auth.verify-email');
+        return view('auth.verify-email', [
+            'user' => $request->user(),
+        ]);
     }
 
     /**

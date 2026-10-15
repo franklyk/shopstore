@@ -254,3 +254,40 @@ A plataforma da empresa de tecnologia será responsável pelo cadastro de client
 ### Plataforma central VERSITE
 
 VERSITE é a plataforma central da empresa de tecnologia, responsável pelo provisionamento e gerenciamento das instalações ShopStore. Será desenvolvida como uma aplicação Laravel independente, inicialmente hospedada no mesmo servidor local do ShopStore, com banco de dados próprio e possibilidade de hospedagem separada futuramente.
+
+
+## ShopStore — Autoridade do Owner e administração de permissões
+
+### 1. Hierarquia de autoridade
+
+- **Owner:** possui autoridade total e irrestrita sobre o sistema. Pode executar qualquer ação administrativa, gerenciar usuários, conceder ou remover roles e permissões, inclusive `owner` e `super-admin`.
+- **Super Admin:** responsável pela administração técnica do sistema. Não pode assumir a propriedade da empresa nem transferi-la para si.
+- **Demais usuários:** executam somente as ações permitidas pelas roles e permissões atribuídas.
+
+### 2. Identificação do Owner
+
+O Owner é um registro da tabela `users`, identificado pela role `owner` do Spatie Laravel Permission. Não será criado um modelo separado para o proprietário.
+
+### 3. Implementação inicial
+
+- Ajustar `UserController`, `StoreUserRequest` e `UpdateUserRequest` conforme a arquitetura atual.
+- Permitir ao Owner conceder e remover qualquer role ou permissão, sem restrições administrativas adicionais nesta etapa.
+- Impedir que usuários sem autoridade adequada executem operações privilegiadas.
+- Preservar as funcionalidades existentes do CRUD que continuarem compatíveis com a arquitetura atual.
+
+### 4. Confirmação por senha
+
+Em uma etapa posterior, implementar a exigência de confirmação da senha do Owner antes de concluir qualquer ação executada por ele. Essa proteção será aplicada às operações administrativas, visando reduzir o risco de fraude ou uso indevido da conta.
+
+### 5. Diretriz arquitetural
+
+A autoridade do Owner é superior às permissões administrativas comuns. A implementação dessa hierarquia não deve depender exclusivamente das permissões genéricas de CRUD nem permitir que o Super Admin assuma a propriedade da empresa.
+
+
+### Hierarquia de autoridade administrativa
+
+- O Owner é a autoridade máxima do sistema e a única função autorizada a atribuir ou remover o papel `super-admin`.
+- O Super Admin administra tecnicamente o sistema, mas não pode conceder, remover ou alterar o próprio privilégio nem gerenciar outra conta `super-admin`.
+- A conta Owner deve ser protegida contra alterações privilegiadas e exclusão por outros usuários.
+- As permissões dos demais funcionários devem seguir o princípio do menor privilégio.
+- Essas restrições devem ser validadas no backend, independentemente da interface.

@@ -2,7 +2,7 @@
 
 @section('title', 'Editar Usuário')
 
-@section('admin')
+@section('layout-admin')
 
     <div class="editors page-container">
         <x-ui.page-header title="Editar Usuário" description="Edite Qualquer Detalhe do Usuário.">

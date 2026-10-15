@@ -14,8 +14,6 @@ class RolePermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]
             ->forgetCachedPermissions();
 
-        // Roles
-
         $roles = [
             'hr',
             'commercial',
@@ -35,8 +33,6 @@ class RolePermissionSeeder extends Seeder
                 'name' => $role,
             ]);
         }
-
-        // Permissions
 
         $permissions = [
             // Dashboard
@@ -103,8 +99,6 @@ class RolePermissionSeeder extends Seeder
             ]);
         }
 
-        // HR
-
         Role::findByName('hr')->syncPermissions([
             'view dashboard',
             'view employees',
@@ -121,8 +115,6 @@ class RolePermissionSeeder extends Seeder
             'delete positions',
         ]);
 
-        // Commercial
-
         Role::findByName('commercial')->syncPermissions([
             'view dashboard',
             'view products',
@@ -131,8 +123,6 @@ class RolePermissionSeeder extends Seeder
             'view orders',
             'view shipments',
         ]);
-
-        // Purchasing
 
         Role::findByName('purchasing')->syncPermissions([
             'view dashboard',
@@ -143,16 +133,12 @@ class RolePermissionSeeder extends Seeder
             'delete suppliers',
         ]);
 
-        // Stock
-
         Role::findByName('stock')->syncPermissions([
             'view dashboard',
             'view products',
             'view categories',
             'view shipments',
         ]);
-
-        // Operations
 
         Role::findByName('operations')->syncPermissions([
             'view dashboard',
@@ -161,8 +147,6 @@ class RolePermissionSeeder extends Seeder
             'view orders',
             'view shipments',
         ]);
-
-        // Support
 
         Role::findByName('support')->syncPermissions([
             'view dashboard',
@@ -173,14 +157,10 @@ class RolePermissionSeeder extends Seeder
             'view shipments',
         ]);
 
-        // Finance
-
         Role::findByName('finance')->syncPermissions([
             'view dashboard',
             'view orders',
         ]);
-
-        // Marketing
 
         Role::findByName('marketing')->syncPermissions([
             'view dashboard',
@@ -189,23 +169,103 @@ class RolePermissionSeeder extends Seeder
             'view collections',
         ]);
 
-        // Administration
+        Role::findByName('administration')->syncPermissions([
+            'view dashboard',
 
-        Role::findByName('administration')->syncPermissions(
-            Permission::all()
-        );
+            'view products',
+            'create products',
+            'edit products',
+            'delete products',
 
-        // Owner
+            'view categories',
+            'create categories',
+            'edit categories',
+            'delete categories',
+
+            'view users',
+            'create users',
+            'edit users',
+            'delete users',
+
+            'view employees',
+            'create employees',
+            'edit employees',
+            'delete employees',
+
+            'view departments',
+            'create departments',
+            'edit departments',
+            'delete departments',
+
+            'view positions',
+            'create positions',
+            'edit positions',
+            'delete positions',
+
+            'view orders',
+            'view shipments',
+
+            'view suppliers',
+            'create suppliers',
+            'edit suppliers',
+            'delete suppliers',
+
+            'view collections',
+            'create collections',
+            'edit collections',
+            'delete collections',
+        ]);
 
         Role::findByName('owner')->syncPermissions(
             Permission::all()
         );
 
-        // Super Admin
+        Role::findByName('super-admin')->syncPermissions([
+            'view dashboard',
 
-        Role::findByName('super-admin')->syncPermissions(
-            Permission::all()
-        );
+            'view products',
+            'create products',
+            'edit products',
+            'delete products',
+
+            'view categories',
+            'create categories',
+            'edit categories',
+            'delete categories',
+
+            'view users',
+            'create users',
+            'edit users',
+            'delete users',
+
+            'view employees',
+            'create employees',
+            'edit employees',
+            'delete employees',
+
+            'view departments',
+            'create departments',
+            'edit departments',
+            'delete departments',
+
+            'view positions',
+            'create positions',
+            'edit positions',
+            'delete positions',
+
+            'view orders',
+            'view shipments',
+
+            'view suppliers',
+            'create suppliers',
+            'edit suppliers',
+            'delete suppliers',
+
+            'view collections',
+            'create collections',
+            'edit collections',
+            'delete collections',
+        ]);
 
         app()[PermissionRegistrar::class]
             ->forgetCachedPermissions();
