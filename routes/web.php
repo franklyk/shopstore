@@ -1,6 +1,7 @@
 <?php
 
 require __DIR__.'/web/auth/email-verify.php';
+require __DIR__.'/web/auth/first-login-password.php';
 require __DIR__.'/web/auth/login.php';
 require __DIR__.'/web/auth/register.php';
 require __DIR__.'/web/auth/reset-password.php';

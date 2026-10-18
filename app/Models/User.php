@@ -28,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_employee',
         'email_verified_at',
         'password',
+        'must_change_password',
     ];
 
     protected $hidden = [
@@ -48,6 +49,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'must_change_password' => 'boolean',
         ];
     }
 

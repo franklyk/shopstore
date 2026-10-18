@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
+use App\Notifications\EmailVerificationCodeNotification;
+use App\Services\EmailVerificationService;
 use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
@@ -15,18 +16,24 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-    public function store(RegisterRequest $request)
-    {
+    public function store(
+        RegisterRequest $request,
+        EmailVerificationService $verificationService
+    ) {
         $user = User::create($request->validated());
 
         $user->assignRole('customer');
 
-        event(new Registered($user));
-
         Auth::login($user);
+
+        $code = $verificationService->create($user);
+
+        $user->notify(
+            new EmailVerificationCodeNotification($code)
+        );
 
         return redirect()
             ->route('verification.notice')
-            ->with('success', 'Conta criada! Verifique seu email.');
+            ->with('success', 'Conta criada! Verifique seu e-mail.');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsurePasswordIsChanged;
 use App\Http\Middleware\EnsureSystemIsInitialized;
 use App\Http\Middleware\EnsureUserIsEmployee;
 use Illuminate\Foundation\Application;
@@ -7,6 +8,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 use Spatie\Permission\Middleware\RoleMiddleware;
+
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -21,6 +23,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'employee' => EnsureUserIsEmployee::class,
         ]);
         $middleware->web(append: [
+            EnsureSystemIsInitialized::class,
+        ]);
+        $middleware->appendToGroup('web', [
+            EnsurePasswordIsChanged::class,
             EnsureSystemIsInitialized::class,
         ]);
     })

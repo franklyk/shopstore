@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Status;
 use App\Models\SystemInstallation;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
+use App\Notifications\EmailVerificationCodeNotification;
+use App\Services\EmailVerificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,8 +29,10 @@ class BootstrappingController extends Controller
         return view('admin.system.bootstrapping');
     }
 
-    public function store(Request $request)
-    {
+    public function store(
+        Request $request,
+        EmailVerificationService $verificationService
+    ) {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
@@ -42,7 +45,7 @@ class BootstrappingController extends Controller
                 ->firstOrFail();
 
             if ($installation->status !== 'pending') {
-                abort(403, 'A inicialização do sistema já foi concluída.');
+                abort(403, 'A inicialização do sistema já foi iniciada.');
             }
 
             if (User::role('owner')->exists()) {
@@ -62,21 +65,21 @@ class BootstrappingController extends Controller
                 'password' => Hash::make($data['password']),
                 'status_id' => $pendingStatus->id,
                 'is_employee' => true,
+                'must_change_password' => false,
             ]);
 
             $user->assignRole($ownerRole);
 
-            $installation->update([
-                'status' => 'initialized',
-                'initialized_at' => now(),
-            ]);
-
             return $user;
         });
 
-        event(new Registered($user));
-
         Auth::login($user);
+
+        $code = $verificationService->create($user);
+
+        $user->notify(
+            new EmailVerificationCodeNotification($code)
+        );
 
         return redirect()
             ->route('verification.notice')

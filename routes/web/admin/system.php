@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\System\UserController;
-use App\Http\Controllers\Admin\System\BootstrappingController;
+use App\Http\Controllers\Admin\System\SuperAdminSetupController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified', 'employee'])
@@ -35,4 +35,11 @@ Route::middleware(['auth', 'verified', 'employee'])
         Route::delete('/users/destroy/{user}', [UserController::class, 'destroy'])
             ->middleware('permission:delete users')
             ->name('users.destroy');
+
+
+        Route::get('/super-admin-setup', [ SuperAdminSetupController::class,'create',
+        ])->name('super-admin.create');
+
+        Route::post('/super-admin-setup', [ SuperAdminSetupController::class,'store',
+        ])->name('super-admin.store');
     });
