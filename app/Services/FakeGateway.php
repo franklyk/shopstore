@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 
-namespace App\Services\Payments;
+namespace App\Services;
 
 use App\Models\Payment;
 

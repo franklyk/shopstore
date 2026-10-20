@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Payments;
+namespace App\Services;
 
 use App\Enums\PaymentStatus;
 use App\Models\Payment;
-use App\Services\Shipment\ShipmentService;
-use App\Services\Stock\StockService;
+use App\Services\ShipmentService;
+use App\Services\StockService;
 use Illuminate\Support\Facades\DB;
 
 class PaymentService

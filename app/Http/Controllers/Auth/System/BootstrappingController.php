@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\System;
+namespace App\Http\Controllers\Auth\System;
 
 use App\Http\Controllers\Controller;
 use App\Models\Status;
@@ -26,7 +26,7 @@ class BootstrappingController extends Controller
             'A inicialização do sistema já foi concluída.'
         );
 
-        return view('admin.system.bootstrapping');
+        return view('auth.bootstrapping');
     }
 
     public function store(

@@ -1,5 +1,6 @@
 <?php
 
+require __DIR__.'/web/auth/bootstrap.php';
 require __DIR__.'/web/auth/email-verify.php';
 require __DIR__.'/web/auth/first-login-password.php';
 require __DIR__.'/web/auth/login.php';
@@ -15,7 +16,6 @@ require __DIR__.'/web/admin/purchasing.php';
 require __DIR__.'/web/admin/stock.php';
 require __DIR__.'/web/admin/support.php';
 require __DIR__.'/web/admin/system.php';
-require __DIR__.'/web/admin/bootstrap.php';
 
 require __DIR__.'/web/store/store.php';
 
