@@ -1,86 +1,58 @@
+@extends('layouts.auth')
 
-@extends('layouts.admin')
+@section('auth')
 
-@section('layout-admin')
-<div class="container py-4">
-    <div class="row justify-content-center">
-        <div class="col-12 col-sm-10 col-md-6 col-lg-4">
-            <div class="card shadow-sm">
-                <div class="card-body p-4">
-                    <h1 class="h5 text-center mb-3">
-                        Verificar e-mail
-                    </h1>
+    <div class="form">
 
-                    <p class="text-muted small text-center mb-4">
-                        Enviamos um código de verificação para
-                        <strong>{{ $email }}</strong>.
-                        Informe o código abaixo para continuar.
-                    </p>
+        <div class="form-header">
 
-                    @if (session('success'))
-                        <div class="alert alert-success small" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+            <div class="form-logo">
 
-                    @if ($errors->any())
-                        <div class="alert alert-danger small" role="alert">
-                            {{ $errors->first() }}
-                        </div>
-                    @endif
+                <a>
+                    <img src="{{ asset('images/logo/logo.png') }}" alt="{{ config('app.name') }}">
+                </a>
 
-                    <form method="POST" action="{{ route('verification.code.store') }}">
-                        @csrf
+            </div>
 
-                        <div class="mb-3">
-                            <label for="code" class="form-label">
-                                Código de verificação
-                            </label>
+            <h4 class="form-title">
+                Verificar e-mail
+            </h4>
 
-                            <input
-                                type="text"
-                                name="code"
-                                id="code"
-                                class="form-control text-center @error('code') is-invalid @enderror"
-                                inputmode="numeric"
-                                autocomplete="one-time-code"
-                                pattern="[0-9]{6}"
-                                maxlength="6"
-                                minlength="6"
-                                placeholder="000000"
-                                value="{{ old('code') }}"
-                                required
-                                autofocus
-                            >
+        </div>
 
-                            @error('code')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
+        <p class="text-muted small text-center mb-4">
 
-                        <button type="submit" class="btn btn-primary w-100">
-                            Confirmar e-mail
-                        </button>
-                    </form>
+            Enviamos um código de verificação para
+            <strong>{{ $email }}</strong>. <br>
+            Informe o código abaixo para continuar.
 
-                    <hr class="my-4">
+        </p>
 
-                    <form method="POST" action="{{ route('verification.code.resend') }}">
-                        @csrf
+        <x-forms.form method="POST" action="{{ route('verification.code.store') }}">
 
-                        <p class="text-muted small text-center mb-2">
-                            Não recebeu o código ou ele expirou?
-                        </p>
+            <div class="d-flex">
 
-                        <button type="submit" class="btn btn-outline-secondary btn-sm w-100">
-                            Reenviar código
-                        </button>
-                    </form>
+                <x-forms.input type="text" name="code" inputmode="numeric"
+                    autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" minlength="6" placeholder="000000"
+                    value="{{ old('code') }}" class="text-center" required autofocus />
+                <div class="form-action">
+                    <x-buttons.auth label="Confirme" />
                 </div>
             </div>
-        </div>
+
+        </x-forms.form>
+
+        <x-forms.form method="POST" action="{{ route('verification.code.resend') }}">
+
+            <p class="text-muted small text-center">
+                Não recebeu o código ou ele expirou?
+            </p>
+
+            <div class="form-action">
+                <x-buttons.auth label="Reenviar código" color="danger" class="m-auto border-none" />
+            </div>
+
+        </x-forms.form>
     </div>
-</div>
+
 @endsection

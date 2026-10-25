@@ -24,10 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->web(append: [
             EnsureSystemIsInitialized::class,
-        ]);
-        $middleware->appendToGroup('web', [
             EnsurePasswordIsChanged::class,
-            EnsureSystemIsInitialized::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

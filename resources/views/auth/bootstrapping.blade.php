@@ -23,7 +23,7 @@
             </h4>
         </div>
 
-        <x-forms.form method="POST" action="{{ route('login.store') }}" title="Login">
+        <x-forms.form method="POST" action="{{ route('bootstrap.store') }}">
 
             <x-forms.input name="name" type="text" label="Nome" />
 

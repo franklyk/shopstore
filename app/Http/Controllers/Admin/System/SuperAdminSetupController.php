@@ -27,6 +27,7 @@ class SuperAdminSetupController extends Controller
         return view('admin.system.super-admin-setup');
     }
 
+
     public function store(Request $request): RedirectResponse
     {
         $data = $request->validate([
@@ -39,18 +40,22 @@ class SuperAdminSetupController extends Controller
             ],
         ]);
 
-        DB::transaction(function () use ($data) {
+        $user = DB::transaction(function () use ($data) {
             $installation = SystemInstallation::query()
                 ->lockForUpdate()
                 ->firstOrFail();
 
-            if ($installation->status !== 'super_admin_setup') {
-                abort(403, 'A configuração do Super Admin não está disponível.');
-            }
+            abort_unless(
+                $installation->status === 'super_admin_setup',
+                403,
+                'A configuração inicial não está disponível.'
+            );
 
-            if (User::role('super-admin')->exists()) {
-                abort(403, 'Já existe uma conta Super Admin cadastrada.');
-            }
+            abort_if(
+                User::role('super-admin')->exists(),
+                403,
+                'Já existe uma conta Super Admin cadastrada.'
+            );
 
             $role = Role::findByName('super-admin', 'web');
 
@@ -70,17 +75,14 @@ class SuperAdminSetupController extends Controller
 
             $user->assignRole($role);
 
-            $installation->update([
-                'status' => 'initialized',
-                'initialized_at' => now(),
-            ]);
+            return $user;
         });
 
         return redirect()
-            ->route('login')
+            ->route('admin.system.users.permissions.edit', $user)
             ->with(
                 'success',
-                'Super Admin cadastrado. A conta deverá alterar a senha no primeiro acesso.'
+                'Super Admin cadastrado. Agora conceda as permissões necessárias.'
             );
     }
 }

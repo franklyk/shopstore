@@ -1,126 +1,52 @@
+@extends('layouts.auth')
 
-@extends('layouts.admin')
+@section('title', 'INICIALIZAÇÃO DO SISTEMA')
 
-@section('layout-admin')
-<div class="container py-4">
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-6">
-            <div class="card shadow-sm">
-                <div class="card-body p-4">
-                    <h1 class="h4 mb-2">Configuração inicial</h1>
+@section('auth')
 
-                    <p class="text-muted mb-4">
-                        Cadastre a conta Super Admin que será responsável
-                        pela administração operacional do ShopStore.
-                    </p>
+    <div class="form">
 
-                    @if (session('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+        <div class="form-header">
 
-                    @if ($errors->any())
-                        <div class="alert alert-danger" role="alert">
-                            {{ $errors->first() }}
-                        </div>
-                    @endif
+            <div class="form-logo">
 
-                    <form method="POST"
-                          action="{{ route('admin.system.super-admin.store') }}">
-                        @csrf
+                <a href="{{ route('home') }}">
 
-                        <div class="mb-3">
-                            <label for="name" class="form-label">
-                                Nome completo
-                            </label>
+                    <img src="{{ asset('images/logo/logo.png') }}" alt="{{ config('app.name') }}">
 
-                            <input
-                                type="text"
-                                name="name"
-                                id="name"
-                                class="form-control @error('name') is-invalid @enderror"
-                                value="{{ old('name') }}"
-                                maxlength="255"
-                                autocomplete="name"
-                                required
-                                autofocus
-                            >
+                </a>
 
-                            @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label">
-                                E-mail
-                            </label>
-
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                class="form-control @error('email') is-invalid @enderror"
-                                value="{{ old('email') }}"
-                                maxlength="255"
-                                autocomplete="email"
-                                required
-                            >
-
-                            @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="password" class="form-label">
-                                Senha provisória
-                            </label>
-
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
-                                class="form-control @error('password') is-invalid @enderror"
-                                autocomplete="new-password"
-                                minlength="12"
-                                required
-                            >
-
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-
-                            <div class="form-text">
-                                Use pelo menos 12 caracteres. O Super Admin
-                                deverá alterar essa senha no primeiro acesso.
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="password_confirmation" class="form-label">
-                                Confirme a senha provisória
-                            </label>
-
-                            <input
-                                type="password"
-                                name="password_confirmation"
-                                id="password_confirmation"
-                                class="form-control"
-                                autocomplete="new-password"
-                                minlength="12"
-                                required
-                            >
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100">
-                            Cadastrar Super Admin
-                        </button>
-                    </form>
-                </div>
             </div>
+
+            <h4 class="form-title">
+                Cadastrar Super Admin
+            </h4>
+
+            <x-forms.form method="POST" action="{{ route('admin.system.super-admin.store') }}">
+
+                <x-forms.input name="name" type="text" label="Nome completo" value="{{ old('name') }}"
+                    maxlength="255" autocomplete="name" required autofocus />
+
+                <x-forms.input name="email" type="email" label="E-mail" value="{{ old('email') }}" maxlength="255"
+                    autocomplete="email" required />
+
+                <x-forms.input name="password" type="password" label="Senha Provisória" value="{{ old('password') }}"
+                    minlength="12" autocomplete="new-password" required />
+                <div class="form-text px-3 text-danger">
+                    Use pelo menos 12 caracteres. O Super Admin
+                    deverá alterar essa senha no primeiro acesso.
+                </div>
+
+                <x-forms.input name="password_confirmation" type="password" label="Confirme a Senha Provisória"
+                    value="{{ old('password_confirmation') }}" minlength="12" autocomplete="new-password" required />
+
+                    <div class="form-action">
+
+                        <x-buttons.auth label="Cadastrar Super Admin" />
+                    </div>
+
+            </x-forms.form>
+
         </div>
     </div>
-</div>
 @endsection

@@ -9,8 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EnsureSystemIsInitialized
 {
-    public function handle(Request $request, Closure $next): Response
-    {
+
+    public function handle(
+        Request $request,
+        Closure $next
+    ): Response {
         $installation = SystemInstallation::query()->first();
 
         if (!$installation) {
@@ -19,20 +22,10 @@ class EnsureSystemIsInitialized
 
         $route = $request->route();
 
-        if (!$route) {
-            return $next($request);
-        }
-
-        $routeName = $route->getName();
-
-        $isBootstrapRoute = $request->routeIs('bootstrap.*');
-        $isVerificationRoute = $request->routeIs('verification.*');
-        $isSuperAdminSetupRoute = $request->routeIs(
-            'admin.system.super-admin.*'
-        );
+        $routeName = $route?->getName() ?? '';
 
         if ($installation->status === 'pending') {
-            if (!$isBootstrapRoute) {
+            if (!str_starts_with($routeName, 'bootstrap.')) {
                 return redirect()->route('bootstrap.create');
             }
 
@@ -40,35 +33,50 @@ class EnsureSystemIsInitialized
         }
 
         if ($installation->status === 'owner_verification') {
-            if (!$isVerificationRoute && $routeName !== 'logout') {
-                abort(403, 'Confirme o e-mail do Owner para continuar.');
+            if (
+                str_starts_with($routeName, 'verification.')
+                || $routeName === 'logout'
+            ) {
+                return $next($request);
             }
 
-            return $next($request);
+            abort(403, 'Aguarde a verificação do e-mail do Owner.');
         }
 
         if ($installation->status === 'super_admin_setup') {
+            $allowedRoutes = [
+                'admin.system.super-admin.',
+                'admin.system.users.permissions.',
+                'verification.',
+            ];
+
+            foreach ($allowedRoutes as $prefix) {
+                if (str_starts_with($routeName, $prefix)) {
+                    return $next($request);
+                }
+            }
+
+            if ($routeName === 'logout') {
+                return $next($request);
+            }
+
+            abort(403, 'Conclua a configuração inicial do sistema.');
+        }
+
+        if ($installation->status === 'initialized') {
             if (
-                !$isSuperAdminSetupRoute
-                && !$isVerificationRoute
-                && $routeName !== 'logout'
+                str_starts_with($routeName, 'bootstrap.')
+                || str_starts_with(
+                    $routeName,
+                    'admin.system.super-admin.'
+                )
             ) {
-                abort(
-                    403,
-                    'O cadastro do Super Admin precisa ser concluído.'
-                );
+                return redirect()->route('login');
             }
 
             return $next($request);
         }
 
-        if (
-            $installation->status === 'initialized'
-            && ($isBootstrapRoute || $isSuperAdminSetupRoute)
-        ) {
-            return redirect()->route('login');
-        }
-
-        return $next($request);
+        abort(503, 'O estado de instalação do sistema é inválido.');
     }
 }

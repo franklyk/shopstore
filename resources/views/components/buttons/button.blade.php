@@ -1,5 +1,6 @@
+
 @props([
-    'color',
+    'color' => 'primary',
     'icon' => null,
     'label' => null,
     'type' => 'button',
@@ -17,38 +18,41 @@
         'trash',
     ];
 
-    $icon = $icons[$icon] ?? $icon;
+    $icon = is_numeric($icon)
+        ? ($icons[(int) $icon] ?? null)
+        : $icon;
+
+    $classes = trim(
+        'vs-button vs-button-' . $color . ' ' .
+        ($isLink ? 'vs-button-link' : '')
+    );
 @endphp
 
 @if ($isLink)
-
-    <a {{ $attributes->merge(['class' => 'text-center d-flex gap-1 btn btn-sm btn-' . $color]) }}>
-
-        @if($icon)
-            <x-dynamic-component
-                :component="'icons.' . $icon"
-            />
+    <a {{ $attributes->merge(['class' => $classes]) }}>
+        @if ($icon)
+            <x-dynamic-component :component="'icons.' . $icon" />
         @endif
 
-        {{ $label }}
+        @if ($label)
+            <span>{{ $label }}</span>
+        @endif
 
+        {{ $slot }}
     </a>
-
 @else
-
     <button
         type="{{ $type }}"
-        {{ $attributes->merge(['class' => 'text-center d-flex gap-1 btn btn-sm btn-' . $color]) }}
+        {{ $attributes->merge(['class' => $classes]) }}
     >
-
-        @if($icon)
-            <x-dynamic-component
-                :component="'icons.' . $icon"
-            />
+        @if ($icon)
+            <x-dynamic-component :component="'icons.' . $icon" />
         @endif
 
-        {{ $label }}
+        @if ($label)
+            <span>{{ $label }}</span>
+        @endif
 
+        {{ $slot }}
     </button>
-
 @endif

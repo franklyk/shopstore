@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\System\UserController;
+use App\Http\Controllers\Admin\System\UserPermissionController;
 use App\Http\Controllers\Admin\System\SuperAdminSetupController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,9 +38,18 @@ Route::middleware(['auth', 'verified', 'employee'])
             ->name('users.destroy');
 
 
-        Route::get('/super-admin-setup', [ SuperAdminSetupController::class,'create',
-        ])->name('super-admin.create');
+        Route::get('/super-admin-setup', [SuperAdminSetupController::class, 'create'])
+            ->name('super-admin.create');
 
-        Route::post('/super-admin-setup', [ SuperAdminSetupController::class,'store',
-        ])->name('super-admin.store');
+        Route::post('/super-admin-setup', [SuperAdminSetupController::class, 'store'])
+            ->name('super-admin.store');
+
+        Route::get('/users/{user}/permissions', [UserPermissionController::class, 'edit'])
+            ->name('users.permissions.edit');
+
+        Route::put('/users/{user}/permissions', [UserPermissionController::class, 'update'])
+            ->name('users.permissions.update');
+
+        Route::post('/users/{user}/permissions/complete-setup', [UserPermissionController::class, 'completeSetup'])
+            ->name('users.permissions.complete-setup');
     });
